@@ -1,0 +1,10 @@
+# Deploy contínuo no Netlify a partir do GitHub.
+# A cada push na branch principal, o Netlify roda o build (cliente -> SSR ->
+# prerender) e publica o conteúdo de dist/. Não precisa mais de zip manual.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Fixa a versão do Node no build (mesma família do desenvolvimento).
+  NODE_VERSION = "20"

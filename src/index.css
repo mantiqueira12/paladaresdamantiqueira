@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", serif;
+
+  --color-brand-cream: #FDFBF7;
+  --color-brand-charcoal: #2D2D2D;
+  --color-brand-terracotta: #A64D33;
+  --color-brand-moss: #3E4E3E;
+  --color-brand-line: rgba(45, 45, 45, 0.1);
+}
+
+@layer base {
+  body {
+    @apply font-sans text-brand-charcoal bg-brand-cream antialiased;
+  }
+}
+
+.serif {
+  font-family: var(--font-display);
+}
+
+/* Vertical Rhythm Utilities */
+.section-border-top {
+  @apply border-t border-brand-line;
+}
+
+.section-border-bottom {
+  @apply border-b border-brand-line;
+}
+
+.btn-hover {
+  @apply transition-all duration-500 ease-out;
+}
+
+.btn-hover:hover {
+  @apply bg-brand-charcoal text-white border-brand-charcoal;
+}
+
+.glass-header {
+  @apply bg-brand-cream/80 backdrop-blur-md border-b border-brand-line;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Pill Images for a "Warm Organic" feel */
+.pill-image {
+  border-radius: 9999px;
+  overflow: hidden;
+}

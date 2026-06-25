@@ -1,0 +1,1360 @@
+[
+  {
+    "slug": "mesa-de-amigos",
+    "nome": "Entre Amigos",
+    "linha": "Íntima",
+    "ocasioes": [
+      "jantar a dois",
+      "aniversário íntimo",
+      "jantar entre amigos"
+    ],
+    "pessoasMin": 2,
+    "pessoasMax": 6,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo",
+    "camada": "completa",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 1,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "harmonização de vinhos da Mantiqueira",
+      "tábua de queijos da serra para abrir a noite"
+    ],
+    "promessa": "A noite em que os mais chegados se sentam à mesa e ninguém da casa precisa levantar para cozinhar — só para brindar.",
+    "inclui": "curadoria do menu, compra dos insumos, execução completa no fogo, sobremesa assinada pela Fernanda Marton Ateliê, organização e limpeza da cozinha ao fim da noite, e deslocamento incluso em toda a Serra até ~100 km (até São José dos Campos).",
+    "exclui": "bebidas e harmonização (oferecidas como extra), aluguel de louça/mobiliário fora do necessário ao serviço, e itens fora do menu curado (estes vivem no caminho Sob Medida).",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Steak tartare",
+            "desc": "filé bovino cortado à faca, temperado na hora com alcaparras, mostarda e gema, servido com torradas crocantes — o clássico de bistrô para abrir a noite."
+          },
+          {
+            "nome": "Trio de bruschettas",
+            "desc": "três torradas de pão de fermentação natural: abobrinha grelhada com hortelã; presunto parma com rúcula; e caprese de tomate confitado, muçarela de búfala e manjericão."
+          },
+          {
+            "nome": "Cogumelos paris ao caldo de mandioquinha",
+            "desc": "cogumelos salteados na manteiga sobre um caldo aveludado de mandioquinha da serra, a opção vegetariana que abre a mesa com aconchego."
+          }
+        ]
+      },
+      {
+        "titulo": "Principais",
+        "itens": [
+          {
+            "nome": "Truta ao molho da estação",
+            "desc": "truta da Mantiqueira selada, com um molho fresco escolhido junto com você no dia: alcaparras, camarões, *beurre meunière* e outros clássicos que conversam com o peixe. Acompanha mix de legumes da serra."
+          },
+          {
+            "nome": "Fraldinha com purê e cogumelos",
+            "desc": "fraldinha grelhada no ponto, sobre purê de batatas aveludado, com cogumelos salteados ao alho e ervas."
+          },
+          {
+            "nome": "Risoto da Mantiqueira",
+            "desc": "risoto autoral de cogumelos, legumes e truta defumada da serra. Pode virar outras versões combinadas com você — gorgonzola com pera, carne seca com abóbora — ou o Risoto da Estação, a sugestão do chef com os melhores ingredientes do momento."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Trio de chocolates",
+            "desc": "três preparos de chocolate na mesma sobremesa, para degustar variações de intensidade e textura num só prato."
+          },
+          {
+            "nome": "Tarte de framboesa",
+            "desc": "massa amanteigada e framboesa no ponto certo de acidez, um fim elegante e fresco."
+          },
+          {
+            "nome": "Banoffee de doce de leite",
+            "desc": "base crocante, banana, creme e o doce de leite mineiro que fecha a noite com memória afetiva."
+          },
+          {
+            "nome": "Pavlova de frutas vermelhas",
+            "desc": "merengue crocante por fora e macio por dentro, com chantilly e frutas vermelhas frescas da estação."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "noite-de-fondue",
+    "nome": "Noite de Fondue",
+    "linha": "Íntima",
+    "ocasioes": [
+      "noite a dois no inverno",
+      "comemoração intimista entre amigos próximos"
+    ],
+    "pessoasMin": 2,
+    "pessoasMax": 8,
+    "duracaoHoras": 3,
+    "sazonalidade": "inverno (jun-ago)",
+    "camada": "completa",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 2,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana",
+      "sem glúten"
+    ],
+    "extrasRecomendados": [
+      "Harmonização de vinhos da Mantiqueira",
+      "Hora estendida à lareira"
+    ],
+    "promessa": "A noite mais aconchegante do inverno é aquela em que a panela borbulha, o vinho corre e ninguém precisa sair de perto da lareira.",
+    "inclui": "curadoria do menu, compra dos insumos, chef Rafael Jacob no fogo e na técnica durante toda a noite, montagem da mesa de fondue, sobremesa assinada pela Fernanda Marton Ateliê, deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos) e organização da cozinha ao final.",
+    "exclui": "bebidas e harmonizações (disponíveis como extra), louças e panelas de fondue caso o cliente prefira as próprias, mobiliário e ambientação da casa.",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Tábua da Serra",
+            "desc": "frios curados e queijos das montanhas da Mantiqueira, com geleias artesanais e pães rústicos para abrir a noite sem pressa."
+          },
+          {
+            "nome": "Sopa de Cebola Gratinada",
+            "desc": "o clássico de inverno servido fumegante, com crosta dourada de queijo derretido — um abraço antes do fondue."
+          },
+          {
+            "nome": "Bruschettas Quentes",
+            "desc": "fatias de pão de fermentação natural tostadas na hora, com coberturas da estação, crocantes por fora e generosas por cima."
+          }
+        ]
+      },
+      {
+        "titulo": "Principais",
+        "itens": [
+          {
+            "nome": "Fondue de Queijos da Mantiqueira",
+            "desc": "nossa assinatura: queijos maturados da serra conduzem um fondue de personalidade rara, fora do óbvio dos importados, para mergulhar pães, legumes e a melhor conversa."
+          },
+          {
+            "nome": "Fondue de Carne — Cortes Nobres",
+            "desc": "cubos selecionados levados à panela borbulhante pela própria mesa, acompanhados de uma coleção de molhos da casa."
+          },
+          {
+            "nome": "Fondue Duo — Queijo & Carne",
+            "desc": "para a mesa indecisa: o melhor dos dois mundos numa só noite, queijo cremoso e carne ao ponto de cada um."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Fondue de Chocolate com Frutas",
+            "desc": "chocolate ao leite derretido e frutas frescas da estação para fechar a mesa adoçando os dedos."
+          },
+          {
+            "nome": "Fondue S'mores",
+            "desc": "chocolate derretido com marshmallows tostados e biscoito crocante, o clássico americano à beira do fogo."
+          },
+          {
+            "nome": "Fondue de Chocolate Branco com Ninho e Nutella",
+            "desc": "chocolate branco aveludado com leite Ninho e Nutella, servido com frutas frescas para mergulhar."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "feito-na-brasa",
+    "nome": "Feito na Brasa",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "confraternização de amigos",
+      "aniversário ao ar livre"
+    ],
+    "pessoasMin": 6,
+    "pessoasMax": 20,
+    "duracaoHoras": 5,
+    "sazonalidade": "ano todo",
+    "camada": "ambas",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 3,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana",
+      "sem glúten"
+    ],
+    "extrasRecomendados": [
+      "Tábua de embutidos e queijos da serra de boas-vindas",
+      "Cortes especiais sob encomenda (costela, cupim, costelinha)"
+    ],
+    "promessa": "A brasa acesa, a roda formada, o tempo desacelerando — e você na cadeira de convidado, não na frente do fogo.",
+    "inclui": "curadoria do menu, compra dos insumos, condução integral da brasa por Rafael, sobremesa da Fernanda Marton Ateliê, montagem e finalização à mesa, e deslocamento incluso por toda a Serra até ~100 km (São José dos Campos).",
+    "exclui": "bebidas, aluguel de mobiliário e estrutura de cozinha; os cortes especiais sob encomenda (costela, cupim, costelinha) entram como adicional combinado à parte; na camada Só o Serviço, também os insumos e a confeitaria da Fernanda Marton Ateliê.",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Provoleta uruguaia na chapa com linguiça artesanal",
+            "desc": "o provolone uruguaio derretendo na borda, a linguiça defumada na lenha: o aperitivo que abre a roda enquanto a brasa pega o ponto."
+          },
+          {
+            "nome": "Pão de alho dourado com coalho na grelha",
+            "desc": "o pão crocante de manteiga e o queijo coalho da serra marcado pelo fogo, para servir em pé, copo na mão."
+          },
+          {
+            "nome": "Tábua de embutidos da serra",
+            "desc": "curados, salames e queijos da Mantiqueira para acompanhar os primeiros brindes."
+          }
+        ]
+      },
+      {
+        "titulo": "Da brasa — você escolhe os cortes",
+        "itens": [
+          {
+            "nome": "Cortes a fogo",
+            "desc": "picanha, fraldinha, ancho, short rib e outros cortes nobres: você escolhe os que mais gosta e a gente alinha a seleção no fechamento, conforme o seu paladar e o tamanho da roda."
+          },
+          {
+            "nome": "Linguiças e frango",
+            "desc": "linguiça artesanal defumada e frango caipira marinado, para variar a grelha ao longo da noite."
+          },
+          {
+            "nome": "Legumes grelhados",
+            "desc": "legumes e raízes da serra marcados na brasa, ótimos como acompanhamento e como caminho vegetariano."
+          },
+          {
+            "nome": "Truta na brasa",
+            "desc": "truta da Mantiqueira (comum ou salmonada, conforme disponibilidade) grelhada com ervas e limão, para quem quer peixe no fogo."
+          }
+        ]
+      },
+      {
+        "titulo": "Cortes especiais — sob encomenda",
+        "itens": [
+          {
+            "nome": "Costela no fogo de chão",
+            "desc": "a costela bovina em cocção lenta de horas, a peça-espetáculo da brasa; pede planejamento e encomenda antecipada."
+          },
+          {
+            "nome": "Cupim assado devagar",
+            "desc": "macio e suculento, assado lentamente até desmanchar; sob encomenda."
+          },
+          {
+            "nome": "Costelinha de porco na brasa",
+            "desc": "defumada e pincelada ao longo do preparo; sob encomenda."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Banana na brasa com doce de leite",
+            "desc": "a fruta caramelizada no calor da lenha, regada com doce de leite mineiro."
+          },
+          {
+            "nome": "Abacaxi grelhado com sorvete artesanal",
+            "desc": "o frescor cítrico do abacaxi tostado encontrando o sorvete cremoso, contraste perfeito para fechar a noite."
+          },
+          {
+            "nome": "Pudim da Fernanda Marton Ateliê",
+            "desc": "o clássico de colher, firme e sedoso, assinado por Fernanda Marton."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "mesa-cheia-cantina",
+    "nome": "Pasta à Mesa",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "confraternização entre amigos",
+      "aniversário em família"
+    ],
+    "pessoasMin": 8,
+    "pessoasMax": 16,
+    "duracaoHoras": 4,
+    "sazonalidade": "ano todo",
+    "camada": "completa",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 4,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "estação de massa fresca ao vivo",
+      "harmonização de vinhos da casa"
+    ],
+    "promessa": "A noite em que a sua casa de campo vira a cantina mais feliz da Serra — você escolhe a massa, o chef leva os molhos, e ninguém da família precisa sair do brinde para a cozinha.",
+    "inclui": "curadoria do menu com Rafael, compra de todos os insumos, massa fresca feita à mão, dois molhos escolhidos com você, execução completa na sua cozinha, sobremesa assinada pela Fernanda Marton Ateliê, e deslocamento por toda a Serra até ~100 km (até São José dos Campos).",
+    "exclui": "bebidas e aluguel de louças/equipamentos especiais (organizáveis como extra); estrutura de mesa posta além do necessário ao serviço.",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Tábua de antepastos da serra",
+            "desc": "queijos da Mantiqueira, embutidos e conservas da casa, para a mesa começar a conversar antes mesmo da primeira garfada."
+          },
+          {
+            "nome": "Salada Caprese da Mantiqueira",
+            "desc": "a clássica salada caprese com queijo fresco local, tomate maduro, azeite verde e manjericão: simples, fresca e luminosa."
+          },
+          {
+            "nome": "Salada da estação",
+            "desc": "folhas e legumes do dia da Mantiqueira, com molho da casa, para equilibrar a mesa farta de massas."
+          }
+        ]
+      },
+      {
+        "titulo": "As massas — você escolhe",
+        "itens": [
+          {
+            "nome": "Massa longa",
+            "desc": "papardelle ou fettuccine, frescos e tirados à mão, para receber bem os molhos encorpados."
+          },
+          {
+            "nome": "Massas recheadas",
+            "desc": "clássicas da casa: ravióli de queijo da serra, capeletti à bolonhesa ou tortelli de abóbora com sálvia."
+          },
+          {
+            "nome": "Nhoque da nonna",
+            "desc": "nhoque fresco de batata, o conforto de cantina que agrada a mesa inteira."
+          },
+          {
+            "nome": "Lasanha ao forno",
+            "desc": "camadas generosas que saem borbulhando, opção farta para dividir."
+          },
+          {
+            "nome": "Massa artística",
+            "desc": "massas \"com ar\" e desenho contemporâneo, o lado autoral e visual do prato para uma mesa que quer surpresa."
+          }
+        ]
+      },
+      {
+        "titulo": "Os molhos — escolhemos dois com você",
+        "itens": [
+          {
+            "nome": "Sugo da casa",
+            "desc": "tomate maduro cozido devagar com manjericão, o clássico que nunca erra."
+          },
+          {
+            "nome": "Ragu",
+            "desc": "molho encorpado de carne em cocção lenta, profundo e aveludado."
+          },
+          {
+            "nome": "Quatro queijos",
+            "desc": "o abraço cremoso de queijos da região."
+          },
+          {
+            "nome": "Funghi",
+            "desc": "cogumelos frescos da serra ao creme e ervas."
+          },
+          {
+            "nome": "Aglio e olio",
+            "desc": "alho dourado, azeite e um toque de pimenta, leve e perfumado (base vegetariana)."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Tiramisù da Fernanda Marton Ateliê",
+            "desc": "o nosso clássico de café da Mantiqueira e creme aveludado, o item-assinatura que fecha a noite e ninguém esquece."
+          },
+          {
+            "nome": "Panna cotta de frutas vermelhas",
+            "desc": "sedosa, leve e perfumada, com calda de frutas vermelhas para um final fresco."
+          },
+          {
+            "nome": "Mousse Rocher",
+            "desc": "mousse de chocolate com avelãs e creme de avelã, com crocante para imitar um Ferrero Rocher de colher."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "viva-la-pizza",
+    "nome": "Viva la Pizza",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "aniversário em casa",
+      "encontro de amigos no quintal"
+    ],
+    "pessoasMin": 10,
+    "pessoasMax": 25,
+    "duracaoHoras": 4,
+    "sazonalidade": "ano todo (versão reduzida no alto inverno, jun-ago)",
+    "camada": "ambas",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 5,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "estação de antepastos da serra",
+      "carta de cervejas artesanais da Mantiqueira"
+    ],
+    "promessa": "A noite em que a sua casa cheia vira festa — todo mundo de pé, taça na mão, enquanto o forno trabalha por você e o chef tira pizza após pizza de fermentação natural.",
+    "inclui": "curadoria do menu, compra dos insumos, montagem das estações, massa de fermentação natural e execução no forno durante toda a noite, sobremesa assinada pela Fernanda Marton Ateliê e deslocamento por toda a Serra (até ~100 km, alcançando São José dos Campos).",
+    "exclui": "aluguel de forno a lenha/estrutura de assar caso a casa não tenha, locação de mobiliário, louças e taças, bebidas e equipe de salão dedicada (sob orçamento como extra).",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Mesa de antepastos da serra",
+            "desc": "queijos da Mantiqueira, embutidos curados, conservas, geleias e pães rústicos, montada para a turma circular e beliscar."
+          },
+          {
+            "nome": "Crostata rústica",
+            "desc": "torta aberta de massa amanteigada com tomate confitado, queijo da serra e ervas, assada no forno e fatiada para compartilhar."
+          },
+          {
+            "nome": "Saladas da estação",
+            "desc": "folhas e legumes do dia da Mantiqueira, com molhos da casa, frescas e coloridas para abrir a noite."
+          }
+        ]
+      },
+      {
+        "titulo": "As pizzas — cardápio autoral (você escolhe)",
+        "itens": [
+          {
+            "nome": "Margherita da Mantiqueira",
+            "desc": "molho de tomate, muçarela de búfala, manjericão e azeite — a clássica, valorizada com queijos da serra."
+          },
+          {
+            "nome": "Calabresa com cebola caramelizada",
+            "desc": "releitura da brasileiríssima calabresa, com cebola dourada lentamente."
+          },
+          {
+            "nome": "Linguiça da roça com milho e requeijão de corte",
+            "desc": "sabor de fogão a lenha mineiro sobre a massa de fermentação natural."
+          },
+          {
+            "nome": "Cogumelos da serra com gorgonzola e mel",
+            "desc": "autoral doce-salgada, cogumelos frescos e o contraste do gorgonzola com o mel."
+          },
+          {
+            "nome": "Carne seca com abóbora e queijo coalho",
+            "desc": "Brasil contemporâneo numa pizza de personalidade."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Pizza doce de banana com canela",
+            "desc": "massa fininha, banana caramelizada, canela e um fio de doce de leite."
+          },
+          {
+            "nome": "Pizza doce de chocolate com morango",
+            "desc": "chocolate derretido e morangos frescos, o encerramento que a turma divide."
+          },
+          {
+            "nome": "Pizza doce Romeu e Julieta",
+            "desc": "goiabada cremosa e queijo da serra, o clássico afetivo brasileiro em versão de forno."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "origens-da-serra",
+    "nome": "Origens da Serra",
+    "linha": "Celebração",
+    "ocasioes": [
+      "bodas e aniversários de casamento",
+      "pedido de casamento e marcos especiais"
+    ],
+    "pessoasMin": 4,
+    "pessoasMax": 10,
+    "duracaoHoras": 4,
+    "sazonalidade": "ano todo (com tempos sazonais: pinhão e creme quente no inverno)",
+    "camada": "completa",
+    "destaque": "lancamento",
+    "ativo": true,
+    "ordem": 6,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "Harmonização com vinícolas da serra",
+      "Boas-vindas estendidas com espumante da serra"
+    ],
+    "promessa": "Cinco tempos que contam a história da Mantiqueira à sua mesa — uma noite de alta gastronomia em casa, com o chef conduzindo cada momento enquanto você só celebra.",
+    "inclui": "curadoria do menu, compra dos insumos, execução completa, cinco tempos servidos e narrados pelo chef à mesa, sobremesa da Fernanda Marton Ateliê, deslocamento incluso em toda a Serra até ~100 km (até São José dos Campos), montagem e organização da cozinha ao fim da noite.",
+    "exclui": "bebidas e harmonização (extra opcional), louças e taças especiais sob demanda, estrutura de eventos (tendas, mobiliário, equipe de salão além do chef).",
+    "cardapio": [
+      {
+        "titulo": "Tempo 1 · Boas-vindas",
+        "itens": [
+          {
+            "nome": "Amuse-bouche da serra",
+            "desc": "um bocado de abertura que desperta a mesa, feito com o que a estação oferece de melhor."
+          },
+          {
+            "nome": "Couvert de casa",
+            "desc": "pães quentes, manteiga da fazenda e queijos curados da Mantiqueira para começar sem pressa."
+          }
+        ]
+      },
+      {
+        "titulo": "Entradas frias",
+        "itens": [
+          {
+            "nome": "Truta salmonada gravlax",
+            "desc": "truta salmonada da serra curada na casa em sal, açúcar e ervas, fatiada fina, com toque cítrico para abrir o paladar."
+          },
+          {
+            "nome": "Carpaccio",
+            "desc": "finas lâminas de filé bovino, azeite, alcaparras, lascas de queijo curado da serra e crocante de castanhas."
+          },
+          {
+            "nome": "Terrina de queijos da Mantiqueira",
+            "desc": "composição fria de queijos da serra com geleia artesanal e nozes."
+          }
+        ]
+      },
+      {
+        "titulo": "Entradas quentes",
+        "itens": [
+          {
+            "nome": "Ravióli de queijo da serra",
+            "desc": "massa fresca recheada com queijo da Mantiqueira, manteiga de ervas e nozes tostadas."
+          },
+          {
+            "nome": "Velouté de cogumelos",
+            "desc": "creme aveludado de cogumelos frescos com fio de azeite e crocante de pão."
+          }
+        ]
+      },
+      {
+        "titulo": "Principais",
+        "itens": [
+          {
+            "nome": "Filé mignon ao molho roti",
+            "desc": "mignon selado no ponto, molho roti encorpado e purê aveludado de batatas da serra."
+          },
+          {
+            "nome": "Truta da Mantiqueira grelhada",
+            "desc": "truta selada com manteiga de ervas e limão, sobre legumes da estação."
+          },
+          {
+            "nome": "Balotine de peru",
+            "desc": "peito de peru desossado, recheado e enrolado, fatiado à mesa, com fundo aromático e acompanhamento da estação."
+          },
+          {
+            "nome": "Roulade de leitoa",
+            "desc": "leitoa enrolada e assada lentamente, pele crocante e carne macia, ao estilo porchetta com ervas da serra."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesa — finalização à mesa",
+        "itens": [
+          {
+            "nome": "Seleção cenográfica da chef Fernanda",
+            "desc": "mini porções de uma seleção de sobremesas do menu da Fernanda Marton, montadas diretamente à mesa no encerramento dos cinco tempos, como espetáculo final da noite."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "brunch-na-montanha",
+    "nome": "Brunch na Montanha",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "recepção em pousada ou casa de campo",
+      "encontro diurno de família e amigos"
+    ],
+    "pessoasMin": 10,
+    "pessoasMax": 25,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo",
+    "camada": "completa",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 7,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "Estação de café especial da Mantiqueira",
+      "Espumante & sucos da manhã"
+    ],
+    "promessa": "A manhã na serra começa devagar, com a casa cheia e a mesa farta para cada um montar o seu brunch — e ninguém precisa sair de fininho pra cozinhar.",
+    "inclui": "curadoria, compra e execução da experiência; ovos da fazenda em preparos variados, pães e viennoiserie da casa, tábuas de frios e queijos da serra, massa ao molho, frutas frescas, café especial da Mantiqueira e sucos; sobremesa e confeitaria assinadas pela Fernanda Marton Ateliê; deslocamento incluso em toda a Serra até ~100 km (São José dos Campos). Sinal de 50% trava a data.",
+    "exclui": "bebidas alcoólicas e espumante (disponíveis como extra); aluguel de mobiliário, louças e estrutura extra além do serviço; horas adicionais além das ~3h combinadas.",
+    "cardapio": [
+      {
+        "titulo": "Da padaria & da roça",
+        "itens": [
+          {
+            "nome": "Cesta de pães da casa",
+            "desc": "pães de fermentação natural saídos do forno, com manteiga da serra, geleias artesanais e mel da Mantiqueira."
+          },
+          {
+            "nome": "Tábua da serra",
+            "desc": "queijos da Mantiqueira, frios curados e frutas frescas da estação, montados para a mesa toda compartilhar."
+          },
+          {
+            "nome": "Bowl da roça",
+            "desc": "frutas frescas, iogurte natural, granola tostada na casa e fio de mel, leve para abrir a manhã."
+          },
+          {
+            "nome": "Viennoiserie da casa",
+            "desc": "croissants, folhados e pãezinhos doces quentinhos direto do forno."
+          }
+        ]
+      },
+      {
+        "titulo": "Ovos & quentes — feitos na hora",
+        "itens": [
+          {
+            "nome": "Ovos da fazenda",
+            "desc": "ovos caipira em preparos variados (mexidos cremosos, pochê sobre pão tostado, ou omelete da estação), feitos à vista dos convidados."
+          },
+          {
+            "nome": "Mesa quente da Mantiqueira",
+            "desc": "linguiça artesanal da serra, queijo coalho grelhado e milho cremoso, um café da manhã mineiro e abraçado."
+          }
+        ]
+      },
+      {
+        "titulo": "Massas ao molho",
+        "itens": [
+          {
+            "nome": "Massa ao molho da estação",
+            "desc": "massa fresca servida quente, ao sugo da casa ou ao funghi com cogumelos da serra, o prato que dá sustância ao brunch."
+          },
+          {
+            "nome": "Nhoque ao sugo",
+            "desc": "nhoque fresco no clássico molho de tomate, conforto para a mesa da manhã."
+          }
+        ]
+      },
+      {
+        "titulo": "Doces & confeitaria — na mesa",
+        "itens": [
+          {
+            "nome": "Bolo de fubá cremoso com goiabada",
+            "desc": "clássico mineiro de tarde de serra, morno, para adoçar a manhã."
+          },
+          {
+            "nome": "Brioche doce com doce de leite e nozes",
+            "desc": "macio, dourado e generoso, no ponto de acompanhar o café especial."
+          },
+          {
+            "nome": "Tortas recheadas",
+            "desc": "variações da estação (frutas vermelhas, limão, chocolate), assinadas por Fernanda Marton."
+          },
+          {
+            "nome": "Bolos recheados da casa",
+            "desc": "em camadas, com recheios cremosos da confeitaria do Ateliê."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "cafe-colonial-autoral",
+    "nome": "Café Colonial Autoral",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "tarde de inverno entre amigos",
+      "aniversário e celebração em família"
+    ],
+    "pessoasMin": 8,
+    "pessoasMax": 20,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo · com forte apelo de inverno (jun-ago)",
+    "camada": "completa",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 8,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "Carrinho de chás e cafés especiais da serra",
+      "Hora extra de mesa posta"
+    ],
+    "promessa": "Uma tarde inteira reunida à mesa, num café colonial farto de pães, bolos, tortas e doces — onde a confeitaria de Fernanda Marton é a estrela e à casa só cabe receber.",
+    "inclui": "curadoria, compra dos insumos e execução completa; toda a confeitaria assinada por **Doces pela Fernanda Marton Ateliê**; café especial e seleção de chás; montagem da mesa posta no estilo café colonial; deslocamento incluso por toda a Serra até ~100 km (São José dos Campos).",
+    "exclui": "aluguel de mobiliário ou louça extra além do combinado; bebidas alcoólicas; estrutura de tenda/aquecimento do espaço.",
+    "cardapio": [
+      {
+        "titulo": "Pães & salgados",
+        "itens": [
+          {
+            "nome": "Pães artesanais quentes",
+            "desc": "pães de fermentação natural saídos do forno, com manteiga da fazenda, geleias da montanha e queijos da serra."
+          },
+          {
+            "nome": "Salgados assados na hora",
+            "desc": "pão de queijo recheado, empadas de frango caipira e folhados de queijo da serra."
+          },
+          {
+            "nome": "Tábua de frios e queijos da Mantiqueira",
+            "desc": "embutidos curados e queijos da região para o lado salgado da mesa."
+          }
+        ]
+      },
+      {
+        "titulo": "Bolos",
+        "itens": [
+          {
+            "nome": "Bolos artesanais da casa",
+            "desc": "laranja com calda, fubá cremoso e nozes, os clássicos de tarde de serra."
+          },
+          {
+            "nome": "Bolos recheados",
+            "desc": "em camadas, com recheios cremosos da confeitaria do Ateliê."
+          }
+        ]
+      },
+      {
+        "titulo": "Tortas & doces finos",
+        "itens": [
+          {
+            "nome": "Torta de frutas vermelhas da estação",
+            "desc": "massa amanteigada e frutas frescas, a estrela da vitrine."
+          },
+          {
+            "nome": "Doces de tradição mineira",
+            "desc": "goiabada cascão com queijo, doce de leite da serra, ambrosia e cocada cremosa."
+          },
+          {
+            "nome": "Doces finos em taça e brigadeiros de colher",
+            "desc": "a seleção assinada por Fernanda Marton para fechar com a colher na mão."
+          }
+        ]
+      },
+      {
+        "titulo": "Bebidas",
+        "itens": [
+          {
+            "nome": "Café especial da Mantiqueira",
+            "desc": "coado na hora à frente dos convidados."
+          },
+          {
+            "nome": "Seleção de chás",
+            "desc": "infusões e chás para acompanhar a tarde."
+          },
+          {
+            "nome": "Chocolate quente da serra",
+            "desc": "cremoso e reconfortante, perfeito para o inverno."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "edicao-pinhao",
+    "nome": "Mesa de Inverno — Edição Pinhão",
+    "linha": "Celebração",
+    "ocasioes": [
+      "jantar de inverno na casa de campo",
+      "celebração sazonal entre amigos"
+    ],
+    "pessoasMin": 6,
+    "pessoasMax": 14,
+    "duracaoHoras": 4,
+    "sazonalidade": "inverno (jun-ago) — edição limitada",
+    "camada": "completa",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 9,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "harmonização de vinhos da serra",
+      "tábua de queijos da Mantiqueira de boas-vindas"
+    ],
+    "promessa": "Uma noite só de inverno, em que o pinhão atravessa a mesa do primeiro ao último tempo — e você só precisa chegar, sentar e brindar.",
+    "inclui": "curadoria do menu temático de inverno; compra de todos os insumos sazonais (com o pinhão na estação); execução completa pelo chef Rafael Jacob; sobremesa assinada pela Fernanda Marton Ateliê; deslocamento incluso por toda a Serra até ~100 km (até São José dos Campos).",
+    "exclui": "bebidas e harmonização (disponíveis como extra); louças e mobiliário especiais; serviço de copa adicional além da operação do chef.",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Sopa cremosa de pinhão",
+            "desc": "o pinhão da serra cozido lentamente e transformado em um creme aveludado, servido fumegante com fio de azeite e lascas tostadas — o abraço quente que abre a noite."
+          },
+          {
+            "nome": "Caldo de pinhão com defumados da serra",
+            "desc": "versão mais encorpada, com toque de bacon artesanal e ervas frescas, para quem gosta de começar com intensidade."
+          },
+          {
+            "nome": "Velouté de pinhão e queijo da Mantiqueira",
+            "desc": "o creme de pinhão encontra o queijo curado da serra, finalizado na mesa — alternativa vegetariana e cheia de caráter."
+          }
+        ]
+      },
+      {
+        "titulo": "Principais",
+        "itens": [
+          {
+            "nome": "Filé mignon com molho roti e aligot de pinhão",
+            "desc": "mignon selado no ponto, molho roti encorpado e o aligot cremoso de pinhão (purê de batata da serra com queijo e pinhão) — a assinatura desta edição."
+          },
+          {
+            "nome": "Truta da Mantiqueira com gremolata de pinhão",
+            "desc": "a truta fresca da serra selada, finalizada com uma gremolata crocante de pinhão tostado, limão e ervas frescas."
+          },
+          {
+            "nome": "Risoto de limão siciliano",
+            "desc": "risoto cremoso e cítrico de limão siciliano, mantecato à mesa, leveza que contrasta o inverno — opção vegetariana plena."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Paçoca de pinhão com doce de leite",
+            "desc": "a paçoca artesanal de pinhão da serra encontra o doce de leite mineiro, em camadas — o doce que só existe nesta edição."
+          },
+          {
+            "nome": "Cremoso quente de doce de leite com farofa doce de pinhão",
+            "desc": "sobremesa de colher servida morna, para fechar a noite junto à lareira."
+          },
+          {
+            "nome": "Tartelete de pinhão com framboesa",
+            "desc": "massa amanteigada, creme de pinhão e framboesas frescas, o contraste entre o doce da serra e a acidez vibrante da fruta."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "harmonizacao-guiada",
+    "nome": "Harmonização Guiada",
+    "linha": "Celebração",
+    "ocasioes": [
+      "jantar harmonizado para amantes de vinho",
+      "celebração especial a dois ou em grupo"
+    ],
+    "pessoasMin": 4,
+    "pessoasMax": 10,
+    "duracaoHoras": 4,
+    "sazonalidade": "ano todo",
+    "camada": "completa",
+    "destaque": "expansao",
+    "ativo": true,
+    "ordem": 10,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "taça extra de rótulo reserva da vinícola parceira",
+      "tábua de queijos da serra para abertura"
+    ],
+    "promessa": "Um jantar em cinco tempos em que cada vinho tem história e o chef conduz a mesa de um tempo ao outro — você escolhe se traz os rótulos ou se deixa a carta com a gente.",
+    "inclui": "curadoria e condução do chef à mesa, narrativa de cada vinho tempo a tempo, cinco tempos executados na hora, sobremesa assinada pela Fernanda Marton Ateliê, deslocamento incluso por toda a Serra até São José dos Campos (~100 km), louças e serviço de mesa.",
+    "exclui": "os vinhos, quando a carta é fornecida pela casa, são orçados à parte conforme os rótulos escolhidos; taças e rótulos extras fora da harmonização contratada, bar de destilados, decoração e flores, serviço de garçom adicional para grupos maiores (sob orçamento).",
+    "cardapio": [
+      {
+        "titulo": "Como funciona — dois serviços",
+        "itens": [
+          {
+            "nome": "Você traz os vinhos",
+            "desc": "informa os rótulos que tem (ou deseja abrir) e o chef desenha o menu de cinco tempos em cima deles, tempo a tempo."
+          },
+          {
+            "nome": "O chef harmoniza",
+            "desc": "montamos a carta à sua escolha: vinhos da **Mantiqueira**, do **Novo Mundo** ou do **Velho Mundo**. A disponibilidade depende dos fornecedores e da safra, por isso cada carta é criada sob demanda."
+          }
+        ]
+      },
+      {
+        "titulo": "Tempo 1 · Boas-vindas",
+        "itens": [
+          {
+            "nome": "Espumante & amuse-bouche",
+            "desc": "recepção com uma taça de espumante e um bocado de abertura que prepara o paladar para a noite."
+          }
+        ]
+      },
+      {
+        "titulo": "Entrada fria",
+        "itens": [
+          {
+            "nome": "Truta da serra curada em casa",
+            "desc": "defumação leve, raspas de limão-siciliano e azeite da região, para abrir a noite com um branco fresco."
+          },
+          {
+            "nome": "Tábua dos queijos da Mantiqueira",
+            "desc": "seleção de queijos da serra, geleia de tomate e nozes, pensada para conversar com um tinto jovem."
+          },
+          {
+            "nome": "Cogumelos da serra ao vinho",
+            "desc": "salteados na manteiga e ervas, finalizados com redução do próprio rótulo da noite (abertura vegetariana)."
+          }
+        ]
+      },
+      {
+        "titulo": "Entrada quente",
+        "itens": [
+          {
+            "nome": "Ravióli de queijo da serra",
+            "desc": "massa fresca recheada com queijo da Mantiqueira, manteiga de ervas e nozes tostadas."
+          },
+          {
+            "nome": "Velouté de cogumelos",
+            "desc": "creme aveludado de cogumelos frescos com fio de azeite e crocante de pão."
+          }
+        ]
+      },
+      {
+        "titulo": "Principais",
+        "itens": [
+          {
+            "nome": "Cordeiro da Mantiqueira em cocção lenta",
+            "desc": "selado e desfeito ao toque, com purê rústico e jus encorpado, par perfeito de um tinto de guarda."
+          },
+          {
+            "nome": "Truta ao forno com manteiga de ervas da serra",
+            "desc": "pele crocante e carne suculenta, conduzida com um branco encorpado."
+          },
+          {
+            "nome": "Risoto de pinhão (na estação) ou de queijo da serra",
+            "desc": "cremoso, mantecato à mesa, para um tinto de média estrutura — opção vegetariana plena."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesa",
+        "itens": [
+          {
+            "nome": "Doce de leite mineiro com cremoso de café da serra",
+            "desc": "encerramento aveludado, lindo com um tinto doce ou vinho de sobremesa."
+          },
+          {
+            "nome": "Tarte de frutas vermelhas da estação",
+            "desc": "acidez viva e massa amanteigada, para fechar a noite no alto."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "noite-do-hamburguer",
+    "nome": "Noite do Hambúrguer",
+    "linha": "Express",
+    "ocasioes": [
+      "aniversário informal",
+      "encontro de amigos"
+    ],
+    "pessoasMin": 10,
+    "pessoasMax": 30,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo",
+    "camada": "ambas",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 11,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "estação de molhos autorais",
+      "chopp artesanal da serra"
+    ],
+    "promessa": "A noite descontraída em que o chef grelha e a galera monta o próprio hambúrguer numa mesa farta de opções — sem entradas, sem etiqueta, só o lanche e a roda.",
+    "inclui": "chef no fogo e na chapa durante toda a experiência, montagem participativa guiada, mesa de coberturas e molhos autorais e sobremesa assinada pela Fernanda Marton Ateliê; deslocamento incluso em toda a Serra até ~100 km (São José dos Campos).",
+    "exclui": "na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.",
+    "cardapio": [
+      {
+        "titulo": "Os hambúrgueres — o chef grelha",
+        "itens": [
+          {
+            "nome": "Smash na chapa",
+            "desc": "discos finos de blend nobre prensados na chapa quente, casquinha caramelizada e queijo derretido; o chef grelha em fluxo a noite toda."
+          },
+          {
+            "nome": "Artesanal da serra",
+            "desc": "burger alto de blend selecionado, suculento, para quem prefere o disco mais grosso."
+          },
+          {
+            "nome": "Disco vegetariano",
+            "desc": "grão-de-bico e cogumelos da serra grelhados, para ninguém ficar de fora da roda."
+          }
+        ]
+      },
+      {
+        "titulo": "Mesa de montagem — você monta o seu",
+        "itens": [
+          {
+            "nome": "Pães da casa",
+            "desc": "brioche e pão australiano macios, levemente tostados na chapa."
+          },
+          {
+            "nome": "Queijos",
+            "desc": "queijo da serra, cheddar e prato para derreter."
+          },
+          {
+            "nome": "Coberturas",
+            "desc": "cebola caramelizada, bacon crocante, alface, tomate, picles e cebola crispy."
+          },
+          {
+            "nome": "Molhos autorais",
+            "desc": "barbecue da casa, maionese de ervas, chipotle e mostarda com mel."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Brownie da Fernanda Marton Ateliê",
+            "desc": "denso, de casquinha fina e miolo úmido, cortado em quadrados para passar de mão em mão."
+          },
+          {
+            "nome": "Cookies recém-assados",
+            "desc": "crocantes na borda, macios no centro, com gotas generosas de chocolate."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "noite-do-hot-dog",
+    "nome": "Noite do Hot Dog",
+    "linha": "Express",
+    "ocasioes": [
+      "confraternização leve",
+      "noite de jogo"
+    ],
+    "pessoasMin": 10,
+    "pessoasMax": 30,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo",
+    "camada": "ambas",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 12,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "Estação de molhos autorais da casa",
+      "Chope artesanal / refrigerantes em garrafa de vidro"
+    ],
+    "promessa": "A noite descontraída em que o chef prensa os dogões na chapa e a galera monta o seu numa mesa farta de toppings — só o lanche, a roda e o jogo.",
+    "inclui": "chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos, técnica de prensado e caramelização, e a sobremesa assinada pela Fernanda Marton Ateliê.",
+    "exclui": "na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.",
+    "cardapio": [
+      {
+        "titulo": "Os dogões — o chef prensa na chapa",
+        "itens": [
+          {
+            "nome": "Dogão prensado da casa",
+            "desc": "pão especial prensado na chapa, salsicha nobre defumada e aquele toque de chef que muda tudo."
+          },
+          {
+            "nome": "Dog do campo",
+            "desc": "linguiça artesanal da Mantiqueira no pão de fermentação natural, queijo da serra derretido."
+          }
+        ]
+      },
+      {
+        "titulo": "Mesa de montagem — você monta o seu",
+        "itens": [
+          {
+            "nome": "Batata palha artesanal",
+            "desc": "fininha e dourada na hora, para coroar o dog."
+          },
+          {
+            "nome": "Queijos & cebola caramelizada",
+            "desc": "queijo da serra derretido e cebola dourada lentamente."
+          },
+          {
+            "nome": "Toppings",
+            "desc": "milho, ervilha, purê, vinagrete e cebolinha para variar cada dogão."
+          },
+          {
+            "nome": "Molhos autorais",
+            "desc": "chipotle, mostarda com mel, alho tostado e ketchup da casa."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Brigadeiro de colher da Fernanda",
+            "desc": "cremoso, em taça, pra fechar a noite no clima de festa."
+          },
+          {
+            "nome": "Bombons de doce de leite mineiro",
+            "desc": "pequenos, afetivos, pra circular pela mesa enquanto o jogo rola."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "boteco-da-serra",
+    "nome": "Boteco da Serra",
+    "linha": "Express",
+    "ocasioes": [
+      "encontro de amigos",
+      "noite descontraída em casa de campo"
+    ],
+    "pessoasMin": 8,
+    "pessoasMax": 25,
+    "duracaoHoras": 3,
+    "sazonalidade": "ano todo",
+    "camada": "ambas",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 13,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana"
+    ],
+    "extrasRecomendados": [
+      "estação de petiscos quentes contínua",
+      "tábua de queijos da serra"
+    ],
+    "promessa": "A noite em que o boteco mais querido da montanha abre dentro da sua casa de campo — uma mesa farta de petiscos saindo da cozinha sem parar, e ninguém sai da conversa.",
+    "inclui": "chef no preparo e na finalização dos petiscos quentes ao longo da noite, serviço contínuo de petiscos direto da cozinha para a mesa, e sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos).",
+    "exclui": "bebidas (por conta dos convidados), louças e utensílios de festa, e, na camada \"Só o Serviço\", a compra dos insumos e a logística — que ficam com o cliente.",
+    "cardapio": [
+      {
+        "titulo": "Mesa de petiscos do boteco — variados e em fluxo contínuo",
+        "itens": [
+          {
+            "nome": "Bolinho de truta defumada da Mantiqueira",
+            "desc": "crocante por fora, cremoso por dentro, com um toque de limão-siciliano."
+          },
+          {
+            "nome": "Croquete de costela com queijo da serra",
+            "desc": "recheio puxado lentamente e casquinha dourada, daqueles que pedem o próximo antes de terminar o primeiro."
+          },
+          {
+            "nome": "Linguiça artesanal com mandioca na manteiga de garrafa",
+            "desc": "linguiça da serra grelhada na hora e mandioca macia e dourada, para fisgar e compartilhar."
+          },
+          {
+            "nome": "Queijo coalho na brasa com geleia de pimenta da casa",
+            "desc": "pegajoso, defumado e viciante, servido fumegando."
+          },
+          {
+            "nome": "Bolinhos da montanha",
+            "desc": "trio que rodeia a mesa sem parar: feijão com torresmo, mandioca com carne-seca e queijo da serra."
+          },
+          {
+            "nome": "Pastéis de feira",
+            "desc": "massa fininha e estaladiça, de queijo coalho e de palmito da serra."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Brigadeiro de colher com café da Mantiqueira",
+            "desc": "cremoso, servido em pote para a roda continuar de papo, com a profundidade do café da serra."
+          },
+          {
+            "nome": "Doce de leite mineiro com queijo coalho tostado",
+            "desc": "o clássico encontro do doce com o salgado, para fechar a noite no melhor estilo da montanha."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "feito-na-paella",
+    "nome": "Feito na Paella",
+    "linha": "Casa Cheia",
+    "ocasioes": [
+      "confraternização de amigos",
+      "almoço de domingo ao ar livre",
+      "aniversário descontraído"
+    ],
+    "pessoasMin": 8,
+    "pessoasMax": 30,
+    "duracaoHoras": 4,
+    "sazonalidade": "ano todo",
+    "camada": "ambas",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 14,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana",
+      "sem glúten"
+    ],
+    "extrasRecomendados": [
+      "sangria da casa com frutas da serra",
+      "tábua de embutidos e queijos da Mantiqueira de boas-vindas"
+    ],
+    "promessa": "Levamos a paellera — você escolhe o que vai na panela. Frutos do mar, frango caipira, truta da serra ou legumes da estação: tudo vira espetáculo quando o prato é feito ao vivo, no fogo, no centro da roda.",
+    "inclui": "curadoria do menu, compra dos insumos, a paellera e todo o equipamento de fogo, execução ao vivo por Rafael diante dos convidados, sobremesa assinada pela Fernanda Marton Ateliê, montagem e finalização à mesa, e deslocamento incluso por toda a Serra até ~100 km (São José dos Campos).",
+    "exclui": "bebidas e harmonização (oferecidas como extra), aluguel de mobiliário e louça fora do necessário ao serviço; na camada Só o Serviço, também os insumos e a confeitaria da Fernanda Marton Ateliê.",
+    "cardapio": [
+      {
+        "titulo": "Entradas",
+        "itens": [
+          {
+            "nome": "Tábua da serra para a roda",
+            "desc": "queijos da Mantiqueira, embutidos curados, pães rústicos e azeitonas, para a turma beliscar enquanto o caldo apura e a paellera esquenta."
+          },
+          {
+            "nome": "Pão com alho e azeite de ervas",
+            "desc": "pão crocante na grelha, alho dourado e azeite perfumado do quintal, servido em pé, copo na mão."
+          },
+          {
+            "nome": "Bolinhos da casa",
+            "desc": "bolinho de truta defumada e dadinho de tapioca com queijo da serra, quentinhos direto do fogo para abrir a roda."
+          }
+        ]
+      },
+      {
+        "titulo": "O que vai na panela — você escolhe",
+        "itens": [
+          {
+            "nome": "Paella Mediterrânea",
+            "desc": "a clássica de frutos do mar: camarão, lula, mexilhões e o açafrão tingindo o arroz, feita na paellera diante de todos."
+          },
+          {
+            "nome": "Paella Caipira",
+            "desc": "frango caipira, linguiça artesanal defumada e legumes da serra, o jeito mineiro de encher a panela de sabor."
+          },
+          {
+            "nome": "Paella da Mantiqueira",
+            "desc": "a truta fresca da serra como protagonista, com toque cítrico e ervas do quintal, o mar e a montanha na mesma panela."
+          },
+          {
+            "nome": "Paella Vegetariana",
+            "desc": "legumes da estação, palmito pupunha, cogumelos e pimentões assados, encorpada e generosa, sem perder o espetáculo do fogo."
+          }
+        ]
+      },
+      {
+        "titulo": "Sobremesas",
+        "itens": [
+          {
+            "nome": "Crema catalana",
+            "desc": "o creme sedoso com a casquinha caramelizada na hora, fechando a roda na chave ibérica."
+          },
+          {
+            "nome": "Banoffee de doce de leite",
+            "desc": "a assinatura da casa: base crocante, banana, creme e o doce de leite mineiro de memória afetiva."
+          },
+          {
+            "nome": "Sorvete artesanal com frutas grelhadas",
+            "desc": "frescor cítrico das frutas tostadas no calor do fogo encontrando o sorvete cremoso."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "mesa-corporativa",
+    "nome": "Mesa Corporativa",
+    "linha": "Corporativo",
+    "ocasioes": [
+      "coffee break corporativo",
+      "datas comemorativas para o time",
+      "confraternização de funcionários"
+    ],
+    "pessoasMin": 10,
+    "pessoasMax": 100,
+    "duracaoHoras": null,
+    "sazonalidade": "ano todo",
+    "camada": "completa",
+    "destaque": "novidade",
+    "ativo": true,
+    "ordem": 15,
+    "sobremesasPor": "Fernanda Marton Ateliê",
+    "dieteticas": [
+      "vegetariana",
+      "sem glúten"
+    ],
+    "extrasRecomendados": [
+      "estação de café especial da Mantiqueira",
+      "kit individual para eventos híbridos e treinamentos"
+    ],
+    "promessa": "A assinatura do chef e da Fernanda Marton Ateliê a serviço da sua empresa — coffee breaks, mimos para o time nas datas comemorativas e a confraternização de fim de ano, com a mão da serra.",
+    "inclui": "curadoria do cardápio conforme o briefing, compra dos insumos, execução e montagem das estações pela equipe do chef, doces e confeitaria assinados pela Fernanda Marton Ateliê, e deslocamento incluso por toda a Serra até ~100 km (São José dos Campos). Emissão de nota fiscal e condições para pessoa jurídica sob consulta.",
+    "exclui": "locação de mobiliário, louças e estrutura de evento além do necessário ao serviço; bebidas alcoólicas; equipe de salão dedicada além da operação (sob orçamento como extra).",
+    "cardapio": [
+      {
+        "titulo": "Coffee breaks & serviços recorrentes",
+        "itens": [
+          {
+            "nome": "Coffee break da serra",
+            "desc": "pães e bolos artesanais, mini sanduíches, frutas frescas e café especial da Mantiqueira, montados em estação para o intervalo render."
+          },
+          {
+            "nome": "Estação de café especial",
+            "desc": "grãos da serra coados na hora para reuniões, treinamentos e recepções."
+          },
+          {
+            "nome": "Kit individual",
+            "desc": "porções embaladas individualmente para entregas, eventos híbridos e treinamentos."
+          }
+        ]
+      },
+      {
+        "titulo": "Datas comemorativas para o time",
+        "itens": [
+          {
+            "nome": "Dia das Mães & Dia dos Pais",
+            "desc": "mesa de doces e mimos da Fernanda Marton Ateliê para a empresa presentear o time."
+          },
+          {
+            "nome": "Aniversariante do mês",
+            "desc": "bolo e seleção de doces para a confraternização mensal dos colaboradores."
+          },
+          {
+            "nome": "Lembrancinhas de aniversário",
+            "desc": "kits individuais doces para celebrar cada colaborador na sua data."
+          }
+        ]
+      },
+      {
+        "titulo": "Confraternização de funcionários — sob projeto",
+        "itens": [
+          {
+            "nome": "Festa de fim de ano",
+            "desc": "churrasco ou mesa farta da serra para o time, com a estrutura da Feito na Brasa adaptada à empresa."
+          },
+          {
+            "nome": "Eventos de integração",
+            "desc": "formatos sob medida para confraternizações e celebrações corporativas, desenhados a partir do briefing."
+          }
+        ]
+      }
+    ]
+  }
+]
