@@ -499,15 +499,21 @@ export default function App() {
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
               <li className="flex gap-2">
                 <MapPin size={14} className="text-brand-terracotta shrink-0" />
-                <span>Campos do Jordão e Região</span>
+                <a href="/chef-particular-em-campos-do-jordao/" className="hover:text-brand-terracotta transition-colors">
+                  Chef particular em Campos do Jordão
+                </a>
               </li>
               <li className="flex gap-2">
                 <MapPin size={14} className="text-brand-moss shrink-0" />
-                <span>Santo Antônio do Pinhal</span>
+                <a href="/chef-particular-em-santo-antonio-do-pinhal/" className="hover:text-brand-terracotta transition-colors">
+                  Chef particular em Santo Antônio do Pinhal
+                </a>
               </li>
               <li className="flex gap-2">
                 <MapPin size={14} className="text-brand-charcoal shrink-0" />
-                <span>São Bento do Sapucaí</span>
+                <a href="/chef-particular-em-sao-bento-do-sapucai/" className="hover:text-brand-terracotta transition-colors">
+                  Chef particular em São Bento do Sapucaí
+                </a>
               </li>
               <li className="flex gap-2 pt-2 border-t border-brand-line">
                 <MapPin size={14} className="text-brand-terracotta shrink-0" />

@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "chef-particular-em-campos-do-jordao",
+    "cidade": "Campos do Jordão",
+    "title": "Chef Particular em Campos do Jordão | Paladares da Mantiqueira",
+    "description": "Chef particular (personal chef) em Campos do Jordão. A experiência de um ótimo restaurante dentro do seu chalé: jantares, churrasco de alta gastronomia e celebrações na sua casa de temporada na Serra da Mantiqueira.",
+    "h1": "Chef Particular em Campos do Jordão",
+    "lead": "A experiência de um ótimo restaurante dentro do seu chalé em Campos do Jordão — sem o anfitrião virar cozinheiro. Você recebe os abraços; eu assumo o fogão.",
+    "paragrafos": [
+      "O <strong>Paladares da Mantiqueira</strong> leva o serviço de <strong>chef particular</strong> (também procurado como <em>personal chef</em> ou <em>chef em casa</em>) para a sua casa de temporada em Campos do Jordão. Em vez de disputar mesa em restaurante na alta temporada, a alta gastronomia acontece na intimidade do seu chalé — com técnica, insumos da serra e o ritmo da sua noite.",
+      "De um jantar romântico diante da lareira a um churrasco de inverno com a casa cheia, eu cuido da curadoria do cardápio, da compra dos insumos, do preparo e do serviço. A sobremesa é sempre assinada pela <strong>Fernanda Marton Ateliê</strong>. Você só escolhe o clima da noite e aproveita — sem estresse e sem pia cheia.",
+      "Atendo Campos do Jordão e toda a Serra da Mantiqueira sem taxa de deslocamento (até cerca de 100 km). O orçamento é montado sob medida, na conversa, conforme o número de convidados, a ocasião e o cardápio escolhido."
+    ],
+    "ocasioes": [
+      "Jantar romântico ou a dois no chalé",
+      "Pedido de casamento e bodas",
+      "Aniversário e confraternização na casa de temporada",
+      "Noite de inverno: fondue, pinhão e café colonial",
+      "Réveillon e festas de fim de ano na serra"
+    ]
+  },
+  {
+    "slug": "chef-particular-em-santo-antonio-do-pinhal",
+    "cidade": "Santo Antônio do Pinhal",
+    "title": "Chef Particular em Santo Antônio do Pinhal | Paladares da Mantiqueira",
+    "description": "Chef particular (personal chef) em Santo Antônio do Pinhal. Jantares, churrasco e celebrações de alta gastronomia na sua casa de campo na Serra da Mantiqueira, com insumos da região.",
+    "h1": "Chef Particular em Santo Antônio do Pinhal",
+    "lead": "A tranquilidade de Santo Antônio do Pinhal com a experiência de um ótimo restaurante na sua casa de campo. Você recebe; eu assumo o fogão.",
+    "paragrafos": [
+      "O <strong>Paladares da Mantiqueira</strong> leva o <strong>chef particular</strong> (personal chef) até a sua casa de campo em Santo Antônio do Pinhal. No sossego da montanha, a sua mesa ganha a técnica de quem soma mais de 15 anos de alta gastronomia — e você aproveita os convidados sem se preocupar com a cozinha.",
+      "Da truta da região a um churrasco autoral, do brunch de domingo a uma celebração de cinco tempos, eu cuido de tudo: curadoria do cardápio, compra dos insumos locais, preparo e serviço, com a confeitaria assinada pela <strong>Fernanda Marton Ateliê</strong>.",
+      "Atendo Santo Antônio do Pinhal e toda a Serra da Mantiqueira sem taxa de deslocamento (até cerca de 100 km). Cada experiência é orçada sob medida, na conversa, sem compromisso."
+    ],
+    "ocasioes": [
+      "Almoço de domingo em família na casa de campo",
+      "Jantar romântico e celebrações a dois",
+      "Aniversário e reunião de amigos",
+      "Brunch e café colonial na montanha",
+      "Feriado e temporada em família"
+    ]
+  },
+  {
+    "slug": "chef-particular-em-sao-bento-do-sapucai",
+    "cidade": "São Bento do Sapucaí",
+    "title": "Chef Particular em São Bento do Sapucaí | Paladares da Mantiqueira",
+    "description": "Chef particular (personal chef) em São Bento do Sapucaí. Jantares, churrasco e celebrações de alta gastronomia na sua casa de campo na Serra da Mantiqueira, aos pés da Pedra do Baú.",
+    "h1": "Chef Particular em São Bento do Sapucaí",
+    "lead": "Aos pés da Pedra do Baú, a experiência de um ótimo restaurante na sua casa de campo em São Bento do Sapucaí. Você recebe; eu assumo o fogão.",
+    "paragrafos": [
+      "O <strong>Paladares da Mantiqueira</strong> leva o <strong>chef particular</strong> (personal chef) para a sua casa de temporada em São Bento do Sapucaí. Depois de um dia de natureza e trilhas, a sua mesa recebe alta gastronomia sem que ninguém da casa precise cozinhar — é o restaurante que vem até você.",
+      "De um churrasco na brasa a uma noite de massas e vinho, de um jantar íntimo a uma celebração com a casa cheia, eu cuido da curadoria, da compra dos insumos da serra, do preparo e do serviço. A sobremesa é sempre da <strong>Fernanda Marton Ateliê</strong>.",
+      "Atendo São Bento do Sapucaí e toda a Serra da Mantiqueira sem taxa de deslocamento (até cerca de 100 km). O orçamento nasce na conversa, sob medida para a sua data."
+    ],
+    "ocasioes": [
+      "Churrasco de alta gastronomia com a casa cheia",
+      "Jantar romântico e celebrações a dois",
+      "Aniversário e confraternização de amigos",
+      "Reunião de família em casa de temporada",
+      "Feriado e temporada na serra"
+    ]
+  }
+]
