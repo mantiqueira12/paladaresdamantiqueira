@@ -43,13 +43,15 @@ const cidades = load('cidades.json').map((c) => ({
   areaServedType: 'City',
 }));
 
-const sazonais = load('sazonais.json').map((s) => ({
-  ...s,
-  areaServedName: 'Serra da Mantiqueira',
-  areaServedType: 'Place',
-}));
+// Sazonais e nichos compartilham o mesmo formato (campos já prontos);
+// só recebem a área de atendimento regional (a serra).
+const regionais = (file) =>
+  load(file).map((s) => ({ ...s, areaServedName: 'Serra da Mantiqueira', areaServedType: 'Place' }));
 
-const landings = [...cidades, ...sazonais];
+const sazonais = regionais('sazonais.json');
+const nichos = regionais('nichos.json');
+
+const landings = [...cidades, ...sazonais, ...nichos];
 
 function waLink(n) {
   const msg = `Olá, Chef Rafael! 🌿 Vim pela página "${n.h1}" e gostaria de saber como funciona e os próximos passos.`;
@@ -241,4 +243,4 @@ ${urls
 `;
 fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
 
-console.log(`[gen-landings] ${landings.length} landings geradas (${cidades.length} cidades + ${sazonais.length} sazonais) + sitemap com ${urls.length} URLs.`);
+console.log(`[gen-landings] ${landings.length} landings geradas (${cidades.length} cidades + ${sazonais.length} sazonais + ${nichos.length} nichos) + sitemap com ${urls.length} URLs.`);
