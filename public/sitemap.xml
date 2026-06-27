@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- ATENÇÃO: este arquivo é REGENERADO no build por scripts/gen-landings.mjs,
+     que reescreve dist/sitemap.xml com a home + TODAS as landing pages e o
+     lastmod do dia. O conteúdo abaixo (só a home) serve apenas ao dev/preview. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://paladaresdamantiqueira.com.br/</loc>

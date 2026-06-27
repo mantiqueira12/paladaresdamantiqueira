@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import {
   MessageCircle,
@@ -34,7 +34,10 @@ import {
 } from './data/experiencias';
 import { IMAGEM_FALLBACK } from './data/imagens';
 import FAQ from './data/faq.json';
-import { linkWhatsAppTexto, WHATSAPP_NUMBER, WHATSAPP_DISPLAY } from './lib/whatsapp';
+import CIDADES from './data/cidades.json';
+import SAZONAIS from './data/sazonais.json';
+import NICHOS from './data/nichos.json';
+import { linkWhatsAppTexto, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK } from './lib/whatsapp';
 import { rastrearOrcamento } from './lib/analytics';
 import PedidoExperiencia from './components/PedidoExperiencia';
 import ExperienciaModal from './components/ExperienciaModal';
@@ -77,6 +80,28 @@ export default function App() {
   const [pedidoExp, setPedidoExp] = useState('');
   const [detalhe, setDetalhe] = useState<Experiencia | null>(null);
   const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
+
+  // Hero: o vídeo de fundo (CDN externa, pesado) só é carregado depois do primeiro
+  // paint, para não competir com o LCP nem consumir banda no mobile. Até lá, o
+  // poster estático segura o visual. heroVideo começa false (casa com o SSG).
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [heroVideo, setHeroVideo] = useState(false);
+  useEffect(() => {
+    const iniciar = () => setHeroVideo(true);
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (typeof w.requestIdleCallback === 'function') {
+      const id = w.requestIdleCallback(iniciar, { timeout: 2500 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(iniciar, 1200);
+    return () => clearTimeout(t);
+  }, []);
+  useEffect(() => {
+    if (heroVideo) videoRef.current?.load();
+  }, [heroVideo]);
 
   const abrirPedido = (nome = '') => {
     setPedidoExp(nome);
@@ -157,15 +182,16 @@ export default function App() {
         <section className="relative min-h-[95vh] flex items-center p-6 md:p-16 overflow-hidden bg-brand-charcoal">
           <div className="absolute inset-0 z-0 scale-110">
             <video
+              ref={videoRef}
               autoPlay
               loop
               muted
               playsInline
+              preload="none"
               poster="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1920"
+              src={heroVideo ? 'https://cdn.pixabay.com/video/2017/04/18/8879-214434914_large.mp4' : undefined}
               className="w-full h-full object-cover opacity-60"
-            >
-              <source src="https://cdn.pixabay.com/video/2017/04/18/8879-214434914_large.mp4" type="video/mp4" />
-            </video>
+            />
             <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal via-brand-charcoal/40 to-transparent z-10" />
           </div>
 
@@ -247,6 +273,8 @@ export default function App() {
                   alt="Sala de jantar rústica com vigas expostas e mobiliário de época"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="w-1/3 flex flex-col gap-4">
@@ -256,6 +284,8 @@ export default function App() {
                     alt="Carnes defumadas sobre mesa rústica de madeira"
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="h-1/2 pill-image">
@@ -264,6 +294,8 @@ export default function App() {
                     alt="Vinhos e culinária rústica da Mantiqueira"
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -361,6 +393,8 @@ export default function App() {
                   src={chefImage}
                   alt="Chef Rafael Jacob trabalhando na cozinha"
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =
                       'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1000';
@@ -434,6 +468,23 @@ export default function App() {
                 location="São Bento do Sapucaí"
               />
             </div>
+            {GOOGLE_REVIEW_LINK && (
+              <div className="text-center mt-16">
+                <a
+                  href={GOOGLE_REVIEW_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand-charcoal/70 hover:text-brand-terracotta transition-colors"
+                >
+                  <span className="flex gap-0.5 text-brand-terracotta">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={15} fill="currentColor" />
+                    ))}
+                  </span>
+                  Já viveu uma experiência comigo? Deixe a sua avaliação no Google
+                </a>
+              </div>
+            )}
           </div>
         </section>
 
@@ -462,6 +513,8 @@ export default function App() {
               alt="Fogo e comida"
               className="w-full h-full object-cover opacity-20"
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-brand-cream/40" />
           </div>
@@ -483,7 +536,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="py-20 section-border-top bg-white border-b-8 border-brand-terracotta">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-16 mb-20 text-left">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-left">
           <div>
             <span className="serif text-2xl font-bold text-brand-moss block mb-6">Paladares da Mantiqueira</span>
             <p className="text-xs text-brand-charcoal/60 leading-relaxed max-w-xs">
@@ -497,28 +550,33 @@ export default function App() {
               Área de Atendimento
             </h4>
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
-              <li className="flex gap-2">
-                <MapPin size={14} className="text-brand-terracotta shrink-0" />
-                <a href="/chef-particular-em-campos-do-jordao/" className="hover:text-brand-terracotta transition-colors">
-                  Chef particular em Campos do Jordão
-                </a>
-              </li>
-              <li className="flex gap-2">
-                <MapPin size={14} className="text-brand-moss shrink-0" />
-                <a href="/chef-particular-em-santo-antonio-do-pinhal/" className="hover:text-brand-terracotta transition-colors">
-                  Chef particular em Santo Antônio do Pinhal
-                </a>
-              </li>
-              <li className="flex gap-2">
-                <MapPin size={14} className="text-brand-charcoal shrink-0" />
-                <a href="/chef-particular-em-sao-bento-do-sapucai/" className="hover:text-brand-terracotta transition-colors">
-                  Chef particular em São Bento do Sapucaí
-                </a>
-              </li>
+              {CIDADES.map((c) => (
+                <li key={c.slug} className="flex gap-2">
+                  <MapPin size={14} className="text-brand-terracotta shrink-0" />
+                  <a href={`/${c.slug}/`} className="hover:text-brand-terracotta transition-colors">
+                    Chef particular em {c.cidade}
+                  </a>
+                </li>
+              ))}
               <li className="flex gap-2 pt-2 border-t border-brand-line">
                 <MapPin size={14} className="text-brand-terracotta shrink-0" />
-                <span>Vale do Paraíba até São José dos Campos</span>
+                <span>Toda a Serra da Mantiqueira e o Vale do Paraíba</span>
               </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
+              Ocasiões
+            </h4>
+            <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
+              {[...SAZONAIS, ...NICHOS].map((o) => (
+                <li key={o.slug} className="flex gap-2">
+                  <CalendarHeart size={14} className="text-brand-terracotta shrink-0" />
+                  <a href={`/${o.slug}/`} className="hover:text-brand-terracotta transition-colors">
+                    {o.chip}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
