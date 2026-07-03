@@ -37,16 +37,16 @@ A base é boa (sem overflow horizontal, modais bottom-sheet corretos, scroll loc
 
 ## LOTE 2 — Performance no 4G (velocidade = conversão) · ~1–2 dias
 
-- [ ] **2.1 Vídeo do hero só em desktop** (`src/App.tsx` ~89–104): no `useEffect`, iniciar só se `min-width: 768px` && sem `prefers-reduced-motion` && sem `saveData`. No celular fica o poster (visual idêntico). `aria-hidden="true"` no `<video>`.
-- [ ] **2.2 Poster do hero self-host + preload** (`index.html`): gerar `public/hero-poster.webp` (~1280px, 80–120KB), `<link rel="preload" as="image" fetchpriority="high">`; heros das landings idem.
-- [ ] **2.3 Fontes self-host** (`index.html` + `gen-landings.mjs`): `@fontsource` Inter (300–600) + Playfair (400/700/italic), `font-display:swap`, preload dos 2 woff2 principais — remove o CSS render-blocking do Google Fonts das 15 páginas.
-- [ ] **2.4 Imagens: sharp no build + WebP + srcset** (`scripts/`): otimizar `chef-rafael.jpg` (510KB), `pinhao.jpg` (640KB), logo (111KB→~10KB); gerar 480/800/1200 e usar `srcset/sizes` na home e landings.
-- [ ] **2.5 Unsplash → local** (`src/data/imagens.ts`): baixar as ~10 imagens de produção, otimizar e servir de `public/portfolio/` (elimina dependência externa, `referrerPolicy` e `onError` espalhados).
-- [ ] **2.6 Cache headers no `netlify.toml`**: `/assets/*` → `max-age=31536000, immutable`; imagens/fontes → `max-age=604800`.
-- [ ] **2.7 Code-splitting** (`src/App.tsx`): `React.lazy` nos 2 modais (fechados renderizam null no SSG — seguro) + `LazyMotion/m` do motion (bundle hoje: 447KB / 134KB gzip).
-- [ ] **2.8 Envio do pedido robusto em webview** (`PedidoExperiencia.tsx` ~49–57): botão → `<a href={linkWhatsApp} target="_blank" rel="noopener noreferrer">` com onClick só de analytics + feedback pós-clique ("Seu pedido foi aberto no WhatsApp 💬"). `window.open` falha no navegador embutido do Instagram — **e o tráfego novo virá justamente do IG** (doc 12).
-- [ ] **2.9 Logo com `width/height`** (CLS) na home e landings.
-- [ ] **2.10 Verificação:** Lighthouse mobile antes/depois (meta: LCP <2,5s em 4G) + preview + deploy.
+- [x] **2.1 Vídeo do hero só em desktop** (`src/App.tsx` ~89–104): no `useEffect`, iniciar só se `min-width: 768px` && sem `prefers-reduced-motion` && sem `saveData`. No celular fica o poster (visual idêntico). `aria-hidden="true"` no `<video>`.
+- [x] **2.2 Poster do hero self-host + preload** (`index.html`): gerar `public/hero-poster.webp` (~1280px, 80–120KB), `<link rel="preload" as="image" fetchpriority="high">`; heros das landings idem.
+- [x] **2.3 Fontes self-host** (`index.html` + `gen-landings.mjs`): `@fontsource` Inter (300–600) + Playfair (400/700/italic), `font-display:swap`, preload dos 2 woff2 principais — remove o CSS render-blocking do Google Fonts das 15 páginas.
+- [x] **2.4 Imagens: sharp no build + WebP + srcset** (`scripts/`): otimizar `chef-rafael.jpg` (510KB), `pinhao.jpg` (640KB), logo (111KB→~10KB); gerar 480/800/1200 e usar `srcset/sizes` na home e landings.
+- [x] **2.5 Unsplash → local** (`src/data/imagens.ts`): baixar as ~10 imagens de produção, otimizar e servir de `public/portfolio/` (elimina dependência externa, `referrerPolicy` e `onError` espalhados).
+- [x] **2.6 Cache headers no `netlify.toml`**: `/assets/*` → `max-age=31536000, immutable`; imagens/fontes → `max-age=604800`.
+- [x] **2.7 Code-splitting** (`src/App.tsx`): **feito via `LazyMotion/m`** (448KB→400KB; gzip 134→120KB). O `React.lazy` dos modais foi **descartado**: ganho marginal (~10KB) e custo real — perde a animação de saída do `AnimatePresence` e complica o SSG.
+- [x] **2.8 Envio do pedido robusto em webview** (`PedidoExperiencia.tsx` ~49–57): botão → `<a href={linkWhatsApp} target="_blank" rel="noopener noreferrer">` com onClick só de analytics + feedback pós-clique ("Seu pedido foi aberto no WhatsApp 💬"). `window.open` falha no navegador embutido do Instagram — **e o tráfego novo virá justamente do IG** (doc 12).
+- [x] **2.9 Logo com `width/height`** (CLS) na home e landings.
+- [x] **2.10 Verificação:** preview de produção (dist pré-renderizado) sem nenhum erro/aviso de hidratação; 7 fontes locais carregadas; vídeo carrega em 1280px e NÃO carrega em 375px; zero referências a Unsplash/Google Fonts no dist. Peso: bundle 448→400KB (gzip 134→120), chef 499→73KB, logo 109→10KB, 12 imagens externas viraram WebP local de 17–106KB.
 
 ## LOTE 3 — Acessibilidade e polimento de UX · ~1 dia
 

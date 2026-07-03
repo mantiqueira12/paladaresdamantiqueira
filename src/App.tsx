@@ -4,7 +4,8 @@
  */
 
 import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+// LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor)
+import { LazyMotion, domAnimation, m } from 'motion/react';
 import {
   MessageCircle,
   MapPin,
@@ -44,7 +45,7 @@ import ExperienciaModal from './components/ExperienciaModal';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
-const chefImage = '/chef-rafael.jpg';
+const chefImage = '/chef-rafael.webp';
 
 const FILTRO_GENERICO = linkWhatsAppTexto(
   'Olá, Chef Rafael! 🌿 Vi o seu site e gostaria de saber mais sobre as experiências na minha casa.',
@@ -82,11 +83,22 @@ export default function App() {
   const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
 
   // Hero: o vídeo de fundo (CDN externa, pesado) só é carregado depois do primeiro
-  // paint, para não competir com o LCP nem consumir banda no mobile. Até lá, o
-  // poster estático segura o visual. heroVideo começa false (casa com o SSG).
+  // paint E somente em telas largas, sem economia de dados e sem preferência por
+  // menos movimento — no celular/4G o poster segura o visual sozinho.
+  // heroVideo começa false (casa com o SSG).
   const videoRef = useRef<HTMLVideoElement>(null);
   const [heroVideo, setHeroVideo] = useState(false);
   useEffect(() => {
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } })
+      .connection;
+    if (
+      !window.matchMedia('(min-width: 768px)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      conn?.saveData ||
+      /\b[23]g\b/.test(conn?.effectiveType ?? '')
+    ) {
+      return;
+    }
     const iniciar = () => setHeroVideo(true);
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
@@ -118,6 +130,7 @@ export default function App() {
   );
 
   return (
+    <LazyMotion features={domAnimation} strict>
     <div className="min-h-screen flex flex-col selection:bg-brand-terracotta selection:text-white">
       {/* HEADER */}
       <header className="w-full h-20 flex items-center justify-between px-4 sm:px-6 md:px-16 glass-header fixed top-0 z-50">
@@ -125,6 +138,8 @@ export default function App() {
           <img
             src="/logo-emblema.png"
             alt="Paladares da Mantiqueira"
+            width={320}
+            height={98}
             className="h-8 sm:h-9 md:h-11 w-auto"
           />
           {/* Em telas <sm o nome colidia com o botão "Solicitar"; o emblema segura a marca sozinho */}
@@ -183,7 +198,8 @@ export default function App() {
               muted
               playsInline
               preload="none"
-              poster="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1920"
+              aria-hidden="true"
+              poster="/hero-poster.webp"
               src={heroVideo ? 'https://cdn.pixabay.com/video/2017/04/18/8879-214434914_large.mp4' : undefined}
               className="w-full h-full object-cover opacity-60"
             />
@@ -191,7 +207,7 @@ export default function App() {
           </div>
 
           <div className="relative z-20 max-w-4xl text-brand-cream">
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
+            <m.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-px bg-brand-terracotta" />
                 <span className="text-xs uppercase tracking-[0.4em] font-semibold text-brand-terracotta">
@@ -225,7 +241,7 @@ export default function App() {
               <p className="mt-5 text-xs tracking-wide text-brand-cream/60">
                 Orçamento sem compromisso · resposta no WhatsApp no mesmo dia
               </p>
-            </motion.div>
+            </m.div>
           </div>
 
           <div className="absolute bottom-10 right-10 z-20 hidden lg:block">
@@ -267,10 +283,9 @@ export default function App() {
               </div>
               <div className="w-full sm:w-2/3 h-[320px] sm:h-[500px] pill-image ring-8 ring-brand-cream shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1780246033915-a1ee941742e4?auto=format&fit=crop&q=80&w=800"
+                  src="/portfolio/conceito-sala.webp"
                   alt="Sala de jantar rústica com vigas expostas e mobiliário de época"
                   className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
                   loading="lazy"
                   decoding="async"
                 />
@@ -278,20 +293,18 @@ export default function App() {
               <div className="w-full sm:w-1/3 h-36 sm:h-auto flex flex-row sm:flex-col gap-4">
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image grayscale hover:grayscale-0 transition-all">
                   <img
-                    src="https://images.unsplash.com/photo-1765990605320-c7c5ce8e1c6f?auto=format&fit=crop&q=80&w=800"
+                    src="/portfolio/conceito-defumados.webp"
                     alt="Carnes defumadas sobre mesa rústica de madeira"
                     className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image">
                   <img
-                    src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=800"
+                    src="/portfolio/harmonizacao-guiada.webp"
                     alt="Vinhos e culinária rústica da Mantiqueira"
                     className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
                     loading="lazy"
                     decoding="async"
                   />
@@ -329,7 +342,7 @@ export default function App() {
             </div>
 
             {/* Grade de experiências */}
-            <motion.div
+            <m.div
               key={filtro}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -339,7 +352,7 @@ export default function App() {
               {lista.map((exp, i) => (
                 <ExperienceCard key={exp.slug} exp={exp} index={i} onVer={() => setDetalhe(exp)} />
               ))}
-            </motion.div>
+            </m.div>
 
             <p className="text-center text-sm text-brand-charcoal/50 mt-12 italic">
               Não encontrou exatamente o que imaginou?{' '}
@@ -394,10 +407,6 @@ export default function App() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=1000';
-                  }}
                 />
               </div>
               <div className="absolute -bottom-8 -right-8 glass-header p-8 text-brand-charcoal rounded-sm shadow-2xl max-w-xs hidden lg:block">
@@ -508,10 +517,9 @@ export default function App() {
         <section className="relative py-28 md:py-40 flex items-center justify-center text-center px-6 section-border-top overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1920"
+              src="/hero-poster.webp"
               alt="Fogo e comida"
               className="w-full h-full object-cover opacity-20"
-              referrerPolicy="no-referrer"
               loading="lazy"
               decoding="async"
             />
@@ -640,6 +648,7 @@ export default function App() {
       <ExperienciaModal experiencia={detalhe} onFechar={() => setDetalhe(null)} onSolicitar={solicitarDoDetalhe} />
       <PedidoExperiencia aberto={pedidoAberto} onFechar={() => setPedidoAberto(false)} experienciaInicial={pedidoExp} />
     </div>
+    </LazyMotion>
   );
 }
 
@@ -662,7 +671,7 @@ function Chip({ ativo, onClick, children }: { ativo: boolean; onClick: () => voi
 
 function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number; onVer: () => void }) {
   return (
-    <motion.button
+    <m.button
       onClick={onVer}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -676,7 +685,6 @@ function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number
           src={exp.imagem}
           alt={exp.nome}
           className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-          referrerPolicy="no-referrer"
           loading="lazy"
           onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
         />
@@ -704,13 +712,13 @@ function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number
           </span>
         </div>
       </div>
-    </motion.button>
+    </m.button>
   );
 }
 
 function FloatingWhatsApp() {
   return (
-    <motion.a
+    <m.a
       href={FILTRO_GENERICO}
       target="_blank"
       rel="noopener noreferrer"
@@ -725,7 +733,7 @@ function FloatingWhatsApp() {
       <MessageCircle size={28} />
       <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-terracotta rounded-full motion-safe:animate-ping" />
       <div className="absolute top-0 right-0 w-3 h-3 bg-brand-terracotta rounded-full" />
-    </motion.a>
+    </m.a>
   );
 }
 
@@ -783,13 +791,13 @@ function AccordionItem({ title, content }: { title: string; content: string }) {
         <div className="text-brand-terracotta shrink-0">{isOpen ? <Minus size={20} /> : <Plus size={20} />}</div>
       </button>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           className="px-8 pb-8 text-sm text-brand-charcoal/60 leading-relaxed italic border-t border-brand-line/50"
         >
           <p className="pt-4">{content}</p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );

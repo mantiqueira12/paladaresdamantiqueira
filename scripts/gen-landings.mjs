@@ -183,6 +183,13 @@ function jsonld(n) {
 // Espelha o design system da home (src/index.css + App.tsx): mesmos tokens,
 // fontes, header glass, hero escuro, pill-images, cards com hover, FAQ e rodapé.
 const CSS = `
+  @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/inter-300.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/inter-400.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/inter-500.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/inter-600.woff2') format('woff2')}
+  @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400.woff2') format('woff2')}
+  @font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400-italic.woff2') format('woff2')}
+  @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-700.woff2') format('woff2')}
   :root{--cream:#FDFBF7;--charcoal:#2D2D2D;--terracotta:#A64D33;--moss:#3E4E3E;--line:rgba(45,45,45,.1)}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -373,9 +380,9 @@ function head(n, { title, description, url, canonical }) {
     <meta name="twitter:title" content="${esc(title)}" />
     <meta name="twitter:description" content="${esc(stripTags(description))}" />
     <meta name="twitter:image" content="${SITE}/og-image.jpg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
+    <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');</script>
     <style>${CSS}</style>`;
@@ -385,7 +392,7 @@ function headerHtml(n) {
   return `    <header>
       <div class="inner">
         <a class="brand" href="/" aria-label="Paladares da Mantiqueira — início">
-          <img src="/logo-emblema.png" alt="Paladares da Mantiqueira" />
+          <img src="/logo-emblema.png" alt="Paladares da Mantiqueira" width="320" height="98" />
           <span class="brand-txt"><b>Paladares da Mantiqueira</b><small>Concierge Gastronômico</small></span>
         </a>
         <nav class="nav">
@@ -456,7 +463,7 @@ ${head(n, { title: n.title, description: n.description, url, canonical: url })}
 ${headerHtml(n)}
 
     <section class="hero">
-      <div class="hero-bg" style="background-image:url('/og-image.jpg')"></div>
+      <div class="hero-bg" style="background-image:url('/hero-poster.webp')"></div>
       <div class="hero-inner reveal">
         <p class="crumb"><a href="/">Início</a><span>/</span>${esc(n.breadcrumb)}</p>
         <div class="eyebrow"><span class="rule"></span><span>${EYEBROW}</span></div>
@@ -478,7 +485,7 @@ ${headerHtml(n)}
             <h2>${esc(n.experienciaTitulo)}</h2>
             ${n.paragrafos.map((p) => `<p class="body">${p}</p>`).join('\n            ')}
           </div>
-          <div class="pill"><img src="/portfolio/mesa-de-amigos.jpg" alt="Mesa posta para uma experiência do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1000" /></div>
+          <div class="pill"><img src="/portfolio/mesa-de-amigos.webp" alt="Mesa posta para uma experiência do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1000" /></div>
         </div>
       </section>
 
@@ -506,7 +513,7 @@ ${headerHtml(n)}
 
       <section class="chef">
         <div class="wrap split">
-          <div class="photo"><img src="/chef-rafael.jpg" alt="Chef Rafael Jacob na cozinha" loading="lazy" decoding="async" width="800" height="1000" /></div>
+          <div class="photo"><img src="/chef-rafael.webp" alt="Chef Rafael Jacob na cozinha" loading="lazy" decoding="async" width="800" height="1000" /></div>
           <div>
             <span class="eyebrow-dark" style="color:var(--terracotta)">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
@@ -592,7 +599,7 @@ ${head(null, {
   <body>
 ${headerHtml({ slug: '404', h1: 'Página não encontrada' })}
     <section class="hero">
-      <div class="hero-bg" style="background-image:url('/og-image.jpg')"></div>
+      <div class="hero-bg" style="background-image:url('/hero-poster.webp')"></div>
       <div class="hero-inner" style="text-align:center">
         <div class="eyebrow" style="justify-content:center"><span class="rule"></span><span>${EYEBROW}</span><span class="rule"></span></div>
         <h1 style="margin:0 auto 26px">Esta página saiu da mesa</h1>

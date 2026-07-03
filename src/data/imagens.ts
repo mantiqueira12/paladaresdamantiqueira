@@ -1,42 +1,42 @@
 /**
  * Imagens de cada experiência (capa).
- * Fotos do acervo do Rafael ficam em /portfolio/ (public/portfolio/).
- * Fotos Unsplash usam o formato timestamp-hex do CDN (images.unsplash.com/photo-{id}).
+ * TODAS locais em /portfolio/ (public/portfolio/), otimizadas em WebP ~800px
+ * por scripts/otimizar-imagens.mjs (doc 13 §2.4/2.5) — as que eram do Unsplash
+ * foram baixadas e convertidas; o site não depende mais de CDN externa.
+ * Fotos novas do acervo do Rafael: salvar em ../Portifolio e referenciar aqui
+ * (o portfolioSync do vite.config.ts copia no build).
  */
-const U = (id: string, w = 1000) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=80&w=${w}`;
-
-export const IMAGEM_FALLBACK = U('1544025162-d76694265947');
+export const IMAGEM_FALLBACK = '/portfolio/fallback.webp';
 
 export const IMAGENS: Record<string, string> = {
   // acervo Rafael — top view de amigos compartilhando mesa farta com vinho e massas
-  'mesa-de-amigos': '/portfolio/mesa-de-amigos.jpg',
+  'mesa-de-amigos': '/portfolio/mesa-de-amigos.webp',
   // fondue — pessoas mergulhando pão na panela, luz clara e aconchegante
-  'noite-de-fondue': U('1754910568106-e71804067c2c'),
+  'noite-de-fondue': '/portfolio/noite-de-fondue.webp',
   // churrasco brasileiro, carne na grelha com brasa
-  'feito-na-brasa': U('1558030137-d464dd688b00'),
+  'feito-na-brasa': '/portfolio/feito-na-brasa.webp',
   // cantina italiana — massa e ambiente
-  'mesa-cheia-cantina': U('1473093226795-af9932fe5856'),
+  'mesa-cheia-cantina': '/portfolio/mesa-cheia-cantina.webp',
   // pizza napolitana artesanal em forno de lenha com chamas
-  'viva-la-pizza': U('1622880833523-7cf1c0bd4296'),
+  'viva-la-pizza': '/portfolio/viva-la-pizza.webp',
   // jantar de celebração / alta gastronomia — cordeiro assado
-  'origens-da-serra': U('1734987052573-0fbe611842ae'),
+  'origens-da-serra': '/portfolio/origens-da-serra.webp',
   // acervo Rafael — brunch farto com flores
-  'brunch-na-montanha': '/portfolio/brunch.jpg',
+  'brunch-na-montanha': '/portfolio/brunch.webp',
   // acervo Rafael — mesa de café colonial da serra
-  'cafe-colonial-autoral': '/portfolio/cafe-colonial.jpg',
-  // acervo Rafael — pinhão da araucária no habitat nativo (salve o arquivo em public/portfolio/pinhao.jpg)
-  'edicao-pinhao': '/portfolio/pinhao.jpg',
+  'cafe-colonial-autoral': '/portfolio/cafe-colonial.webp',
+  // acervo Rafael — pinhão da araucária no habitat nativo
+  'edicao-pinhao': '/portfolio/pinhao.webp',
   // vinhos e harmonização
-  'harmonizacao-guiada': U('1510812431401-41d2bd2722f3'),
+  'harmonizacao-guiada': '/portfolio/harmonizacao-guiada.webp',
   // hambúrguer artesanal
-  'noite-do-hamburguer': U('1568901346375-23c9450c58cd'),
+  'noite-do-hamburguer': '/portfolio/noite-do-hamburguer.webp',
   // hot dog gourmet
-  'noite-do-hot-dog': U('1612392061981-9d086fe894ed'),
+  'noite-do-hot-dog': '/portfolio/noite-do-hot-dog.webp',
   // acervo Rafael — petiscos e boteco
-  'boteco-da-serra': '/portfolio/boteco.jpg',
+  'boteco-da-serra': '/portfolio/boteco.webp',
   // paella de frutos do mar rústica com camarão e mexilhões
-  'feito-na-paella': U('1775201651117-2e8aa549f04c'),
+  'feito-na-paella': '/portfolio/feito-na-paella.webp',
   // mesa farta de coffee break / catering corporativo
-  'mesa-corporativa': U('1576842546422-60562b9242ae'),
+  'mesa-corporativa': '/portfolio/mesa-corporativa.webp',
 };

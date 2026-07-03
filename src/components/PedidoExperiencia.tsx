@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { X, MessageCircle, CalendarHeart, Users, MapPin, PartyPopper, ChefHat, Sparkles } from 'lucide-react';
 import { EXPERIENCIAS, acharPorNome } from '../data/experiencias';
 import { montarMensagem, linkWhatsApp, WHATSAPP_DISPLAY, type PedidoData } from '../lib/whatsapp';
@@ -27,9 +27,13 @@ const hojeISO = () => new Date().toISOString().split('T')[0];
 
 export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial = '' }: Props) {
   const [pedido, setPedido] = useState<PedidoData>({ experiencia: experienciaInicial });
+  const [enviado, setEnviado] = useState(false);
 
   useEffect(() => {
-    if (aberto) setPedido((p) => ({ ...p, experiencia: experienciaInicial }));
+    if (aberto) {
+      setPedido((p) => ({ ...p, experiencia: experienciaInicial }));
+      setEnviado(false);
+    }
   }, [aberto, experienciaInicial]);
 
   useEffect(() => {
@@ -46,20 +50,23 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
   const set = (campo: keyof PedidoData, valor: string | boolean) =>
     setPedido((p) => ({ ...p, [campo]: valor }));
 
-  const enviar = () => {
+  // O envio é um <a> nativo (não window.open): funciona no navegador embutido do
+  // Instagram/Facebook, onde window.open costuma ser bloqueado. O clique só
+  // registra o evento e o feedback — a navegação é do próprio link.
+  const aoEnviar = () => {
     rastrearOrcamento('formulario', pedido.experiencia, {
       ocasiao: pedido.ocasiao,
       cidade: pedido.cidade,
       pessoas: pedido.pessoas,
       soServico: pedido.soServico,
     });
-    window.open(linkWhatsApp(pedido), '_blank', 'noopener,noreferrer');
+    setEnviado(true);
   };
 
   return (
     <AnimatePresence>
       {aberto && (
-        <motion.div
+        <m.div
           className="fixed inset-0 z-[120] flex items-end md:items-center justify-center p-0 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -67,7 +74,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
         >
           <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
 
-          <motion.div
+          <m.div
             role="dialog"
             aria-modal="true"
             className="relative z-10 w-full md:max-w-2xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
@@ -207,18 +214,23 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
 
             {/* Rodapé / ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
-              <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1">
-                Abre uma conversa no WhatsApp · {WHATSAPP_DISPLAY}
+              <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1" role="status">
+                {enviado
+                  ? 'Seu pedido foi aberto no WhatsApp 💬'
+                  : `Abre uma conversa no WhatsApp · ${WHATSAPP_DISPLAY}`}
               </span>
-              <button
-                onClick={enviar}
+              <a
+                href={linkWhatsApp(pedido)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={aoEnviar}
                 className="order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold shadow-lg hover:bg-brand-charcoal transition-all hover:-translate-y-0.5"
               >
                 <MessageCircle size={18} /> Enviar meu pedido
-              </button>
+              </a>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

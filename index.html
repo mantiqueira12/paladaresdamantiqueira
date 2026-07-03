@@ -124,10 +124,13 @@
          seoInject (vite.config.ts) — mesma fonte única das fichas/site. -->
     <!--SEO_CATALOG_JSONLD-->
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fonts: self-host (public/fonts/, @font-face em src/index.css) — sem CSS
+         render-blocking do Google Fonts. Preload só das 2 faces acima da dobra. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin>
+
+    <!-- LCP: poster do hero servido local e com prioridade alta -->
+    <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-42VSMJHHFD"></script>

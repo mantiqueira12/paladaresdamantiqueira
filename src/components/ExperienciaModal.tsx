@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence } from 'motion/react';
 import { X, Users, Clock, Leaf, Check, MessageCircle, CalendarDays } from 'lucide-react';
 import {
   type Experiencia,
@@ -26,7 +26,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
   return (
     <AnimatePresence>
       {experiencia && (
-        <motion.div
+        <m.div
           className="fixed inset-0 z-[110] flex items-end md:items-center justify-center p-0 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -34,7 +34,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
         >
           <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
 
-          <motion.div
+          <m.div
             role="dialog"
             aria-modal="true"
             className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
@@ -49,7 +49,6 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 src={experiencia.imagem}
                 alt={experiencia.nome}
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
                 onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/20 to-transparent" />
@@ -180,8 +179,8 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 <MessageCircle size={18} /> Solicitar esta experiência
               </button>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
