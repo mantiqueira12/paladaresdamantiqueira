@@ -182,6 +182,9 @@ function jsonld(n) {
 /* --------------------------------------------------------------------- CSS */
 // Espelha o design system da home (src/index.css + App.tsx): mesmos tokens,
 // fontes, header glass, hero escuro, pill-images, cards com hover, FAQ e rodapé.
+// As CORES vêm de src/data/tokens.json (fonte única, compartilhada com o
+// @theme do index.css — mudou lá, mude no JSON).
+const T = load('tokens.json');
 const CSS = `
   @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/inter-300.woff2') format('woff2')}
   @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/inter-400.woff2') format('woff2')}
@@ -190,7 +193,7 @@ const CSS = `
   @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400.woff2') format('woff2')}
   @font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400-italic.woff2') format('woff2')}
   @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-700.woff2') format('woff2')}
-  :root{--cream:#FDFBF7;--charcoal:#2D2D2D;--terracotta:#A64D33;--terracotta-light:#E08D63;--moss:#3E4E3E;--line:rgba(45,45,45,.1)}
+  :root{--cream:${T.cream};--charcoal:${T.charcoal};--terracotta:${T.terracotta};--terracotta-light:${T.terracottaLight};--moss:${T.moss};--line:${T.line}}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--charcoal);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -312,7 +315,8 @@ const CSS = `
   details .ans{padding:0 28px 24px;color:rgba(45,45,45,.7);font-size:.98rem;font-style:italic;line-height:1.7}
 
   /* faixa CTA */
-  .cta-band{text-align:center;background:var(--charcoal);color:var(--cream);border-radius:24px;padding:64px 28px;margin:8px auto;max-width:1100px}
+  .cta-band{text-align:center;background:var(--charcoal);color:var(--cream);border-radius:24px;padding:64px 28px;margin:8px 16px;max-width:1100px}
+  @media(min-width:1148px){.cta-band{margin:8px auto}}
   .cta-band h2{color:var(--cream)}
   .cta-band p{opacity:.72;font-weight:300;margin:0 auto 30px;max-width:46ch;font-style:italic}
 

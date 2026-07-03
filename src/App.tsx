@@ -1,9 +1,9 @@
-/**
+﻿/**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ReactNode, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 // LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor).
 // MotionConfig reducedMotion="user" respeita o prefers-reduced-motion do sistema.
 import { LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
@@ -14,11 +14,8 @@ import {
   Instagram,
   Star,
   HelpCircle,
-  Plus,
-  Minus,
   Phone,
   Wind,
-  Users,
   ArrowRight,
   CalendarHeart,
   ChefHat,
@@ -27,22 +24,26 @@ import {
 import {
   EXPERIENCIAS,
   LINHAS,
-  PORTAS,
   porta,
-  pessoasLabel,
   experienciasPorLinha,
   type Experiencia,
   type Linha,
 } from './data/experiencias';
-import { IMAGEM_FALLBACK } from './data/imagens';
 import FAQ from './data/faq.json';
 import CIDADES from './data/cidades.json';
 import SAZONAIS from './data/sazonais.json';
 import NICHOS from './data/nichos.json';
 import { linkWhatsAppTexto, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK } from './lib/whatsapp';
-import { rastrearOrcamento } from './lib/analytics';
+import { rastrearOrcamento, type OrigemOrcamento } from './lib/analytics';
 import PedidoExperiencia from './components/PedidoExperiencia';
 import ExperienciaModal from './components/ExperienciaModal';
+import SectionHeading from './components/SectionHeading';
+import Chip from './components/Chip';
+import ExperienceCard from './components/ExperienceCard';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
+import StepCard from './components/StepCard';
+import TestimonialCard from './components/TestimonialCard';
+import AccordionItem from './components/AccordionItem';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
@@ -51,31 +52,6 @@ const chefImage = '/chef-rafael.webp';
 const FILTRO_GENERICO = linkWhatsAppTexto(
   'Olá, Chef Rafael! 🌿 Vi o seu site e gostaria de saber mais sobre as experiências na minha casa.',
 );
-
-const SectionHeading = ({
-  children,
-  level = 2,
-  className = '',
-}: {
-  children: ReactNode;
-  level?: 1 | 2 | 3;
-  className?: string;
-}) => {
-  const Tag = level === 1 ? 'h1' : level === 2 ? 'h2' : 'h3';
-  return (
-    <Tag
-      className={`serif font-medium tracking-tight ${
-        level === 1
-          ? 'text-4xl md:text-6xl lg:text-8xl leading-[1.1]'
-          : level === 2
-            ? 'text-3xl md:text-5xl mb-6'
-            : 'text-xl md:text-2xl mb-4'
-      } ${className}`}
-    >
-      {children}
-    </Tag>
-  );
-};
 
 export default function App() {
   const [pedidoAberto, setPedidoAberto] = useState(false);
@@ -118,8 +94,8 @@ export default function App() {
 
   // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
   // GA4 solicitar_orcamento no envio (ex.: botao_flutuante vs formulario).
-  const [pedidoOrigem, setPedidoOrigem] = useState('formulario');
-  const abrirPedido = (nome = '', origem = 'formulario') => {
+  const [pedidoOrigem, setPedidoOrigem] = useState<OrigemOrcamento>('formulario');
+  const abrirPedido = (nome = '', origem: OrigemOrcamento = 'formulario') => {
     setPedidoExp(nome);
     setPedidoOrigem(origem);
     setPedidoAberto(true);
@@ -195,7 +171,7 @@ export default function App() {
 
       <main className="mt-20">
         {/* HERO */}
-        <section className="relative min-h-[95vh] flex items-center p-6 md:p-16 overflow-hidden bg-brand-charcoal">
+        <section className="relative hero-vh flex items-center p-6 md:p-16 overflow-hidden bg-brand-charcoal">
           <div className="absolute inset-0 z-0 scale-110">
             <video
               ref={videoRef}
@@ -667,168 +643,5 @@ export default function App() {
     </div>
     </MotionConfig>
     </LazyMotion>
-  );
-}
-
-/* ---------------------------------------------------------------- componentes */
-
-function Chip({ ativo, onClick, children }: { ativo: boolean; onClick: () => void; children: ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      aria-pressed={ativo}
-      className={`shrink-0 whitespace-nowrap snap-start px-5 py-3 md:py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all border ${
-        ativo
-          ? 'bg-brand-charcoal text-white border-brand-charcoal'
-          : 'bg-transparent text-brand-charcoal/70 border-brand-line hover:border-brand-charcoal/40'
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
-function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number; onVer: () => void }) {
-  // article + botão "stretched-link": HTML válido (antes era <button> contendo
-  // <h3>), o card inteiro continua clicável e o leitor de tela anuncia um nome
-  // curto ("Ver detalhes de X") em vez de todo o texto do card.
-  return (
-    <m.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-      whileHover={{ y: -6 }}
-      className="group relative text-left bg-white rounded-2xl overflow-hidden border border-brand-line shadow-sm hover:shadow-2xl transition-shadow flex flex-col"
-    >
-      <div className="relative h-52 overflow-hidden">
-        <img
-          src={exp.imagem}
-          alt={exp.nome}
-          className="w-full h-full object-cover [@media(hover:hover)]:grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-          loading="lazy"
-          onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
-        <span className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-cream/90 text-brand-charcoal px-3 py-1 rounded-full">
-          {porta(exp.linha).rotulo}
-        </span>
-        {exp.destaque === 'novidade' && (
-          <span className="absolute top-3 right-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-terracotta text-white px-3 py-1 rounded-full">
-            Novidade
-          </span>
-        )}
-      </div>
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="serif text-2xl font-bold mb-2 group-hover:text-brand-terracotta transition-colors">
-          {exp.nome}
-        </h3>
-        <p className="text-sm text-brand-charcoal/60 leading-relaxed font-light line-clamp-3 flex-1">{exp.promessa}</p>
-        <div className="flex items-center justify-between mt-5 pt-4 border-t border-brand-line">
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/70 flex items-center gap-1.5">
-            <Users size={13} className="text-brand-terracotta" /> {pessoasLabel(exp)}
-          </span>
-          <button
-            onClick={onVer}
-            aria-label={`Ver detalhes de ${exp.nome}`}
-            className="text-[11px] uppercase tracking-widest font-bold text-brand-terracotta flex items-center gap-1 group-hover:gap-2 transition-all after:absolute after:inset-0 after:cursor-pointer"
-          >
-            Ver <ArrowRight size={13} aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </m.article>
-  );
-}
-
-function FloatingWhatsApp({ onClick }: { onClick: () => void }) {
-  // Abre o formulário de pedido (lead chega qualificado no WhatsApp) em vez do
-  // link cru do wa.me. O evento GA4 dispara no envio, com origem=botao_flutuante.
-  return (
-    <m.button
-      onClick={onClick}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      whileHover={{ scale: 1.1 }}
-      className="fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] md:right-8 md:bottom-8 z-[100] bg-brand-charcoal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all"
-      title="Solicitar orçamento pelo WhatsApp"
-      aria-label="Solicitar orçamento pelo WhatsApp"
-    >
-      <MessageCircle size={28} aria-hidden="true" />
-      <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-terracotta rounded-full motion-safe:animate-ping" />
-      <div className="absolute top-0 right-0 w-3 h-3 bg-brand-terracotta rounded-full" />
-    </m.button>
-  );
-}
-
-function StepCard({
-  number,
-  title,
-  description,
-  icon,
-}: {
-  number: string;
-  title: string;
-  description: string;
-  icon: ReactNode;
-}) {
-  return (
-    <div className="bg-white p-10 border border-brand-line rounded-2xl hover:-translate-y-2 transition-all duration-500 hover:shadow-xl relative">
-      <div className="w-14 h-14 rounded-full bg-brand-cream flex items-center justify-center text-brand-terracotta mb-6">
-        {icon}
-      </div>
-      <span className="serif text-5xl font-bold opacity-5 block mb-2 italic leading-none absolute top-8 right-8">
-        {number}
-      </span>
-      <h3 className="serif text-2xl font-bold mb-4">{title}</h3>
-      <p className="text-sm leading-relaxed text-brand-charcoal/60 font-light">{description}</p>
-    </div>
-  );
-}
-
-function TestimonialCard({ quote, author, location }: { quote: string; author: string; location: string }) {
-  return (
-    <div className="bg-white p-10 border border-brand-line rounded-2xl flex flex-col h-full italic">
-      <div className="flex gap-1 mb-8 text-brand-terracotta">
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} size={14} fill="currentColor" />
-        ))}
-      </div>
-      <p className="text-base text-brand-charcoal/80 leading-relaxed mb-10 flex-1 font-light">"{quote}"</p>
-      <div className="flex items-baseline gap-2 pt-6 border-t border-brand-line">
-        <span className="text-xs font-bold uppercase tracking-widest text-brand-moss not-italic">{author}</span>
-        <span className="text-[10px] opacity-60 uppercase tracking-widest not-italic">• {location}</span>
-      </div>
-    </div>
-  );
-}
-
-function AccordionItem({ title, content }: { title: string; content: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const painelId = useId();
-  return (
-    <div className="border border-brand-line bg-white rounded-2xl overflow-hidden">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        aria-expanded={isOpen}
-        aria-controls={painelId}
-        className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-brand-cream/30 transition-colors"
-      >
-        <h3 className="serif text-lg font-bold">{title}</h3>
-        <div className="text-brand-terracotta shrink-0" aria-hidden="true">
-          {isOpen ? <Minus size={20} /> : <Plus size={20} />}
-        </div>
-      </button>
-      {isOpen && (
-        <m.div
-          id={painelId}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          className="px-8 pb-8 text-sm text-brand-charcoal/70 leading-relaxed italic border-t border-brand-line/50"
-        >
-          <p className="pt-4">{content}</p>
-        </m.div>
-      )}
-    </div>
   );
 }

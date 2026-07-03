@@ -11,6 +11,8 @@
 @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400; font-display: swap; src: url('/fonts/playfair-display-400-italic.woff2') format('woff2'); }
 @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/playfair-display-700.woff2') format('woff2'); }
 
+/* CORES: fonte única em src/data/tokens.json (compartilhada com o CSS das
+   landings via scripts/gen-landings.mjs). Mudou uma cor? Mude LÁ e aqui. */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Playfair Display", serif;
@@ -89,4 +91,15 @@ html {
 .pill-image {
   border-radius: 9999px;
   overflow: hidden;
+}
+
+/* Altura do hero: svh (viewport pequeno) evita o "salto" quando a barra do
+   Safari iOS retrai; vh fica como fallback para navegadores antigos. */
+.hero-vh {
+  min-height: 95vh;
+}
+@supports (height: 100svh) {
+  .hero-vh {
+    min-height: 95svh;
+  }
 }

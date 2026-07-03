@@ -19,6 +19,9 @@ export interface DetalhesOrcamento {
   soServico?: boolean;
 }
 
+/** De onde partiu o pedido — vira o parâmetro `origem` no GA4. */
+export type OrigemOrcamento = 'formulario' | 'botao_flutuante' | 'rodape' | 'header';
+
 /**
  * Evento-chave do negócio: alguém pediu um orçamento (abriu o WhatsApp do chef).
  * Marque `solicitar_orcamento` como Conversão no Google Analytics.
@@ -28,7 +31,7 @@ export interface DetalhesOrcamento {
  * @param detalhes ocasião, cidade, nº de convidados e formato — preenchidos no formulário
  */
 export function rastrearOrcamento(
-  origem: 'formulario' | 'botao_flutuante' | 'rodape' | 'header',
+  origem: OrigemOrcamento,
   experiencia?: string,
   detalhes?: DetalhesOrcamento,
 ): void {

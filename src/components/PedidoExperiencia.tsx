@@ -3,7 +3,7 @@ import { m, AnimatePresence } from 'motion/react';
 import { X, MessageCircle, CalendarHeart, Users, MapPin, PartyPopper, ChefHat, Sparkles } from 'lucide-react';
 import { EXPERIENCIAS, acharPorNome } from '../data/experiencias';
 import { montarMensagem, linkWhatsApp, WHATSAPP_DISPLAY, type PedidoData } from '../lib/whatsapp';
-import { rastrearOrcamento } from '../lib/analytics';
+import { rastrearOrcamento, type OrigemOrcamento } from '../lib/analytics';
 import { useModalA11y } from '../lib/useModalA11y';
 
 const FAIXAS_PESSOAS = ['2 a 6 pessoas', '8 a 12 pessoas', '13 a 20 pessoas', 'Mais de 20 pessoas'];
@@ -23,7 +23,7 @@ interface Props {
   onFechar: () => void;
   experienciaInicial?: string;
   /** De onde o pedido foi aberto — vira o parâmetro `origem` do evento GA4. */
-  origem?: string;
+  origem?: OrigemOrcamento;
 }
 
 const hojeISO = () => new Date().toISOString().split('T')[0];

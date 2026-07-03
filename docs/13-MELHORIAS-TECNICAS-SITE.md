@@ -62,11 +62,12 @@ A base é boa (sem overflow horizontal, modais bottom-sheet corretos, scroll loc
 
 ## LOTE 4 — Arquitetura e manutenção · quando conveniente
 
-- [ ] **4.1 Dividir `App.tsx`** (757 linhas) em `src/sections/` — refactor mecânico, mesma árvore JSX (sem mudança visual), facilita tudo daqui pra frente.
-- [ ] **4.2 Tokens de design compartilhados** home ↔ landings (hoje o CSS das landings duplica o tema em `gen-landings.mjs` — 2 lugares para manter o mesmo visual). Futuro ideal: landings renderizadas pelo mesmo `entry-server`.
-- [ ] **4.3 Limpeza AI Studio**: remover `@google/genai`, `express`, `dotenv`, `tsx`, `autoprefixer`; `define` de GEMINI_API_KEY no `vite.config.ts`; reescrever `README.md` com os comandos reais.
-- [ ] **4.4 `tsc --noEmit` no build** (hoje erro de tipo pode ir para produção).
-- [ ] **4.5 `.cta-band` das landings** com margem lateral no mobile.
+- [x] **4.1 Dividir `App.tsx`** — feito por extração de componentes: `SectionHeading`, `Chip`, `ExperienceCard`, `FloatingWhatsApp`, `StepCard`, `TestimonialCard`, `AccordionItem` → `src/components/` (App.tsx ficou só com o fluxo da página). Árvore JSX idêntica, hidratação verificada. *Split adicional em `src/sections/` fica opcional para quando alguma seção crescer.*
+- [x] **4.2 Tokens de design compartilhados** — passo 1: `src/data/tokens.json` é a fonte única de cores; o CSS das landings interpola de lá (`gen-landings.mjs`); `@theme` do `index.css` referencia o JSON em comentário. *Passo 2 (landings via entry-server) segue como futuro ideal.*
+- [x] **4.3 Limpeza AI Studio**: removidos `@google/genai`, `express`, `dotenv`, `tsx`, `autoprefixer`, `@types/express` e `.env.example`; `define` de GEMINI_API_KEY fora do `vite.config.ts`; vite/plugins movidos para devDependencies; pacote renomeado `paladares-da-mantiqueira`; `README.md` reescrito com os comandos e fluxos reais.
+- [x] **4.4 `tsc --noEmit` no build** — `npm run build` agora começa pelo typecheck (pegou 1 erro real de tipo na origem do GA4, corrigido); `clean` virou multiplataforma.
+- [x] **4.5 `.cta-band` das landings** com margem lateral 16px no mobile (auto ≥1148px).
+- [x] *(extra)* Hero com `95svh` + fallback `vh` (classe `.hero-vh`) — sem salto da barra do Safari iOS.
 
 ---
 
