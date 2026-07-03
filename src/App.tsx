@@ -114,21 +114,22 @@ export default function App() {
     <MotionConfig reducedMotion="user">
     <div className="min-h-screen flex flex-col selection:bg-brand-terracotta selection:text-white">
       {/* HEADER */}
-      <header className="w-full h-20 flex items-center justify-between px-4 sm:px-6 md:px-16 glass-header fixed top-0 z-50">
-        <div className="flex items-center gap-3">
+      <header className="w-full h-20 flex items-center justify-between gap-2 px-4 sm:px-6 md:px-16 glass-header fixed top-0 z-50">
+        {/* Marca: emblema + nome + tagline. No celular o nome pode quebrar em 2
+            linhas (min-w-0) e o botão fica compacto, então cabe sem colidir. */}
+        <div className="flex items-center gap-2.5 min-w-0">
           <img
             src="/logo-emblema.png"
             alt="Paladares da Mantiqueira"
             width={320}
             height={98}
-            className="h-8 sm:h-9 md:h-11 w-auto"
+            className="h-7 sm:h-9 md:h-11 w-auto shrink-0"
           />
-          {/* Em telas <sm o nome colidia com o botão "Solicitar"; o emblema segura a marca sozinho */}
-          <div className="hidden sm:flex flex-col">
-            <span className="serif text-xl md:text-2xl font-bold tracking-tighter text-brand-moss leading-none whitespace-nowrap">
+          <div className="flex flex-col min-w-0">
+            <span className="serif text-[13px] leading-[1.05] sm:text-xl sm:leading-none md:text-2xl font-bold tracking-tight sm:tracking-tighter text-brand-moss">
               Paladares da Mantiqueira
             </span>
-            <span className="hidden md:block text-[9px] uppercase tracking-[0.3em] opacity-50 mt-1 font-semibold leading-none">
+            <span className="text-[7px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.3em] opacity-60 mt-0.5 sm:mt-1 font-semibold leading-none">
               Concierge Gastronômico
             </span>
           </div>
@@ -147,7 +148,7 @@ export default function App() {
             O Chef
           </a>
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <a
             href={`tel:+${WHATSAPP_NUMBER}`}
             className="hidden md:flex p-2 border border-brand-charcoal rounded-full hover:bg-brand-charcoal hover:text-white transition-all"
@@ -157,9 +158,9 @@ export default function App() {
           </a>
           <button
             onClick={() => abrirPedido('')}
-            className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-4 py-3 sm:px-6 sm:py-2.5 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
+            className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-3.5 py-2.5 sm:px-6 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
           >
-            <MessageCircle size={14} /> Solicitar
+            <MessageCircle size={14} className="shrink-0" /> Solicitar
           </button>
           {/* Ícone do Instagram sai do header enquanto o perfil não tiver posts (doc 12 §1.3);
               o link continua no rodapé. Devolver aqui quando houver 9-12 posts. */}
