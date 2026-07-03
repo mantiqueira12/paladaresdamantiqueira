@@ -4,6 +4,7 @@ import { X, MessageCircle, CalendarHeart, Users, MapPin, PartyPopper, ChefHat, S
 import { EXPERIENCIAS, acharPorNome } from '../data/experiencias';
 import { montarMensagem, linkWhatsApp, WHATSAPP_DISPLAY, type PedidoData } from '../lib/whatsapp';
 import { rastrearOrcamento } from '../lib/analytics';
+import { useModalA11y } from '../lib/useModalA11y';
 
 const FAIXAS_PESSOAS = ['2 a 6 pessoas', '8 a 12 pessoas', '13 a 20 pessoas', 'Mais de 20 pessoas'];
 const OCASIOES = [
@@ -21,13 +22,16 @@ interface Props {
   aberto: boolean;
   onFechar: () => void;
   experienciaInicial?: string;
+  /** De onde o pedido foi aberto — vira o parâmetro `origem` do evento GA4. */
+  origem?: string;
 }
 
 const hojeISO = () => new Date().toISOString().split('T')[0];
 
-export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial = '' }: Props) {
+export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial = '', origem = 'formulario' }: Props) {
   const [pedido, setPedido] = useState<PedidoData>({ experiencia: experienciaInicial });
   const [enviado, setEnviado] = useState(false);
+  const dialogRef = useModalA11y(aberto, onFechar);
 
   useEffect(() => {
     if (aberto) {
@@ -54,7 +58,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
   // Instagram/Facebook, onde window.open costuma ser bloqueado. O clique só
   // registra o evento e o feedback — a navegação é do próprio link.
   const aoEnviar = () => {
-    rastrearOrcamento('formulario', pedido.experiencia, {
+    rastrearOrcamento(origem, pedido.experiencia, {
       ocasiao: pedido.ocasiao,
       cidade: pedido.cidade,
       pessoas: pedido.pessoas,
@@ -75,8 +79,10 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
           <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
 
           <m.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
+            aria-labelledby="pedido-modal-titulo"
             className="relative z-10 w-full md:max-w-2xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -89,7 +95,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                 <span className="text-[10px] uppercase tracking-[0.35em] text-brand-terracotta font-bold flex items-center gap-2">
                   <Sparkles size={13} /> Pedido de Experiência
                 </span>
-                <h3 className="serif text-2xl md:text-3xl font-bold mt-1 leading-tight">
+                <h3 id="pedido-modal-titulo" className="serif text-2xl md:text-3xl font-bold mt-1 leading-tight">
                   Vamos planejar a sua noite?
                 </h3>
               </div>
@@ -214,7 +220,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
 
             {/* Rodapé / ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
-              <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1" role="status">
+              <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1" role="status">
                 {enviado
                   ? 'Seu pedido foi aberto no WhatsApp 💬'
                   : `Abre uma conversa no WhatsApp · ${WHATSAPP_DISPLAY}`}

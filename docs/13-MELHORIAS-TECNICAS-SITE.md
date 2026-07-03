@@ -50,15 +50,15 @@ A base é boa (sem overflow horizontal, modais bottom-sheet corretos, scroll loc
 
 ## LOTE 3 — Acessibilidade e polimento de UX · ~1 dia
 
-- [ ] **3.1 Modais completos** (`ExperienciaModal.tsx`, `PedidoExperiencia.tsx`): Esc fecha; foco vai ao modal e retorna ao fechar; focus trap no Tab; `aria-labelledby`; **botão voltar do Android fecha o modal** (pushState/popstate) em vez de sair do site.
-- [ ] **3.2 Contraste WCAG AA** (`src/index.css` + usos): token `--color-brand-terracotta-light` para texto terracotta sobre charcoal (~2,4:1 hoje); piso `/70` para microcopy informativa sobre creme (hoje `/40–/50` ≈ 2,3–2,9:1).
-- [ ] **3.3 Fotos sem grayscale no mobile** (`src/App.tsx` ~281/673): comida dessaturada permanentemente onde não há hover — `[@media(hover:hover)]:grayscale-[35%]`; cor plena no touch.
-- [ ] **3.4 `prefers-reduced-motion`** global no CSS + `useReducedMotion` nos `motion.div`.
-- [ ] **3.5 FAQ com semântica de acordeão** (aria-expanded/controls, pergunta vira `<h3>`).
-- [ ] **3.6 Card de experiência**: `<button>` contendo `<h3>` é HTML inválido — virar `article` + stretched-link com `aria-label`.
-- [ ] **3.7 Filtros**: `aria-pressed` + linha `role="status"` "N experiências para [filtro]".
-- [ ] **3.8 Eyebrows padronizados** (numeração 01–05 hoje quebrada, sublinhados inconsistentes, 9–10px → 11–12px).
-- [ ] **3.9 Botão flutuante abre o formulário** em vez de link cru do wa.me (lead chega qualificado; manter `rastrearOrcamento('botao_flutuante')`). *Validar com Rafael — muda comportamento.*
+- [x] **3.1 Modais completos** (`ExperienciaModal.tsx`, `PedidoExperiencia.tsx`): Esc fecha; foco vai ao modal e retorna ao fechar; focus trap no Tab; `aria-labelledby`; **botão voltar do Android fecha o modal** (pushState/popstate) em vez de sair do site.
+- [x] **3.2 Contraste WCAG AA** (`src/index.css` + usos): token `--color-brand-terracotta-light` para texto terracotta sobre charcoal (~2,4:1 hoje); piso `/70` para microcopy informativa sobre creme (hoje `/40–/50` ≈ 2,3–2,9:1).
+- [x] **3.3 Fotos sem grayscale no mobile** (`src/App.tsx` ~281/673): comida dessaturada permanentemente onde não há hover — `[@media(hover:hover)]:grayscale-[35%]`; cor plena no touch.
+- [x] **3.4 `prefers-reduced-motion`** global no CSS + `useReducedMotion` nos `motion.div`.
+- [x] **3.5 FAQ com semântica de acordeão** (aria-expanded/controls, pergunta vira `<h3>`).
+- [x] **3.6 Card de experiência**: `<button>` contendo `<h3>` é HTML inválido — virar `article` + stretched-link com `aria-label`.
+- [x] **3.7 Filtros**: `aria-pressed` + linha `role="status"` "N experiências para [filtro]".
+- [x] **3.8 Eyebrows padronizados** (numeração 01–05 hoje quebrada, sublinhados inconsistentes, 9–10px → 11–12px).
+- [x] **3.9 Botão flutuante abre o formulário** em vez de link cru do wa.me (lead chega qualificado; manter `rastrearOrcamento('botao_flutuante')`). *Validar com Rafael — muda comportamento.*
 
 ## LOTE 4 — Arquitetura e manutenção · quando conveniente
 

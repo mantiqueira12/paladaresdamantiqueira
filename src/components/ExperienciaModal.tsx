@@ -8,6 +8,7 @@ import {
   porta,
 } from '../data/experiencias';
 import { IMAGEM_FALLBACK } from '../data/imagens';
+import { useModalA11y } from '../lib/useModalA11y';
 
 interface Props {
   experiencia: Experiencia | null;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }: Props) {
+  const dialogRef = useModalA11y(!!experiencia, onFechar);
   useEffect(() => {
     document.body.style.overflow = experiencia ? 'hidden' : '';
     return () => {
@@ -35,8 +37,10 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
           <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
 
           <m.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
+            aria-labelledby="experiencia-modal-titulo"
             className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -70,7 +74,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                     </span>
                   )}
                 </div>
-                <h3 className="serif text-3xl md:text-4xl font-bold text-brand-cream leading-tight">
+                <h3 id="experiencia-modal-titulo" className="serif text-3xl md:text-4xl font-bold text-brand-cream leading-tight">
                   {experiencia.nome}
                 </h3>
               </div>
@@ -169,7 +173,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
 
             {/* Ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
-              <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1">
+              <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1">
                 Sem preço fixo — montamos o seu orçamento com carinho, na conversa.
               </span>
               <button

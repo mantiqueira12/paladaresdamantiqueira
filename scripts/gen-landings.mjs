@@ -190,7 +190,7 @@ const CSS = `
   @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400.woff2') format('woff2')}
   @font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400-italic.woff2') format('woff2')}
   @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-700.woff2') format('woff2')}
-  :root{--cream:#FDFBF7;--charcoal:#2D2D2D;--terracotta:#A64D33;--moss:#3E4E3E;--line:rgba(45,45,45,.1)}
+  :root{--cream:#FDFBF7;--charcoal:#2D2D2D;--terracotta:#A64D33;--terracotta-light:#E08D63;--moss:#3E4E3E;--line:rgba(45,45,45,.1)}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--charcoal);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -236,7 +236,7 @@ const CSS = `
   .crumb span{margin:0 8px;opacity:.5}
   .eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:26px}
   .eyebrow .rule{width:48px;height:1px;background:var(--terracotta)}
-  .eyebrow span:last-child{font-size:11px;text-transform:uppercase;letter-spacing:.35em;font-weight:600;color:var(--terracotta)}
+  .eyebrow span:last-child{font-size:11px;text-transform:uppercase;letter-spacing:.35em;font-weight:600;color:var(--terracotta-light)}
   .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.08;font-weight:700;color:var(--cream);max-width:18ch;margin-bottom:26px}
   .hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:300;color:rgba(253,251,247,.72);max-width:52ch;margin-bottom:40px}
   .cta-row{display:flex;flex-wrap:wrap;gap:14px}
@@ -265,8 +265,8 @@ const CSS = `
   .split{display:grid;gap:40px;align-items:center}
   @media(min-width:768px){.split{grid-template-columns:1.15fr .85fr}}
   .pill{height:440px;border-radius:9999px;overflow:hidden;box-shadow:0 0 0 8px var(--cream),0 30px 60px rgba(0,0,0,.14)}
-  .pill img{width:100%;height:100%;object-fit:cover;filter:grayscale(35%);transition:.7s}
-  .pill:hover img{filter:grayscale(0);transform:scale(1.04)}
+  .pill img{width:100%;height:100%;object-fit:cover;transition:.7s}
+  @media(hover:hover){.pill img{filter:grayscale(35%)}.pill:hover img{filter:grayscale(0);transform:scale(1.04)}}
 
   /* lista de ocasiões */
   ul.list{list-style:none;display:grid;gap:14px;margin-top:8px}

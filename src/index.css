@@ -18,6 +18,9 @@
   --color-brand-cream: #FDFBF7;
   --color-brand-charcoal: #2D2D2D;
   --color-brand-terracotta: #A64D33;
+  /* Variante clara p/ TEXTO terracotta sobre fundos escuros (charcoal):
+     o terracotta puro dá ~2,4:1 de contraste (reprova WCAG AA); esta dá ~5:1. */
+  --color-brand-terracotta-light: #E08D63;
   --color-brand-moss: #3E4E3E;
   --color-brand-line: rgba(45, 45, 45, 0.1);
 }
@@ -65,6 +68,21 @@ html {
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+/* Respeita a preferência do usuário por menos movimento (doc 13 §3.4).
+   As animações do motion/react são tratadas pelo MotionConfig no App. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Pill Images for a "Warm Organic" feel */

@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-// LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor)
-import { LazyMotion, domAnimation, m } from 'motion/react';
+import { ReactNode, useEffect, useId, useMemo, useRef, useState } from 'react';
+// LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor).
+// MotionConfig reducedMotion="user" respeita o prefers-reduced-motion do sistema.
+import { LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
 import {
   MessageCircle,
   MapPin,
@@ -115,8 +116,12 @@ export default function App() {
     if (heroVideo) videoRef.current?.load();
   }, [heroVideo]);
 
-  const abrirPedido = (nome = '') => {
+  // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
+  // GA4 solicitar_orcamento no envio (ex.: botao_flutuante vs formulario).
+  const [pedidoOrigem, setPedidoOrigem] = useState('formulario');
+  const abrirPedido = (nome = '', origem = 'formulario') => {
     setPedidoExp(nome);
+    setPedidoOrigem(origem);
     setPedidoAberto(true);
   };
   const solicitarDoDetalhe = (nome: string) => {
@@ -131,6 +136,7 @@ export default function App() {
 
   return (
     <LazyMotion features={domAnimation} strict>
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen flex flex-col selection:bg-brand-terracotta selection:text-white">
       {/* HEADER */}
       <header className="w-full h-20 flex items-center justify-between px-4 sm:px-6 md:px-16 glass-header fixed top-0 z-50">
@@ -185,7 +191,7 @@ export default function App() {
         </div>
       </header>
 
-      <FloatingWhatsApp />
+      <FloatingWhatsApp onClick={() => abrirPedido('', 'botao_flutuante')} />
 
       <main className="mt-20">
         {/* HERO */}
@@ -210,13 +216,13 @@ export default function App() {
             <m.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-px bg-brand-terracotta" />
-                <span className="text-xs uppercase tracking-[0.4em] font-semibold text-brand-terracotta">
+                <span className="text-xs uppercase tracking-[0.4em] font-semibold text-brand-terracotta-light">
                   Seu momento mais prazeroso na Serra da Mantiqueira
                 </span>
               </div>
               <SectionHeading level={1} className="text-4xl md:text-6xl lg:text-8xl md:mb-10 text-brand-cream">
                 A experiência de um <br />
-                <span className="text-brand-terracotta italic font-light">ótimo</span> restaurante, <br />
+                <span className="text-brand-terracotta-light italic font-light">ótimo</span> restaurante, <br />
                 na sala da sua casa.
               </SectionHeading>
               <p className="text-lg md:text-xl font-light text-brand-cream/70 max-w-xl mb-12 leading-relaxed">
@@ -255,7 +261,7 @@ export default function App() {
         <section id="conceito" className="py-24 px-6 md:py-32 section-border-top bg-white">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-16 items-center">
             <div className="w-full md:w-1/2">
-              <span className="text-xs uppercase tracking-[0.4em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30 text-center md:text-left">
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30 text-center md:text-left">
                 01. O Conceito
               </span>
               <SectionHeading className="mt-8">
@@ -291,7 +297,7 @@ export default function App() {
                 />
               </div>
               <div className="w-full sm:w-1/3 h-36 sm:h-auto flex flex-row sm:flex-col gap-4">
-                <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image grayscale hover:grayscale-0 transition-all">
+                <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all">
                   <img
                     src="/portfolio/conceito-defumados.webp"
                     alt="Carnes defumadas sobre mesa rústica de madeira"
@@ -318,7 +324,7 @@ export default function App() {
         <section id="experiencias" className="py-24 px-6 md:py-32 section-border-top bg-brand-cream">
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs uppercase tracking-[0.4em] text-brand-moss font-bold mb-4 block">
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
                 02. As Experiências
               </span>
               <SectionHeading>Como vai ser o seu encontro?</SectionHeading>
@@ -330,7 +336,7 @@ export default function App() {
 
             {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável
                 (empilhados ocupavam ~6 linhas); no md+ voltam ao wrap centralizado */}
-            <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 mb-12 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
+            <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 mb-3 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
               <Chip ativo={filtro === 'Todas'} onClick={() => setFiltro('Todas')}>
                 Todas
               </Chip>
@@ -340,6 +346,12 @@ export default function App() {
                 </Chip>
               ))}
             </div>
+
+            {/* Feedback do filtro (visual + leitores de tela) */}
+            <p role="status" aria-live="polite" className="text-center text-xs text-brand-charcoal/70 mb-10">
+              {lista.length} experiência{lista.length === 1 ? '' : 's'}
+              {filtro === 'Todas' ? '' : ` para ${porta(filtro).rotulo}`}
+            </p>
 
             {/* Grade de experiências */}
             <m.div
@@ -354,7 +366,7 @@ export default function App() {
               ))}
             </m.div>
 
-            <p className="text-center text-sm text-brand-charcoal/50 mt-12 italic">
+            <p className="text-center text-sm text-brand-charcoal/70 mt-12 italic">
               Não encontrou exatamente o que imaginou?{' '}
               <button onClick={() => abrirPedido('')} className="text-brand-terracotta font-semibold underline underline-offset-4">
                 Conte o que você deseja
@@ -368,8 +380,8 @@ export default function App() {
         <section id="como-funciona" className="py-24 px-6 md:py-32 section-border-top bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
-              <span className="text-xs uppercase tracking-[0.4em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
-                O Processo
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
+                03. O Processo
               </span>
               <SectionHeading>Simples como deve ser</SectionHeading>
             </div>
@@ -415,8 +427,8 @@ export default function App() {
               </div>
             </div>
             <div className="w-full md:w-1/2">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-brand-terracotta font-bold mb-4 block">
-                03. O Anfitrião
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-terracotta-light font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta-light/30">
+                04. O Anfitrião
               </span>
               <SectionHeading className="text-brand-cream">A Arte de Receber Bem</SectionHeading>
               <div className="space-y-6 text-brand-cream/70 font-light leading-relaxed text-lg">
@@ -454,8 +466,8 @@ export default function App() {
           </div>
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-20">
-              <span className="text-xs uppercase tracking-[0.4em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
-                Depoimentos
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
+                05. Depoimentos
               </span>
               <SectionHeading>Memórias de Mesa</SectionHeading>
             </div>
@@ -500,8 +512,8 @@ export default function App() {
         <section id="faq" className="py-24 px-6 md:py-32 section-border-top bg-white">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <span className="text-xs uppercase tracking-[0.4em] text-brand-moss font-bold mb-4 block flex items-center justify-center gap-2">
-                <HelpCircle size={14} /> Perguntas Frequentes
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 flex items-center justify-center gap-2">
+                <HelpCircle size={14} aria-hidden="true" /> Perguntas Frequentes
               </span>
               <SectionHeading>Dúvidas Comuns</SectionHeading>
             </div>
@@ -614,7 +626,7 @@ export default function App() {
                 <MessageCircle size={20} />
               </a>
             </div>
-            <p className="text-[10px] text-brand-charcoal/40 uppercase tracking-widest font-bold">
+            <p className="text-[10px] text-brand-charcoal/70 uppercase tracking-widest font-bold">
               {WHATSAPP_DISPLAY} · @paladaresdamantiqueira
             </p>
           </div>
@@ -646,8 +658,14 @@ export default function App() {
 
       {/* MODAIS */}
       <ExperienciaModal experiencia={detalhe} onFechar={() => setDetalhe(null)} onSolicitar={solicitarDoDetalhe} />
-      <PedidoExperiencia aberto={pedidoAberto} onFechar={() => setPedidoAberto(false)} experienciaInicial={pedidoExp} />
+      <PedidoExperiencia
+        aberto={pedidoAberto}
+        onFechar={() => setPedidoAberto(false)}
+        experienciaInicial={pedidoExp}
+        origem={pedidoOrigem}
+      />
     </div>
+    </MotionConfig>
     </LazyMotion>
   );
 }
@@ -658,6 +676,7 @@ function Chip({ ativo, onClick, children }: { ativo: boolean; onClick: () => voi
   return (
     <button
       onClick={onClick}
+      aria-pressed={ativo}
       className={`shrink-0 whitespace-nowrap snap-start px-5 py-3 md:py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all border ${
         ativo
           ? 'bg-brand-charcoal text-white border-brand-charcoal'
@@ -670,21 +689,23 @@ function Chip({ ativo, onClick, children }: { ativo: boolean; onClick: () => voi
 }
 
 function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number; onVer: () => void }) {
+  // article + botão "stretched-link": HTML válido (antes era <button> contendo
+  // <h3>), o card inteiro continua clicável e o leitor de tela anuncia um nome
+  // curto ("Ver detalhes de X") em vez de todo o texto do card.
   return (
-    <m.button
-      onClick={onVer}
+    <m.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
       whileHover={{ y: -6 }}
-      className="group text-left bg-white rounded-2xl overflow-hidden border border-brand-line shadow-sm hover:shadow-2xl transition-shadow flex flex-col"
+      className="group relative text-left bg-white rounded-2xl overflow-hidden border border-brand-line shadow-sm hover:shadow-2xl transition-shadow flex flex-col"
     >
       <div className="relative h-52 overflow-hidden">
         <img
           src={exp.imagem}
           alt={exp.nome}
-          className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          className="w-full h-full object-cover [@media(hover:hover)]:grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
           loading="lazy"
           onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
         />
@@ -704,36 +725,39 @@ function ExperienceCard({ exp, index, onVer }: { exp: Experiencia; index: number
         </h3>
         <p className="text-sm text-brand-charcoal/60 leading-relaxed font-light line-clamp-3 flex-1">{exp.promessa}</p>
         <div className="flex items-center justify-between mt-5 pt-4 border-t border-brand-line">
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/50 flex items-center gap-1.5">
+          <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/70 flex items-center gap-1.5">
             <Users size={13} className="text-brand-terracotta" /> {pessoasLabel(exp)}
           </span>
-          <span className="text-[11px] uppercase tracking-widest font-bold text-brand-terracotta flex items-center gap-1 group-hover:gap-2 transition-all">
-            Ver <ArrowRight size={13} />
-          </span>
+          <button
+            onClick={onVer}
+            aria-label={`Ver detalhes de ${exp.nome}`}
+            className="text-[11px] uppercase tracking-widest font-bold text-brand-terracotta flex items-center gap-1 group-hover:gap-2 transition-all after:absolute after:inset-0 after:cursor-pointer"
+          >
+            Ver <ArrowRight size={13} aria-hidden="true" />
+          </button>
         </div>
       </div>
-    </m.button>
+    </m.article>
   );
 }
 
-function FloatingWhatsApp() {
+function FloatingWhatsApp({ onClick }: { onClick: () => void }) {
+  // Abre o formulário de pedido (lead chega qualificado no WhatsApp) em vez do
+  // link cru do wa.me. O evento GA4 dispara no envio, com origem=botao_flutuante.
   return (
-    <m.a
-      href={FILTRO_GENERICO}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => rastrearOrcamento('botao_flutuante')}
+    <m.button
+      onClick={onClick}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       whileHover={{ scale: 1.1 }}
       className="fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] md:right-8 md:bottom-8 z-[100] bg-brand-charcoal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all"
-      title="Falar no WhatsApp"
+      title="Solicitar orçamento pelo WhatsApp"
       aria-label="Solicitar orçamento pelo WhatsApp"
     >
-      <MessageCircle size={28} />
+      <MessageCircle size={28} aria-hidden="true" />
       <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-terracotta rounded-full motion-safe:animate-ping" />
       <div className="absolute top-0 right-0 w-3 h-3 bg-brand-terracotta rounded-full" />
-    </m.a>
+    </m.button>
   );
 }
 
@@ -773,7 +797,7 @@ function TestimonialCard({ quote, author, location }: { quote: string; author: s
       <p className="text-base text-brand-charcoal/80 leading-relaxed mb-10 flex-1 font-light">"{quote}"</p>
       <div className="flex items-baseline gap-2 pt-6 border-t border-brand-line">
         <span className="text-xs font-bold uppercase tracking-widest text-brand-moss not-italic">{author}</span>
-        <span className="text-[10px] opacity-40 uppercase tracking-widest not-italic">• {location}</span>
+        <span className="text-[10px] opacity-60 uppercase tracking-widest not-italic">• {location}</span>
       </div>
     </div>
   );
@@ -781,20 +805,26 @@ function TestimonialCard({ quote, author, location }: { quote: string; author: s
 
 function AccordionItem({ title, content }: { title: string; content: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const painelId = useId();
   return (
     <div className="border border-brand-line bg-white rounded-2xl overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={painelId}
         className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-brand-cream/30 transition-colors"
       >
-        <span className="serif text-lg font-bold">{title}</span>
-        <div className="text-brand-terracotta shrink-0">{isOpen ? <Minus size={20} /> : <Plus size={20} />}</div>
+        <h3 className="serif text-lg font-bold">{title}</h3>
+        <div className="text-brand-terracotta shrink-0" aria-hidden="true">
+          {isOpen ? <Minus size={20} /> : <Plus size={20} />}
+        </div>
       </button>
       {isOpen && (
         <m.div
+          id={painelId}
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
-          className="px-8 pb-8 text-sm text-brand-charcoal/60 leading-relaxed italic border-t border-brand-line/50"
+          className="px-8 pb-8 text-sm text-brand-charcoal/70 leading-relaxed italic border-t border-brand-line/50"
         >
           <p className="pt-4">{content}</p>
         </m.div>
