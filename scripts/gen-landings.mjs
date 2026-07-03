@@ -341,15 +341,6 @@ const CSS = `
   .fbar{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;opacity:.45}
   .fbar a{text-decoration:none}
 
-  /* WhatsApp flutuante (igual à home) — no mobile com safe-area de iPhone e
-     mais perto do canto; o footer ganha folga para ele não cobrir os créditos */
-  .wa-float{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));right:16px;z-index:100;width:56px;height:56px;border-radius:999px;background:var(--charcoal);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(0,0,0,.28);text-decoration:none}
-  @media(min-width:768px){.wa-float{bottom:32px;right:32px}}
-  @media(max-width:767px){footer{padding-bottom:112px}}
-  .wa-float .dot{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:var(--terracotta);border-radius:999px}
-  .wa-float .dot:before{content:"";position:absolute;inset:0;border-radius:999px;background:var(--terracotta);animation:ping 1.4s cubic-bezier(0,0,.2,1) infinite}
-  @keyframes ping{75%,100%{transform:scale(2.2);opacity:0}}
-
   /* entrada suave (microinteração via CSS, sem JS) */
   @media(prefers-reduced-motion:no-preference){
     .reveal{animation:fadeup .8s ease both}
@@ -581,7 +572,6 @@ ${headerHtml(n)}
 
 ${footerHtml()}
 
-    <a class="wa-float" href="${waLink(n)}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" ${track(n, 'flutuante')}>${ICO.message}<span class="dot"></span></a>
   </body>
 </html>
 `;

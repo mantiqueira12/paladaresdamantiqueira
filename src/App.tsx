@@ -40,7 +40,6 @@ import ExperienciaModal from './components/ExperienciaModal';
 import SectionHeading from './components/SectionHeading';
 import Chip from './components/Chip';
 import ExperienceCard from './components/ExperienceCard';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
 import StepCard from './components/StepCard';
 import TestimonialCard from './components/TestimonialCard';
 import AccordionItem from './components/AccordionItem';
@@ -166,8 +165,6 @@ export default function App() {
               o link continua no rodapé. Devolver aqui quando houver 9-12 posts. */}
         </div>
       </header>
-
-      <FloatingWhatsApp onClick={() => abrirPedido('', 'botao_flutuante')} />
 
       <main className="mt-20">
         {/* HERO */}
@@ -609,7 +606,7 @@ export default function App() {
         </div>
 
         {/* pb-24 no mobile: folga para o botão flutuante não cobrir os créditos */}
-        <div className="flex flex-col items-center gap-6 px-6 pb-24 md:pb-0">
+        <div className="flex flex-col items-center gap-6 px-6">
           <div className="flex gap-4 opacity-70">
             <Heart size={16} className="text-brand-terracotta" />
             <span className="text-[10px] uppercase tracking-widest font-bold opacity-40 italic">
