@@ -70,7 +70,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
           <motion.div
             role="dialog"
             aria-modal="true"
-            className="relative z-10 w-full md:max-w-2xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto"
+            className="relative z-10 w-full md:max-w-2xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 40, opacity: 0, scale: 0.98 }}
@@ -89,9 +89,9 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
               <button
                 onClick={onFechar}
                 aria-label="Fechar"
-                className="p-2 rounded-full border border-brand-line hover:bg-brand-charcoal hover:text-white transition-all shrink-0"
+                className="p-3 rounded-full border border-brand-line hover:bg-brand-charcoal hover:text-white transition-all shrink-0"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
             </div>
 
@@ -206,7 +206,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
             </div>
 
             {/* Rodapé / ação */}
-            <div className="sticky bottom-0 glass-header px-6 md:px-10 py-5 flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
+            <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
               <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1">
                 Abre uma conversa no WhatsApp · {WHATSAPP_DISPLAY}
               </span>
@@ -224,8 +224,9 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
   );
 }
 
+// text-base no mobile: fontes <16px fazem o Safari iOS dar zoom automático ao focar o campo
 const inputCls =
-  'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-sm text-brand-charcoal placeholder:text-brand-charcoal/35 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
+  'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/50 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
 
 function Campo({
   label,

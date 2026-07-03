@@ -37,7 +37,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
           <motion.div
             role="dialog"
             aria-modal="true"
-            className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto"
+            className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 40, opacity: 0, scale: 0.98 }}
@@ -56,9 +56,9 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
               <button
                 onClick={onFechar}
                 aria-label="Fechar"
-                className="absolute top-4 right-4 p-2 rounded-full bg-brand-cream/90 text-brand-charcoal hover:bg-white transition-all"
+                className="absolute top-4 right-4 p-3 rounded-full bg-brand-cream/90 text-brand-charcoal hover:bg-white transition-all"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
               <div className="absolute bottom-5 left-6 md:left-10 right-6">
                 <div className="flex items-center gap-2 mb-2">
@@ -169,7 +169,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
             </div>
 
             {/* Ação */}
-            <div className="sticky bottom-0 glass-header px-6 md:px-10 py-5 flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
+            <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
               <span className="text-[11px] text-brand-charcoal/50 order-2 sm:order-1">
                 Sem preço fixo — montamos o seu orçamento com carinho, na conversa.
               </span>

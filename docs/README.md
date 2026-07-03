@@ -17,7 +17,11 @@ Documentos de planejamento e estruturação do negócio de **chef particular** d
 | 08 | [Gestão dos Cardápios](08-GESTAO-DOS-CARDAPIOS.md) | As 3 formas de editar os cardápios, a recomendação e o guia de edição. |
 | 09 | [Decisões Fechadas](09-DECISOES-FECHADAS.md) | **O placar.** Tudo que já foi decidido (✅) e o que ainda depende dos custos (⏳). |
 | 10 | [Conversão e Reservas](10-CONVERSAO-E-RESERVAS.md) | Funil da landing, fechamento via WhatsApp personalizado (sem preço) e o calendário de datas. |
+| 11 | [SEO e Presença Digital](11-SEO-E-PRESENCA-DIGITAL.md) | Roteiro de SEO: o que já foi implementado e o que falta para rankear. |
+| 12 | [Plano de Crescimento e Leads](12-PLANO-CRESCIMENTO-E-LEADS.md) | **Plano-mestre de vendas.** 3 fases com checkboxes para mais leads e orçamentos (GBP, avaliações, WhatsApp, IG, parcerias). |
+| 13 | [Melhorias Técnicas do Site](13-MELHORIAS-TECNICAS-SITE.md) | Backlog técnico em 4 lotes: mobile crítico, performance 4G, acessibilidade, arquitetura. |
 | 📂 | [`cardapios/`](cardapios/LEIA-ME.md) | **Fonte editável dos cardápios** — uma ficha `.md` por experiência (13 ativas) + `_MODELO.md`. |
+| 📂 | [`portfolio-receitas/`](portfolio-receitas/README.md) | **Base operacional em construção** — fichas técnicas, menus, compras, propostas, eventos e futura integração com o CRM GastroBSC. |
 | — | [Crítica Adversarial](_CRITICA-ADVERSARIAL.md) | Onde ainda há risco; o consultor cético contra o consenso fácil. |
 
 ## A ideia em uma frase

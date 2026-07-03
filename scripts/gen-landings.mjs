@@ -206,7 +206,7 @@ const CSS = `
   .nav a{font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:600;text-decoration:none;transition:color .2s}
   .nav a:hover{color:var(--terracotta)}
   .actions{display:flex;align-items:center;gap:12px}
-  .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--line);border-radius:999px;color:var(--charcoal);text-decoration:none;transition:.25s}
+  .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);border-radius:999px;color:var(--charcoal);text-decoration:none;transition:.25s}
   .icon-btn:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}
   .icon-btn.tel{display:none}
   .btn{display:inline-flex;align-items:center;gap:10px;background:var(--terracotta);color:#fff;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:16px 32px;border-radius:999px;transition:.3s;border:1px solid var(--terracotta)}
@@ -233,6 +233,18 @@ const CSS = `
   .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.08;font-weight:700;color:var(--cream);max-width:18ch;margin-bottom:26px}
   .hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:300;color:rgba(253,251,247,.72);max-width:52ch;margin-bottom:40px}
   .cta-row{display:flex;flex-wrap:wrap;gap:14px}
+  .cta-row .btn{width:100%;justify-content:center}
+  @media(min-width:640px){.cta-row .btn{width:auto}}
+  .cta-note{margin-top:16px;font-size:12px;letter-spacing:.04em;color:rgba(253,251,247,.65)}
+
+  /* Header compacto em telas pequenas: o emblema segura a marca sozinho
+     (nome + tagline colidiam com o botão Solicitar) */
+  @media(max-width:639px){
+    .brand-txt{display:none}
+    .brand img{height:34px}
+    .btn.sm{padding:12px 16px;font-size:10px}
+    header .inner{padding:0 16px}
+  }
 
   /* SEÇÕES claras */
   section.block{padding:72px 0;border-top:1px solid var(--line);background:#fff}
@@ -318,8 +330,11 @@ const CSS = `
   .fbar{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;opacity:.45}
   .fbar a{text-decoration:none}
 
-  /* WhatsApp flutuante (igual à home) */
-  .wa-float{position:fixed;bottom:32px;right:32px;z-index:100;width:56px;height:56px;border-radius:999px;background:var(--charcoal);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(0,0,0,.28);text-decoration:none}
+  /* WhatsApp flutuante (igual à home) — no mobile com safe-area de iPhone e
+     mais perto do canto; o footer ganha folga para ele não cobrir os créditos */
+  .wa-float{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));right:16px;z-index:100;width:56px;height:56px;border-radius:999px;background:var(--charcoal);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(0,0,0,.28);text-decoration:none}
+  @media(min-width:768px){.wa-float{bottom:32px;right:32px}}
+  @media(max-width:767px){footer{padding-bottom:112px}}
   .wa-float .dot{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:var(--terracotta);border-radius:999px}
   .wa-float .dot:before{content:"";position:absolute;inset:0;border-radius:999px;background:var(--terracotta);animation:ping 1.4s cubic-bezier(0,0,.2,1) infinite}
   @keyframes ping{75%,100%{transform:scale(2.2);opacity:0}}
@@ -382,7 +397,6 @@ function headerHtml(n) {
         <div class="actions">
           <a class="icon-btn tel" href="tel:${TEL}" title="Ligar agora" aria-label="Ligar agora">${ICO.phone}</a>
           <a class="btn sm dark" href="${waLink(n)}" target="_blank" rel="noopener" ${track(n, 'header')}>${ICO.message} Solicitar</a>
-          <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
         </div>
       </div>
     </header>`;
@@ -452,6 +466,7 @@ ${headerHtml(n)}
           <a class="btn" href="${waLink(n)}" target="_blank" rel="noopener" ${track(n, 'hero')}>Solicitar minha experiência ${ICO.arrow}</a>
           <a class="btn ghost-light" href="/#experiencias">Ver as experiências</a>
         </div>
+        <p class="cta-note">Orçamento sem compromisso · resposta no WhatsApp no mesmo dia</p>
       </div>
     </section>
 

@@ -120,18 +120,19 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col selection:bg-brand-terracotta selection:text-white">
       {/* HEADER */}
-      <header className="w-full h-20 flex items-center justify-between px-6 md:px-16 glass-header fixed top-0 z-50">
+      <header className="w-full h-20 flex items-center justify-between px-4 sm:px-6 md:px-16 glass-header fixed top-0 z-50">
         <div className="flex items-center gap-3">
           <img
             src="/logo-emblema.png"
             alt="Paladares da Mantiqueira"
-            className="h-9 md:h-11 w-auto"
+            className="h-8 sm:h-9 md:h-11 w-auto"
           />
-          <div className="flex flex-col">
-            <span className="serif text-xl md:text-2xl font-bold tracking-tighter text-brand-moss leading-none">
+          {/* Em telas <sm o nome colidia com o botão "Solicitar"; o emblema segura a marca sozinho */}
+          <div className="hidden sm:flex flex-col">
+            <span className="serif text-xl md:text-2xl font-bold tracking-tighter text-brand-moss leading-none whitespace-nowrap">
               Paladares da Mantiqueira
             </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] opacity-50 mt-1 font-semibold leading-none">
+            <span className="hidden md:block text-[9px] uppercase tracking-[0.3em] opacity-50 mt-1 font-semibold leading-none">
               Concierge Gastronômico
             </span>
           </div>
@@ -160,18 +161,12 @@ export default function App() {
           </a>
           <button
             onClick={() => abrirPedido('')}
-            className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-6 py-2.5 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
+            className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-4 py-3 sm:px-6 sm:py-2.5 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
           >
             <MessageCircle size={14} /> Solicitar
           </button>
-          <a
-            href="https://www.instagram.com/paladaresdamantiqueira/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-brand-terracotta transition-colors p-2 border border-brand-line rounded-full"
-          >
-            <Instagram size={18} />
-          </a>
+          {/* Ícone do Instagram sai do header enquanto o perfil não tiver posts (doc 12 §1.3);
+              o link continua no rodapé. Devolver aqui quando houver 9-12 posts. */}
         </div>
       </header>
 
@@ -215,18 +210,21 @@ export default function App() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => abrirPedido('')}
-                  className="group bg-brand-terracotta text-white px-10 py-5 rounded-full text-sm uppercase tracking-widest font-bold shadow-xl hover:bg-white hover:text-brand-charcoal transition-all hover:-translate-y-1 flex items-center gap-3"
+                  className="group w-full sm:w-auto justify-center bg-brand-terracotta text-white px-8 sm:px-10 py-5 rounded-full text-sm uppercase tracking-widest font-bold shadow-xl hover:bg-white hover:text-brand-charcoal transition-all hover:-translate-y-1 flex items-center gap-3"
                 >
                   Solicitar minha experiência
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <a
                   href="#experiencias"
-                  className="px-10 py-5 rounded-full text-sm uppercase tracking-widest font-bold border border-brand-cream/30 text-brand-cream hover:bg-brand-cream/10 transition-all flex items-center gap-3"
+                  className="w-full sm:w-auto justify-center px-8 sm:px-10 py-5 rounded-full text-sm uppercase tracking-widest font-bold border border-brand-cream/30 text-brand-cream hover:bg-brand-cream/10 transition-all flex items-center gap-3"
                 >
                   Ver experiências
                 </a>
               </div>
+              <p className="mt-5 text-xs tracking-wide text-brand-cream/60">
+                Orçamento sem compromisso · resposta no WhatsApp no mesmo dia
+              </p>
             </motion.div>
           </div>
 
@@ -257,7 +255,7 @@ export default function App() {
                 Você aproveita o seu próprio evento como se fosse mais um convidado. Sem estresse e sem pia cheia.
               </p>
             </div>
-            <div className="w-full md:w-1/2 flex gap-4 relative">
+            <div className="w-full md:w-1/2 flex flex-col sm:flex-row gap-4 relative">
               <div className="absolute -top-10 -left-10 z-30 hidden lg:flex flex-col items-center justify-center w-32 h-32 bg-brand-moss text-brand-cream rounded-full shadow-2xl border-2 border-brand-terracotta rotate-12">
                 <Wind className="mb-1 animate-pulse" size={24} />
                 <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-center leading-tight">
@@ -267,7 +265,7 @@ export default function App() {
                 </span>
                 <div className="absolute inset-0 rounded-full border border-brand-cream/20 scale-90" />
               </div>
-              <div className="w-2/3 h-[500px] pill-image ring-8 ring-brand-cream shadow-2xl">
+              <div className="w-full sm:w-2/3 h-[320px] sm:h-[500px] pill-image ring-8 ring-brand-cream shadow-2xl">
                 <img
                   src="https://images.unsplash.com/photo-1780246033915-a1ee941742e4?auto=format&fit=crop&q=80&w=800"
                   alt="Sala de jantar rústica com vigas expostas e mobiliário de época"
@@ -277,8 +275,8 @@ export default function App() {
                   decoding="async"
                 />
               </div>
-              <div className="w-1/3 flex flex-col gap-4">
-                <div className="h-1/2 pill-image grayscale hover:grayscale-0 transition-all">
+              <div className="w-full sm:w-1/3 h-36 sm:h-auto flex flex-row sm:flex-col gap-4">
+                <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image grayscale hover:grayscale-0 transition-all">
                   <img
                     src="https://images.unsplash.com/photo-1765990605320-c7c5ce8e1c6f?auto=format&fit=crop&q=80&w=800"
                     alt="Carnes defumadas sobre mesa rústica de madeira"
@@ -288,7 +286,7 @@ export default function App() {
                     decoding="async"
                   />
                 </div>
-                <div className="h-1/2 pill-image">
+                <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image">
                   <img
                     src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=800"
                     alt="Vinhos e culinária rústica da Mantiqueira"
@@ -317,8 +315,9 @@ export default function App() {
               </p>
             </div>
 
-            {/* Filtros por porta de ocasião */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+            {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável
+                (empilhados ocupavam ~6 linhas); no md+ voltam ao wrap centralizado */}
+            <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 mb-12 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
               <Chip ativo={filtro === 'Todas'} onClick={() => setFiltro('Todas')}>
                 Todas
               </Chip>
@@ -525,11 +524,14 @@ export default function App() {
             </p>
             <button
               onClick={() => abrirPedido('')}
-              className="inline-flex items-center gap-4 bg-brand-terracotta text-white px-12 py-6 text-sm uppercase tracking-[0.3em] font-bold btn-hover rounded-full shadow-2xl"
+              className="inline-flex w-full max-w-md sm:w-auto justify-center items-center gap-4 bg-brand-terracotta text-white px-6 sm:px-12 py-6 text-sm uppercase tracking-[0.15em] sm:tracking-[0.3em] font-bold btn-hover rounded-full shadow-2xl"
             >
               <MessageCircle size={20} />
               Solicitar minha experiência
             </button>
+            <p className="mt-5 text-xs tracking-wide text-brand-charcoal/60">
+              Orçamento sem compromisso · resposta no WhatsApp no mesmo dia
+            </p>
           </div>
         </section>
       </main>
@@ -588,7 +590,8 @@ export default function App() {
                 href="https://www.instagram.com/paladaresdamantiqueira/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 border border-brand-line rounded-full flex items-center justify-center hover:bg-brand-charcoal hover:text-white transition-all"
+                aria-label="Instagram do Paladares da Mantiqueira"
+                className="w-11 h-11 border border-brand-line rounded-full flex items-center justify-center hover:bg-brand-charcoal hover:text-white transition-all"
               >
                 <Instagram size={20} />
               </a>
@@ -597,7 +600,8 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => rastrearOrcamento('rodape')}
-                className="w-10 h-10 border border-brand-line rounded-full flex items-center justify-center hover:bg-brand-charcoal hover:text-white transition-all"
+                aria-label="Falar no WhatsApp"
+                className="w-11 h-11 border border-brand-line rounded-full flex items-center justify-center hover:bg-brand-charcoal hover:text-white transition-all"
               >
                 <MessageCircle size={20} />
               </a>
@@ -608,7 +612,8 @@ export default function App() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-6 px-6">
+        {/* pb-24 no mobile: folga para o botão flutuante não cobrir os créditos */}
+        <div className="flex flex-col items-center gap-6 px-6 pb-24 md:pb-0">
           <div className="flex gap-4 opacity-70">
             <Heart size={16} className="text-brand-terracotta" />
             <span className="text-[10px] uppercase tracking-widest font-bold opacity-40 italic">
@@ -644,7 +649,7 @@ function Chip({ ativo, onClick, children }: { ativo: boolean; onClick: () => voi
   return (
     <button
       onClick={onClick}
-      className={`px-5 py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all border ${
+      className={`shrink-0 whitespace-nowrap snap-start px-5 py-3 md:py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all border ${
         ativo
           ? 'bg-brand-charcoal text-white border-brand-charcoal'
           : 'bg-transparent text-brand-charcoal/70 border-brand-line hover:border-brand-charcoal/40'
@@ -713,11 +718,12 @@ function FloatingWhatsApp() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-8 right-8 z-[100] bg-brand-charcoal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all"
+      className="fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] md:right-8 md:bottom-8 z-[100] bg-brand-charcoal text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all"
       title="Falar no WhatsApp"
+      aria-label="Solicitar orçamento pelo WhatsApp"
     >
       <MessageCircle size={28} />
-      <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-terracotta rounded-full animate-ping" />
+      <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-terracotta rounded-full motion-safe:animate-ping" />
       <div className="absolute top-0 right-0 w-3 h-3 bg-brand-terracotta rounded-full" />
     </motion.a>
   );

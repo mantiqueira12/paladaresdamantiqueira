@@ -44,6 +44,16 @@
 
 html {
   scroll-behavior: smooth;
+  /* Header fixo tem 80px: âncoras (#experiencias etc.) param com o título visível */
+  scroll-padding-top: 80px;
+}
+
+/* Faixa rolável de filtros no mobile, sem barra de rolagem visível */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Pill Images for a "Warm Organic" feel */
