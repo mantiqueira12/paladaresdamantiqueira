@@ -102,7 +102,8 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 - [ ] Regras: geotag da cidade em todo post · 5–10 hashtags locais · todo CTA empurra para o link da bio · **máx. 30 min/dia — se estourar 1h30/semana, o IG é o primeiro canal a ser cortado.**
 - [ ] Ao chegar a 9–12 posts: 🤖 devolver o ícone do IG ao rodapé/header conforme 1.3.
 
-### 2.4 🧑‍🍳 Higiene GA4 (30 min, painel — dados não retroagem, fazer cedo)
+### 2.4 🧑‍🍳🤖 Higiene GA4 — **precisão dos eventos** (30 min, painel — dados não retroagem, fazer cedo)
+> **Pode ser feito por um agente pelo Chrome** (ver §6). É o item de maior precisão de dados do plano.
 - [ ] **Dimensões personalizadas** (Administração → Definições personalizadas, escopo Evento): `origem`, `pagina`, `experiencia`, `ocasiao`, `cidade`, `pessoas`, `so_servico` — sem isso, os parâmetros que o site JÁ envia não aparecem em relatório nenhum.
 - [ ] Retenção de dados: 14 meses · cadastrar IP próprio como tráfego interno · vincular Search Console · marcar `solicitar_orcamento` como conversão (key event), se ainda não estiver.
 - [ ] Montar 1 Exploração: `solicitar_orcamento` × `pagina` × `origem`.
@@ -179,6 +180,33 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 | Etiquetas do WhatsApp espelhando status | Planilha é a fonte da verdade | — |
 | Painel mensal elaborado no GA4 | Aba RESUMO + 1 olhada no GA4 bastam | — |
 | Clube da Mantiqueira (e preparações) | Fase 2 declarada (doc 09) | 3 portas vendendo estável |
+
+---
+
+## 6. Execução assistida por Chrome (agente no painel logado)
+
+Vários itens 🧑‍🍳 exigem painéis onde só o Rafael está logado (GA4, Google Business, Search Console). Um agente pode **dirigir o navegador do Rafael pela extensão Claude-in-Chrome** e executar boa parte desses passos com precisão — como já foi feito antes no GBP e no Search Console (jun/2026).
+
+> **Requisitos para o agente executar:** sessão interativa + extensão Claude-in-Chrome conectada + Rafael já logado nas contas. Não roda em execução automática/headless. O agente confirma cada passo sensível (salvar/enviar) antes de aplicar.
+
+### 6.1 Prioridade máxima — precisão dos eventos (GA4) → resolve o §2.4
+Hoje o site **já envia** parâmetros ricos no evento `solicitar_orcamento` (`origem`, `pagina`, `experiencia`, `ocasiao`, `cidade`, `pessoas`, `so_servico`), mas eles ficam **invisíveis** nos relatórios até serem registrados. É exatamente aqui que o Chrome dá "mais precisão dos eventos". O agente pode, no painel do GA4:
+- Registrar as **7 dimensões personalizadas** (escopo Evento) — sem isso, nenhum parâmetro aparece em relatório. **Não retroage:** cada semana sem registrar é dado perdido para sempre.
+- Marcar `solicitar_orcamento` como **evento-chave / conversão**.
+- Retenção de dados **14 meses**; filtro de **tráfego interno** (IP do Rafael); **vincular o Search Console**.
+- Montar a **Exploração** `solicitar_orcamento × pagina × origem` (mostra qual landing e qual CTA convertem).
+
+### 6.2 Também dirigível pelo Chrome
+- **GBP Sprint (§1.1)** e **GBP vivo (§2.1):** categorias, área de atendimento, serviços, descrição (Apêndice A.1), atributos, link do site com UTM; publicar posts semanais e semear as 6 perguntas de Q&A. *(O upload das fotos em si sai melhor pelo celular do Rafael; o agente prepara os nomes de arquivo e as legendas.)*
+- **Search Console:** reenviar sitemap e pedir indexação de novas URLs.
+- **Instagram (perfil/bio):** ajustar o nome buscável, a bio e o link da bio com UTM (Apêndice A.2). *(Publicar conteúdo é do Rafael.)*
+
+### 6.3 Continua sendo humano (não-Chrome)
+- **WhatsApp Business (§1.5):** app do celular — o agente entrega as Respostas Rápidas prontas (Apêndice A.3), o Rafael cola e configura.
+- **Blitz de avaliações (§1.2)** e **parcerias (§3.1):** dependem das relações e do julgamento do Rafael.
+- **Qualquer pagamento / sinal:** sempre o Rafael.
+
+> **Como acionar:** numa conversa com a extensão Claude-in-Chrome ligada, peça "faça a higiene do GA4 pelo Chrome" (ou o item que quiser). O ganho nº1 é o §6.1 — quanto antes, menos dado de evento perdido.
 
 ---
 
