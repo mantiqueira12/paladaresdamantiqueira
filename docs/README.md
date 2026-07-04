@@ -21,8 +21,9 @@ Documentos de planejamento e estruturação do negócio de **chef particular** d
 | 12 | [Plano de Crescimento e Leads](12-PLANO-CRESCIMENTO-E-LEADS.md) | **Plano-mestre de vendas.** 3 fases com checkboxes para mais leads e orçamentos (GBP, avaliações, WhatsApp, IG, parcerias). |
 | 13 | [Melhorias Técnicas do Site](13-MELHORIAS-TECNICAS-SITE.md) | Backlog técnico em 4 lotes: mobile crítico, performance 4G, acessibilidade, arquitetura. |
 | 📂 | [`cardapios/`](cardapios/LEIA-ME.md) | **Fonte editável dos cardápios** — uma ficha `.md` por experiência (13 ativas) + `_MODELO.md`. |
-| 📂 | [`portfolio-receitas/`](portfolio-receitas/README.md) | **Base operacional em construção** — fichas técnicas, menus, compras, propostas, eventos e futura integração com o CRM GastroBSC. |
 | — | [Crítica Adversarial](_CRITICA-ADVERSARIAL.md) | Onde ainda há risco; o consultor cético contra o consenso fácil. |
+
+> **Fichas técnicas, insumos, estoque e o app interno de receitas** não ficam mais aqui — moveram para `C:\Users\acer\Documents\Consultorias\App Receitas\` (projeto próprio, 2026-07-03).
 
 ## A ideia em uma frase
 

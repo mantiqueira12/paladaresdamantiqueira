@@ -20,8 +20,9 @@ Ponto de entrada de **qualquer agente** que trabalhe neste repositório. Leia is
 | `PLANEJAMENTO.md` | Histórico técnico do site + plano de lançamento (§7) | Tarefas de código/site; consultar o que já foi feito |
 | `docs/README.md` | Índice do plano de negócio (docs 00–12) | Para localizar contexto de negócio |
 | `docs/11-SEO-E-PRESENCA-DIGITAL.md` | Roteiro de SEO (blocos feitos e pendentes) | Tarefas de SEO/landings/performance |
-| `docs/portfolio-receitas/README.md` | Portfólio de receitas e assistente operacional | Tarefas de fichas técnicas/cardápios operacionais |
 | `docs/cardapios/` | Fichas comerciais das 13 experiências (1 .md por experiência) | Edição de cardápio comercial — ver doc 08 |
+
+> **O app interno de receitas/operação NÃO fica mais neste repositório.** Ele foi movido em 2026-07-03 para `C:\Users\acer\Documents\Consultorias\App Receitas\` (pasta própria, fora do site). Se uma tarefa for sobre fichas técnicas, insumos, estoque ou o app de receitas, **não crie `app-receitas/` nem `docs/portfolio-receitas/` aqui de novo** — vá para a pasta dedicada e comece pelo `AGENTS.md` de lá.
 
 ## 3. Regras invioláveis (decisões fechadas — não re-discutir)
 
@@ -48,14 +49,12 @@ Ao terminar qualquer tarefa:
 - 🤖 **Agentes:** código, rebuild/deploy, documentos, textos/scripts prontos para o Rafael colar, planilhas-modelo, QA.
 - Quando uma tarefa mistura os dois, o agente prepara TUDO que der (texto pronto, passo a passo numerado do painel) e deixa para o Rafael só a execução final.
 
-## 6. Trabalho no portfólio de receitas ou assistente operacional
+## 6. App de receitas / fichas técnicas / operação (fora deste repositório)
 
-1. Comece por `docs/portfolio-receitas/README.md`.
-2. Leia somente os arquivos indicados ali e os necessários para a tarefa.
-3. Preserve a separação:
-   - `docs/cardapios/` = apresentação comercial;
-   - `docs/portfolio-receitas/receitas/` = fichas técnicas;
-   - CRM GastroBSC = integração futura.
+Essa frente vive em `C:\Users\acer\Documents\Consultorias\App Receitas\` desde 2026-07-03 — projeto e documentação próprios, com seu próprio `AGENTS.md`/`STATUS.md`. Este repositório mantém só a apresentação comercial:
+- `docs/cardapios/` (aqui) = apresentação comercial das experiências;
+- fichas técnicas, insumos, estoque e o app em si = na pasta `App Receitas` externa;
+- CRM GastroBSC = integração futura, ainda não iniciada em nenhum dos dois lugares.
 
 ## 7. Economia de contexto
 
