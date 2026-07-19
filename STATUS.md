@@ -10,7 +10,7 @@
 | Site | `paladaresdamantiqueira.com.br` ativo no Netlify (deploy via git) |
 | Landings SEO | 14 páginas (cidades/nichos/sazonais) geradas por `scripts/gen-landings.mjs` |
 | GA4 | Ativo (`G-42VSMJHHFD`); conversão e 7 dimensões personalizadas configuradas, retenção em 14 meses e Search Console vinculado. Confirmar apenas se o IP da regra de tráfego interno é o residencial correto. |
-| Google Business Profile | Verificado, categoria principal "Personal chef service", **1 avaliação**. Descrição, URL com UTM, Monte Verde e opções reais de atendimento enviadas em 2026-07-19 e pendentes de revisão; limpeza de categorias adicionais e cadastro dos 15 serviços ainda pendentes. |
+| Google Business Profile | Verificado, categoria principal "Personal chef service", **1 avaliação**. Descrição, URL com UTM, Monte Verde, opções reais de atendimento, remoção das categorias adicionais antigas e cadastro dos 15 serviços enviados em 2026-07-19; alterações ainda pendentes de revisão/publicação pelo Google. O segundo cadastro foi auditado e está **não visível publicamente**. |
 | Instagram | @paladaresdamantiqueira criado, **0 posts** (ícone removido do header do site até ter posts) |
 | WhatsApp | +55 12 99771-0040, pessoal (migração p/ Business pendente) |
 | Baseline de leads | 3–8 pedidos de orçamento/mês |
@@ -19,16 +19,15 @@
 
 **Plano-mestre:** [`docs/12-PLANO-CRESCIMENTO-E-LEADS.md`](docs/12-PLANO-CRESCIMENTO-E-LEADS.md) (criado em 2026-07-02 e aprovado pelo Rafael em 2026-07-03)
 
-**Fase atual:** FASE 1 — código-base, planilha e higiene do GA4 entregues. O lote SEO de 2026-07-19 está publicado na `main`. O primeiro lote do Perfil da Empresa foi submetido ao Google e ainda aguarda revisão; categorias adicionais antigas, serviços, avaliações e WhatsApp Business também precisam ser concluídos.
+**Fase atual:** FASE 1 — código-base, planilha e higiene do GA4 entregues. O lote SEO de 2026-07-19 está publicado na `main`. A fundação do Perfil da Empresa foi submetida ao Google e ainda aguarda revisão pública; o próximo foco é avaliações reais e WhatsApp Business.
 
 ### Próximas ações (em ordem)
 
-1. 🧑‍🍳 Concluir o GBP Sprint: remover categorias adicionais antigas e cadastrar as 14 experiências + Só o Serviço em lotes menores (doc 12 §1.1).
-2. 🧑‍🍳 Iniciar a rotina de avaliações reais com as mensagens do Apêndice A.3 (§1.2).
-3. 🧑‍🍳 Auditar em modo somente leitura o perfil duplicado não verificado; não excluir, encerrar, verificar ou mesclar antes de confirmar URLs/Place IDs e visibilidade pública.
-4. 🧑‍🍳 WhatsApp Business + Respostas Rápidas do Apêndice A.3 (§1.5).
-5. 🧑‍🍳 Validar o nome público, a ficha operacional mínima e os direitos da foto de capa da Feijoada; o site já está preparado para uma experiência exclusivamente Só o Serviço.
-6. 🧑‍🍳 Fechar 2 pendências comerciais do doc 09 (§1.6) → 🤖 registrar no doc 09.
+1. 🧑‍🍳 Conferir o Perfil da Empresa após o prazo de revisão do Google: categoria única, 15 serviços, descrição, URL com UTM, áreas e opções de atendimento.
+2. 🧑‍🍳 Iniciar a rotina de avaliações reais com as mensagens do Apêndice A.3 (§1.2), em cadência de 1–2 clientes por dia útil.
+3. 🧑‍🍳 WhatsApp Business + Respostas Rápidas do Apêndice A.3 (§1.5).
+4. 🧑‍🍳 Validar o nome público, a ficha operacional mínima e os direitos da foto de capa da Feijoada; o site já está preparado para uma experiência exclusivamente Só o Serviço.
+5. 🧑‍🍳 Fechar 2 pendências comerciais do doc 09 (§1.6) → 🤖 registrar no doc 09.
 
 ## Pendências de decisão do Rafael
 
@@ -82,3 +81,4 @@ Se uma tarefa for sobre fichas técnicas, insumos, estoque ou o app de receitas,
 | 2026-07-19 (3) | **Feijoada preparada como nova experiência, ainda inativa:** acervo de um evento real revisado; uma foto horizontal sem rostos foi escolhida como candidata a capa e duas alternativas com pessoas foram separadas; ficha `feijoada-dos-chegados.md` criada em Casa Cheia com `ativo: false`; decisões e pendências registradas no doc 09. Nomes de cliente, autoria e detalhes do acervo ficam fora do repositório público. | Rafael validar nome, composição do cardápio/lista de compras, pessoas, duração, estrutura/equipe e direitos/crédito das fotos; depois ativar e gerar o catálogo. |
 | 2026-07-19 (4) | **Decisões-alvo do Perfil da Empresa e Feijoada registradas:** Feijoada definida como Só o Serviço (R$ 100/h, mínimo 3h); nome, descrição, serviços e atendimento externo do perfil validados; categoria principal **Personal chef service** confirmada e decisão de operar sem categoria adicional; mensagens neutras de avaliação com link direto preparadas; fotos atuais do site preservadas. Build aprovado: 14 experiências ativas, 14 landings e 15 URLs; Feijoada continua inativa. | Aplicar os ajustes no Perfil da Empresa; validar nome, ficha restante e direitos das fotos da Feijoada. |
 | 2026-07-19 (5) | **Primeiro lote do Perfil da Empresa submetido e preparação técnica da Feijoada concluída:** descrição aprovada, URL com UTM, Monte Verde, “não faz entrega” e português/inglês enviados ao Google; todas essas edições aguardam revisão. Telefone, WhatsApp, atendimento externo e categoria principal confirmados no estado atual. Detectado um perfil duplicado não verificado, mantido intacto por segurança; também foram encontradas categorias adicionais antigas. O site passou a tratar corretamente experiência exclusiva Só o Serviço: preço horário, ausência de sobremesa, sazonalidade/duração/público ainda não validados, roteiro de execução e seleção obrigatória do formato no WhatsApp/GA4. A Feijoada permanece `ativo: false`; nenhum dado inventado nem foto sem direitos foi publicado. | Aguardar a revisão do Google, remover categorias adicionais antigas, cadastrar os 15 serviços do perfil em lotes menores e auditar o duplicado; Rafael validar nome público, ficha mínima e direitos da capa da Feijoada. |
+| 2026-07-19 (6) | **Segundo lote do Perfil da Empresa submetido:** removidas as quatro categorias adicionais antigas (Consultoria, Confeitaria, Curso de Culinária e Planejador de eventos); cadastradas as 14 experiências públicas + Só o Serviço, todas com descrição. Como o painel não oferece unidade por hora, Só o Serviço ficou com descrição explícita de R$ 100/h, mínimo 3h, e campo de preço “a partir de R$ 300”. O Google informa que as alterações aguardam revisão/publicação. Auditoria somente leitura concluiu que o segundo cadastro exige verificação e está marcado pelo próprio Google como “NÃO VISÍVEL PUBLICAMENTE”; ele foi preservado sem excluir, verificar, encerrar ou mesclar. | Após o prazo do Google, conferir o estado público do perfil oficial; iniciar a cadência de avaliações reais e configurar o WhatsApp Business. Feijoada continua inativa até as validações restantes e os direitos da foto. |
