@@ -30,7 +30,7 @@
 | 3 | **Dados estruturados (JSON-LD)** de Chef/Negócio local p/ busca no Google | Aprovado | **[AGORA]** |
 | 5 | **Analytics** gratuito (ex: Plausible/Umami ou GA4) | Aprovado | **[AGORA]** |
 | 4 | Botão flutuante de WhatsApp | ✅ **JÁ EXISTE** | — |
-| 6 | Seção de depoimentos | ✅ **JÁ EXISTE** (rever se os textos são reais/placeholder) | [DECIDIR] |
+| 6 | Seção de depoimentos | Textos confirmados como fictícios pelo Rafael em 2026-07-19; remover e só voltar com avaliações reais verificáveis | **[AGORA]** |
 | 8 | Seção de FAQ | ✅ **JÁ EXISTE** (pode expandir com mais dúvidas) | [FUTURO] |
 | 9 | Formulário de contato (alternativa ao WhatsApp) | Manter WhatsApp como principal; form só como rede de segurança | [FUTURO/opcional] |
 | 10 | Mostrar preço | **NÃO mostrar** — manter "orçamento sem compromisso" | Decidido |
@@ -119,21 +119,22 @@
 - [ ] Deixar claro: **disponibilidade de vinhos depende dos fornecedores → criado sob demanda**
 - [ ] Manter sempre a **estrutura de 5 tempos**
 
-### 2.11 Noite do Hambúrguer (Express) — *monte o seu*
+### 2.11 Noite do Hambúrguer (Casa Cheia) — *monte o seu*
 - [ ] Estrutura **diferente**: **só os lanches, sem entradas**
 - [ ] Ideia: grupo grande; **chef faz os hambúrgueres** e as pessoas **montam os lanches** numa **mesa de opções** de acompanhamentos
 - [ ] **Sobremesa:** manter regra (confirmar 3 opções)
 
-### 2.12 Noite do Hot Dog (Express) — *monte o seu*
+### 2.12 Noite do Hot Dog (Casa Cheia) — *monte o seu*
 - [ ] **Mesma lógica** da Noite do Hambúrguer (chef faz, cliente monta com mesa de opções)
 
-### 2.13 Boteco da Serra (Express) — *buffet de boteco*
+### 2.13 Boteco da Serra (Casa Cheia) — *mesa de boteco*
 - [ ] Estrutura **diferente**: montar um **buffet/mesa com itens variados de boteco**
 
-### 2.14 Feito na Paella (Casa Cheia) — *criada por mim, validar*
-- [ ] Rafael **revisar** texto, tipos de paella, nº de pessoas, o que está incluso
+### 2.14 Feito na Paella (Casa Cheia) — *validada pelo Rafael em 2026-07-19*
+- [x] Rafael confirmou texto, tipos de paella, nº de pessoas e escopo como validados.
 
-### 2.15 Mesa Corporativa (Corporativo) — *reestruturar*
+### 2.15 Mesa Corporativa — *arquivada; fora do catálogo público em 2026-07-19*
+- [x] Remover da vitrine do Paladares. Uma oferta B2B separada poderá ser criada futuramente, possivelmente na página da Fernanda Marton.
 - [ ] **Sem refeição** nesta modalidade. Foco em **serviços para empresas oferecerem internamente**:
   - [ ] **Datas comemorativas:** Dia das Mães, Dia dos Pais, aniversariante do mês, lembrancinhas de aniversário
   - [ ] **Coffee breaks** corporativos
@@ -172,7 +173,7 @@
   `solicitar_orcamento` instrumentado (formulário, botão flutuante e rodapé).
 - **Fase 2 (conteúdo):** ✅ FEITO — 14 fichas reescritas (`docs/cardapios/*.md`), Canastra→Mantiqueira,
   links do Ateliê da Fernanda (modal + bio + rodapé), renomes "Entre Amigos" e "Pasta à Mesa".
-  Feito na Paella ficou intacta (aguarda só sua validação, item 16).
+  Feito na Paella foi validada pelo Rafael em 2026-07-19.
 - **Fase 3 (próxima versão):** GitHub deploy contínuo (11), domínio próprio (12), otimização
   automática de imagem + WebP (13/14), fotos reais (15), galeria (7).
 
@@ -186,7 +187,7 @@
 - **Exceções à regra das 3 opções** (intencionais, confirme se ok):
   - *Entre Amigos* ficou com **4 sobremesas** (você pediu Pavlova além de trio de chocolates, tarte e banoffee).
   - *Origens da Serra* ficou com **4 principais** (sua decisão) e **1 sobremesa** (a cenográfica, como você pediu).
-- **Feito na Paella (item 16):** ainda como eu criei — revise tipos de paella, pessoas e o que inclui.
+- **Feito na Paella e Pasta à Mesa:** validadas pelo Rafael em 2026-07-19; alertas anteriores encerrados como ruído de documentação.
 
 ---
 

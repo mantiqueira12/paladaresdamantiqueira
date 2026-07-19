@@ -7,7 +7,7 @@ import {
   duracaoLabel,
   porta,
 } from '../data/experiencias';
-import { IMAGEM_FALLBACK } from '../data/imagens';
+import { IMAGEM_FALLBACK, srcSetPortfolio } from '../data/imagens';
 import { useModalA11y } from '../lib/useModalA11y';
 
 interface Props {
@@ -51,12 +51,15 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
             <div className="relative h-56 md:h-72 overflow-hidden rounded-t-3xl md:rounded-t-2xl">
               <img
                 src={experiencia.imagem}
+                srcSet={srcSetPortfolio(experiencia.imagem)}
+                sizes="(min-width: 768px) 768px, 100vw"
                 alt={experiencia.nome}
                 className="w-full h-full object-cover"
                 onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/20 to-transparent" />
               <button
+                type="button"
                 onClick={onFechar}
                 aria-label="Fechar"
                 className="absolute top-4 right-4 p-3 rounded-full bg-brand-cream/90 text-brand-charcoal hover:bg-white transition-all"
@@ -104,9 +107,9 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
 
               {/* Cardápio */}
               <div className="space-y-6">
-                <h4 className="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-moss border-b border-brand-line pb-2">
+                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-moss border-b border-brand-line pb-2">
                   O cardápio — você escolhe
-                </h4>
+                </h3>
                 {experiencia.cardapio.map((tempo) => (
                   <div key={tempo.titulo}>
                     <p className="serif text-lg font-bold text-brand-terracotta mb-2">{tempo.titulo}</p>
@@ -177,6 +180,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 Sem preço fixo — montamos o seu orçamento com carinho, na conversa.
               </span>
               <button
+                type="button"
                 onClick={() => onSolicitar(experiencia.nome)}
                 className="order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold shadow-lg hover:bg-brand-charcoal transition-all hover:-translate-y-0.5"
               >

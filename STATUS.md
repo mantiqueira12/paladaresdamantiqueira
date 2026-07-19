@@ -1,7 +1,7 @@
 # STATUS — Estado Vivo do Projeto
 
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
-> Última atualização: **2026-07-03**
+> Última atualização: **2026-07-19**
 
 ## O que está no ar
 
@@ -9,7 +9,7 @@
 |---|---|
 | Site | `paladaresdamantiqueira.com.br` ativo no Netlify (deploy via git) |
 | Landings SEO | 14 páginas (cidades/nichos/sazonais) geradas por `scripts/gen-landings.mjs` |
-| GA4 | Ativo (`G-42VSMJHHFD`), conversão `solicitar_orcamento` instrumentada. Higiene do painel PENDENTE (dimensões personalizadas, IP interno, Search Console) |
+| GA4 | Ativo (`G-42VSMJHHFD`); conversão e 7 dimensões personalizadas configuradas, retenção em 14 meses e Search Console vinculado. Confirmar apenas se o IP da regra de tráfego interno é o residencial correto. |
 | Google Business Profile | Verificado, categoria "Personal chef service", **incompleto**, **1 avaliação**, fora do Local Pack |
 | Instagram | @paladaresdamantiqueira criado, **0 posts** (ícone removido do header do site até ter posts) |
 | WhatsApp | +55 12 99771-0040, pessoal (migração p/ Business pendente) |
@@ -17,25 +17,32 @@
 
 ## Frente ativa: PLANO DE CRESCIMENTO E LEADS
 
-**Plano-mestre:** [`docs/12-PLANO-CRESCIMENTO-E-LEADS.md`](docs/12-PLANO-CRESCIMENTO-E-LEADS.md) (criado 2026-07-02, aprovação do Rafael pendente)
+**Plano-mestre:** [`docs/12-PLANO-CRESCIMENTO-E-LEADS.md`](docs/12-PLANO-CRESCIMENTO-E-LEADS.md) (criado em 2026-07-02 e aprovado pelo Rafael em 2026-07-03)
 
-**Fase atual:** FASE 1 — Semana 1 (nada iniciado ainda)
+**Fase atual:** FASE 1 — código-base, planilha e higiene do GA4 entregues. O lote SEO de 2026-07-19 foi aprovado para publicação na `main`; a execução e a confirmação do deploy fazem parte desta rodada. Ajustes no Perfil da Empresa, rotina de avaliações e WhatsApp Business ainda dependem de execução nos respectivos painéis.
 
 ### Próximas ações (em ordem)
 
-1. 🧑‍🍳 Rafael: aprovar/ajustar o doc 12.
-2. 🧑‍🍳 GBP Sprint de Fundação (doc 12 §1.1) — 2h no painel, textos prontos no Apêndice A.1.
-3. 🧑‍🍳 Iniciar blitz de avaliações (§1.2) — 1–2 envios/dia.
-4. 🤖 Código (1 deploy): remover ícone IG do header (§1.3) + microcopy sob CTAs (§1.7).
-5. 🤖 Gerar planilha-funil modelo (§1.4).
-6. 🧑‍🍳 WhatsApp Business + Respostas Rápidas do Apêndice A.3 (§1.5).
-7. 🧑‍🍳 Fechar 2 pendências do doc 09 (§1.6) → 🤖 registrar no doc 09.
+1. 🧑‍🍳 Aplicar o GBP Sprint com a categoria principal já confirmada (`Personal chef service`) e sem categoria adicional (doc 12 §1.1).
+2. 🧑‍🍳 Iniciar a rotina de avaliações reais com as mensagens do Apêndice A.3 (§1.2).
+3. 🧑‍🍳 WhatsApp Business + Respostas Rápidas do Apêndice A.3 (§1.5).
+4. 🧑‍🍳 Fechar 2 pendências comerciais do doc 09 (§1.6) → 🤖 registrar no doc 09.
+5. 🧑‍🍳 Validar nome, ficha operacional e direitos das fotos da Feijoada antes de ativá-la.
 
 ## Pendências de decisão do Rafael
 
-- Aprovar o doc 12 (ou ajustar fases/itens).
-- Doc 09 ⏳: faixas de cancelamento + prazo do saldo (defaults sugeridos no doc 12 §1.6).
-- PLANEJAMENTO.md §4: itens 1–5 antigos (nomes, telefones 3003/0800, etc.) — alguns podem estar obsoletos; revisar quando tocar no conteúdo.
+> Lista revisada em 2026-07-03 após levantamento multi-agente de todos os docs (00-13) — ver memória do projeto para o relatório completo.
+
+- ~~Aprovar o doc 12~~ ✅ **APROVADO em 2026-07-03** — Fase 1 liberada para execução.
+- ~~Catálogo amplo (13-15 experiências) vs. recomendação de travar em poucas âncoras~~ ✅ **DECIDIDO em 2026-07-03** — manter amplo de propósito (despertar interesse pela variedade), mitigado pela navegação por portas de ocasião. Registrado em `docs/09` §1.5.
+- **Tensão do preço público vs. site 100% consultivo — em elaboração (03/jul/2026):** proposta em discussão é uma "faixa de investimento" (soft anchor tipo "a partir de R$X/pessoa"), testada primeiro no modal (não no card da vitrine), como meio-termo entre esconder tudo e publicar tabela completa.
+- Doc 09 ⏳ (Bloco 2 — preço/pessoa, extras, comissões): Rafael pediu para o agente **rascunhar uma tabela de preço/pessoa sugerido para as 15 experiências** (em vez do levantamento pergunta-a-pergunta), usando a fórmula do doc 03 (custo insumo/pessoa ÷ CMV-alvo 28-32%) com estimativas genéricas de custo de ingrediente — **não são números reais, é ponto de partida para o Rafael corrigir**. Tabela entregue no chat em 2026-07-04. **Handoff se a sessão cortar antes de ele responder:** reapresentar a tabela (está na resposta do agente daquela data) e aguardar os ajustes dele linha a linha antes de gravar qualquer preço no doc 09/código.
+- ~~Validar "Feito na Paella" e massas de "Pasta à Mesa"~~ ✅ **CONFIRMADO em 2026-07-19** — ambas já estavam validadas; os alertas anteriores eram ruído de documentação.
+- ~~Resolver 3 portas vs. Express/Corporativo~~ ✅ **DECIDIDO em 2026-07-19** — somente Íntima, Casa Cheia e Celebração na vitrine; Express absorvido por Casa Cheia; Mesa Corporativa sai do catálogo. B2B poderá ganhar página separada no futuro.
+- ~~Confirmar os três depoimentos publicados~~ ✅ **CONFIRMADO em 2026-07-19: eram fictícios** — remoção autorizada; só voltar com avaliações reais verificáveis.
+- ~~Hero da home~~ ✅ **DECIDIDO em 2026-07-19** — opção B escolhida: preservar o texto atual neste lote.
+- **Feijoada dos Chegados (rascunho):** serviço real confirmado em 2026-07-19, classificado em Casa Cheia e definido como **Só o Serviço** (R$ 100/h, mínimo 3h); falta validar nome, cardápio/lista de compras, capacidade, duração, estrutura/equipe e direitos de publicação das fotos antes de ativar.
+- PLANEJAMENTO.md §4: telefones fixos 3003-3951/0800 703 3451 — onde/como entram (ou se ainda fazem sentido). Os outros 4 itens antigos dessa seção já foram resolvidos implicitamente pelo conteúdo atual.
 
 ## Frente paralela: MELHORIAS TÉCNICAS DO SITE
 
@@ -67,3 +74,9 @@ Se uma tarefa for sobre fichas técnicas, insumos, estoque ou o app de receitas,
 | 2026-07-03 (4) | **Cabeçalho reformulado** a pedido do Rafael: nome "Paladares da Mantiqueira" + tagline "Concierge Gastronômico" VOLTARAM em todas as telas (sumiam no celular desde o Lote 1) — no mobile o nome quebra em 2 linhas e o botão fica compacto, cabe de 320–375px com folga, sem colisão. `glass-header` mais opaco (/80→/95) + sombra suave (não "vaza" mais sobre a foto). Verificado 320/360/375/desktop. Decisão: manter header fixo com marca+CTA e SEM botão flutuante (o flutuante não carrega marca/tagline). | Rafael avaliar no ar; se ainda achar o header pesado, alternativa = header que some ao rolar + flutuante. GA4 (§6.1) quando sobrar token. |
 | 2026-07-03 (5) | **Primeiro MVP do app de receitas implementado** em projeto separado (`app-receitas/`): fórmula A e 10 insumos em rascunho, cadastro/edição de insumos e apresentações, edição de ficha, `kg→g`/`L→ml`, FC, escala, custos, versões, persistência local e backup JSON. Testes 6/6 e build OK; validado no navegador em desktop e 375 px, incluindo persistência após recarga. | Rafael usar o app, preencher preços e ajustar a ficha real; próxima evolução será priorizada pelo uso. |
 | 2026-07-03 (6) | **App de receitas MOVIDO para fora deste repositório**, a pedido do Rafael ("não quero confundir outros agentes"): `app-receitas/` e `docs/portfolio-receitas/` migrados com estrutura interna preservada (zero links quebrados) para `C:\Users\acer\Documents\Consultorias\App Receitas\`, que ganhou seu próprio `AGENTS.md`/`STATUS.md`/`README.md`. Reinstalado do zero no novo local (não copiou `node_modules`); build + 6 testes OK lá. Processo `vite dev` órfão que travava a pasta antiga foi encerrado (autorizado pelo Rafael) e a pasta antiga removida daqui. Referências neste repo (`AGENTS.md`, `docs/README.md`) atualizadas para apontar pra fora. | Nenhuma — a partir de agora, qualquer trabalho no app de receitas começa pelo `AGENTS.md` da pasta `App Receitas`, não aqui. |
+| 2026-07-04 | **Higiene do GA4 executada via Claude-in-Chrome (doc 12 §6.1), autorizada pelo Rafael:** criadas as 7 dimensões personalizadas de evento (origem, pagina, experiencia, ocasiao, cidade, pessoas, so_servico); confirmado retenção de dados em 14 meses; criada regra de tráfego interno com o IP detectado na sessão (**valor mantido fora do repositório público e ainda precisa ser confirmado pelo Rafael**); Search Console (`paladaresdamantiqueira.com.br`) vinculado à propriedade GA4; evento `solicitar_orcamento` marcado como evento-chave/conversão; criada Exploração em formato livre com `pagina` × `origem` × Contagem de eventos filtrada por `solicitar_orcamento` (mostrou 8 conversões nos últimos 28 dias, pagina/origem aparecem "(not set)" até a próxima visita popular esses parâmetros — sem retroatividade). Doc 12 aprovado pelo Rafael nesta mesma sessão; Fase 1 liberada. | Rafael confirmar a regra de tráfego interno diretamente no GA4; seguir com GBP Sprint (§1.1), blitz de avaliações (§1.2) e WhatsApp Business (§1.5). |
+| 2026-07-03 (7) | **Levantamento multi-agente de todos os docs (00-13, crítica adversarial, cardápios, estado técnico do repo, arquivos soltos)** a pedido do Rafael, para consolidar o que já foi planejado mas não executado. Achados centrais: doc 09 Bloco 2 (preço/pessoa, comissões, cancelamento) é o bloqueio que represa a maior parte das decisões; 2 tensões estratégicas nunca revisitadas (preço público vs. consultivo; catálogo de 13-15 experiências vs. recomendação de travar em poucas âncoras); "Feito na Paella" está publicada ao vivo sem validação do Rafael; extras/upsells têm dado no JSON mas não aparecem na UI. **Sincronização de docs feita nesta sessão:** checkboxes do doc 12 corrigidos (§1.3, §1.7, §1.4 já entregues); doc 13 ganhou notas apontando itens que foram revertidos depois (tagline, botão flutuante); doc 11 corrigido (B1/B2/B3/A6 — landings e sitemap — já estão no ar, não pendentes); doc 06 marcado como histórico/superado pelo doc 09; "Pendências de decisão do Rafael" (acima) reescrita e ampliada. | Rafael escolher a próxima frente: levantar custo real para destravar o doc 09, tocar a Fase 1 do doc 12 (GBP/avaliações/WhatsApp Business), ou decidir as 2 tensões estratégicas. |
+| 2026-07-19 | **Auditoria SEO multiagente com dados reais de Search Console, GA4, Perfil da Empresa, SERP e código.** Correções objetivas entregues: formulário passa a cobrir 7 convidados; WhatsApp do rodapé das 14 landings ganhou mensagem contextual + origem `landing_footer`; sitemap deixou de publicar `lastmod` artificial em todo build e removeu campos ignorados pelo Google; URL pública `paladaresdamantiqueira.netlify.app/*` passa a redirecionar 301 para o mesmo caminho no domínio canônico após o próximo deploy. Build completo aprovado. Diagnóstico: as 15 URLs estão indexadas; o gargalo atual é autoridade/prova local, consistência da oferta e distribuição — não rastreamento ou falta de mais landings. | Rafael validar depoimentos publicados, experiências ainda não validadas e a arquitetura pública de 3 portas versus Express/Corporativo; depois executar sprint de fotos, avaliações e parcerias locais do plano de 90 dias. |
+| 2026-07-19 (2) | **Decisões da auditoria registradas e lote local aprovado para publicação:** catálogo público reorganizado em 3 portas; Hambúrguer, Hot Dog e Boteco absorvidos por Casa Cheia; Mesa Corporativa arquivada; Paella e Pasta confirmadas como validadas; três depoimentos fictícios removidos da home/14 landings; convite neutro para avaliação real mantido; FAQ empresarial reescrito; vídeo externo 404 removido; SSR sai visível; FAQ virou `details/summary`; variantes responsivas geradas; title/description encurtados; entidades `WebSite`/`LocalBusiness`/`Person` separadas; `OfferCatalog` limitado a conteúdo visível; links relacionados das landings reduzidos a 5. Build aprovado: 14 experiências, 14 landings, 15 URLs, 89 blocos JSON-LD válidos, zero alvo local ausente e zero termo proibido nas fontes públicas. Rafael autorizou o push na `main` em 2026-07-19. | Confirmar o deploy automático e então seguir com Perfil da Empresa, avaliações reais e WhatsApp Business. |
+| 2026-07-19 (3) | **Feijoada preparada como nova experiência, ainda inativa:** acervo de um evento real revisado; uma foto horizontal sem rostos foi escolhida como candidata a capa e duas alternativas com pessoas foram separadas; ficha `feijoada-dos-chegados.md` criada em Casa Cheia com `ativo: false`; decisões e pendências registradas no doc 09. Nomes de cliente, autoria e detalhes do acervo ficam fora do repositório público. | Rafael validar nome, composição do cardápio/lista de compras, pessoas, duração, estrutura/equipe e direitos/crédito das fotos; depois ativar e gerar o catálogo. |
+| 2026-07-19 (4) | **Decisões do Perfil da Empresa e Feijoada registradas:** Feijoada definida como Só o Serviço (R$ 100/h, mínimo 3h); nome, descrição, serviços e atendimento externo do perfil validados; categoria principal **Personal chef service** confirmada, sem categoria adicional neste momento; mensagens neutras de avaliação com link direto preparadas; fotos atuais do site preservadas. Build aprovado: 14 experiências ativas, 14 landings e 15 URLs; Feijoada continua inativa. | Aplicar os ajustes no Perfil da Empresa; validar nome, ficha restante e direitos das fotos da Feijoada. |

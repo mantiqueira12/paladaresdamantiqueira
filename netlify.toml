@@ -9,6 +9,14 @@
   # Fixa a versão do Node no build (mesma família do desenvolvimento).
   NODE_VERSION = "20"
 
+# Consolida a URL pública padrão do Netlify no domínio canônico, preservando
+# o caminho acessado (por exemplo, uma landing local específica).
+[[redirects]]
+  from = "https://paladaresdamantiqueira.netlify.app/*"
+  to = "https://paladaresdamantiqueira.com.br/:splat"
+  status = 301
+  force = true
+
 # Cache (doc 13 §2.6): JS/CSS têm hash no nome → imutáveis por 1 ano.
 # Fontes são estáveis; imagens podem ser trocadas → 7 dias.
 [[headers]]

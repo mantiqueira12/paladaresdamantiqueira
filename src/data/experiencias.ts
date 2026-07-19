@@ -11,7 +11,7 @@ import { IMAGENS, IMAGEM_FALLBACK } from './imagens';
 export type ItemCardapio = { nome: string; desc: string };
 export type TempoCardapio = { titulo: string; itens: ItemCardapio[] };
 export type Camada = 'completa' | 'servico' | 'ambas';
-export type Linha = 'Íntima' | 'Casa Cheia' | 'Celebração' | 'Express' | 'Corporativo';
+export type Linha = 'Íntima' | 'Casa Cheia' | 'Celebração';
 export type Destaque = 'lancamento' | 'novidade' | 'expansao';
 
 export interface Experiencia {
@@ -66,23 +66,11 @@ export const PORTAS: Porta[] = [
     key: 'Celebração',
     rotulo: 'Grandes celebrações',
     chamada: 'Marcos e datas especiais',
-    descricao: 'Bodas, pedidos e marcos da vida com a sofisticação de um restaurante premiado.',
-  },
-  {
-    key: 'Express',
-    rotulo: 'Noites descontraídas',
-    chamada: 'Leve e divertido',
-    descricao: 'O chef no comando, você cuida dos insumos. Sabor de chef, clima de festa.',
-  },
-  {
-    key: 'Corporativo',
-    rotulo: 'Corporativo',
-    chamada: 'Para empresas',
-    descricao: 'Coffee breaks, almoços executivos e confraternizações com a assinatura do chef para o seu time.',
+    descricao: 'Bodas, pedidos e marcos da vida com a sofisticação que uma ocasião especial merece.',
   },
 ];
 
-export const LINHAS: Linha[] = ['Íntima', 'Casa Cheia', 'Celebração', 'Express', 'Corporativo'];
+export const LINHAS: Linha[] = ['Íntima', 'Casa Cheia', 'Celebração'];
 
 export const porta = (key: Linha) => PORTAS.find((p) => p.key === key)!;
 

@@ -18,7 +18,7 @@ Aqui moram os cardápios do **Paladares da Mantiqueira**: **um arquivo `.md` por
 
 ## Regras de ouro
 - Toda sobremesa é **"Doces pela Fernanda Marton Ateliê"**.
-- Vocabulário de marca: **experiência, noite, mesa, celebração**. Nunca "porção, prato, quilo, buffet, marmita".
+- Vocabulário de marca: **experiência, noite, mesa, celebração**. Na vitrine, nunca usar "porção, quilo, buffet, marmita, rodízio, coffee break" ou "evento corporativo". “Prato” pode ser usado naturalmente dentro da descrição culinária do cardápio, sem transformar a oferta em venda por unidade.
 - No topo, troque **valores**; **não apague** os nomes dos campos nem os `---`.
 - `camada`: `completa` (você cura e compra) · `servico` (Só o Serviço, cliente compra, mín. 3h) · `ambas`.
 
@@ -37,6 +37,15 @@ Aqui moram os cardápios do **Paladares da Mantiqueira**: **um arquivo `.md` por
 | 8 | `cafe-colonial-autoral.md` | Casa Cheia |
 | 9 | `edicao-pinhao.md` | Celebração |
 | 10 | `harmonizacao-guiada.md` | Celebração |
-| 11 | `noite-do-hamburguer.md` | Express |
-| 12 | `noite-do-hot-dog.md` | Express |
-| 13 | `boteco-da-serra.md` | Express |
+| 11 | `noite-do-hamburguer.md` | Casa Cheia |
+| 12 | `noite-do-hot-dog.md` | Casa Cheia |
+| 13 | `boteco-da-serra.md` | Casa Cheia |
+| 14 | `feito-na-paella.md` | Casa Cheia |
+
+## Rascunhos aguardando validação
+
+| Arquivo | Porta | Falta validar |
+|---|---|---|
+| `feijoada-dos-chegados.md` | Casa Cheia | Nome público, cardápio/lista de compras, pessoas, duração, estrutura, equipe, antecedência e direitos das fotos; modalidade Só o Serviço já confirmada |
+
+Rascunhos ficam com `ativo: false` e não entram no site até a validação do Rafael.

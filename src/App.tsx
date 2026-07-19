@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 // LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor).
 // MotionConfig reducedMotion="user" respeita o prefers-reduced-motion do sistema.
 import { LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
@@ -41,7 +41,6 @@ import SectionHeading from './components/SectionHeading';
 import Chip from './components/Chip';
 import ExperienceCard from './components/ExperienceCard';
 import StepCard from './components/StepCard';
-import TestimonialCard from './components/TestimonialCard';
 import AccordionItem from './components/AccordionItem';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
@@ -57,39 +56,6 @@ export default function App() {
   const [pedidoExp, setPedidoExp] = useState('');
   const [detalhe, setDetalhe] = useState<Experiencia | null>(null);
   const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
-
-  // Hero: o vídeo de fundo (CDN externa, pesado) só é carregado depois do primeiro
-  // paint E somente em telas largas, sem economia de dados e sem preferência por
-  // menos movimento — no celular/4G o poster segura o visual sozinho.
-  // heroVideo começa false (casa com o SSG).
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [heroVideo, setHeroVideo] = useState(false);
-  useEffect(() => {
-    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } })
-      .connection;
-    if (
-      !window.matchMedia('(min-width: 768px)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      conn?.saveData ||
-      /\b[23]g\b/.test(conn?.effectiveType ?? '')
-    ) {
-      return;
-    }
-    const iniciar = () => setHeroVideo(true);
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    if (typeof w.requestIdleCallback === 'function') {
-      const id = w.requestIdleCallback(iniciar, { timeout: 2500 });
-      return () => w.cancelIdleCallback?.(id);
-    }
-    const t = setTimeout(iniciar, 1200);
-    return () => clearTimeout(t);
-  }, []);
-  useEffect(() => {
-    if (heroVideo) videoRef.current?.load();
-  }, [heroVideo]);
 
   // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
   // GA4 solicitar_orcamento no envio (ex.: botao_flutuante vs formulario).
@@ -157,6 +123,7 @@ export default function App() {
             <Phone size={18} />
           </a>
           <button
+            type="button"
             onClick={() => abrirPedido('')}
             className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-3.5 py-2.5 sm:px-6 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
           >
@@ -171,23 +138,21 @@ export default function App() {
         {/* HERO */}
         <section className="relative hero-vh flex items-center p-6 md:p-16 overflow-hidden bg-brand-charcoal">
           <div className="absolute inset-0 z-0 scale-110">
-            <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="none"
+            <img
+              src="/hero-poster.webp"
+              srcSet="/hero-poster-720.webp 720w, /hero-poster.webp 1440w"
+              sizes="100vw"
+              alt=""
               aria-hidden="true"
-              poster="/hero-poster.webp"
-              src={heroVideo ? 'https://cdn.pixabay.com/video/2017/04/18/8879-214434914_large.mp4' : undefined}
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover opacity-60"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal via-brand-charcoal/40 to-transparent z-10" />
           </div>
 
           <div className="relative z-20 max-w-4xl text-brand-cream">
-            <m.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
+            <m.div initial={false} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-px bg-brand-terracotta" />
                 <span className="text-xs uppercase tracking-[0.4em] font-semibold text-brand-terracotta-light">
@@ -205,6 +170,7 @@ export default function App() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
+                  type="button"
                   onClick={() => abrirPedido('')}
                   className="group w-full sm:w-auto justify-center bg-brand-terracotta text-white px-8 sm:px-10 py-5 rounded-full text-sm uppercase tracking-widest font-bold shadow-xl hover:bg-white hover:text-brand-charcoal transition-all hover:-translate-y-1 flex items-center gap-3"
                 >
@@ -264,6 +230,8 @@ export default function App() {
               <div className="w-full sm:w-2/3 h-[320px] sm:h-[500px] pill-image ring-8 ring-brand-cream shadow-2xl">
                 <img
                   src="/portfolio/conceito-sala.webp"
+                  srcSet="/portfolio/conceito-sala-400.webp 400w, /portfolio/conceito-sala.webp 800w"
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   alt="Sala de jantar rústica com vigas expostas e mobiliário de época"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -274,6 +242,8 @@ export default function App() {
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image [@media(hover:hover)]:grayscale hover:grayscale-0 transition-all">
                   <img
                     src="/portfolio/conceito-defumados.webp"
+                    srcSet="/portfolio/conceito-defumados-400.webp 400w, /portfolio/conceito-defumados.webp 800w"
+                    sizes="(min-width: 768px) 17vw, 50vw"
                     alt="Carnes defumadas sobre mesa rústica de madeira"
                     className="w-full h-full object-cover"
                     loading="lazy"
@@ -283,6 +253,8 @@ export default function App() {
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 pill-image">
                   <img
                     src="/portfolio/harmonizacao-guiada.webp"
+                    srcSet="/portfolio/harmonizacao-guiada-400.webp 400w, /portfolio/harmonizacao-guiada.webp 800w"
+                    sizes="(min-width: 768px) 17vw, 50vw"
                     alt="Vinhos e culinária rústica da Mantiqueira"
                     className="w-full h-full object-cover"
                     loading="lazy"
@@ -330,7 +302,7 @@ export default function App() {
             {/* Grade de experiências */}
             <m.div
               key={filtro}
-              initial={{ opacity: 0, y: 12 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
               className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
@@ -342,7 +314,7 @@ export default function App() {
 
             <p className="text-center text-sm text-brand-charcoal/70 mt-12 italic">
               Não encontrou exatamente o que imaginou?{' '}
-              <button onClick={() => abrirPedido('')} className="text-brand-terracotta font-semibold underline underline-offset-4">
+              <button type="button" onClick={() => abrirPedido('')} className="text-brand-terracotta font-semibold underline underline-offset-4">
                 Conte o que você deseja
               </button>{' '}
               — eu desenho uma experiência sob medida para a sua data.
@@ -389,6 +361,8 @@ export default function App() {
               <div className="aspect-[4/5] rounded-tl-[100px] rounded-br-[100px] overflow-hidden border border-brand-cream/10">
                 <img
                   src={chefImage}
+                  srcSet="/chef-rafael-500.webp 500w, /chef-rafael.webp 1000w"
+                  sizes="(min-width: 768px) 50vw, 100vw"
                   alt="Chef Rafael Jacob trabalhando na cozinha"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -433,54 +407,29 @@ export default function App() {
           </div>
         </section>
 
-        {/* DEPOIMENTOS */}
-        <section className="py-24 px-6 md:py-32 section-border-top bg-brand-cream/50 relative overflow-hidden">
-          <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 opacity-5 pointer-events-none">
-            <Heart size={400} />
-          </div>
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="text-center mb-20">
-              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
-                05. Depoimentos
+        {/* AVALIAÇÕES — sem depoimentos ilustrativos. Prova social só volta com
+            relatos reais e verificáveis; por enquanto, mantemos apenas o convite. */}
+        {GOOGLE_REVIEW_LINK && (
+          <section className="py-20 px-6 section-border-top bg-brand-cream/50">
+            <div className="max-w-3xl mx-auto text-center">
+              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block">
+                05. Sua experiência
               </span>
-              <SectionHeading>Memórias de Mesa</SectionHeading>
+              <SectionHeading>Já viveu uma experiência comigo?</SectionHeading>
+              <p className="text-brand-charcoal/70 font-light mb-8">
+                Seu relato sincero ajuda outras pessoas a conhecerem o Paladares da Mantiqueira.
+              </p>
+              <a
+                href={GOOGLE_REVIEW_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-brand-line bg-white px-6 py-3 text-sm font-semibold text-brand-charcoal/80 hover:border-brand-terracotta hover:text-brand-terracotta transition-colors"
+              >
+                <Star size={17} aria-hidden="true" /> Deixar uma avaliação no Google
+              </a>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              <TestimonialCard
-                quote="A experiência foi impecável. O Chef Rafael assumiu tudo e pude realmente dar atenção aos meus convidados. O sabor da Mantiqueira em cada prato!"
-                author="Luciana M."
-                location="Campos do Jordão"
-              />
-              <TestimonialCard
-                quote="Nunca comi um churrasco tão técnico na minha própria casa. Organização total, sem bagunça e com muita hospitalidade."
-                author="Marcelo S."
-                location="Santo Antônio do Pinhal"
-              />
-              <TestimonialCard
-                quote="As massas artesanais estavam divinas e a sobremesa do Ateliê foi o ponto alto. Atendimento discreto e muito profissional."
-                author="Beatriz R."
-                location="São Bento do Sapucaí"
-              />
-            </div>
-            {GOOGLE_REVIEW_LINK && (
-              <div className="text-center mt-16">
-                <a
-                  href={GOOGLE_REVIEW_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand-charcoal/70 hover:text-brand-terracotta transition-colors"
-                >
-                  <span className="flex gap-0.5 text-brand-terracotta">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={15} fill="currentColor" />
-                    ))}
-                  </span>
-                  Já viveu uma experiência comigo? Deixe a sua avaliação no Google
-                </a>
-              </div>
-            )}
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* FAQ */}
         <section id="faq" className="py-24 px-6 md:py-32 section-border-top bg-white">
@@ -504,6 +453,8 @@ export default function App() {
           <div className="absolute inset-0">
             <img
               src="/hero-poster.webp"
+              srcSet="/hero-poster-720.webp 720w, /hero-poster.webp 1440w"
+              sizes="100vw"
               alt="Fogo e comida"
               className="w-full h-full object-cover opacity-20"
               loading="lazy"
@@ -517,6 +468,7 @@ export default function App() {
               "A ciência dá um nome a essa arte sagrada de dividir a mesa: comensalidade."
             </p>
             <button
+              type="button"
               onClick={() => abrirPedido('')}
               className="inline-flex w-full max-w-md sm:w-auto justify-center items-center gap-4 bg-brand-terracotta text-white px-6 sm:px-12 py-6 text-sm uppercase tracking-[0.15em] sm:tracking-[0.3em] font-bold btn-hover rounded-full shadow-2xl"
             >
@@ -542,9 +494,9 @@ export default function App() {
             </p>
           </div>
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
               Área de Atendimento
-            </h4>
+            </h3>
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
               {CIDADES.map((c) => (
                 <li key={c.slug} className="flex gap-2">
@@ -561,9 +513,9 @@ export default function App() {
             </ul>
           </div>
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
               Ocasiões
-            </h4>
+            </h3>
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
               {[...SAZONAIS, ...NICHOS].map((o) => (
                 <li key={o.slug} className="flex gap-2">
@@ -576,9 +528,9 @@ export default function App() {
             </ul>
           </div>
           <div>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-moss mb-8 opacity-50">
               Conecte-se
-            </h4>
+            </h3>
             <div className="flex gap-6 items-center mb-8">
               <a
                 href="https://www.instagram.com/paladaresdamantiqueira/"

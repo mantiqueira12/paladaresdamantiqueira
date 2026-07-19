@@ -1,7 +1,7 @@
 import { m } from 'motion/react';
 import { ArrowRight, Users } from 'lucide-react';
 import { porta, pessoasLabel, type Experiencia } from '../data/experiencias';
-import { IMAGEM_FALLBACK } from '../data/imagens';
+import { IMAGEM_FALLBACK, srcSetPortfolio } from '../data/imagens';
 
 export default function ExperienceCard({
   exp,
@@ -17,7 +17,7 @@ export default function ExperienceCard({
   // curto ("Ver detalhes de X") em vez de todo o texto do card.
   return (
     <m.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
@@ -27,6 +27,8 @@ export default function ExperienceCard({
       <div className="relative h-52 overflow-hidden">
         <img
           src={exp.imagem}
+          srcSet={srcSetPortfolio(exp.imagem)}
+          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
           alt={exp.nome}
           className="w-full h-full object-cover [@media(hover:hover)]:grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
           loading="lazy"
@@ -52,6 +54,7 @@ export default function ExperienceCard({
             <Users size={13} className="text-brand-terracotta" /> {pessoasLabel(exp)}
           </span>
           <button
+            type="button"
             onClick={onVer}
             aria-label={`Ver detalhes de ${exp.nome}`}
             className="text-[11px] uppercase tracking-widest font-bold text-brand-terracotta flex items-center gap-1 group-hover:gap-2 transition-all after:absolute after:inset-0 after:cursor-pointer"

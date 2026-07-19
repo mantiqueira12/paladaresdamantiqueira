@@ -4,8 +4,8 @@
  *
  * Roda DEPOIS do build/prerender. Para cada item, escreve dist/<slug>/index.html
  * — página estática (sem depender de JS) que HERDA A IDENTIDADE VISUAL DA HOME
- * (mesmas cores, fontes, header glass, hero escuro, pill-images, depoimentos,
- * FAQ, rodapé de 3 colunas e WhatsApp flutuante), com title/description/canonical/
+ * (mesmas cores, fontes, header glass, hero escuro, pill-images, FAQ e rodapé),
+ * com title/description/canonical/
  * H1 próprios, Open Graph + Twitter Card, GA4, JSON-LD (LocalBusiness provider +
  * Service + BreadcrumbList + FAQPage) e CTAs de WhatsApp rastreados.
  *
@@ -74,30 +74,6 @@ const landings = [...cidades, ...sazonais, ...nichos];
 const FAQ_TODAS = load('faq.json');
 const FAQ_LANDING = [FAQ_TODAS[0], FAQ_TODAS[1], FAQ_TODAS[2], FAQ_TODAS[4], FAQ_TODAS[6]].filter(Boolean);
 
-// Depoimentos — mesmos da home (App.tsx). Exibidos como prova social, mas NÃO
-// marcados como Review/AggregateRating (política do Google: review snippets só
-// para avaliações reais, atribuídas e verificáveis — virão do Google Business).
-const DEPOIMENTOS = [
-  {
-    quote:
-      'A experiência foi impecável. O Chef Rafael assumiu tudo e pude realmente dar atenção aos meus convidados. O sabor da Mantiqueira em cada prato!',
-    autor: 'Luciana M.',
-    local: 'Campos do Jordão',
-  },
-  {
-    quote:
-      'Nunca comi um churrasco tão técnico na minha própria casa. Organização total, sem bagunça e com muita hospitalidade.',
-    autor: 'Marcelo S.',
-    local: 'Santo Antônio do Pinhal',
-  },
-  {
-    quote:
-      'As massas artesanais estavam divinas e a sobremesa do Ateliê foi o ponto alto. Atendimento discreto e muito profissional.',
-    autor: 'Beatriz R.',
-    local: 'São Bento do Sapucaí',
-  },
-];
-
 /* ------------------------------------------------------------------ ícones SVG */
 const ICO = {
   phone:
@@ -110,10 +86,6 @@ const ICO = {
     '<svg class="ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
   pin: '<svg class="ico" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
 };
-const star =
-  '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
-const estrelas = star.repeat(5);
-
 /* --------------------------------------------------------- WhatsApp + tracking */
 function waLink(n) {
   const msg = `Olá, Chef Rafael! 🌿 Vim pela página "${n.h1}" e gostaria de saber como funciona e os próximos passos.`;
@@ -127,10 +99,20 @@ const track = (n, origem) =>
 // Provider completo emitido NA PRÓPRIA landing, para o @id resolver sem depender
 // da home (robustez de entidade/E-E-A-T quando o Google/IA lê a página isolada).
 function jsonld(n) {
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE}/#website`,
+    url: `${SITE}/`,
+    name: 'Paladares da Mantiqueira',
+    alternateName: 'Chef Rafael Jacob',
+    inLanguage: 'pt-BR',
+    publisher: { '@id': `${SITE}/#business` },
+  };
   const provider = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': `${SITE}/`,
+    '@id': `${SITE}/#business`,
     name: 'Paladares da Mantiqueira',
     alternateName: 'Chef Rafael Jacob - Chef Particular',
     url: `${SITE}/`,
@@ -143,9 +125,22 @@ function jsonld(n) {
       'São Bento do Sapucaí',
       'Serra da Mantiqueira',
       'São José dos Campos',
+      'Monte Verde',
+      'Gonçalves',
     ].map((name) => ({ '@type': 'Place', name })),
-    founder: { '@type': 'Person', name: 'Rafael Jacob', jobTitle: 'Chef' },
-    sameAs: [IG_MARCA, IG_CHEF, IG_ATELIE, GBP_URL],
+    founder: { '@id': `${SITE}/#rafael-jacob` },
+    sameAs: [IG_MARCA, GBP_URL],
+  };
+  const person = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${SITE}/#rafael-jacob`,
+    name: 'Rafael Jacob',
+    jobTitle: 'Chef Particular',
+    url: `${SITE}/`,
+    image: `${SITE}/og-image.jpg`,
+    worksFor: { '@id': `${SITE}/#business` },
+    sameAs: [IG_CHEF],
   };
   const service = {
     '@context': 'https://schema.org',
@@ -153,7 +148,7 @@ function jsonld(n) {
     serviceType: 'Chef particular / Personal chef',
     name: n.serviceName,
     description: stripTags(n.description),
-    provider: { '@id': `${SITE}/` },
+    provider: { '@id': `${SITE}/#business` },
     areaServed: { '@type': n.areaServedType, name: n.areaServedName },
     url: `${SITE}/${n.slug}/`,
   };
@@ -174,7 +169,7 @@ function jsonld(n) {
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
     })),
   };
-  return [provider, service, breadcrumb, faq]
+  return [website, provider, person, service, breadcrumb, faq]
     .map((d) => `<script type="application/ld+json">\n${JSON.stringify(d, null, 2).replace(/</g, '\\u003c')}\n</script>`)
     .join('\n    ');
 }
@@ -231,7 +226,7 @@ const CSS = `
 
   /* HERO (escuro e imersivo, igual à home) */
   .hero{position:relative;background:var(--charcoal);color:var(--cream);overflow:hidden;padding:160px 0 96px}
-  .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.22}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.22}
   .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--charcoal) 10%,rgba(45,45,45,.5) 60%,transparent)}
   .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px}
   .crumb{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,251,247,.55);margin-bottom:28px}
@@ -295,15 +290,9 @@ const CSS = `
   .chef p{color:rgba(253,251,247,.72);font-weight:300;font-size:1.08rem;margin-bottom:18px}
   .chef .quote{border-left:2px solid var(--terracotta);padding-left:22px;font-style:italic;color:rgba(253,251,247,.92)}
 
-  /* depoimentos */
-  .cards{display:grid;gap:24px}
-  @media(min-width:768px){.cards{grid-template-columns:repeat(3,1fr)}}
-  .tcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:36px;display:flex;flex-direction:column}
-  .tcard .stars{display:flex;gap:3px;color:var(--terracotta);margin-bottom:24px}
-  .tcard blockquote{font-style:italic;color:rgba(45,45,45,.82);font-weight:300;line-height:1.7;flex:1;margin-bottom:28px}
-  .tcard .who{display:flex;gap:8px;align-items:baseline;padding-top:18px;border-top:1px solid var(--line)}
-  .tcard .who b{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--moss);font-weight:700}
-  .tcard .who span{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.45}
+  /* convite para avaliação — sem nota ou depoimento ilustrativo */
+  .review-cta{text-align:center;max-width:760px;margin:0 auto}
+  .review-cta p{color:rgba(45,45,45,.7);font-weight:300;margin:0 auto 28px;max-width:54ch}
 
   /* FAQ (details/summary, sem JS) */
   .faq{display:grid;gap:14px;max-width:780px;margin:0 auto}
@@ -330,7 +319,7 @@ const CSS = `
   .fgrid{display:grid;gap:48px;margin-bottom:56px}
   @media(min-width:680px){.fgrid{grid-template-columns:1fr 1fr}}
   @media(min-width:980px){.fgrid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
-  .fcol h4{font-size:10px;text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:var(--moss);opacity:.5;margin-bottom:24px}
+  .fcol h3{font-size:10px;text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:var(--moss);opacity:.5;margin-bottom:24px}
   .fbrand b{font-family:'Playfair Display',serif;font-size:22px;color:var(--moss);font-weight:700;display:block;margin-bottom:18px}
   .fbrand p{font-size:13px;color:rgba(45,45,45,.6);line-height:1.7;max-width:34ch}
   .flist{list-style:none;display:grid;gap:14px}
@@ -340,12 +329,6 @@ const CSS = `
   .fsoc{display:flex;gap:14px;margin-bottom:18px}
   .fbar{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;opacity:.45}
   .fbar a{text-decoration:none}
-
-  /* entrada suave (microinteração via CSS, sem JS) */
-  @media(prefers-reduced-motion:no-preference){
-    .reveal{animation:fadeup .8s ease both}
-    @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-  }
 
   @media(min-width:1024px){.nav{display:flex}.icon-btn.tel{display:inline-flex}}
 `;
@@ -377,7 +360,7 @@ function head(n, { title, description, url, canonical }) {
     <meta name="twitter:image" content="${SITE}/og-image.jpg" />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
-    <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');</script>
     <style>${CSS}</style>`;
@@ -404,7 +387,7 @@ function headerHtml(n) {
     </header>`;
 }
 
-function footerHtml() {
+function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
   const linkCidade = (c) =>
     `<li><a href="/${c.slug}/">${ICO.pin}<span>Chef particular em ${esc(c.chip)}</span></a></li>`;
   const linkOcasiao = (o) => `<li><a href="/${o.slug}/">${ICO.pin}<span>${esc(o.chip)}</span></a></li>`;
@@ -416,23 +399,23 @@ function footerHtml() {
             <p>Concierge Gastronômico e Personal Chef na Serra da Mantiqueira. Experiências de mesa para os seus momentos de celebração — em Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e toda a serra até São José dos Campos.</p>
           </div>
           <div class="fcol">
-            <h4>Área de Atendimento</h4>
+            <h3>Área de Atendimento</h3>
             <ul class="flist">
               ${cidades.map(linkCidade).join('\n              ')}
               <li><span>${ICO.pin}<span>Vale do Paraíba até São José dos Campos</span></span></li>
             </ul>
           </div>
           <div class="fcol">
-            <h4>Ocasiões</h4>
+            <h3>Ocasiões</h3>
             <ul class="flist">
               ${[...sazonais, ...nichos].map(linkOcasiao).join('\n              ')}
             </ul>
           </div>
           <div class="fcol">
-            <h4>Conecte-se</h4>
+            <h3>Conecte-se</h3>
             <div class="fsoc">
               <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
-              <a class="icon-btn" href="https://wa.me/${WA}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICO.message}</a>
+              <a class="icon-btn" href="${waLink(n)}" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp" ${track(n, 'footer')}>${ICO.message}</a>
             </div>
             <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.4)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
           </div>
@@ -447,7 +430,12 @@ function footerHtml() {
 
 function page(n) {
   const url = `${SITE}/${n.slug}/`;
-  const outras = landings.filter((o) => o.slug !== n.slug);
+  const grupoAtual = cidades.includes(n) ? cidades : sazonais.includes(n) ? sazonais : nichos;
+  const complementares = cidades.includes(n) ? nichos : cidades;
+  const outras = [
+    ...grupoAtual.filter((o) => o.slug !== n.slug),
+    ...complementares.filter((o) => o.slug !== n.slug),
+  ].slice(0, 5);
   return `<!doctype html>
 <html lang="pt-BR">
   <head>
@@ -458,8 +446,8 @@ ${head(n, { title: n.title, description: n.description, url, canonical: url })}
 ${headerHtml(n)}
 
     <section class="hero">
-      <div class="hero-bg" style="background-image:url('/hero-poster.webp')"></div>
-      <div class="hero-inner reveal">
+      <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
+      <div class="hero-inner">
         <p class="crumb"><a href="/">Início</a><span>/</span>${esc(n.breadcrumb)}</p>
         <div class="eyebrow"><span class="rule"></span><span>${EYEBROW}</span></div>
         <h1>${esc(n.h1)}</h1>
@@ -480,7 +468,7 @@ ${headerHtml(n)}
             <h2>${esc(n.experienciaTitulo)}</h2>
             ${n.paragrafos.map((p) => `<p class="body">${p}</p>`).join('\n            ')}
           </div>
-          <div class="pill"><img src="/portfolio/mesa-de-amigos.webp" alt="Mesa posta para uma experiência do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1000" /></div>
+          <div class="pill"><img src="/portfolio/mesa-de-amigos.webp" srcset="/portfolio/mesa-de-amigos-400.webp 400w, /portfolio/mesa-de-amigos.webp 800w" sizes="(min-width:900px) 50vw, 100vw" alt="Mesa posta para uma experiência do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1000" /></div>
         </div>
       </section>
 
@@ -508,7 +496,7 @@ ${headerHtml(n)}
 
       <section class="chef">
         <div class="wrap split">
-          <div class="photo"><img src="/chef-rafael.webp" alt="Chef Rafael Jacob na cozinha" loading="lazy" decoding="async" width="800" height="1000" /></div>
+          <div class="photo"><img src="/chef-rafael.webp" srcset="/chef-rafael-500.webp 500w, /chef-rafael.webp 1000w" sizes="(min-width:900px) 50vw, 100vw" alt="Chef Rafael Jacob na cozinha" loading="lazy" decoding="async" width="800" height="1000" /></div>
           <div>
             <span class="eyebrow-dark" style="color:var(--terracotta)">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
@@ -520,18 +508,11 @@ ${headerHtml(n)}
       </section>
 
       <section class="block cream">
-        <div class="wrap">
-          <div style="text-align:center;margin-bottom:48px">
-            <span class="eyebrow-dark">Depoimentos</span>
-            <h2>Memórias de mesa</h2>
-          </div>
-          <div class="cards">
-            ${DEPOIMENTOS.map(
-              (d) =>
-                `<div class="tcard"><div class="stars">${estrelas}</div><blockquote>"${esc(d.quote)}"</blockquote><div class="who"><b>${esc(d.autor)}</b><span>• ${esc(d.local)}</span></div></div>`,
-            ).join('\n            ')}
-          </div>
-          <p style="text-align:center;margin-top:40px"><a href="${REVIEW_URL}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-size:.95rem;font-weight:600;color:var(--terracotta);text-decoration:none"><span style="display:inline-flex;gap:2px">${estrelas}</span> Já viveu uma experiência comigo? Deixe a sua avaliação no Google</a></p>
+        <div class="wrap review-cta">
+          <span class="eyebrow-dark">Sua experiência</span>
+          <h2>Já viveu uma experiência comigo?</h2>
+          <p>Seu relato sincero ajuda outras pessoas a conhecerem o Paladares da Mantiqueira.</p>
+          <a class="btn" href="${REVIEW_URL}" target="_blank" rel="noopener">Deixar uma avaliação no Google</a>
         </div>
       </section>
 
@@ -570,7 +551,7 @@ ${headerHtml(n)}
       </section>
     </main>
 
-${footerHtml()}
+${footerHtml(n)}
 
   </body>
 </html>
@@ -593,7 +574,7 @@ ${head(null, {
   <body>
 ${headerHtml({ slug: '404', h1: 'Página não encontrada' })}
     <section class="hero">
-      <div class="hero-bg" style="background-image:url('/hero-poster.webp')"></div>
+      <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
       <div class="hero-inner" style="text-align:center">
         <div class="eyebrow" style="justify-content:center"><span class="rule"></span><span>${EYEBROW}</span><span class="rule"></span></div>
         <h1 style="margin:0 auto 26px">Esta página saiu da mesa</h1>
@@ -621,12 +602,11 @@ for (const n of landings) {
 fs.writeFileSync(path.join(dist, '404.html'), page404());
 
 // --- regenera o sitemap (home + todas as landings) ---
-const hoje = new Date().toISOString().split('T')[0];
-const urls = [{ loc: `${SITE}/`, pri: '1.0' }, ...landings.map((n) => ({ loc: `${SITE}/${n.slug}/`, pri: '0.8' }))];
+const urls = [`${SITE}/`, ...landings.map((n) => `${SITE}/${n.slug}/`)];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
-  .map((u) => `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${hoje}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.pri}</priority>\n  </url>`)
+  .map((url) => `  <url>\n    <loc>${url}</loc>\n  </url>`)
   .join('\n')}
 </urlset>
 `;

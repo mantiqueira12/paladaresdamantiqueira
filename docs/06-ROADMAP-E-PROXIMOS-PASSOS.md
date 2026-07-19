@@ -4,6 +4,8 @@
 > **Para quem é este documento:** Rafael Jacob (dono e chef).
 > **O que ele faz:** transforma todas as análises dos especialistas em um plano de execução por fases, do que decidir HOJE até o que construir DEPOIS.
 > **A regra que guia tudo:** não escrevemos uma linha de código novo enquanto as decisões da Fase 0 não estiverem fechadas.
+>
+> **⚠️ HISTÓRICO (nota de 2026-07-03):** as perguntas da "Fase 0" deste doc (eixo único, naming, preço público vs. consultivo, catálogo) já foram todas respondidas e consolidadas em [`docs/09-DECISOES-FECHADAS.md`](09-DECISOES-FECHADAS.md), que é a fonte viva do placar de decisões. Este doc 06 fica como registro histórico do racional original — para decisões atuais, usar o doc 09 e o `STATUS.md`. Duas divergências que o doc 09 resolveu **diferente** do que este roadmap recomendava, e que vale saber que existem: (a) aqui a Fase 2 recomendava publicar faixa de preço "a partir de R$X/pessoa" — o doc 09 decidiu manter o site 100% consultivo, sem preço público; (b) aqui a Fase 1 recomendava travar em poucas experiências-âncora — o catálogo hoje tem 13-15 experiências ativas. Nenhuma das duas foi revisitada explicitamente à luz da crítica adversarial (`docs/_CRITICA-ADVERSARIAL.md`).
 
 ---
 

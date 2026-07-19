@@ -1,6 +1,6 @@
 ---
 nome: "Noite do Hot Dog"
-linha: "Express"
+linha: "Casa Cheia"
 ocasioes: ["confraternização leve", "noite de jogo"]
 pessoas_min: 10
 pessoas_max: 30

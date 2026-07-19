@@ -1,6 +1,6 @@
 ---
 nome: "Boteco da Serra"
-linha: "Express"
+linha: "Casa Cheia"
 ocasioes: ["encontro de amigos", "noite descontraída em casa de campo"]
 pessoas_min: 8
 pessoas_max: 25

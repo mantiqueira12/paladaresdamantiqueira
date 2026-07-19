@@ -6,7 +6,7 @@ import { montarMensagem, linkWhatsApp, WHATSAPP_DISPLAY, type PedidoData } from 
 import { rastrearOrcamento, type OrigemOrcamento } from '../lib/analytics';
 import { useModalA11y } from '../lib/useModalA11y';
 
-const FAIXAS_PESSOAS = ['2 a 6 pessoas', '8 a 12 pessoas', '13 a 20 pessoas', 'Mais de 20 pessoas'];
+const FAIXAS_PESSOAS = ['2 a 7 pessoas', '8 a 12 pessoas', '13 a 20 pessoas', 'Mais de 20 pessoas'];
 const OCASIOES = [
   'Aniversário',
   'Bodas / casamento',
@@ -100,6 +100,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                 </h3>
               </div>
               <button
+                type="button"
                 onClick={onFechar}
                 aria-label="Fechar"
                 className="p-3 rounded-full border border-brand-line hover:bg-brand-charcoal hover:text-white transition-all shrink-0"

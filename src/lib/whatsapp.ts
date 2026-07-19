@@ -61,24 +61,21 @@ export function linkWhatsAppTexto(texto: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
 }
 
-/**
- * Link curto de avaliação do Google Business Profile.
- * Pegue no painel do GBP (botão "Ask for reviews" / "Get more reviews") — tem o
- * formato https://g.page/r/XXXXXXXX/review — e cole aqui.
- */
+/** Link direto para avaliar o Perfil da Empresa no Google. */
 export const GOOGLE_REVIEW_LINK = 'https://search.google.com/local/writereview?placeid=ChIJzXUll8iJzJQR2SJ60hPQGyk';
 
 /**
  * Mensagem de agradecimento + pedido de avaliação no Google para enviar ao
  * cliente no dia seguinte à experiência (D+1). O chef copia e envia no WhatsApp.
- * Uma avaliação que cita a ocasião e a cidade vira sinal de relevância local.
+ * A abertura pode ser personalizada com o contexto real, mas o pedido permanece
+ * neutro: sem sugerir nota, palavras-chave ou conteúdo para a avaliação.
  */
 export function mensagemAvaliacaoGoogle(p: { nome?: string; ocasiao?: string; cidade?: string } = {}): string {
   const saudacao = p.nome ? `Olá, ${p.nome}! 🌿` : 'Olá! 🌿';
   const noite = p.ocasiao ? `o seu ${p.ocasiao}` : 'a sua experiência';
   const local = p.cidade ? ` em ${p.cidade}` : '';
   const pedido = GOOGLE_REVIEW_LINK
-    ? `Se a noite foi especial pra você, uma avaliação no Google ajuda demais o nosso trabalho a chegar a mais pessoas: ${GOOGLE_REVIEW_LINK}`
-    : 'Se a noite foi especial pra você, uma avaliação no Google ajuda demais o nosso trabalho a chegar a mais pessoas.';
+    ? `Quando tiver um minuto, você poderia deixar no Google uma avaliação sincera sobre a sua experiência? Seu relato ajuda outras pessoas a conhecerem o Paladares da Mantiqueira.\n${GOOGLE_REVIEW_LINK}`
+    : 'Quando tiver um minuto, você poderia deixar no Google uma avaliação sincera sobre a sua experiência? Seu relato ajuda outras pessoas a conhecerem o Paladares da Mantiqueira.';
   return [`${saudacao} Foi uma alegria preparar ${noite}${local}.`, pedido, 'Um abraço, Chef Rafael.'].join('\n\n');
 }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Chef Rafael Jacob | Chef Particular na Serra da Mantiqueira e Campos do Jordão</title>
-    <meta name="description" content="Chef particular (personal chef) em Campos do Jordão e toda a Serra da Mantiqueira. A experiência de um ótimo restaurante na sua casa: jantares, churrasco, massas e eventos exclusivos com o Chef Rafael Jacob." />
+    <title>Chef Particular na Serra da Mantiqueira | Rafael Jacob</title>
+    <meta name="description" content="Chef particular para jantares e celebrações em casas de campo na Serra da Mantiqueira. Rafael Jacob cuida do menu, preparo, serviço e organização." />
 
     <!-- Endereço oficial do site (canonical) -->
     <link rel="canonical" href="https://paladaresdamantiqueira.com.br/" />
@@ -37,24 +37,32 @@
     <meta name="twitter:description" content="Chef particular na Serra da Mantiqueira — jantares, churrasco, massas e eventos exclusivos na sua casa." />
     <meta name="twitter:image" content="https://paladaresdamantiqueira.com.br/og-image.jpg" />
 
+    <!-- Entidade do site: ajuda a consolidar o nome exibido na busca. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://paladaresdamantiqueira.com.br/#website",
+      "url": "https://paladaresdamantiqueira.com.br/",
+      "name": "Paladares da Mantiqueira",
+      "alternateName": "Chef Rafael Jacob",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://paladaresdamantiqueira.com.br/#business" }
+    }
+    </script>
+
     <!-- Dados estruturados (Google) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "@id": "https://paladaresdamantiqueira.com.br/",
+      "@id": "https://paladaresdamantiqueira.com.br/#business",
       "name": "Paladares da Mantiqueira",
       "alternateName": "Chef Rafael Jacob - Chef Particular",
       "description": "Chef particular (personal chef) especializado em gastronomia de montanha e churrasco, atendendo jantares, celebrações e eventos na Serra da Mantiqueira.",
       "url": "https://paladaresdamantiqueira.com.br/",
       "image": "https://paladaresdamantiqueira.com.br/og-image.jpg",
       "telephone": "+5512997710040",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Campos do Jordão",
-        "addressRegion": "SP",
-        "addressCountry": "BR"
-      },
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+5512997710040",
@@ -63,17 +71,7 @@
       },
       "priceRange": "$$$",
       "servesCuisine": ["Gastronomia de montanha", "Churrasco", "Cozinha autoral", "Cozinha italiana"],
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -22.7386,
-        "longitude": -45.5912
-      },
       "areaServed": [
-        {
-          "@type": "GeoCircle",
-          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": -22.7386, "longitude": -45.5912 },
-          "geoRadius": "100000"
-        },
         { "@type": "Place", "name": "Campos do Jordão" },
         { "@type": "Place", "name": "Santo Antônio do Pinhal" },
         { "@type": "Place", "name": "São Bento do Sapucaí" },
@@ -82,15 +80,9 @@
         { "@type": "Place", "name": "Monte Verde" },
         { "@type": "Place", "name": "Gonçalves" }
       ],
-      "founder": {
-        "@type": "Person",
-        "name": "Rafael Jacob",
-        "jobTitle": "Chef"
-      },
+      "founder": { "@id": "https://paladaresdamantiqueira.com.br/#rafael-jacob" },
       "sameAs": [
         "https://www.instagram.com/paladaresdamantiqueira/",
-        "https://www.instagram.com/rafaeldjacob/",
-        "https://www.instagram.com/fernandamarton.docesmomentos/",
         "https://www.google.com/maps/place/?q=place_id:ChIJzXUll8iJzJQR2SJ60hPQGyk"
       ]
     }
@@ -104,17 +96,16 @@
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "https://paladaresdamantiqueira.com.br/#rafael-jacob",
       "name": "Rafael Jacob",
       "jobTitle": "Chef Particular",
       "description": "Chef com mais de 15 anos de alta gastronomia, especializado em gastronomia de montanha e churrasco, atendendo jantares e celebrações na Serra da Mantiqueira.",
       "url": "https://paladaresdamantiqueira.com.br/",
       "image": "https://paladaresdamantiqueira.com.br/og-image.jpg",
-      "worksFor": { "@id": "https://paladaresdamantiqueira.com.br/" },
+      "worksFor": { "@id": "https://paladaresdamantiqueira.com.br/#business" },
       "knowsAbout": ["Chef particular", "Personal chef", "Gastronomia de montanha", "Churrasco", "Cozinha autoral", "Eventos gastronômicos"],
       "sameAs": [
-        "https://www.instagram.com/paladaresdamantiqueira/",
-        "https://www.instagram.com/rafaeldjacob/",
-        "https://www.google.com/maps/place/?q=place_id:ChIJzXUll8iJzJQR2SJ60hPQGyk"
+        "https://www.instagram.com/rafaeldjacob/"
       ]
     }
     </script>
@@ -130,7 +121,7 @@
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin>
 
     <!-- LCP: poster do hero servido local e com prioridade alta -->
-    <link rel="preload" as="image" href="/hero-poster.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-42VSMJHHFD"></script>

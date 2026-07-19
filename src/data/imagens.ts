@@ -8,6 +8,12 @@
  */
 export const IMAGEM_FALLBACK = '/portfolio/fallback.webp';
 
+/** `srcset` das capas do catálogo; as variantes são geradas no prebuild. */
+export function srcSetPortfolio(imagem: string): string | undefined {
+  if (!imagem.startsWith('/portfolio/') || !imagem.endsWith('.webp')) return undefined;
+  return `${imagem.replace(/\.webp$/, '-400.webp')} 400w, ${imagem} 800w`;
+}
+
 export const IMAGENS: Record<string, string> = {
   // acervo Rafael — top view de amigos compartilhando mesa farta com vinho e massas
   'mesa-de-amigos': '/portfolio/mesa-de-amigos.webp',

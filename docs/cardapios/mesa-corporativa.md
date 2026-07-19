@@ -8,7 +8,7 @@ duracao_horas: null
 sazonalidade: "ano todo"
 camada: "completa"
 destaque: "novidade"
-ativo: true
+ativo: false
 ordem: 15
 preco_por_pessoa: null
 servico_hora: 100
@@ -18,6 +18,8 @@ extras_recomendados: ["estação de café especial da Mantiqueira", "kit individ
 ---
 
 # Mesa Corporativa
+
+> **Arquivo B2B arquivado em 2026-07-19.** Esta experiência não integra mais o catálogo público do Paladares da Mantiqueira. O conteúdo fica preservado como referência para uma futura página B2B separada, possivelmente ligada à Fernanda Marton.
 
 > **Promessa:** A assinatura do chef e da Fernanda Marton Ateliê a serviço da sua empresa — coffee breaks, mimos para o time nas datas comemorativas e a confraternização de fim de ano, com a mão da serra.
 

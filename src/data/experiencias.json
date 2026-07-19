@@ -964,7 +964,7 @@
   {
     "slug": "noite-do-hamburguer",
     "nome": "Noite do Hambúrguer",
-    "linha": "Express",
+    "linha": "Casa Cheia",
     "ocasioes": [
       "aniversário informal",
       "encontro de amigos"
@@ -1045,7 +1045,7 @@
   {
     "slug": "noite-do-hot-dog",
     "nome": "Noite do Hot Dog",
-    "linha": "Express",
+    "linha": "Casa Cheia",
     "ocasioes": [
       "confraternização leve",
       "noite de jogo"
@@ -1122,7 +1122,7 @@
   {
     "slug": "boteco-da-serra",
     "nome": "Boteco da Serra",
-    "linha": "Express",
+    "linha": "Casa Cheia",
     "ocasioes": [
       "encontro de amigos",
       "noite descontraída em casa de campo"
@@ -1273,85 +1273,6 @@
           {
             "nome": "Sorvete artesanal com frutas grelhadas",
             "desc": "frescor cítrico das frutas tostadas no calor do fogo encontrando o sorvete cremoso."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "slug": "mesa-corporativa",
-    "nome": "Mesa Corporativa",
-    "linha": "Corporativo",
-    "ocasioes": [
-      "coffee break corporativo",
-      "datas comemorativas para o time",
-      "confraternização de funcionários"
-    ],
-    "pessoasMin": 10,
-    "pessoasMax": 100,
-    "duracaoHoras": null,
-    "sazonalidade": "ano todo",
-    "camada": "completa",
-    "destaque": "novidade",
-    "ativo": true,
-    "ordem": 15,
-    "sobremesasPor": "Fernanda Marton Ateliê",
-    "dieteticas": [
-      "vegetariana",
-      "sem glúten"
-    ],
-    "extrasRecomendados": [
-      "estação de café especial da Mantiqueira",
-      "kit individual para eventos híbridos e treinamentos"
-    ],
-    "promessa": "A assinatura do chef e da Fernanda Marton Ateliê a serviço da sua empresa — coffee breaks, mimos para o time nas datas comemorativas e a confraternização de fim de ano, com a mão da serra.",
-    "inclui": "curadoria do cardápio conforme o briefing, compra dos insumos, execução e montagem das estações pela equipe do chef, doces e confeitaria assinados pela Fernanda Marton Ateliê, e deslocamento incluso por toda a Serra até ~100 km (São José dos Campos). Emissão de nota fiscal e condições para pessoa jurídica sob consulta.",
-    "exclui": "locação de mobiliário, louças e estrutura de evento além do necessário ao serviço; bebidas alcoólicas; equipe de salão dedicada além da operação (sob orçamento como extra).",
-    "cardapio": [
-      {
-        "titulo": "Coffee breaks & serviços recorrentes",
-        "itens": [
-          {
-            "nome": "Coffee break da serra",
-            "desc": "pães e bolos artesanais, mini sanduíches, frutas frescas e café especial da Mantiqueira, montados em estação para o intervalo render."
-          },
-          {
-            "nome": "Estação de café especial",
-            "desc": "grãos da serra coados na hora para reuniões, treinamentos e recepções."
-          },
-          {
-            "nome": "Kit individual",
-            "desc": "porções embaladas individualmente para entregas, eventos híbridos e treinamentos."
-          }
-        ]
-      },
-      {
-        "titulo": "Datas comemorativas para o time",
-        "itens": [
-          {
-            "nome": "Dia das Mães & Dia dos Pais",
-            "desc": "mesa de doces e mimos da Fernanda Marton Ateliê para a empresa presentear o time."
-          },
-          {
-            "nome": "Aniversariante do mês",
-            "desc": "bolo e seleção de doces para a confraternização mensal dos colaboradores."
-          },
-          {
-            "nome": "Lembrancinhas de aniversário",
-            "desc": "kits individuais doces para celebrar cada colaborador na sua data."
-          }
-        ]
-      },
-      {
-        "titulo": "Confraternização de funcionários — sob projeto",
-        "itens": [
-          {
-            "nome": "Festa de fim de ano",
-            "desc": "churrasco ou mesa farta da serra para o time, com a estrutura da Feito na Brasa adaptada à empresa."
-          },
-          {
-            "nome": "Eventos de integração",
-            "desc": "formatos sob medida para confraternizações e celebrações corporativas, desenhados a partir do briefing."
           }
         ]
       }

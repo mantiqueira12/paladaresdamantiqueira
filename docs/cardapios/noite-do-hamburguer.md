@@ -1,6 +1,6 @@
 ---
 nome: "Noite do Hambúrguer"
-linha: "Express"
+linha: "Casa Cheia"
 ocasioes: ["aniversário informal", "encontro de amigos"]
 pessoas_min: 10
 pessoas_max: 30

@@ -156,7 +156,7 @@ ${faqHtml}
       '@type': 'Service',
       serviceType: 'Chef particular / Personal chef',
       name: 'Experiências de chef particular — Paladares da Mantiqueira',
-      provider: { '@id': 'https://paladaresdamantiqueira.com.br/' },
+      provider: { '@id': 'https://paladaresdamantiqueira.com.br/#business' },
       areaServed: [
         'Campos do Jordão',
         'Santo Antônio do Pinhal',
@@ -168,26 +168,16 @@ ${faqHtml}
         '@type': 'OfferCatalog',
         name: 'Experiências gastronômicas',
         itemListElement: ativos.map((e) => {
-          // O cardápio de cada experiência vive nos modais do app (não no HTML
-          // pré-renderizado). Embutimos aqui, como dado estruturado, o resumo de
-          // cada tempo e seus pratos — assim IAs e Google extraem o cardápio
-          // completo sem depender de JavaScript.
-          const cardapio = (e.cardapio || [])
-            .map((c: any) => {
-              const itens = (c.itens || [])
-                .map((i: any) => (i.desc ? `${txt(i.nome)} (${txt(i.desc)})` : txt(i.nome)))
-                .join('; ');
-              return `${txt(c.titulo)}: ${itens}`;
-            })
-            .join(' · ');
-          const description = cardapio ? `${txt(e.promessa)} Cardápio — ${cardapio}.` : txt(e.promessa);
           return {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
               name: txt(e.nome),
               category: txt(e.linha),
-              description,
+              // Mantém o schema fiel ao conteúdo visível nos cards do HTML
+              // pré-renderizado. Os cardápios completos só entram no schema
+              // quando também tiverem páginas/HTML público próprio.
+              description: txt(e.promessa),
             },
           };
         }),

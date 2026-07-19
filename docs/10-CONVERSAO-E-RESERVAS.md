@@ -159,7 +159,7 @@ Mesmo no MVP, acompanhe (pode ser na planilha):
 
 A landing já foi **construída** com esta estratégia:
 - CTAs trocados por **"Solicitar minha experiência"** (uma só ação na página).
-- **13 experiências** publicadas, organizadas pelas portas de ocasião (filtros), lendo de `docs/cardapios/` via gerador (`npm run gen:cardapios`).
+- **14 experiências** publicadas, organizadas pelas três portas de ocasião (filtros), lendo de `docs/cardapios/` via gerador (`npm run gen:cardapios`).
 - Modal de **detalhe** da experiência (cardápio completo) → modal **"Pedido de Experiência"** com data, nº de convidados, ocasião, cidade e nome, com **prévia ao vivo** da mensagem.
 - Fechamento abre o WhatsApp **+55 12 99771-0040** com a mensagem **personalizada**.
 - **Sem preço** em nenhum ponto; FAQ ajustado ("Como funciona o investimento?").

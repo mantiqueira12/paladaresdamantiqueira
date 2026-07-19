@@ -11,6 +11,7 @@ export default function Chip({
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       aria-pressed={ativo}
       className={`shrink-0 whitespace-nowrap snap-start px-5 py-3 md:py-2.5 rounded-full text-[11px] uppercase tracking-[0.15em] font-bold transition-all border ${

@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "clean": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\"",
     "gen:cardapios": "node scripts/gen-experiencias.mjs",
-    "prebuild": "node scripts/gen-experiencias.mjs",
+    "gen:imagens-responsivas": "node scripts/gerar-imagens-responsivas.mjs",
+    "prebuild": "node scripts/gen-experiencias.mjs && node scripts/gerar-imagens-responsivas.mjs",
     "lint": "tsc --noEmit",
     "otimizar:imagens": "node scripts/otimizar-imagens.mjs"
   },

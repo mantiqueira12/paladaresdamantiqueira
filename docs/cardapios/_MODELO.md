@@ -7,7 +7,7 @@
 # nem os dois "---". Nomes com dois-pontos vão entre "aspas".
 # ───────────────────────────────────────────────────────────────
 nome: "Nome da Experiência"
-linha: "Íntima"                      # Íntima | Casa Cheia | Celebração | Express
+linha: "Íntima"                      # Íntima | Casa Cheia | Celebração
 ocasioes: ["ocasião 1", "ocasião 2"]
 pessoas_min: 2
 pessoas_max: 6

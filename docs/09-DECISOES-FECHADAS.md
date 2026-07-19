@@ -66,23 +66,26 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 | ✅ | **Projeto familiar** | Rafael no fogo/técnica; **Fernanda Marton** assina a confeitaria. |
 | ✅ | **Selo da confeitaria** | **"Doces pelo Ateliê Fernanda Marton"** — assina o fim de toda experiência Completa. |
 
-### 1.5 Catálogo ativo (13 experiências)
+### 1.5 Catálogo ativo (14 experiências públicas)
 
 | ✓ | Experiência | Porta de ocasião | Status |
 |---|---|---|---|
-| ✅ | **Mesa dos Chegados** | Íntima | Lançamento |
+| ✅ | **Entre Amigos** | Íntima | Lançamento |
 | ✅ | **Noite de Fondue** | Íntima | Lançamento |
-| ✅ | **Mesa na Brasa** | Casa Cheia | Lançamento |
-| ✅ | **Mesa Cheia: Cantina** | Casa Cheia | Lançamento |
-| ✅ | **Forno & Quintal** | Casa Cheia | Lançamento |
+| ✅ | **Feito na Brasa** | Casa Cheia | Lançamento |
+| ✅ | **Pasta à Mesa** | Casa Cheia | Validada pelo Rafael em 2026-07-19 |
+| ✅ | **Viva la Pizza** | Casa Cheia | Lançamento |
 | ✅ | **Origens da Serra** | Celebração | Lançamento |
 | ✅ | **Brunch na Montanha** | Casa Cheia | Novidade |
 | ✅ | **Café Colonial Autoral** | Casa Cheia | Novidade |
 | ✅ | **Mesa de Inverno — Edição Pinhão** | Celebração | Novidade |
 | ✅ | **Harmonização Guiada** | Celebração | Novidade |
-| ✅ | **Noite do Hambúrguer** | Express | Novidade |
-| ✅ | **Noite do Hot Dog** | Express | Novidade |
-| ✅ | **Boteco da Serra** | Express | Novidade |
+| ✅ | **Noite do Hambúrguer** | Casa Cheia | Novidade |
+| ✅ | **Noite do Hot Dog** | Casa Cheia | Novidade |
+| ✅ | **Boteco da Serra** | Casa Cheia | Novidade |
+| ✅ | **Feito na Paella** | Casa Cheia | Validada pelo Rafael em 2026-07-19 |
+
+> **Decisão atualizada em 2026-07-19:** o catálogo continua amplo, mas a navegação pública volta a ter **somente três portas**: Íntima · Casa Cheia · Celebração. A antiga linha Express foi absorvida por Casa Cheia. Mesa Corporativa sai do catálogo do Paladares; uma oferta B2B poderá existir futuramente em página discreta e separada, possivelmente ligada à Fernanda Marton, sem contaminar a vitrine principal.
 
 ### 1.6 Operação de cardápios e escopo
 
@@ -91,6 +94,43 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 | ✅ | **Sistema de cardápios modulares** | 1 arquivo por experiência em `docs/cardapios/` — ver **doc 08**. |
 | ✅ | **Clube da Mantiqueira** | Confirmado como **fase 2**. **Não lançar agora.** |
 | ✅ | **Harmonização de vinhos (modelo)** | Recomendação por **curadoria + comissão de parceria**. Valor da comissão a confirmar. |
+
+### 1.7 Exposição pública, prova social e SEO local — confirmado em 2026-07-19
+
+| ✓ | Decisão | O que ficou definido |
+|---|---|---|
+| ✅ | **Depoimentos atuais são fictícios** | Remover da home e das 14 landings. Só voltar a publicar prova social real e verificável. |
+| ✅ | **Paella e Pasta à Mesa estão validadas** | O alerta anterior era ruído de documentação; ambas podem permanecer no catálogo ativo. |
+| ✅ | **Landings atuais são mantidas** | Não criar novas páginas geográficas agora. Aprofundar primeiro as existentes com casos, logística, fotos e FAQ próprios quando houver material real. |
+| ✅ | **B2B fora da vitrine principal** | Mesa Corporativa fica arquivada/inativa. Uma página B2B separada pode ser criada depois, sem usar a estrutura das três portas B2C. |
+| ✅ | **Hero da home** | Opção B escolhida pelo Rafael em 2026-07-19: preservar o texto atual neste lote. |
+
+### 1.8 Feijoada — nova experiência em elaboração (2026-07-19)
+
+| ✓ | Decisão | O que ficou definido |
+|---|---|---|
+| ✅ | **A experiência existe e é real** | Rafael solicitou a criação do novo serviço de Feijoada e confirmou que o acervo enviado é de um evento realizado. |
+| ✅ | **Porta de ocasião** | A Feijoada fica dentro de **Casa Cheia**; não cria uma quarta porta nem ganha landing própria neste momento. |
+| ✅ | **Prova visual segura para o card** | A foto `0300.jpg` foi escolhida por ser horizontal, mostrar acompanhamentos reais e não exibir rostos. O derivado otimizado se chama `feijoada-dos-chegados.webp`. |
+| ✅ | **Modalidade Só o Serviço** | Escolha **B**, confirmada pelo Rafael em 2026-07-19: o cliente compra os insumos e organiza a estrutura; o chef leva mão de obra, técnica e execução. **R$ 100/hora, mínimo de 3 horas**, sem curadoria, confeitaria ou sobremesa do Ateliê. |
+| ⏳ | **Nome público** | Recomendação de trabalho: **Feijoada dos Chegados**. Alternativas: **Feijoada da Casa** e **Feijoada na Mantiqueira**. Rafael ainda precisa escolher. |
+| ⏳ | **Ficha operacional** | Confirmar cardápio/lista de compras, mínimo/máximo de pessoas, duração, sazonalidade, estrutura mínima da casa, equipe, adaptações e antecedência. |
+| ⏳ | **Direitos das fotos** | Confirmar licença/autorização com a fotógrafa responsável, eventual crédito e autorização separada para imagens com convidados. Os detalhes ficam fora do repositório público. |
+
+> Até essas validações, a ficha permanece com `ativo: false`: a imagem fica preparada, mas a Feijoada ainda não entra nas 14 experiências públicas nem no `OfferCatalog`.
+
+### 1.9 Perfil da Empresa no Google — validações de 2026-07-19
+
+| Item | Estado | Decisão |
+|---|---|---|
+| **Nome** | ✅ | Manter **Paladares da Mantiqueira**, sem acrescentar palavras-chave artificiais. |
+| **Categoria principal** | ✅ | Manter a opção atual **Personal chef service** (no painel em português, usar a tradução oferecida pelo autocomplete). |
+| **Categorias adicionais** | ✅ | Não adicionar categoria secundária neste momento. Reavaliar somente se uma nova categoria descrever com precisão o negócio principal. |
+| **Descrição** | ✅ | Texto do doc 12, Apêndice A.1, aprovado. |
+| **Serviços** | ✅ | Cadastrar as 14 experiências públicas e **Só o Serviço**; Feijoada entra somente após a ficha ser ativada. |
+| **Atendimento** | ✅ | Negócio de área de serviço: atendimento somente no endereço do cliente, com endereço residencial oculto no perfil. |
+| **Avaliações** | ✅ | Criar rotina com clientes reais, pedido neutro e link direto; sem incentivo, seleção por satisfação ou orientação de nota/conteúdo. |
+| **Fotos** | ✅ | As fotos atuais, inclusive as conceituais, podem permanecer temporariamente **no site**. No Perfil da Empresa, publicar somente acervo real com direitos confirmados. A substituição gradual do site fica para quando houver material próprio; não apagar em bloco agora. |
 
 ---
 
@@ -111,7 +151,9 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 
 ## 🔜 Bloco 3 — Próximos passos imediatos
 
-**A fazer já — não depende de custo:** reescrever home com 3 portas + botão Sob Medida; publicar as 13 experiências; aplicar o selo do Ateliê; escrever o bloco "Só o Serviço" (R$ 100/h, mín. 3h); publicar sinal 50% e deslocamento incluso até SJC; garantir doc 08; mensagens de WhatsApp por experiência.
+**Entregue no site:** home com 3 portas + botão Sob Medida; 14 experiências públicas; selo do Ateliê; bloco "Só o Serviço" (R$ 100/h, mín. 3h); sinal de 50%; deslocamento incluído na área-base; mensagens de WhatsApp por experiência.
+
+**A fazer agora:** completar o Perfil da Empresa, aplicar a categoria principal validada, iniciar a rotina neutra de avaliações reais e preparar gradualmente acervo visual próprio com direitos confirmados.
 
 **Assim que os custos fecharem:** CMV real → preço/pessoa; piso e valor do Sob Medida + markup; percentuais de cancelamento; 4–5 extras; comissão de vinho.
 

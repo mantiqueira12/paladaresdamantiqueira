@@ -6,6 +6,8 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 > **Para quem é este documento:** Rafael Jacob (dono e chef) e qualquer agente que for executar as melhorias.
 > **O que ele faz:** é o plano-mestre para **vender mais e receber mais pedidos de orçamento**, em 3 fases com checkboxes. Cada item diz **quem faz** (🧑‍🍳 Rafael = painel/telefone/conversa · 🤖 Agente = código/documentos · 🤝 os dois).
 > **Regra de execução:** seguir a ordem. Nada da Fase 2 antes da Fase 1 estar rodando. Marcar `[x]` ao concluir e registrar no `STATUS.md`.
+> **Nota de sincronização (2026-07-03):** levantamento multi-agente encontrou §1.3, §1.7 e os 3 primeiros itens de §1.4 já entregues (ver `STATUS.md`, log de sessões) mas com checkboxes esquecidos em `[ ]`. Corrigido abaixo.
+> **✅ APROVADO pelo Rafael em 2026-07-03.** Execução da Fase 1 liberada.
 
 ---
 
@@ -36,31 +38,31 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 ### 1.1 🧑‍🍳 GBP Sprint de Fundação (2h, sessão única no painel)
 *A maior alavanca por hora investida. Tudo no painel do Google Business, sem código.*
 
-- [ ] **Categorias:** manter "Serviço de chef pessoal" como primária; adicionar 2–3 secundárias (buscar no seletor por "bufê", "casamento", "eventos"). Secundárias **não aparecem ao público** — só ranqueiam; não violam o vocabulário da marca.
-- [ ] **Área de atendimento:** configurar como negócio a domicílio (ocultar endereço residencial) e cadastrar até 20 cidades: Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí, Monte Verde/Camanducaia, Gonçalves, Sapucaí-Mirim, São José dos Campos, Pindamonhangaba, Taubaté, Tremembé, Caçapava, Jacareí.
-- [ ] **Serviços:** cadastrar as **13 experiências** como serviços (nome + descrição até 300 chars citando a porta de ocasião; preço = "entre em contato"). Cadastrar **"Só o Serviço" COM preço R$ 100/hora** (única camada com preço público — decisão fechada, doc 09).
+- [ ] **Categorias:** manter **Personal chef service** como principal (usar no painel a tradução oferecida pelo autocomplete). Começar sem categoria adicional; testar depois somente **Serviço de catering/Caterer**, caso represente a operação real e os termos de busca mostrem demanda qualificada. Não usar Restaurante, Serviço de casamento, Organizador de eventos ou Entrega.
+- [ ] **Área de atendimento:** configurar como negócio a domicílio e ocultar o endereço residencial. Cadastrar separadamente apenas cidades realmente atendidas e dentro do raio operacional a partir da base verificada — nunca usar combinações como “Monte Verde/Camanducaia”. Começar pelas cidades já publicadas no site e confirmar o tempo real de deslocamento de cada uma antes de ampliar.
+- [ ] **Serviços:** cadastrar as **14 experiências públicas** como serviços (nome + descrição até 300 chars citando a porta de ocasião; preço = "entre em contato"). Cadastrar **"Só o Serviço" COM preço R$ 100/hora** (única camada com preço público — decisão fechada, doc 09). A Feijoada entra somente quando sua ficha for ativada.
 - [ ] **Descrição (750 chars):** usar o texto pronto do Apêndice A.1.
 - [ ] **Atributos:** revisar Editar perfil → Mais; marcar "agendamento obrigatório", "orçamentos on-line", empresa familiar (se disponível).
 - [ ] **Link do site com UTM:** `https://paladaresdamantiqueira.com.br/?utm_source=gbp&utm_medium=organic&utm_campaign=perfil` · telefone idêntico ao do site/IG (consistência NAP).
 
 ### 1.2 🧑‍🍳 Blitz de avaliações: de 1 para 10+ em 30–45 dias
 - [ ] Levantar no WhatsApp **15–20 clientes antigos** (nome, ocasião, cidade, data do evento) — anotar na planilha-funil (1.4).
-- [ ] Enviar a mensagem do helper `mensagemAvaliacaoGoogle()` (`src/lib/whatsapp.ts`) personalizada com nome + ocasião + cidade — é a personalização que faz o cliente escrever "jantar de aniversário em Campos do Jordão", e esse texto é sinal de relevância local para o Google.
+- [ ] Enviar a mensagem do helper `mensagemAvaliacaoGoogle()` (`src/lib/whatsapp.ts`) personalizada na saudação com nome + ocasião + cidade. O pedido deve ser aberto: não sugerir nota, palavras-chave ou conteúdo para a avaliação.
 - [ ] **Cadência: 1–2 envios por dia útil, NUNCA em rajada** — 10 avaliações no mesmo dia num perfil que tinha 1 acionam o filtro anti-spam e podem sumir todas.
 - [ ] Follow-up único e gentil após 5–7 dias para quem não avaliou.
-- [ ] **Regra dura:** nunca oferecer desconto/brinde/sorteio em troca de avaliação (risco de remoção total). O pedido é sempre "se a noite foi especial".
+- [ ] **Regra dura:** nunca oferecer desconto/brinde/sorteio, selecionar apenas clientes satisfeitos ou condicionar o pedido a "se a noite foi especial". Pedir uma avaliação sincera a clientes reais, sem pressionar por nota ou texto específico.
 - [ ] 🧑‍🍳 Responder **100% das avaliações em até 24h**, como dono, citando cidade + experiência na resposta.
 
 ### 1.3 🤖 Remover o ícone do Instagram vazio do header
-- [ ] Tirar o ícone do IG do header da home (`src/App.tsx`) e das 14 landings (`scripts/gen-landings.mjs`) — manter só no rodapé — até o perfil ter 9–12 posts. Perfil zerado colado ao CTA principal sinaliza "negócio parado" no momento da decisão.
-- [ ] Rebuild + deploy.
+- [x] Tirar o ícone do IG do header da home (`src/App.tsx`) e das 14 landings (`scripts/gen-landings.mjs`) — manter só no rodapé — até o perfil ter 9–12 posts. Perfil zerado colado ao CTA principal sinaliza "negócio parado" no momento da decisão.
+- [x] Rebuild + deploy.
 
 ### 1.4 🤝 Planilha-funil única (mini-CRM) + ritual semanal
 *Dois auditores pediram a mesma planilha — é UMA só. Fonte da verdade de todo o plano.*
 
-- [ ] 🤖 Gerar o modelo (Google Sheets ou .xlsx) com **aba LEADS** (1 linha por conversa, 10–14 colunas): Data · Nome · Telefone · Canal (lista: Instagram / Site-Google / Maps-GBP / Indicação / Parceria / Outro) · Página/experiência citada na 1ª mensagem · Ocasião · Nº pessoas · Cidade · Data do evento · Status (Novo → Respondido → Proposta → Follow-up → Sinal pago → Realizado → Perdido) · Data do próximo toque · Datas comemorativas capturadas · Valor proposto · Valor fechado.
-- [ ] 🤖 **Aba RESUMO** com fórmulas por mês: leads, propostas, fechados, taxa lead→proposta, taxa proposta→fechado, ticket médio + coluna manual com cliques `solicitar_orcamento` do GA4.
-- [ ] 🤖 **Aba UTMs:** a tabela de links padronizados (Apêndice A.2) para nunca improvisar.
+- [x] 🤖 Gerar o modelo (Google Sheets ou .xlsx) com **aba LEADS** (1 linha por conversa, 10–14 colunas): Data · Nome · Telefone · Canal (lista: Instagram / Site-Google / Maps-GBP / Indicação / Parceria / Outro) · Página/experiência citada na 1ª mensagem · Ocasião · Nº pessoas · Cidade · Data do evento · Status (Novo → Respondido → Proposta → Follow-up → Sinal pago → Realizado → Perdido) · Data do próximo toque · Datas comemorativas capturadas · Valor proposto · Valor fechado. *Gerado em `../CRM-Paladares-funil.xlsx` (fora do git).*
+- [x] 🤖 **Aba RESUMO** com fórmulas por mês: leads, propostas, fechados, taxa lead→proposta, taxa proposta→fechado, ticket médio + coluna manual com cliques `solicitar_orcamento` do GA4.
+- [x] 🤖 **Aba UTMs:** a tabela de links padronizados (Apêndice A.2) para nunca improvisar.
 - [ ] 🧑‍🍳 Ritual: **2 min por lead na hora que chega + 15 min toda sexta** varrendo a coluna "próximo toque". Criar lembrete recorrente no Google Agenda **desde o dia 1**.
 
 ### 1.5 🧑‍🍳 WhatsApp Business com Respostas Rápidas
@@ -75,16 +77,16 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 - [ ] 🤖 Registrar no doc 09 (mover de ⏳ para ✅) e salvar o script do pedido de sinal (Apêndice A.4) como Resposta Rápida.
 
 ### 1.7 🤖 Microcopy de redução de risco sob os CTAs primários
-- [ ] Adicionar linha abaixo do CTA do hero da home e dos heros das 14 landings: **"Orçamento sem compromisso · resposta no WhatsApp no mesmo dia"** (`src/App.tsx` + `scripts/gen-landings.mjs`).
-- [ ] Urgência honesta e sazonal onde couber: "Poucas datas de fim de semana em [mês]".
-- [ ] Rebuild + deploy (pode ir junto com 1.3).
+- [x] Adicionar linha abaixo do CTA do hero da home e dos heros das 14 landings: **"Orçamento sem compromisso · resposta no WhatsApp no mesmo dia"** (`src/App.tsx` + `scripts/gen-landings.mjs`).
+- [ ] Urgência honesta e sazonal onde couber: "Poucas datas de fim de semana em [mês]". *(não confirmado como feito — revisar antes de marcar)*
+- [x] Rebuild + deploy (pode ir junto com 1.3).
 
 ---
 
 ## 2. FASE 2 — Mês 1 (construir o motor)
 
 ### 2.1 🧑‍🍳 GBP vivo: fotos + Q&A + 1 post/semana
-- [ ] **Fotos:** subir 15–20 na primeira semana, renomeando ANTES do upload com padrão local: `chef-particular-campos-do-jordao-mesa-posta.jpg`, `noite-de-fondue-serra-da-mantiqueira.jpg`, `chef-rafael-jacob-brasa.jpg`, `sobremesa-atelie-fernanda-marton.jpg`. Mix: logo + capa (mesa com montanha) + 2 do Rafael no fogo + 1 do casal + 2–3 por porta + sobremesas. Depois, 2–3 novas/semana vindas de eventos reais.
+- [ ] **Fotos:** subir somente acervo real do Rafael, de eventos, pratos e equipe, com direitos/autorização confirmados — nunca imagens de banco ou fotos conceituais do site no Perfil da Empresa. Primeira carga: logo + capa real + 2 do Rafael no fogo + 1 do casal + 2–3 por porta + sobremesas; depois, 2–3 novas por semana vindas de eventos reais. Renomear antes do upload com nomes descritivos naturais.
 - [ ] **Q&A semeado (6 perguntas):** o dono pode publicar e responder as próprias perguntas (prática legítima). Alinhar com `faq.json`: Quanto custa? (consultivo, sinal 50%, sem valores) · Atende quais cidades? · Cobra deslocamento? (incluso ~100 km) · Como funciona a reserva? · Faz só o serviço de cozinha? (R$ 100/h, mín. 3h) · Atende restrições alimentares?
 - [ ] **1 post/semana** (tipo "Novidade", 15 min): 100–300 palavras + 1 foto + botão "Saiba mais" para a landing correspondente com UTM. Julho/agosto (inverno): sem.1 Noite de Fondue · sem.2 Mesa de Inverno Edição Pinhão · sem.3 Só o Serviço no churrasco · sem.4 Mesa dos Chegados.
 
@@ -109,7 +111,7 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 - [ ] Montar 1 Exploração: `solicitar_orcamento` × `pagina` × `origem`.
 
 ### 2.5 🤝 Escada de objeção de preço (4 degraus, sem desconto)
-- [ ] 🤖 Documentar (Apêndice A.6 já traz a base): (1) reancorar no valor → (2) ajustar ESCOPO mantendo preço/pessoa (Celebração → Casa Cheia → Express) → (3) oferecer "Só o Serviço" como formato, nunca como desconto → (4) recusar com elegância e manter no radar.
+- [ ] 🤖 Documentar (Apêndice A.6 já traz a base): (1) reancorar no valor → (2) ajustar ESCOPO mantendo preço/pessoa (menos etapas ou outra experiência adequada entre as três portas) → (3) oferecer "Só o Serviço" como formato, nunca como desconto → (4) recusar com elegância e manter no radar.
 - [ ] 🧑‍🍳 Regra escrita: **nunca reduzir % sobre a mesma proposta** — muda-se o escopo, nunca o valor do mesmo escopo.
 
 ### 2.6 🧑‍🍳 Captura em lote nos eventos (o que torna o IG sustentável)
@@ -134,9 +136,10 @@ Versão 1.0 | Julho/2026 | Gerado por auditoria multi-agente (4 auditores: conve
 
 ### 3.2 🤖 Patch único de landings (1 rodada de código + QA)
 *Empacotar num só deploy, não como ações separadas:*
-- [ ] Rodapé das 14 landings: CTA de WhatsApp passa a usar `waLink(n)` + tracking (hoje sem evento e sem mensagem contextual — `gen-landings.mjs`).
+- [x] Rodapé das 14 landings: CTA de WhatsApp usa `waLink(n)` + tracking contextual (`landing_footer`). Implementado e validado no build em 2026-07-19.
 - [ ] **Selo "★ X,X no Google (N avaliações)"** perto dos CTAs — **só quando houver 10+ avaliações** (antes disso, "5,0 com 1 avaliação" enfraquece).
-- [ ] Substituir gradualmente os depoimentos estáticos por **reviews reais** com link "ver no Google".
+- [x] Remover os três depoimentos estáticos fictícios da home e das 14 landings. Decisão confirmada pelo Rafael em 2026-07-19.
+- [ ] Publicar novamente prova social somente quando houver **reviews reais e verificáveis**, com link "ver no Google".
 - [ ] Reavaliar CTA secundário "quero receber o cardápio" via wa.me (a versão sem PDF do lead magnet — ver §5).
 
 ### 3.3 🧑‍🍳🤖 Revisão de 60 dias com metas de corte (45 min, última sexta do mês 2)
@@ -233,6 +236,9 @@ Hoje o site **já envia** parâmetros ricos no evento `solicitar_orcamento` (`or
 - **/d5 (escassez honesta):** "Vou montar a agenda de [mês] esta semana; consigo segurar o dia [data] até sexta. Te confirmo?"
 - **/d10 (encerramento elegante):** "Se o momento mudou, tudo bem — posso te avisar quando abrir a agenda de [temporada]?"
 - **/d1pos (pós-evento D+1):** usar o texto de `mensagemAvaliacaoGoogle()` (src/lib/whatsapp.ts) + pedir 1–2 fotos com autorização + capturar 2 datas comemorativas.
+- **/avaliacao (pedido pessoal):** "Oi, [NOME]! Foi uma alegria cuidar da [OCASIÃO] de vocês em [CIDADE]. 🌿 Quando tiver um minuto, você poderia deixar no Google uma avaliação sincera sobre a sua experiência? Seu relato ajuda outras pessoas a conhecerem o Paladares da Mantiqueira. https://search.google.com/local/writereview?placeid=ChIJzXUll8iJzJQR2SJ60hPQGyk Muito obrigado por me receber à mesa!"
+- **/avaliacao-curta:** "Oi, [NOME]! Obrigado por me deixar cuidar da [OCASIÃO] de vocês em [CIDADE]. 🌿 Quando tiver um minuto, você poderia deixar uma avaliação sincera no Google? https://search.google.com/local/writereview?placeid=ChIJzXUll8iJzJQR2SJ60hPQGyk"
+- **/lembrete-avaliacao (uma vez, após 5–7 dias):** "Oi, [NOME]! Passando só para deixar novamente o link da avaliação, caso ainda queira contar como foi a sua experiência com o Paladares da Mantiqueira: https://search.google.com/local/writereview?placeid=ChIJzXUll8iJzJQR2SJ60hPQGyk Se não der agora, tudo bem. Obrigado mais uma vez pela confiança!"
 
 ### A.4 Script do pedido de sinal (proposta aceita → UMA mensagem)
 > "Que alegria! Para eu **reservar a sua data**: o sinal é de 50% (R$ [valor]) via Pix — chave: [chave]. Seguro o dia [data] para você até [dia+48h]. Política simples: cancelando com mais de 14 dias, devolvo o sinal (menos taxa); entre 7 e 14 dias, 50%; com menos de 72h, o sinal cobre os insumos já comprados. O saldo a gente acerta até 48h antes. Qualquer dúvida, é só chamar!"
@@ -259,7 +265,7 @@ Depois do Pix: mensagem de confirmação (doc 10 §6) + lembrete de saldo/briefi
 
 ### A.6 Escada de objeção de preço (4 degraus, nesta ordem, sem pular)
 1. **Reancorar no valor:** "esse valor inclui curadoria, compra, execução e a sobremesa do Ateliê — você recebe os abraços, eu assumo o fogão."
-2. **Ajustar escopo, mantendo o preço/pessoa:** menos tempos, outra experiência da mesma porta, ou porta mais enxuta (Celebração → Casa Cheia → Express).
+2. **Ajustar escopo, mantendo o preço/pessoa:** menos etapas ou outra experiência adequada entre Íntima, Casa Cheia e Celebração; não recriar a antiga porta Express.
 3. **Oferecer "Só o Serviço" como formato diferente, nunca como desconto:** "existe um formato onde você cuida dos insumos e eu assumo só o comando: R$ 100/h, mínimo 3h."
 4. **Recusar com elegância** e manter no radar de reativação.
 
