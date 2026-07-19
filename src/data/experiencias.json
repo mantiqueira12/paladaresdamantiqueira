@@ -16,6 +16,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 1,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -101,6 +102,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 2,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",
@@ -183,6 +185,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 3,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",
@@ -286,6 +289,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 4,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -400,6 +404,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 5,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -489,6 +494,7 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 6,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -592,6 +598,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 7,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -690,6 +697,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 8,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -784,6 +792,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 9,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -865,6 +874,7 @@
     "destaque": "expansao",
     "ativo": true,
     "ordem": 10,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -977,6 +987,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 11,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -1058,6 +1069,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 12,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -1135,6 +1147,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 13,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -1208,6 +1221,7 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 14,
+    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",

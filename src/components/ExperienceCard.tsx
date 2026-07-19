@@ -12,6 +12,8 @@ export default function ExperienceCard({
   index: number;
   onVer: () => void;
 }) {
+  const publico = pessoasLabel(exp);
+
   // article + botão "stretched-link": HTML válido (antes era <button> contendo
   // <h3>), o card inteiro continua clicável e o leitor de tela anuncia um nome
   // curto ("Ver detalhes de X") em vez de todo o texto do card.
@@ -50,9 +52,13 @@ export default function ExperienceCard({
         </h3>
         <p className="text-sm text-brand-charcoal/60 leading-relaxed font-light line-clamp-3 flex-1">{exp.promessa}</p>
         <div className="flex items-center justify-between mt-5 pt-4 border-t border-brand-line">
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/70 flex items-center gap-1.5">
-            <Users size={13} className="text-brand-terracotta" /> {pessoasLabel(exp)}
-          </span>
+          {publico ? (
+            <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/70 flex items-center gap-1.5">
+              <Users size={13} className="text-brand-terracotta" /> {publico}
+            </span>
+          ) : (
+            <span aria-hidden="true" />
+          )}
           <button
             type="button"
             onClick={onVer}

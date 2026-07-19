@@ -35,7 +35,12 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
 
   useEffect(() => {
     if (aberto) {
-      setPedido((p) => ({ ...p, experiencia: experienciaInicial }));
+      const inicial = acharPorNome(experienciaInicial);
+      setPedido((p) => ({
+        ...p,
+        experiencia: experienciaInicial,
+        soServico: inicial?.camada === 'servico',
+      }));
       setEnviado(false);
     }
   }, [aberto, experienciaInicial]);
@@ -48,21 +53,39 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
   }, [aberto]);
 
   const expSel = pedido.experiencia ? acharPorNome(pedido.experiencia) : undefined;
-  const mostrarSoServico = !expSel || expSel.camada === 'servico' || expSel.camada === 'ambas';
+  const soServicoObrigatorio = expSel?.camada === 'servico';
+  const permiteEscolherSoServico = !expSel || expSel.camada === 'ambas';
+  const pedidoEfetivo = useMemo<PedidoData>(
+    () => (soServicoObrigatorio ? { ...pedido, soServico: true } : pedido),
+    [pedido, soServicoObrigatorio],
+  );
 
-  const preview = useMemo(() => montarMensagem(pedido), [pedido]);
+  const preview = useMemo(() => montarMensagem(pedidoEfetivo), [pedidoEfetivo]);
   const set = (campo: keyof PedidoData, valor: string | boolean) =>
     setPedido((p) => ({ ...p, [campo]: valor }));
+  const setExperiencia = (nome: string) => {
+    const escolhida = acharPorNome(nome);
+    setPedido((p) => ({
+      ...p,
+      experiencia: nome,
+      soServico:
+        escolhida?.camada === 'servico'
+          ? true
+          : escolhida?.camada === 'ambas'
+            ? p.soServico
+            : false,
+    }));
+  };
 
   // O envio é um <a> nativo (não window.open): funciona no navegador embutido do
   // Instagram/Facebook, onde window.open costuma ser bloqueado. O clique só
   // registra o evento e o feedback — a navegação é do próprio link.
   const aoEnviar = () => {
-    rastrearOrcamento(origem, pedido.experiencia, {
-      ocasiao: pedido.ocasiao,
-      cidade: pedido.cidade,
-      pessoas: pedido.pessoas,
-      soServico: pedido.soServico,
+    rastrearOrcamento(origem, pedidoEfetivo.experiencia, {
+      ocasiao: pedidoEfetivo.ocasiao,
+      cidade: pedidoEfetivo.cidade,
+      pessoas: pedidoEfetivo.pessoas,
+      soServico: pedidoEfetivo.soServico,
     });
     setEnviado(true);
   };
@@ -119,7 +142,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
               <Campo icone={<ChefHat size={15} />} label="Experiência desejada">
                 <select
                   value={pedido.experiencia || ''}
-                  onChange={(e) => set('experiencia', e.target.value)}
+                  onChange={(e) => setExperiencia(e.target.value)}
                   className={inputCls}
                 >
                   <option value="">Ainda não sei — quero ajuda para escolher</option>
@@ -193,11 +216,21 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                 />
               </Campo>
 
-              {mostrarSoServico && (
+              {soServicoObrigatorio && (
+                <div className="flex items-start gap-3 p-4 rounded-xl border border-brand-terracotta/30 bg-brand-terracotta/5">
+                  <ChefHat size={18} className="mt-0.5 text-brand-terracotta shrink-0" />
+                  <span className="text-sm text-brand-charcoal/80 leading-relaxed">
+                    <strong className="text-brand-charcoal">Formato único: "Só o Serviço"</strong> — você compra os
+                    insumos e cuida da estrutura; o chef assume o comando da cozinha (mín. 3h).
+                  </span>
+                </div>
+              )}
+
+              {permiteEscolherSoServico && (
                 <label className="flex items-start gap-3 p-4 rounded-xl border border-brand-line bg-white/60 cursor-pointer hover:border-brand-terracotta/40 transition-colors">
                   <input
                     type="checkbox"
-                    checked={!!pedido.soServico}
+                    checked={!!pedidoEfetivo.soServico}
                     onChange={(e) => set('soServico', e.target.checked)}
                     className="mt-1 accent-brand-terracotta w-4 h-4"
                   />
@@ -227,7 +260,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                   : `Abre uma conversa no WhatsApp · ${WHATSAPP_DISPLAY}`}
               </span>
               <a
-                href={linkWhatsApp(pedido)}
+                href={linkWhatsApp(pedidoEfetivo)}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={aoEnviar}

@@ -17,7 +17,7 @@ Aqui moram os cardápios do **Paladares da Mantiqueira**: **um arquivo `.md` por
 - `ativo: false` → a experiência some do site, mas o arquivo fica guardado.
 
 ## Regras de ouro
-- Toda sobremesa é **"Doces pela Fernanda Marton Ateliê"**.
+- Toda experiência **Completa** inclui **"Doces pela Fernanda Marton Ateliê"**. Em uma experiência exclusivamente **Só o Serviço**, use `sobremesas_por: null` quando a sobremesa não fizer parte da execução.
 - Vocabulário de marca: **experiência, noite, mesa, celebração**. Na vitrine, nunca usar "porção, quilo, buffet, marmita, rodízio, coffee break" ou "evento corporativo". “Prato” pode ser usado naturalmente dentro da descrição culinária do cardápio, sem transformar a oferta em venda por unidade.
 - No topo, troque **valores**; **não apague** os nomes dos campos nem os `---`.
 - `camada`: `completa` (você cura e compra) · `servico` (Só o Serviço, cliente compra, mín. 3h) · `ambas`.

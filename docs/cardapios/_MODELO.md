@@ -12,7 +12,7 @@ ocasioes: ["ocasião 1", "ocasião 2"]
 pessoas_min: 2
 pessoas_max: 6
 duracao_horas: 3
-sazonalidade: "ano todo"             # ano todo | inverno (jun-ago) | datas comemorativas
+sazonalidade: "ano todo"             # ano todo | inverno (jun-ago) | datas comemorativas | null se ainda não validado
 camada: "completa"                   # completa | servico | ambas
                                      #   servico = Só o Serviço: cliente compra insumos, mín. 3h, R$100/h
 destaque: "lancamento"               # lancamento | novidade | expansao
@@ -20,7 +20,7 @@ ativo: true                          # false = some do site sem apagar o arquivo
 ordem: 99                            # posição na lista (menor aparece primeiro)
 preco_por_pessoa: null               # camada completa — preencher quando o CMV estiver fechado
 servico_hora: 100                    # camada Só o Serviço (R$/h, mín. 3h)
-sobremesas_por: "Fernanda Marton Ateliê"
+sobremesas_por: "Fernanda Marton Ateliê" # null quando a experiência não inclui sobremesa
 dieteticas: ["vegetariana"]          # + "sem glúten" / "sem lactose" quando aplicável
 extras_recomendados: ["extra 1", "extra 2"]
 ---

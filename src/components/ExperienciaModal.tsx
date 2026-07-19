@@ -18,6 +18,8 @@ interface Props {
 
 export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }: Props) {
   const dialogRef = useModalA11y(!!experiencia, onFechar);
+  const somenteServico = experiencia?.camada === 'servico';
+  const ofereceAmbosFormatos = experiencia?.camada === 'ambas';
   useEffect(() => {
     document.body.style.overflow = experiencia ? 'hidden' : '';
     return () => {
@@ -100,42 +102,52 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                     <Clock size={15} className="text-brand-terracotta" /> {duracaoLabel(experiencia)}
                   </span>
                 )}
-                <span className="flex items-center gap-2">
-                  <CalendarDays size={15} className="text-brand-terracotta" /> {experiencia.sazonalidade}
-                </span>
+                {experiencia.sazonalidade && (
+                  <span className="flex items-center gap-2">
+                    <CalendarDays size={15} className="text-brand-terracotta" /> {experiencia.sazonalidade}
+                  </span>
+                )}
               </div>
 
               {/* Cardápio */}
-              <div className="space-y-6">
-                <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-moss border-b border-brand-line pb-2">
-                  O cardápio — você escolhe
-                </h3>
-                {experiencia.cardapio.map((tempo) => (
-                  <div key={tempo.titulo}>
-                    <p className="serif text-lg font-bold text-brand-terracotta mb-2">{tempo.titulo}</p>
-                    <ul className="space-y-2">
-                      {tempo.itens.map((it) => (
-                        <li key={it.nome} className="text-sm text-brand-charcoal/75 leading-relaxed">
-                          <span className="font-semibold text-brand-charcoal">{it.nome}</span>
-                          {it.desc ? ` — ${it.desc}` : ''}
-                        </li>
+              {(experiencia.cardapio.length > 0 || experiencia.sobremesasPor) && (
+                <div className="space-y-6">
+                  {experiencia.cardapio.length > 0 && (
+                    <>
+                      <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-moss border-b border-brand-line pb-2">
+                        {somenteServico ? 'Roteiro de execução' : 'O cardápio — você escolhe'}
+                      </h3>
+                      {experiencia.cardapio.map((tempo) => (
+                        <div key={tempo.titulo}>
+                          <p className="serif text-lg font-bold text-brand-terracotta mb-2">{tempo.titulo}</p>
+                          <ul className="space-y-2">
+                            {tempo.itens.map((it) => (
+                              <li key={it.nome} className="text-sm text-brand-charcoal/75 leading-relaxed">
+                                <span className="font-semibold text-brand-charcoal">{it.nome}</span>
+                                {it.desc ? ` — ${it.desc}` : ''}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
-                ))}
-                <p className="text-xs text-brand-charcoal/50 italic flex items-center gap-2">
-                  <Leaf size={13} className="text-brand-moss" /> Sobremesas por{' '}
-                  <a
-                    href="https://www.instagram.com/fernandamarton.docesmomentos/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-dotted underline-offset-2 hover:text-brand-moss transition-colors"
-                  >
-                    {experiencia.sobremesasPor}
-                  </a>
-                  .
-                </p>
-              </div>
+                    </>
+                  )}
+                  {experiencia.sobremesasPor && (
+                    <p className="text-xs text-brand-charcoal/50 italic flex items-center gap-2">
+                      <Leaf size={13} className="text-brand-moss" /> Sobremesas por{' '}
+                      <a
+                        href="https://www.instagram.com/fernandamarton.docesmomentos/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-dotted underline-offset-2 hover:text-brand-moss transition-colors"
+                      >
+                        {experiencia.sobremesasPor}
+                      </a>
+                      .
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Inclui / Exclui */}
               {(experiencia.inclui || experiencia.exclui) && (
@@ -177,7 +189,11 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
             {/* Ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
               <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1">
-                Sem preço fixo — montamos o seu orçamento com carinho, na conversa.
+                {somenteServico && experiencia.servicoHora
+                  ? `R$ ${experiencia.servicoHora} por hora · mínimo de 3 horas.`
+                  : ofereceAmbosFormatos
+                    ? 'Experiência completa sob consulta · formato Só o Serviço disponível no pedido.'
+                  : 'Sem preço fixo — montamos o seu orçamento com carinho, na conversa.'}
               </span>
               <button
                 type="button"

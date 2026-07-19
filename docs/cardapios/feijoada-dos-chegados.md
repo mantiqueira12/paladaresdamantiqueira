@@ -21,10 +21,11 @@ extras_recomendados: []
 
 > **Promessa:** Uma feijoada preparada na sua casa de campo, para reunir família e amigos sem deixar ninguém preso à cozinha.
 
-**Ocasião ideal:** almoço de família, encontro de amigos ou celebração em casa · **Pessoas:** a validar · **Duração:** a validar · **Sazonalidade:** a validar
+**Ocasião ideal:** almoço de família, encontro de amigos ou celebração em casa · **Pessoas:** sob consulta · **Duração:** mínimo de 3h · **Sazonalidade:** sob consulta
 
-## Composição observada no evento real — validar o cardápio final
-- **Feijoada e acompanhamentos** — o acervo real mostra a panela principal, torresmo, farofa, couve e molhos; Rafael ainda precisa confirmar a composição comercial e as escolhas oferecidas ao cliente.
+## Como funciona
+- **Execução do Chef Rafael** — no formato Só o Serviço, o chef assume a técnica e o preparo na cozinha do cliente.
+- **Alinhamento antes da reserva** — composição, quantidade de convidados e tempo total são confirmados na conversa; compras, utensílios e estrutura ficam por conta do cliente.
 
 ## Inclui / Exclui
 - **Inclui:** mão de obra, técnica e execução do Chef Rafael no formato **Só o Serviço**, por R$ 100/hora e mínimo de 3 horas.

@@ -275,8 +275,8 @@ export default function App() {
               </span>
               <SectionHeading>Como vai ser o seu encontro?</SectionHeading>
               <p className="text-xl text-brand-charcoal/60 font-light">
-                Escolha pelo clima do seu momento. Em cada experiência, você seleciona o cardápio — e a sobremesa é
-                sempre da <strong className="font-medium text-brand-charcoal">Fernanda Marton Ateliê</strong>.
+                Escolha pelo clima do seu momento. Nas experiências completas, você seleciona o cardápio — com
+                sobremesas da <strong className="font-medium text-brand-charcoal">Fernanda Marton Ateliê</strong>.
               </p>
             </div>
 

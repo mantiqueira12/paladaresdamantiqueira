@@ -22,12 +22,13 @@ export interface Experiencia {
   pessoasMin: number | null;
   pessoasMax: number | null;
   duracaoHoras: number | null;
-  sazonalidade: string;
+  sazonalidade: string | null;
   camada: Camada;
   destaque: Destaque;
   ativo: boolean;
   ordem: number;
-  sobremesasPor: string;
+  servicoHora: number | null;
+  sobremesasPor: string | null;
   dieteticas: string[];
   extrasRecomendados: string[];
   promessa: string;
