@@ -42,6 +42,7 @@ import Chip from './components/Chip';
 import ExperienceCard from './components/ExperienceCard';
 import StepCard from './components/StepCard';
 import AccordionItem from './components/AccordionItem';
+import PortfolioReal from './components/PortfolioReal';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
@@ -431,13 +432,15 @@ export default function App() {
           </div>
         </section>
 
+        <PortfolioReal />
+
         {/* AVALIAÇÕES — sem depoimentos ilustrativos. Prova social só volta com
             relatos reais e verificáveis; por enquanto, mantemos apenas o convite. */}
         {GOOGLE_REVIEW_LINK && (
           <section className="py-20 px-6 section-border-top bg-brand-cream/50">
             <div className="max-w-3xl mx-auto text-center">
               <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block">
-                05. Sua experiência
+                06. Sua experiência
               </span>
               <SectionHeading>Já viveu uma experiência comigo?</SectionHeading>
               <p className="text-brand-charcoal/70 font-light mb-8">

@@ -482,7 +482,7 @@ ${headerHtml(n)}
             <h2>${esc(n.experienciaTitulo)}</h2>
             ${n.paragrafos.map((p) => `<p class="body">${p}</p>`).join('\n            ')}
           </div>
-          <div class="pill"><img src="/portfolio/mesa-de-amigos.webp" srcset="/portfolio/mesa-de-amigos-400.webp 400w, /portfolio/mesa-de-amigos.webp 800w" sizes="(min-width:900px) 50vw, 100vw" alt="Mesa posta para uma experiência do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1000" /></div>
+          <div class="pill"><img src="/portfolio/origens-da-serra.webp" srcset="/portfolio/origens-da-serra-400.webp 400w, /portfolio/origens-da-serra.webp 800w" sizes="(min-width:900px) 50vw, 100vw" alt="Mesa posta em uma experiência real do Paladares da Mantiqueira" loading="lazy" decoding="async" width="800" height="1067" /></div>
         </div>
       </section>
 
