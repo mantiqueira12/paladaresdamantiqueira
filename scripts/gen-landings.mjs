@@ -7,7 +7,8 @@
  * (mesmas cores, fontes, header glass, hero escuro, pill-images, FAQ e rodapé),
  * com title/description/canonical/
  * H1 próprios, Open Graph + Twitter Card, GA4, JSON-LD (LocalBusiness provider +
- * Service + BreadcrumbList + FAQPage) e CTAs de WhatsApp rastreados.
+ * Service + BreadcrumbList + FAQPage) e CTAs que abrem o formulário da home
+ * com o contexto da landing preservado.
  *
  * FONTE ÚNICA do conteúdo (editável à mão):
  *   - src/data/cidades.json   → páginas "chef particular + cidade"
@@ -23,7 +24,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
 const SITE = 'https://paladaresdamantiqueira.com.br';
-const WA = '5512997710040';
 const TEL = '+5512997710040';
 const IG_MARCA = 'https://www.instagram.com/paladaresdamantiqueira/';
 const IG_CHEF = 'https://www.instagram.com/rafaeldjacob/';
@@ -86,14 +86,28 @@ const ICO = {
     '<svg class="ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
   pin: '<svg class="ico" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
 };
-/* --------------------------------------------------------- WhatsApp + tracking */
-function waLink(n) {
-  const msg = `Olá, Chef Rafael! 🌿 Vim pela página "${n.h1}" e gostaria de saber como funciona e os próximos passos.`;
-  return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+/* -------------------------------------------------------- formulário + tracking */
+function ocasiaoDaLanding(n) {
+  if (n.slug.includes('casamento') || n.slug.includes('mini-wedding') || n.slug.includes('bodas')) {
+    return 'Bodas / casamento';
+  }
+  if (n.slug.includes('aniversario')) return 'Aniversário';
+  if (n.slug.includes('reveillon')) return 'Réveillon na serra';
+  return '';
 }
-// Rastreia o clique no WhatsApp como conversão no GA4 (mesmo evento da home).
-const track = (n, origem) =>
-  `onclick="window.gtag&amp;&amp;gtag('event','solicitar_orcamento',{origem:'landing_${origem}',pagina:'${n.slug}'})"`;
+
+function pedidoLink(n, ponto) {
+  const params = new URLSearchParams({ pedido: '1', pagina: n.slug, ponto });
+  if (n.areaServedType === 'City') params.set('cidade', n.areaServedName);
+  const ocasiao = ocasiaoDaLanding(n);
+  if (ocasiao) params.set('ocasiao', ocasiao);
+  return `/?${params.toString()}`;
+}
+
+// Mede o início do pedido separadamente. A conversão `solicitar_orcamento`
+// continua reservada ao clique final que realmente abre o WhatsApp.
+const trackFormulario = (n, origem) =>
+  `onclick="window.gtag&amp;&amp;gtag('event','abrir_formulario',{origem:'landing_${origem}',pagina:'${n.slug}'})"`;
 
 /* ----------------------------------------------------------------- JSON-LD */
 // Provider completo emitido NA PRÓPRIA landing, para o @id resolver sem depender
@@ -381,7 +395,7 @@ function headerHtml(n) {
         </nav>
         <div class="actions">
           <a class="icon-btn tel" href="tel:${TEL}" title="Ligar agora" aria-label="Ligar agora">${ICO.phone}</a>
-          <a class="btn sm dark" href="${waLink(n)}" target="_blank" rel="noopener" ${track(n, 'header')}>${ICO.message} Solicitar</a>
+          <a class="btn sm dark" href="${esc(pedidoLink(n, 'header'))}" ${trackFormulario(n, 'header')}>${ICO.message} Solicitar</a>
         </div>
       </div>
     </header>`;
@@ -415,7 +429,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
             <h3>Conecte-se</h3>
             <div class="fsoc">
               <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
-              <a class="icon-btn" href="${waLink(n)}" target="_blank" rel="noopener" aria-label="Solicitar orçamento pelo WhatsApp" ${track(n, 'footer')}>${ICO.message}</a>
+              <a class="icon-btn" href="${esc(pedidoLink(n, 'footer'))}" aria-label="Iniciar pedido" ${trackFormulario(n, 'footer')}>${ICO.message}</a>
             </div>
             <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.4)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
           </div>
@@ -453,7 +467,7 @@ ${headerHtml(n)}
         <h1>${esc(n.h1)}</h1>
         <p class="lead">${n.lead}</p>
         <div class="cta-row">
-          <a class="btn" href="${waLink(n)}" target="_blank" rel="noopener" ${track(n, 'hero')}>Solicitar minha experiência ${ICO.arrow}</a>
+          <a class="btn" href="${esc(pedidoLink(n, 'hero'))}" ${trackFormulario(n, 'hero')}>Solicitar minha experiência ${ICO.arrow}</a>
           <a class="btn ghost-light" href="/#experiencias">Ver as experiências</a>
         </div>
         <p class="cta-note">Orçamento sem compromisso · resposta no WhatsApp no mesmo dia</p>
@@ -535,7 +549,7 @@ ${headerHtml(n)}
         <div class="cta-band">
           <h2>${esc(n.ctaTitulo)}</h2>
           <p>Orçamento sob medida, sem compromisso. Você recebe os abraços — eu assumo o fogão.</p>
-          <a class="btn" href="${waLink(n)}" target="_blank" rel="noopener" ${track(n, 'band')}>${ICO.message} Falar com o Chef Rafael</a>
+          <a class="btn" href="${esc(pedidoLink(n, 'band'))}" ${trackFormulario(n, 'band')}>${ICO.message} Começar meu pedido</a>
         </div>
       </section>
 

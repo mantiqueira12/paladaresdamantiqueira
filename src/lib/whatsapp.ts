@@ -47,7 +47,7 @@ export function montarMensagem(p: PedidoData): string {
     blocos.push('Tenho interesse no formato *Só o Serviço* — eu cuido dos insumos e você assume o comando da cozinha.');
   }
 
-  blocos.push('Pode me contar como funciona e os próximos passos?');
+  blocos.push('Pode me dizer se a data está disponível e qual é o próximo passo?');
 
   return blocos.join('\n\n');
 }

@@ -17,10 +17,11 @@ export interface DetalhesOrcamento {
   cidade?: string;
   pessoas?: string;
   soServico?: boolean;
+  pagina?: string;
 }
 
 /** De onde partiu o pedido — vira o parâmetro `origem` no GA4. */
-export type OrigemOrcamento = 'formulario' | 'botao_flutuante' | 'rodape' | 'header';
+export type OrigemOrcamento = 'formulario' | 'botao_flutuante' | 'rodape' | 'header' | 'landing';
 
 /**
  * Evento-chave do negócio: alguém pediu um orçamento (abriu o WhatsApp do chef).
@@ -42,5 +43,6 @@ export function rastrearOrcamento(
     cidade: detalhes?.cidade || undefined,
     pessoas: detalhes?.pessoas || undefined,
     so_servico: detalhes?.soServico || undefined,
+    pagina: detalhes?.pagina || undefined,
   });
 }

@@ -22,28 +22,47 @@ interface Props {
   aberto: boolean;
   onFechar: () => void;
   experienciaInicial?: string;
+  pedidoInicial?: PedidoData;
+  paginaOrigem?: string;
   /** De onde o pedido foi aberto — vira o parâmetro `origem` do evento GA4. */
   origem?: OrigemOrcamento;
 }
 
 const hojeISO = () => new Date().toISOString().split('T')[0];
 
-export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial = '', origem = 'formulario' }: Props) {
+export default function PedidoExperiencia({
+  aberto,
+  onFechar,
+  experienciaInicial = '',
+  pedidoInicial = {},
+  paginaOrigem = '',
+  origem = 'formulario',
+}: Props) {
   const [pedido, setPedido] = useState<PedidoData>({ experiencia: experienciaInicial });
   const [enviado, setEnviado] = useState(false);
   const dialogRef = useModalA11y(aberto, onFechar);
 
   useEffect(() => {
     if (aberto) {
-      const inicial = acharPorNome(experienciaInicial);
-      setPedido((p) => ({
-        ...p,
-        experiencia: experienciaInicial,
+      const experiencia = experienciaInicial || pedidoInicial.experiencia || '';
+      const inicial = acharPorNome(experiencia);
+      setPedido({
+        ...pedidoInicial,
+        experiencia,
         soServico: inicial?.camada === 'servico',
-      }));
+      });
       setEnviado(false);
     }
-  }, [aberto, experienciaInicial]);
+  }, [
+    aberto,
+    experienciaInicial,
+    pedidoInicial.cidade,
+    pedidoInicial.data,
+    pedidoInicial.experiencia,
+    pedidoInicial.nome,
+    pedidoInicial.ocasiao,
+    pedidoInicial.pessoas,
+  ]);
 
   useEffect(() => {
     document.body.style.overflow = aberto ? 'hidden' : '';
@@ -54,7 +73,6 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
 
   const expSel = pedido.experiencia ? acharPorNome(pedido.experiencia) : undefined;
   const soServicoObrigatorio = expSel?.camada === 'servico';
-  const permiteEscolherSoServico = !expSel || expSel.camada === 'ambas';
   const pedidoEfetivo = useMemo<PedidoData>(
     () => (soServicoObrigatorio ? { ...pedido, soServico: true } : pedido),
     [pedido, soServicoObrigatorio],
@@ -68,12 +86,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
     setPedido((p) => ({
       ...p,
       experiencia: nome,
-      soServico:
-        escolhida?.camada === 'servico'
-          ? true
-          : escolhida?.camada === 'ambas'
-            ? p.soServico
-            : false,
+      soServico: escolhida?.camada === 'servico',
     }));
   };
 
@@ -86,6 +99,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
       cidade: pedidoEfetivo.cidade,
       pessoas: pedidoEfetivo.pessoas,
       soServico: pedidoEfetivo.soServico,
+      pagina: paginaOrigem,
     });
     setEnviado(true);
   };
@@ -134,7 +148,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
 
             <div className="px-6 md:px-10 py-6 space-y-6">
               <p className="text-sm text-brand-charcoal/60 leading-relaxed -mt-1">
-                Conte os detalhes e eu recebo o seu pedido já no WhatsApp, pronto para combinarmos tudo com carinho.
+                Conte os detalhes. Ao tocar em Abrir no WhatsApp, você revisa e envia a mensagem diretamente para mim.
                 Sem compromisso — o investimento conversamos juntos.
               </p>
 
@@ -226,21 +240,6 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                 </div>
               )}
 
-              {permiteEscolherSoServico && (
-                <label className="flex items-start gap-3 p-4 rounded-xl border border-brand-line bg-white/60 cursor-pointer hover:border-brand-terracotta/40 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={!!pedidoEfetivo.soServico}
-                    onChange={(e) => set('soServico', e.target.checked)}
-                    className="mt-1 accent-brand-terracotta w-4 h-4"
-                  />
-                  <span className="text-sm text-brand-charcoal/80 leading-relaxed">
-                    <strong className="text-brand-charcoal">Quero o formato "Só o Serviço"</strong> — eu compro os
-                    insumos e cuido da estrutura; o chef assume o comando da cozinha (mín. 3h).
-                  </span>
-                </label>
-              )}
-
               {/* Preview da mensagem */}
               <div className="rounded-2xl border border-brand-line overflow-hidden">
                 <div className="px-4 py-2.5 bg-brand-moss text-brand-cream text-[10px] uppercase tracking-[0.25em] font-bold flex items-center gap-2">
@@ -256,8 +255,8 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
               <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1" role="status">
                 {enviado
-                  ? 'Seu pedido foi aberto no WhatsApp 💬'
-                  : `Abre uma conversa no WhatsApp · ${WHATSAPP_DISPLAY}`}
+                  ? 'Conversa aberta no WhatsApp — confirme o envio por lá. 💬'
+                  : `Falta um passo: a mensagem abrirá no WhatsApp para você confirmar · ${WHATSAPP_DISPLAY}`}
               </span>
               <a
                 href={linkWhatsApp(pedidoEfetivo)}
@@ -266,7 +265,7 @@ export default function PedidoExperiencia({ aberto, onFechar, experienciaInicial
                 onClick={aoEnviar}
                 className="order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold shadow-lg hover:bg-brand-charcoal transition-all hover:-translate-y-0.5"
               >
-                <MessageCircle size={18} /> Enviar meu pedido
+                <MessageCircle size={18} /> Abrir no WhatsApp
               </a>
             </div>
           </m.div>

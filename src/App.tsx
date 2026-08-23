@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 // LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor).
 // MotionConfig reducedMotion="user" respeita o prefers-reduced-motion do sistema.
 import { LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
@@ -33,8 +33,8 @@ import FAQ from './data/faq.json';
 import CIDADES from './data/cidades.json';
 import SAZONAIS from './data/sazonais.json';
 import NICHOS from './data/nichos.json';
-import { linkWhatsAppTexto, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK } from './lib/whatsapp';
-import { rastrearOrcamento, type OrigemOrcamento } from './lib/analytics';
+import { WHATSAPP_NUMBER, WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK, type PedidoData } from './lib/whatsapp';
+import { type OrigemOrcamento } from './lib/analytics';
 import PedidoExperiencia from './components/PedidoExperiencia';
 import ExperienciaModal from './components/ExperienciaModal';
 import SectionHeading from './components/SectionHeading';
@@ -47,24 +47,48 @@ import AccordionItem from './components/AccordionItem';
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
 const chefImage = '/chef-rafael.webp';
 
-const FILTRO_GENERICO = linkWhatsAppTexto(
-  'Olá, Chef Rafael! 🌿 Vi o seu site e gostaria de saber mais sobre as experiências na minha casa.',
-);
-
 export default function App() {
   const [pedidoAberto, setPedidoAberto] = useState(false);
   const [pedidoExp, setPedidoExp] = useState('');
+  const [pedidoInicial, setPedidoInicial] = useState<PedidoData>({});
+  const [pedidoPagina, setPedidoPagina] = useState('');
   const [detalhe, setDetalhe] = useState<Experiencia | null>(null);
   const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
 
   // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
   // GA4 solicitar_orcamento no envio (ex.: botao_flutuante vs formulario).
   const [pedidoOrigem, setPedidoOrigem] = useState<OrigemOrcamento>('formulario');
-  const abrirPedido = (nome = '', origem: OrigemOrcamento = 'formulario') => {
-    setPedidoExp(nome);
+  const abrirPedido = (
+    nome = '',
+    origem: OrigemOrcamento = 'formulario',
+    iniciais: PedidoData = {},
+    pagina = '',
+  ) => {
+    setPedidoExp(nome || iniciais.experiencia || '');
+    setPedidoInicial(iniciais);
+    setPedidoPagina(pagina);
     setPedidoOrigem(origem);
     setPedidoAberto(true);
   };
+
+  // As landings estáticas trazem o visitante de volta para a home com contexto.
+  // O formulário abre pré-preenchido; só o clique final nele conta como abertura
+  // do WhatsApp (`solicitar_orcamento`).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('pedido') !== '1') return;
+
+    abrirPedido(
+      params.get('experiencia') || '',
+      'landing',
+      {
+        cidade: params.get('cidade') || undefined,
+        ocasiao: params.get('ocasiao') || undefined,
+        pessoas: params.get('pessoas') || undefined,
+      },
+      params.get('pagina') || '',
+    );
+  }, []);
   const solicitarDoDetalhe = (nome: string) => {
     setDetalhe(null);
     setTimeout(() => abrirPedido(nome), 180);
@@ -541,16 +565,14 @@ export default function App() {
               >
                 <Instagram size={20} />
               </a>
-              <a
-                href={FILTRO_GENERICO}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => rastrearOrcamento('rodape')}
+              <button
+                type="button"
+                onClick={() => abrirPedido('', 'rodape')}
                 aria-label="Falar no WhatsApp"
                 className="w-11 h-11 border border-brand-line rounded-full flex items-center justify-center hover:bg-brand-charcoal hover:text-white transition-all"
               >
                 <MessageCircle size={20} />
-              </a>
+              </button>
             </div>
             <p className="text-[10px] text-brand-charcoal/70 uppercase tracking-widest font-bold">
               {WHATSAPP_DISPLAY} · @paladaresdamantiqueira
@@ -588,6 +610,8 @@ export default function App() {
         aberto={pedidoAberto}
         onFechar={() => setPedidoAberto(false)}
         experienciaInicial={pedidoExp}
+        pedidoInicial={pedidoInicial}
+        paginaOrigem={pedidoPagina}
         origem={pedidoOrigem}
       />
     </div>
