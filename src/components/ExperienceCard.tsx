@@ -37,11 +37,11 @@ export default function ExperienceCard({
           onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
-        <span className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-cream/90 text-brand-charcoal px-3 py-1 rounded-full">
+        <span className="absolute top-3 left-3 text-[11px] uppercase tracking-[0.2em] font-bold bg-brand-cream/90 text-brand-charcoal px-3 py-1 rounded-full">
           {porta(exp.linha).rotulo}
         </span>
         {exp.destaque === 'novidade' && (
-          <span className="absolute top-3 right-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-terracotta text-white px-3 py-1 rounded-full">
+          <span className="absolute top-3 right-3 text-[11px] uppercase tracking-[0.2em] font-bold bg-brand-terracotta text-white px-3 py-1 rounded-full">
             Novidade
           </span>
         )}
@@ -50,7 +50,7 @@ export default function ExperienceCard({
         <h3 className="serif text-2xl font-bold mb-2 group-hover:text-brand-terracotta transition-colors">
           {exp.nome}
         </h3>
-        <p className="text-sm text-brand-charcoal/60 leading-relaxed font-light line-clamp-3 flex-1">{exp.promessa}</p>
+        <p className="text-sm text-brand-charcoal/70 leading-relaxed font-light line-clamp-3 flex-1">{exp.promessa}</p>
         <div className="flex items-center justify-between mt-5 pt-4 border-t border-brand-line">
           {publico ? (
             <span className="text-[11px] uppercase tracking-wider font-semibold text-brand-charcoal/70 flex items-center gap-1.5">

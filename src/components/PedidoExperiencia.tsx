@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
 import { m, AnimatePresence } from 'motion/react';
 import { X, MessageCircle, CalendarHeart, Users, MapPin, PartyPopper, ChefHat, Sparkles } from 'lucide-react';
 import { EXPERIENCIAS, acharPorNome } from '../data/experiencias';
@@ -40,6 +40,7 @@ export default function PedidoExperiencia({
 }: Props) {
   const [pedido, setPedido] = useState<PedidoData>({ experiencia: experienciaInicial });
   const [enviado, setEnviado] = useState(false);
+  const [tentouEnviar, setTentouEnviar] = useState(false);
   const dialogRef = useModalA11y(aberto, onFechar);
 
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function PedidoExperiencia({
         soServico: inicial?.camada === 'servico',
       });
       setEnviado(false);
+      setTentouEnviar(false);
     }
   }, [
     aberto,
@@ -79,6 +81,12 @@ export default function PedidoExperiencia({
   );
 
   const preview = useMemo(() => montarMensagem(pedidoEfetivo), [pedidoEfetivo]);
+
+  // Data, ocasião e nº de convidados são pedidos "suavemente obrigatórios": sem
+  // eles o Rafael recebe um lead quase em branco e sem contexto para responder.
+  const faltando = (['data', 'ocasiao', 'pessoas'] as const).filter((campo) => !pedidoEfetivo[campo]);
+  const pedidoCompleto = faltando.length === 0;
+
   const set = (campo: keyof PedidoData, valor: string | boolean) =>
     setPedido((p) => ({ ...p, [campo]: valor }));
   const setExperiencia = (nome: string) => {
@@ -92,8 +100,16 @@ export default function PedidoExperiencia({
 
   // O envio é um <a> nativo (não window.open): funciona no navegador embutido do
   // Instagram/Facebook, onde window.open costuma ser bloqueado. O clique só
-  // registra o evento e o feedback — a navegação é do próprio link.
-  const aoEnviar = () => {
+  // registra o evento e o feedback — a navegação é do próprio link. Quando faltam
+  // campos suavemente obrigatórios, o clique é interceptado: não navega, não
+  // registra evento, só mostra os erros e leva o foco ao primeiro campo faltando.
+  const aoClicarEnviar = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!pedidoCompleto) {
+      e.preventDefault();
+      setTentouEnviar(true);
+      document.getElementById(`campo-${faltando[0]}`)?.focus();
+      return;
+    }
     rastrearOrcamento(origem, pedidoEfetivo.experiencia, {
       ocasiao: pedidoEfetivo.ocasiao,
       cidade: pedidoEfetivo.cidade,
@@ -147,7 +163,7 @@ export default function PedidoExperiencia({
             </div>
 
             <div className="px-6 md:px-10 py-6 space-y-6">
-              <p className="text-sm text-brand-charcoal/60 leading-relaxed -mt-1">
+              <p className="text-sm text-brand-charcoal/70 leading-relaxed -mt-1">
                 Conte os detalhes. Ao tocar em Abrir no WhatsApp, você revisa e envia a mensagem diretamente para mim.
                 Sem compromisso — o investimento conversamos juntos.
               </p>
@@ -157,7 +173,7 @@ export default function PedidoExperiencia({
                 <select
                   value={pedido.experiencia || ''}
                   onChange={(e) => setExperiencia(e.target.value)}
-                  className={inputCls}
+                  className={inputCls()}
                 >
                   <option value="">Ainda não sei — quero ajuda para escolher</option>
                   {EXPERIENCIAS.map((e) => (
@@ -169,21 +185,25 @@ export default function PedidoExperiencia({
               </Campo>
 
               <div className="grid md:grid-cols-2 gap-5">
-                <Campo icone={<CalendarHeart size={15} />} label="Data desejada">
+                <Campo icone={<CalendarHeart size={15} />} label="Data desejada" obrigatorio erro={tentouEnviar && faltando.includes('data')}>
                   <input
+                    id="campo-data"
                     type="date"
                     min={hojeISO()}
                     value={pedido.data || ''}
                     onChange={(e) => set('data', e.target.value)}
-                    className={inputCls}
+                    aria-invalid={tentouEnviar && faltando.includes('data')}
+                    className={inputCls(tentouEnviar && faltando.includes('data'))}
                   />
                 </Campo>
 
-                <Campo icone={<Users size={15} />} label="Quantos convidados">
+                <Campo icone={<Users size={15} />} label="Quantos convidados" obrigatorio erro={tentouEnviar && faltando.includes('pessoas')}>
                   <select
+                    id="campo-pessoas"
                     value={pedido.pessoas || ''}
                     onChange={(e) => set('pessoas', e.target.value)}
-                    className={inputCls}
+                    aria-invalid={tentouEnviar && faltando.includes('pessoas')}
+                    className={inputCls(tentouEnviar && faltando.includes('pessoas'))}
                   >
                     <option value="">Selecione</option>
                     {FAIXAS_PESSOAS.map((f) => (
@@ -194,11 +214,13 @@ export default function PedidoExperiencia({
                   </select>
                 </Campo>
 
-                <Campo icone={<PartyPopper size={15} />} label="Ocasião">
+                <Campo icone={<PartyPopper size={15} />} label="Ocasião" obrigatorio erro={tentouEnviar && faltando.includes('ocasiao')}>
                   <select
+                    id="campo-ocasiao"
                     value={pedido.ocasiao || ''}
                     onChange={(e) => set('ocasiao', e.target.value)}
-                    className={inputCls}
+                    aria-invalid={tentouEnviar && faltando.includes('ocasiao')}
+                    className={inputCls(tentouEnviar && faltando.includes('ocasiao'))}
                   >
                     <option value="">Selecione</option>
                     {OCASIOES.map((o) => (
@@ -215,7 +237,7 @@ export default function PedidoExperiencia({
                     placeholder="Ex.: Campos do Jordão"
                     value={pedido.cidade || ''}
                     onChange={(e) => set('cidade', e.target.value)}
-                    className={inputCls}
+                    className={inputCls()}
                   />
                 </Campo>
               </div>
@@ -226,7 +248,7 @@ export default function PedidoExperiencia({
                   placeholder="Como posso te chamar?"
                   value={pedido.nome || ''}
                   onChange={(e) => set('nome', e.target.value)}
-                  className={inputCls}
+                  className={inputCls()}
                 />
               </Campo>
 
@@ -253,17 +275,29 @@ export default function PedidoExperiencia({
 
             {/* Rodapé / ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
-              <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1" role="status">
+              <span
+                className={`text-[11px] order-2 sm:order-1 ${
+                  tentouEnviar && !pedidoCompleto ? 'text-red-600 font-semibold' : 'text-brand-charcoal/70'
+                }`}
+                role="status"
+              >
                 {enviado
                   ? 'Conversa aberta no WhatsApp — confirme o envio por lá. 💬'
-                  : `Falta um passo: a mensagem abrirá no WhatsApp para você confirmar · ${WHATSAPP_DISPLAY}`}
+                  : tentouEnviar && !pedidoCompleto
+                    ? 'Falta preencher data, convidados e ocasião para continuar.'
+                    : `Falta um passo: a mensagem abrirá no WhatsApp para você confirmar · ${WHATSAPP_DISPLAY}`}
               </span>
               <a
                 href={linkWhatsApp(pedidoEfetivo)}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={aoEnviar}
-                className="order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-terracotta text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold shadow-lg hover:bg-brand-charcoal transition-all hover:-translate-y-0.5"
+                onClick={aoClicarEnviar}
+                aria-disabled={!pedidoCompleto}
+                className={`order-1 sm:order-2 w-full sm:w-auto inline-flex items-center justify-center gap-3 text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold shadow-lg transition-all ${
+                  pedidoCompleto
+                    ? 'bg-brand-terracotta hover:bg-brand-charcoal hover:-translate-y-0.5'
+                    : 'bg-brand-terracotta/50 hover:bg-brand-terracotta/60'
+                }`}
               >
                 <MessageCircle size={18} /> Abrir no WhatsApp
               </a>
@@ -276,16 +310,24 @@ export default function PedidoExperiencia({
 }
 
 // text-base no mobile: fontes <16px fazem o Safari iOS dar zoom automático ao focar o campo
-const inputCls =
-  'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/50 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
+const inputCls = (erro = false) =>
+  `w-full bg-white border rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/50 outline-none focus:ring-2 transition-all ${
+    erro
+      ? 'border-red-400 focus:border-red-400 focus:ring-red-400/15'
+      : 'border-brand-line focus:border-brand-terracotta focus:ring-brand-terracotta/15'
+  }`;
 
 function Campo({
   label,
   icone,
+  obrigatorio,
+  erro,
   children,
 }: {
   label: string;
   icone?: ReactNode;
+  obrigatorio?: boolean;
+  erro?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -293,8 +335,14 @@ function Campo({
       <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-moss mb-2 flex items-center gap-2">
         {icone}
         {label}
+        {obrigatorio && <span className="text-brand-terracotta normal-case tracking-normal">*</span>}
       </span>
       {children}
+      {erro && (
+        <span className="mt-1.5 block text-xs font-sans normal-case tracking-normal font-semibold text-red-600">
+          Preenche esse aqui pra eu te responder certo
+        </span>
+      )}
     </label>
   );
 }

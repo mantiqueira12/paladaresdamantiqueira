@@ -11,7 +11,7 @@ export default function AccordionItem({ title, content }: { title: string; conte
         </span>
       </summary>
       <div className="px-8 pb-8 text-sm text-brand-charcoal/70 leading-relaxed italic border-t border-brand-line/50">
-        <p className="pt-4">{content}</p>
+        <p className="pt-4 max-w-prose">{content}</p>
       </div>
     </details>
   );

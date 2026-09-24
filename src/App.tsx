@@ -24,11 +24,13 @@ import {
 import {
   EXPERIENCIAS,
   LINHAS,
+  PORTAS,
   porta,
   experienciasPorLinha,
   type Experiencia,
   type Linha,
 } from './data/experiencias';
+import { IMAGEM_FALLBACK, srcSetPortfolio } from './data/imagens';
 import FAQ from './data/faq.json';
 import CIDADES from './data/cidades.json';
 import SAZONAIS from './data/sazonais.json';
@@ -54,7 +56,8 @@ export default function App() {
   const [pedidoInicial, setPedidoInicial] = useState<PedidoData>({});
   const [pedidoPagina, setPedidoPagina] = useState('');
   const [detalhe, setDetalhe] = useState<Experiencia | null>(null);
-  const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
+  // null = mostra as 3 portas primeiro; só expande pro grid de 14 depois da escolha.
+  const [filtro, setFiltro] = useState<'Todas' | Linha | null>(null);
 
   // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
   // GA4 solicitar_orcamento no envio (ex.: botao_flutuante vs formulario).
@@ -96,7 +99,7 @@ export default function App() {
   };
 
   const lista = useMemo(
-    () => (filtro === 'Todas' ? EXPERIENCIAS : experienciasPorLinha(filtro)),
+    () => (filtro === 'Todas' ? EXPERIENCIAS : filtro ? experienciasPorLinha(filtro) : []),
     [filtro],
   );
 
@@ -125,7 +128,7 @@ export default function App() {
             </span>
           </div>
         </div>
-        <nav className="hidden lg:flex gap-10 text-[10px] uppercase tracking-[0.2em] font-bold">
+        <nav className="hidden lg:flex gap-10 text-xs uppercase tracking-[0.2em] font-bold">
           <a href="#conceito" className="hover:text-brand-terracotta transition-colors">
             Conceito
           </a>
@@ -150,7 +153,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => abrirPedido('')}
-            className="text-[10px] uppercase tracking-widest font-bold bg-brand-charcoal text-white px-3.5 py-2.5 sm:px-6 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
+            className="text-xs uppercase tracking-widest font-bold bg-brand-charcoal text-white px-3.5 py-2.5 sm:px-6 rounded-full hover:bg-brand-terracotta transition-all flex items-center gap-2"
           >
             <MessageCircle size={14} className="shrink-0" /> Solicitar
           </button>
@@ -234,11 +237,11 @@ export default function App() {
                 <br />
                 eu assumo o fogão.
               </SectionHeading>
-              <p className="text-xl md:text-2xl font-light text-brand-charcoal/70 leading-relaxed mb-8">
+              <p className="text-xl md:text-2xl font-light text-brand-charcoal/70 leading-relaxed mb-8 max-w-prose">
                 Seja acendendo a churrasqueira da casa de campo ou usando a cozinha do imóvel de temporada, eu chego
                 para somar. Levo a técnica, a organização e o sabor.
               </p>
-              <p className="text-xl md:text-2xl font-light text-brand-charcoal/70 leading-relaxed italic border-l-2 border-brand-line pl-6">
+              <p className="text-xl md:text-2xl font-light text-brand-charcoal/70 leading-relaxed italic border-l-2 border-brand-line pl-6 max-w-prose">
                 Você aproveita o seu próprio evento como se fosse mais um convidado. Sem estresse e sem pia cheia.
               </p>
             </div>
@@ -299,51 +302,114 @@ export default function App() {
                 02. As Experiências
               </span>
               <SectionHeading>Como vai ser o seu encontro?</SectionHeading>
-              <p className="text-xl text-brand-charcoal/60 font-light">
+              <p className="text-xl text-brand-charcoal/70 font-light">
                 Escolha pelo clima do seu momento. Nas experiências completas, você seleciona o cardápio — com
                 sobremesas da <strong className="font-medium text-brand-charcoal">Fernanda Marton Ateliê</strong>.
               </p>
             </div>
 
-            {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável
-                (empilhados ocupavam ~6 linhas); no md+ voltam ao wrap centralizado */}
-            <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 mb-3 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
-              <Chip ativo={filtro === 'Todas'} onClick={() => setFiltro('Todas')}>
-                Todas
-              </Chip>
-              {LINHAS.map((l) => (
-                <Chip key={l} ativo={filtro === l} onClick={() => setFiltro(l)}>
-                  {porta(l).rotulo}
-                </Chip>
-              ))}
-            </div>
+            {filtro === null ? (
+              /* Portas primeiro: o ponto de decisão central do site. Só depois
+                 de escolher uma das 3 é que o grid completo aparece — em vez de
+                 achatar as 14 experiências numa lista só desde o início. */
+              <>
+                <div className="grid sm:grid-cols-3 gap-5 md:gap-6">
+                  {PORTAS.map((p) => {
+                    const itens = experienciasPorLinha(p.key);
+                    const capa = itens[0]?.imagem ?? IMAGEM_FALLBACK;
+                    return (
+                      <button
+                        key={p.key}
+                        type="button"
+                        onClick={() => setFiltro(p.key)}
+                        className="group relative text-left rounded-2xl overflow-hidden border border-brand-line shadow-sm hover:shadow-2xl transition-shadow aspect-[3/4] flex flex-col justify-end"
+                      >
+                        <img
+                          src={capa}
+                          srcSet={srcSetPortfolio(capa)}
+                          sizes="(min-width: 640px) 33vw, 100vw"
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          loading="lazy"
+                          onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/40 to-transparent" />
+                        <div className="relative z-10 p-6 text-brand-cream">
+                          <span className="text-xs uppercase tracking-[0.2em] font-bold text-brand-terracotta-light">
+                            {p.chamada}
+                          </span>
+                          <h3 className="serif text-2xl font-bold mt-2 mb-2">{p.rotulo}</h3>
+                          <p className="text-sm text-brand-cream/80 leading-relaxed mb-4">{p.descricao}</p>
+                          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold group-hover:gap-3 transition-all">
+                            Ver {itens.length} experiência{itens.length === 1 ? '' : 's'}
+                            <ArrowRight size={14} aria-hidden="true" />
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-center mt-8">
+                  <button
+                    type="button"
+                    onClick={() => setFiltro('Todas')}
+                    className="text-sm text-brand-charcoal/70 underline underline-offset-4 hover:text-brand-terracotta transition-colors"
+                  >
+                    ou veja as {EXPERIENCIAS.length} experiências de uma vez
+                  </button>
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Voltar às portas + filtros por porta de ocasião — no mobile viram
+                    faixa horizontal rolável (empilhados ocupavam ~6 linhas) */}
+                <div className="flex flex-nowrap md:flex-wrap items-center justify-start md:justify-center gap-2 md:gap-3 mb-3 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
+                  <button
+                    type="button"
+                    onClick={() => setFiltro(null)}
+                    className="shrink-0 whitespace-nowrap text-[11px] uppercase tracking-[0.15em] font-bold text-brand-charcoal/70 hover:text-brand-terracotta transition-colors pr-3 border-r border-brand-line"
+                  >
+                    ← Portas
+                  </button>
+                  <Chip ativo={filtro === 'Todas'} onClick={() => setFiltro('Todas')}>
+                    Todas
+                  </Chip>
+                  {LINHAS.map((l) => (
+                    <Chip key={l} ativo={filtro === l} onClick={() => setFiltro(l)}>
+                      {porta(l).rotulo}
+                    </Chip>
+                  ))}
+                </div>
 
-            {/* Feedback do filtro (visual + leitores de tela) */}
-            <p role="status" aria-live="polite" className="text-center text-xs text-brand-charcoal/70 mb-10">
-              {lista.length} experiência{lista.length === 1 ? '' : 's'}
-              {filtro === 'Todas' ? '' : ` para ${porta(filtro).rotulo}`}
-            </p>
+                {/* Feedback do filtro (visual + leitores de tela) */}
+                <p role="status" aria-live="polite" className="text-center text-xs text-brand-charcoal/70 mb-10">
+                  {lista.length} experiência{lista.length === 1 ? '' : 's'}
+                  {filtro === 'Todas' ? '' : ` para ${porta(filtro).rotulo}`}
+                </p>
 
-            {/* Grade de experiências */}
-            <m.div
-              key={filtro}
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            >
-              {lista.map((exp, i) => (
-                <ExperienceCard key={exp.slug} exp={exp} index={i} onVer={() => setDetalhe(exp)} />
-              ))}
-            </m.div>
+                {/* Grade de experiências */}
+                <m.div
+                  key={filtro}
+                  initial={false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                >
+                  {lista.map((exp, i) => (
+                    <ExperienceCard key={exp.slug} exp={exp} index={i} onVer={() => setDetalhe(exp)} />
+                  ))}
+                </m.div>
 
-            <p className="text-center text-sm text-brand-charcoal/70 mt-12 italic">
-              Não encontrou exatamente o que imaginou?{' '}
-              <button type="button" onClick={() => abrirPedido('')} className="text-brand-terracotta font-semibold underline underline-offset-4">
-                Conte o que você deseja
-              </button>{' '}
-              — eu desenho uma experiência sob medida para a sua data.
-            </p>
+                <p className="text-center text-sm text-brand-charcoal/70 mt-12 italic">
+                  Não encontrou exatamente o que imaginou?{' '}
+                  <button type="button" onClick={() => abrirPedido('')} className="text-brand-terracotta font-semibold underline underline-offset-4">
+                    Conte o que você deseja
+                  </button>{' '}
+                  — eu desenho uma experiência sob medida para a sua data.
+                </p>
+              </>
+            )}
           </div>
         </section>
 
@@ -404,7 +470,7 @@ export default function App() {
                 04. O Anfitrião
               </span>
               <SectionHeading className="text-brand-cream">A Arte de Receber Bem</SectionHeading>
-              <div className="space-y-6 text-brand-cream/70 font-light leading-relaxed text-lg">
+              <div className="space-y-6 text-brand-cream/70 font-light leading-relaxed text-lg max-w-prose">
                 <p>
                   Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia e passagens por
                   restaurantes renomados, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para
@@ -502,7 +568,7 @@ export default function App() {
               <MessageCircle size={20} />
               Solicitar minha experiência
             </button>
-            <p className="mt-5 text-xs tracking-wide text-brand-charcoal/60">
+            <p className="mt-5 text-xs tracking-wide text-brand-charcoal/70">
               Orçamento sem compromisso · resposta no WhatsApp no mesmo dia
             </p>
           </div>
@@ -514,7 +580,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 text-left">
           <div>
             <span className="serif text-2xl font-bold text-brand-moss block mb-6">Paladares da Mantiqueira</span>
-            <p className="text-xs text-brand-charcoal/60 leading-relaxed max-w-xs">
+            <p className="text-xs text-brand-charcoal/70 leading-relaxed max-w-xs">
               Concierge Gastronômico e Personal Chef na Serra da Mantiqueira. Experiências de mesa para os seus momentos
               de celebração — em Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e toda a serra até São
               José dos Campos.

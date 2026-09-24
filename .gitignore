@@ -7,5 +7,6 @@ coverage/
 .env*
 !.env.example
 
-# Impeccable runtime state (pid/port/session token), not project source
+# Impeccable runtime state (pid/port/session token, per-session hook cache), not project source
 .impeccable/live/
+.impeccable/hook.cache.json

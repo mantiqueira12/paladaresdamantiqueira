@@ -20,7 +20,7 @@ export default function StepCard({
         {number}
       </span>
       <h3 className="serif text-2xl font-bold mb-4">{title}</h3>
-      <p className="text-sm leading-relaxed text-brand-charcoal/60 font-light">{description}</p>
+      <p className="text-sm leading-relaxed text-brand-charcoal/70 font-light">{description}</p>
     </div>
   );
 }
