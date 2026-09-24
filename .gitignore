@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Impeccable runtime state (pid/port/session token), not project source
+.impeccable/live/
