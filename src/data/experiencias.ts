@@ -27,7 +27,6 @@ export interface Experiencia {
   destaque: Destaque;
   ativo: boolean;
   ordem: number;
-  servicoHora: number | null;
   sobremesasPor: string | null;
   dieteticas: string[];
   extrasRecomendados: string[];

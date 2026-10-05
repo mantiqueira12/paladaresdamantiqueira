@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { m, AnimatePresence } from 'motion/react';
 import { X, Users, Clock, Leaf, Check, MessageCircle, CalendarDays } from 'lucide-react';
 import {
@@ -19,18 +18,12 @@ interface Props {
 export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }: Props) {
   const dialogRef = useModalA11y(!!experiencia, onFechar);
   const somenteServico = experiencia?.camada === 'servico';
-  const ofereceAmbosFormatos = experiencia?.camada === 'ambas';
-  useEffect(() => {
-    document.body.style.overflow = experiencia ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [experiencia]);
 
   return (
     <AnimatePresence>
       {experiencia && (
         <m.div
+          data-modal-overlay="experiencia"
           className="fixed inset-0 z-[110] flex items-end md:items-center justify-center p-0 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -43,7 +36,8 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
             role="dialog"
             aria-modal="true"
             aria-labelledby="experiencia-modal-titulo"
-            className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto"
+            tabIndex={-1}
+            className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto overflow-x-hidden"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 40, opacity: 0, scale: 0.98 }}
@@ -57,7 +51,14 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 sizes="(min-width: 768px) 768px, 100vw"
                 alt={experiencia.nome}
                 className="w-full h-full object-cover"
-                onError={(e) => ((e.target as HTMLImageElement).src = IMAGEM_FALLBACK)}
+                onError={(e) => {
+                  const imagem = e.currentTarget;
+                  // Trava única: se o próprio fallback falhar, não repetir.
+                  if (imagem.dataset.fallbackApplied) return;
+                  imagem.dataset.fallbackApplied = 'true';
+                  imagem.removeAttribute('srcset');
+                  imagem.src = IMAGEM_FALLBACK;
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/20 to-transparent" />
               <button
@@ -79,14 +80,14 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                     </span>
                   )}
                 </div>
-                <h3 id="experiencia-modal-titulo" className="serif text-3xl md:text-4xl font-bold text-brand-cream leading-tight">
+                <h3 id="experiencia-modal-titulo" className="serif text-3xl md:text-4xl font-bold text-brand-cream leading-tight break-words">
                   {experiencia.nome}
                 </h3>
               </div>
             </div>
 
             <div className="px-6 md:px-10 py-7 space-y-7">
-              <p className="serif text-xl md:text-2xl italic text-brand-charcoal/80 leading-relaxed">
+              <p className="serif text-xl md:text-2xl italic text-brand-charcoal/85 leading-relaxed break-words">
                 “{experiencia.promessa}”
               </p>
 
@@ -109,13 +110,35 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 )}
               </div>
 
+              {/* Inclui / Exclui */}
+              {(experiencia.inclui || experiencia.exclui) && (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {experiencia.inclui && (
+                    <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
+                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-moss mb-2 flex items-center gap-2">
+                        <Check size={13} /> Inclui
+                      </p>
+                      <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.inclui}</p>
+                    </div>
+                  )}
+                  {experiencia.exclui && (
+                    <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
+                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-charcoal/50 mb-2">
+                        Não incluso
+                      </p>
+                      <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.exclui}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Cardápio */}
               {(experiencia.cardapio.length > 0 || experiencia.sobremesasPor) && (
                 <div className="space-y-6">
                   {experiencia.cardapio.length > 0 && (
                     <>
                       <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-brand-moss border-b border-brand-line pb-2">
-                        {somenteServico ? 'Roteiro de execução' : 'O cardápio — você escolhe'}
+                        {somenteServico ? 'Roteiro de execução' : 'O cardápio'}
                       </h3>
                       {experiencia.cardapio.map((tempo) => (
                         <div key={tempo.titulo}>
@@ -149,28 +172,6 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 </div>
               )}
 
-              {/* Inclui / Exclui */}
-              {(experiencia.inclui || experiencia.exclui) && (
-                <div className="grid md:grid-cols-2 gap-4">
-                  {experiencia.inclui && (
-                    <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
-                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-moss mb-2 flex items-center gap-2">
-                        <Check size={13} /> Inclui
-                      </p>
-                      <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.inclui}</p>
-                    </div>
-                  )}
-                  {experiencia.exclui && (
-                    <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
-                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-charcoal/50 mb-2">
-                        Não incluso
-                      </p>
-                      <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.exclui}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-
               {/* Dietéticas */}
               {experiencia.dieteticas.length > 0 && (
                 <div className="flex flex-wrap gap-2">
@@ -188,12 +189,8 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
 
             {/* Ação */}
             <div className="sticky bottom-0 glass-header px-6 md:px-10 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] flex flex-col sm:flex-row items-center gap-3 justify-between border-t border-brand-line">
-              <span className="text-[11px] text-brand-charcoal/70 order-2 sm:order-1">
-                {somenteServico && experiencia.servicoHora
-                  ? `R$ ${experiencia.servicoHora} por hora · mínimo de 3 horas.`
-                  : ofereceAmbosFormatos
-                    ? 'Experiência completa sob consulta · formato Só o Serviço disponível no pedido.'
-                  : 'Sem preço fixo — montamos o seu orçamento com carinho, na conversa.'}
+              <span className="text-xs text-brand-charcoal/80 leading-relaxed break-words order-2 sm:order-1">
+                O orçamento é montado na conversa, conforme a experiência escolhida.
               </span>
               <button
                 type="button"

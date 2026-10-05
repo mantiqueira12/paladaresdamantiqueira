@@ -40,7 +40,7 @@ extras_recomendados: ["Estação de molhos autorais da casa", "Chope artesanal /
 
 ## Inclui / Exclui
 - **Inclui:** chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos, técnica de prensado e caramelização, e a sobremesa assinada pela Fernanda Marton Ateliê.
-- **Exclui:** na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.
+- **Exclui:** na camada **Só o Serviço**, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.
 
 ## Extras recomendados
 - **Estação de molhos autorais da casa** — três a quatro molhos (chipotle, mostarda mel, alho tostado) pra cada um montar do seu jeito; vira atração à parte (catálogo completo no doc 07 §4).

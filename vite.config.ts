@@ -5,18 +5,18 @@ import path from 'path';
 import { defineConfig } from 'vite';
 
 /**
- * Sincroniza automaticamente C:\...\Portifolio → public/portfolio/
+ * Sincroniza automaticamente ../04-Marca-e-Conteudo/Portfolio → public/portfolio/
  * Roda a cada `npm run dev` e `npm run build`.
  *
  * Só copia as fotos REFERENCIADAS em src/data/imagens.ts (caminhos /portfolio/...).
- * Assim, fotos de teste/sobras na pasta Portifolio não entram no build.
- * Para usar uma foto nova: salve em Portifolio e aponte para ela em imagens.ts.
+ * Assim, fotos de teste/sobras no Portfolio não entram no build.
+ * Para usar uma foto nova: salve em 04-Marca-e-Conteudo/Portfolio e aponte para ela em imagens.ts.
  *
  * Importante: nunca sobrescreve uma foto já otimizada em public/portfolio — só
  * copia se o destino não existe ou se o arquivo de origem for mais novo.
  */
 function portfolioSync() {
-  const sourceDir = path.resolve(__dirname, '../Portifolio');
+  const sourceDir = path.resolve(__dirname, '../04-Marca-e-Conteudo/Portfolio');
   const targetDir = path.resolve(__dirname, 'public/portfolio');
   const imagensFile = path.resolve(__dirname, 'src/data/imagens.ts');
 

@@ -1,72 +1,60 @@
+import { ArrowUpRight } from 'lucide-react';
+
 const FOTOS = [
   {
-    arquivo: 'origens-da-serra-tabua-queijos',
-    alt: 'Tábua de queijos e acompanhamentos servida na experiência Origens da Serra',
+    arquivo: 'origens-da-serra-ravioli',
+    legenda: 'Ravióli artesanal',
+    alt: 'Ravióli artesanal servido em tigelas durante Origens da Serra',
     destaque: true,
   },
   {
-    arquivo: 'origens-da-serra-terrine',
-    alt: 'Terrine de queijo coberta com castanhas e servida com ervas',
-  },
-  {
-    arquivo: 'origens-da-serra-ravioli',
-    alt: 'Ravióli artesanal finalizado durante a experiência Origens da Serra',
-  },
-  {
-    arquivo: 'origens-da-serra-prato-principal',
-    alt: 'Prato principal servido com legumes na experiência Origens da Serra',
+    arquivo: 'origens-da-serra-tabua-queijos',
+    legenda: 'Tábua de queijos',
+    alt: 'Tábua de queijos e acompanhamentos da experiência Origens da Serra',
   },
   {
     arquivo: 'origens-da-serra-cheesecake',
-    alt: 'Cheesecake individual servido com morango',
-  },
-  {
-    arquivo: 'origens-da-serra-sobremesas',
-    alt: 'Mesa de sobremesas preparada para encerrar a experiência',
+    legenda: 'Cheesecake com morango',
+    alt: 'Cheesecakes individuais com morango dispostos sobre a mesa',
   },
 ];
 
-export default function PortfolioReal() {
+export default function PortfolioReal({ onConhecer }: { onConhecer: () => void }) {
   return (
-    <section id="portfolio-real" className="py-24 px-4 sm:px-6 md:py-32 section-border-top bg-white">
+    <section id="portfolio-real" className="py-20 px-4 sm:px-6 md:py-28 section-border-top bg-[#F0F0E8]">
       <div className="max-w-7xl mx-auto">
-        <div className="max-w-3xl mb-12 md:mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
-            05. Uma experiência real
-          </span>
-          <h2 className="serif text-4xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6">
+        <div className="portfolio-intro">
+          <h2 className="serif text-4xl md:text-6xl font-bold leading-[1.08] tracking-tight">
             Origens da Serra, servido em casa
           </h2>
-          <p className="text-base md:text-lg text-brand-charcoal/70 font-light leading-relaxed max-w-2xl">
-            Da tábua de abertura à sobremesa, estes registros mostram uma noite real: ingredientes escolhidos,
-            execução no local e uma mesa preparada para o anfitrião aproveitar os convidados.
-          </p>
+          <div className="portfolio-context">
+            <p className="text-base md:text-lg text-brand-charcoal/75 font-light leading-relaxed">
+              Tábua de queijos, ravióli artesanal e cheesecake: pratos registrados durante uma realização de Origens da Serra.
+            </p>
+            <button type="button" onClick={onConhecer} className="portfolio-link">
+              Conhecer a experiência <ArrowUpRight size={18} aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 auto-rows-[180px] sm:auto-rows-[240px] lg:auto-rows-[260px]">
+        <div className="portfolio-grid">
           {FOTOS.map((foto) => (
-            <figure
-              key={foto.arquivo}
-              className={`relative overflow-hidden bg-brand-cream last:col-span-2 lg:last:col-span-1 ${
-                foto.destaque ? 'col-span-2 row-span-2 rounded-tl-[72px] rounded-br-[72px]' : 'rounded-2xl'
-              }`}
-            >
-              <img
-                src={`/portfolio/origens-da-serra/${foto.arquivo}.webp`}
-                srcSet={`/portfolio/origens-da-serra/${foto.arquivo}-600.webp 600w, /portfolio/origens-da-serra/${foto.arquivo}.webp 1200w`}
-                sizes={foto.destaque ? '(min-width: 1024px) 60vw, 100vw' : '(min-width: 1024px) 30vw, 50vw'}
-                alt={foto.alt}
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.025]"
-                loading="lazy"
-                decoding="async"
-              />
+            <figure key={foto.arquivo} className="portfolio-photo">
+              <div className="portfolio-image">
+                <img
+                  src={`/portfolio/origens-da-serra/${foto.arquivo}.webp`}
+                  srcSet={`/portfolio/origens-da-serra/${foto.arquivo}-600.webp 600w, /portfolio/origens-da-serra/${foto.arquivo}.webp 1200w`}
+                  sizes={foto.destaque ? '(min-width: 768px) 58vw, 100vw' : '(min-width: 768px) 38vw, 50vw'}
+                  alt={foto.alt}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption className="portfolio-caption">{foto.legenda}</figcaption>
             </figure>
           ))}
         </div>
-
-        <p className="mt-6 text-xs text-brand-charcoal/55 tracking-wide">
-          Registros reais da experiência Origens da Serra · Paladares da Mantiqueira
-        </p>
       </div>
     </section>
   );

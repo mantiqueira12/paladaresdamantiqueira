@@ -4,11 +4,14 @@
  */
 export const WHATSAPP_NUMBER = '5512997710040';
 export const WHATSAPP_DISPLAY = '+55 12 99771-0040';
+const OUTRA_EXPERIENCIA = 'Outra experiência / ideia';
 
 export interface PedidoData {
   experiencia?: string; // nome da experiência, ou vazio = "ainda não sei"
   data?: string; // ISO yyyy-mm-dd
-  pessoas?: string; // faixa escolhida
+  horario?: string; // HH:mm, horário desejado
+  pessoas?: string; // quantidade inteira pretendida
+  faixaPessoas?: string; // contexto de links antigos; não equivale a quantidade exata
   ocasiao?: string;
   cidade?: string;
   nome?: string;
@@ -28,7 +31,9 @@ export function montarMensagem(p: PedidoData): string {
 
   blocos.push(p.nome ? `Olá, Chef Rafael! Aqui é ${p.nome}. 🌿` : 'Olá, Chef Rafael! 🌿');
 
-  if (p.experiencia) {
+  if (p.experiencia === OUTRA_EXPERIENCIA) {
+    blocos.push('Gostaria de planejar uma experiência com você — tenho outra ideia para conversar.');
+  } else if (p.experiencia) {
     blocos.push(`Gostaria de solicitar a experiência *${p.experiencia}*.`);
   } else {
     blocos.push(
@@ -39,7 +44,9 @@ export function montarMensagem(p: PedidoData): string {
   const det: string[] = [];
   if (p.ocasiao) det.push(`• Ocasião: ${p.ocasiao}`);
   if (p.pessoas) det.push(`• Convidados: ${p.pessoas}`);
+  else if (p.faixaPessoas) det.push(`• Convidados (faixa informada): ${p.faixaPessoas}`);
   if (p.data) det.push(`• Data desejada: ${dataBR(p.data)}`);
+  if (p.horario) det.push(`• Horário desejado: ${p.horario}`);
   if (p.cidade) det.push(`• Local: ${p.cidade}`);
   if (det.length) blocos.push(det.join('\n'));
 

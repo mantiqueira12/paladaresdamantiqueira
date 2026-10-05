@@ -1,12 +1,92 @@
 import { useEffect, useRef } from 'react';
+import { criarGerenciadorDeModais } from './modalLifecycle';
+
+const MARCADOR_HISTORICO = '__paladares_modal';
+let overflowAnterior = '';
+let focoAnterior: HTMLElement | null = null;
+let fundosInertes = new Map<HTMLElement, boolean>();
+
+function restaurarFundo() {
+  fundosInertes.forEach((eraInerte, elemento) => {
+    elemento.inert = eraInerte;
+  });
+  fundosInertes = new Map();
+}
+
+function atualizarFundo(dialogs: HTMLDivElement[]) {
+  restaurarFundo();
+  if (dialogs.length === 0) return;
+
+  const overlays = new Set(
+    dialogs
+      .map((dialog) => dialog.closest<HTMLElement>('[data-modal-overlay]'))
+      .filter((overlay): overlay is HTMLElement => Boolean(overlay)),
+  );
+
+  overlays.forEach((overlay) => {
+    const container = overlay.parentElement;
+    if (!container) return;
+    Array.from(container.children).forEach((elemento) => {
+      if (!(elemento instanceof HTMLElement) || overlays.has(elemento)) return;
+      if (!fundosInertes.has(elemento)) fundosInertes.set(elemento, elemento.inert);
+      elemento.inert = true;
+    });
+  });
+}
+
+let gerenciador: ReturnType<typeof criarGerenciadorDeModais<HTMLDivElement>>;
+const aoVoltar = () => gerenciador.voltar();
+
+gerenciador = criarGerenciadorDeModais<HTMLDivElement>({
+  iniciar() {
+    overflowAnterior = document.body.style.overflow;
+    focoAnterior = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.overflow = 'hidden';
+    // O ouvinte permanece: o popstate do history.back() de fechamento chega
+    // depois de restaurar() e precisa ser consumido pelo gerenciador.
+    window.addEventListener('popstate', aoVoltar);
+  },
+  restaurar() {
+    document.body.style.overflow = overflowAnterior;
+    restaurarFundo();
+    if (focoAnterior?.isConnected) focoAnterior.focus();
+    focoAnterior = null;
+  },
+  atualizarFundo,
+  criarEntradaHistorico() {
+    try {
+      history.pushState({ ...(history.state ?? {}), [MARCADOR_HISTORICO]: true }, '');
+    } catch {
+      // Alguns navegadores incorporados restringem history.pushState.
+    }
+  },
+  temEntradaHistorico() {
+    return Boolean((history.state as Record<string, unknown> | null)?.[MARCADOR_HISTORICO]);
+  },
+  removerEntradaHistorico() {
+    history.back();
+  },
+  adiar(tarefa) {
+    queueMicrotask(tarefa);
+  },
+});
+
+function estaVisivel(elemento: HTMLElement): boolean {
+  if (elemento.hidden || elemento.closest('[hidden], [aria-hidden="true"]')) return false;
+  const estilo = window.getComputedStyle(elemento);
+  if (estilo.display === 'none' || estilo.visibility === 'hidden') return false;
+  const checar = (elemento as HTMLElement & {
+    checkVisibility?: (opcoes?: { checkOpacity?: boolean; checkVisibilityCSS?: boolean }) => boolean;
+  }).checkVisibility;
+  if (typeof checar === 'function') {
+    return checar.call(elemento, { checkOpacity: false, checkVisibilityCSS: true });
+  }
+  return elemento.getClientRects().length > 0;
+}
 
 /**
- * Acessibilidade e robustez de modal (doc 13 §3.1):
- * - Esc fecha;
- * - foco inicial vai para o diálogo e retorna ao elemento anterior ao fechar;
- * - Tab circula somente dentro do modal (focus trap);
- * - botão "voltar" do Android/iOS fecha o modal em vez de sair do site.
- * Roda apenas no cliente, pós-hidratação — sem risco de mismatch com o SSG.
+ * Compartilha scroll lock, fundo inerte, foco e histórico entre os modais.
+ * A troca direta de um diálogo por outro permanece na mesma sessão.
  */
 export function useModalA11y(aberto: boolean, onFechar: () => void) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -14,55 +94,48 @@ export function useModalA11y(aberto: boolean, onFechar: () => void) {
   fecharRef.current = onFechar;
 
   useEffect(() => {
-    if (!aberto) return;
+    const dialog = dialogRef.current;
+    if (!aberto || !dialog) return;
 
-    const anterior = document.activeElement as HTMLElement | null;
-
-    const focaveis = () => {
-      const dialog = dialogRef.current;
-      if (!dialog) return [] as HTMLElement[];
-      return Array.from(
+    const focaveis = () =>
+      Array.from(
         dialog.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable="true"], [tabindex]:not([tabindex="-1"])',
         ),
-      );
-    };
+      ).filter(estaVisivel);
 
-    focaveis()[0]?.focus();
+    const token = gerenciador.abrir(dialog, () => fecharRef.current());
+    (focaveis()[0] ?? dialog).focus();
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
+    const aoTeclado = (evento: KeyboardEvent) => {
+      if (evento.key === 'Escape') {
+        evento.preventDefault();
         fecharRef.current();
         return;
       }
-      if (e.key !== 'Tab') return;
-      const els = focaveis();
-      if (els.length === 0) return;
-      const primeiro = els[0];
-      const ultimo = els[els.length - 1];
-      if (e.shiftKey && document.activeElement === primeiro) {
-        e.preventDefault();
-        ultimo.focus();
-      } else if (!e.shiftKey && document.activeElement === ultimo) {
-        e.preventDefault();
+      if (evento.key !== 'Tab') return;
+      const controles = focaveis();
+      if (controles.length === 0) {
+        evento.preventDefault();
+        dialog.focus();
+        return;
+      }
+      const primeiro = controles[0];
+      const ultimo = controles[controles.length - 1];
+      const focoFora = !dialog.contains(document.activeElement);
+      if (focoFora || (evento.shiftKey && document.activeElement === primeiro)) {
+        evento.preventDefault();
+        (evento.shiftKey ? ultimo : primeiro).focus();
+      } else if (!evento.shiftKey && document.activeElement === ultimo) {
+        evento.preventDefault();
         primeiro.focus();
       }
     };
 
-    // Entrada extra no histórico: o "voltar" dispara popstate e fecha o modal.
-    history.pushState({ modal: true }, '');
-    const onPop = () => fecharRef.current();
-
-    document.addEventListener('keydown', onKey);
-    window.addEventListener('popstate', onPop);
+    document.addEventListener('keydown', aoTeclado);
     return () => {
-      document.removeEventListener('keydown', onKey);
-      window.removeEventListener('popstate', onPop);
-      // Fechou pela UI (botão/backdrop/Esc): remove a entrada extra do histórico.
-      // (O listener já saiu, então este back() não reabre nada.)
-      if ((history.state as { modal?: boolean } | null)?.modal) history.back();
-      anterior?.focus();
+      document.removeEventListener('keydown', aoTeclado);
+      gerenciador.fechar(token);
     };
   }, [aberto]);
 

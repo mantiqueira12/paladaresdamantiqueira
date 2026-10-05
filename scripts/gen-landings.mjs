@@ -50,7 +50,7 @@ const cidades = load('cidades.json').map((c) => ({
   experienciaTitulo: `A experiência em ${c.cidade}`,
   listaTitulo: `Ocasiões em ${c.cidade}`,
   lista: c.ocasioes,
-  ctaTitulo: `Vamos planejar a sua noite em ${c.cidade}?`,
+  ctaTitulo: `Vamos planejar o seu encontro em ${c.cidade}?`,
   serviceName: `Chef particular em ${c.cidade}`,
   breadcrumb: `Chef particular em ${c.cidade}`,
   chip: c.cidade,
@@ -67,6 +67,25 @@ const sazonais = regionais('sazonais.json');
 const nichos = regionais('nichos.json');
 
 const landings = [...cidades, ...sazonais, ...nichos];
+
+// Toda validação acontece antes do primeiro write. Um slug inválido pode escapar
+// de dist/ e slugs repetidos sobrescrevem páginas sem aviso.
+const slugSeguro = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const slugsVistos = new Set();
+for (const landing of landings) {
+  if (!slugSeguro.test(landing.slug) || landing.slug === '404' || landing.slug === 'index') {
+    throw new Error(`[gen-landings] slug inseguro ou reservado: ${JSON.stringify(landing.slug)}`);
+  }
+  if (slugsVistos.has(landing.slug)) {
+    throw new Error(`[gen-landings] slug duplicado: ${landing.slug}`);
+  }
+  slugsVistos.add(landing.slug);
+}
+
+const homePath = path.join(dist, 'index.html');
+if (!fs.existsSync(homePath) || !/<div\s+id=["']root["'][^>]*\bdata-prerendered=["']true["']/.test(fs.readFileSync(homePath, 'utf8'))) {
+  throw new Error('[gen-landings] home não está pré-renderizada em dist/index.html; abortei antes de escrever as landings.');
+}
 
 // FAQ geral reaproveitado da home — subconjunto que faz sentido em toda landing.
 // O MESMO conjunto é exibido na página E emitido como FAQPage JSON-LD (o Google
@@ -132,7 +151,6 @@ function jsonld(n) {
     url: `${SITE}/`,
     image: `${SITE}/og-image.jpg`,
     telephone: TEL,
-    priceRange: '$$$',
     areaServed: [
       'Campos do Jordão',
       'Santo Antônio do Pinhal',
@@ -195,17 +213,17 @@ function jsonld(n) {
 // @theme do index.css — mudou lá, mude no JSON).
 const T = load('tokens.json');
 const CSS = `
-  @font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;src:url('/fonts/inter-300.woff2') format('woff2')}
-  @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/inter-400.woff2') format('woff2')}
-  @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/inter-500.woff2') format('woff2')}
-  @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/inter-600.woff2') format('woff2')}
-  @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400.woff2') format('woff2')}
+  @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('/fonts/inter-400.woff2') format('woff2')}
+  @font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 900;font-display:swap;src:url('/fonts/playfair-display-700.woff2') format('woff2')}
   @font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400-italic.woff2') format('woff2')}
-  @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/playfair-display-700.woff2') format('woff2')}
   :root{--cream:${T.cream};--charcoal:${T.charcoal};--terracotta:${T.terracotta};--terracotta-light:${T.terracottaLight};--moss:${T.moss};--line:${T.line}}
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--charcoal);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased}
+  :focus-visible{outline:3px solid var(--terracotta);outline-offset:4px}
+  #conteudo{scroll-margin-top:80px}
+  .skip-link{position:fixed;z-index:100;top:10px;left:12px;padding:12px 18px;background:#fff;color:var(--charcoal);border:2px solid var(--terracotta);border-radius:8px;font-weight:700;text-decoration:none;transform:translateY(-160%)}
+  .skip-link:focus{transform:translateY(0)}
   .serif{font-family:'Playfair Display',Georgia,serif}
   a{color:inherit}
   img{display:block;max-width:100%}
@@ -220,7 +238,7 @@ const CSS = `
   .brand img{height:42px;width:auto}
   .brand-txt{display:flex;flex-direction:column;line-height:1}
   .brand-txt b{font-family:'Playfair Display',serif;font-size:20px;color:var(--moss);font-weight:700;letter-spacing:-.5px}
-  .brand-txt small{font-size:9px;text-transform:uppercase;letter-spacing:.3em;opacity:.5;font-weight:600;margin-top:5px}
+  .brand-txt small{font-size:9px;text-transform:uppercase;letter-spacing:.3em;opacity:.72;font-weight:600;margin-top:5px}
   .nav{display:none;gap:36px}
   .nav a{font-size:10px;text-transform:uppercase;letter-spacing:.2em;font-weight:600;text-decoration:none;transition:color .2s}
   .nav a:hover{color:var(--terracotta)}
@@ -243,18 +261,18 @@ const CSS = `
   .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.22}
   .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--charcoal) 10%,rgba(45,45,45,.5) 60%,transparent)}
   .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 24px}
-  .crumb{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,251,247,.55);margin-bottom:28px}
+  .crumb{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(253,251,247,.76);margin-bottom:28px}
   .crumb a{text-decoration:none;color:rgba(253,251,247,.85)}
-  .crumb span{margin:0 8px;opacity:.5}
+  .crumb span{margin:0 8px;opacity:.85}
   .eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:26px}
   .eyebrow .rule{width:48px;height:1px;background:var(--terracotta)}
   .eyebrow span:last-child{font-size:11px;text-transform:uppercase;letter-spacing:.35em;font-weight:600;color:var(--terracotta-light)}
   .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.08;font-weight:700;color:var(--cream);max-width:18ch;margin-bottom:26px}
-  .hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:300;color:rgba(253,251,247,.72);max-width:52ch;margin-bottom:40px}
+  .hero .lead{font-size:clamp(1.1rem,2.2vw,1.4rem);font-weight:300;color:rgba(253,251,247,.84);max-width:52ch;margin-bottom:40px}
   .cta-row{display:flex;flex-wrap:wrap;gap:14px}
   .cta-row .btn{width:100%;justify-content:center}
   @media(min-width:640px){.cta-row .btn{width:auto}}
-  .cta-note{margin-top:16px;font-size:12px;letter-spacing:.04em;color:rgba(253,251,247,.65)}
+  .cta-note{margin-top:16px;font-size:12px;letter-spacing:.04em;color:rgba(253,251,247,.82)}
 
   /* Header compacto em telas pequenas: o emblema segura a marca sozinho
      (nome + tagline colidiam com o botão Solicitar) */
@@ -293,7 +311,7 @@ const CSS = `
   .step:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.08)}
   .step .num{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--terracotta);letter-spacing:.1em;display:block;margin-bottom:14px}
   .step b{display:block;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:10px}
-  .step p{font-size:.97rem;color:rgba(45,45,45,.65);font-weight:300}
+  .step p{font-size:.97rem;color:rgba(45,45,45,.78);font-weight:300}
 
   /* seção do chef (escura) */
   .chef{background:var(--charcoal);color:var(--cream);border-top:1px solid var(--line)}
@@ -301,12 +319,13 @@ const CSS = `
   .chef .photo{aspect-ratio:4/5;border-radius:80px 0 80px 0;overflow:hidden;border:1px solid rgba(253,251,247,.1)}
   .chef .photo img{width:100%;height:100%;object-fit:cover}
   .chef h2{color:var(--cream)}
-  .chef p{color:rgba(253,251,247,.72);font-weight:300;font-size:1.08rem;margin-bottom:18px}
+  .chef .eyebrow-dark{color:var(--terracotta-light)}
+  .chef p{color:rgba(253,251,247,.84);font-weight:300;font-size:1.08rem;margin-bottom:18px}
   .chef .quote{border-left:2px solid var(--terracotta);padding-left:22px;font-style:italic;color:rgba(253,251,247,.92)}
 
   /* convite para avaliação — sem nota ou depoimento ilustrativo */
   .review-cta{text-align:center;max-width:760px;margin:0 auto}
-  .review-cta p{color:rgba(45,45,45,.7);font-weight:300;margin:0 auto 28px;max-width:54ch}
+  .review-cta p{color:rgba(45,45,45,.82);font-weight:300;margin:0 auto 28px;max-width:54ch}
 
   /* FAQ (details/summary, sem JS) */
   .faq{display:grid;gap:14px;max-width:780px;margin:0 auto}
@@ -315,7 +334,7 @@ const CSS = `
   summary::-webkit-details-marker{display:none}
   summary:after{content:"+";color:var(--terracotta);font-size:1.5rem;font-weight:400;line-height:1}
   details[open] summary:after{content:"–"}
-  details .ans{padding:0 28px 24px;color:rgba(45,45,45,.7);font-size:.98rem;font-style:italic;line-height:1.7}
+  details .ans{padding:0 28px 24px;color:rgba(45,45,45,.82);font-size:.98rem;font-style:italic;line-height:1.7}
 
   /* faixa CTA */
   .cta-band{text-align:center;background:var(--charcoal);color:var(--cream);border-radius:24px;padding:64px 28px;margin:8px 16px;max-width:1100px}
@@ -333,18 +352,23 @@ const CSS = `
   .fgrid{display:grid;gap:48px;margin-bottom:56px}
   @media(min-width:680px){.fgrid{grid-template-columns:1fr 1fr}}
   @media(min-width:980px){.fgrid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
-  .fcol h3{font-size:10px;text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:var(--moss);opacity:.5;margin-bottom:24px}
+  .fcol h3{font-size:10px;text-transform:uppercase;letter-spacing:.3em;font-weight:700;color:var(--moss);opacity:.82;margin-bottom:24px}
   .fbrand b{font-family:'Playfair Display',serif;font-size:22px;color:var(--moss);font-weight:700;display:block;margin-bottom:18px}
-  .fbrand p{font-size:13px;color:rgba(45,45,45,.6);line-height:1.7;max-width:34ch}
+  .fbrand p{font-size:13px;color:rgba(45,45,45,.76);line-height:1.7;max-width:34ch}
   .flist{list-style:none;display:grid;gap:14px}
   .flist a,.flist span{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:rgba(45,45,45,.8);text-decoration:none;transition:color .2s}
   .flist a:hover{color:var(--terracotta)}
   .flist .ico{color:var(--terracotta);flex-shrink:0;margin-top:2px}
   .fsoc{display:flex;gap:14px;margin-bottom:18px}
-  .fbar{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;opacity:.45}
+  .fbar{border-top:1px solid var(--line);padding-top:28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;font-weight:700;opacity:.68}
   .fbar a{text-decoration:none}
 
   @media(min-width:1024px){.nav{display:flex}.icon-btn.tel{display:inline-flex}}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    .pill img,.btn,.btn .ico,.step,.others a,.icon-btn{transform:none!important}
+  }
 `;
 
 /* -------------------------------------------------------------- template HTML */
@@ -353,7 +377,7 @@ function head(n, { title, description, url, canonical }) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${esc(title)}</title>
     <meta name="description" content="${esc(stripTags(description))}" />
-    <link rel="canonical" href="${canonical}" />
+    ${canonical ? `<link rel="canonical" href="${canonical}" />` : ''}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png?v=2" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png?v=2" />
@@ -375,8 +399,7 @@ function head(n, { title, description, url, canonical }) {
     <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
     <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');</script>
+    <script>(()=>{const l=window.location;if(['localhost','127.0.0.1','::1'].includes(l.hostname))return;window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments)};const s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';document.head.append(s);window.gtag('js',new Date());window.gtag('config','${GA_ID}',{page_location:l.origin+l.pathname});})();</script>
     <style>${CSS}</style>`;
 }
 
@@ -387,7 +410,7 @@ function headerHtml(n) {
           <img src="/logo-emblema.png" alt="Paladares da Mantiqueira" width="320" height="98" />
           <span class="brand-txt"><b>Paladares da Mantiqueira</b><small>Concierge Gastronômico</small></span>
         </a>
-        <nav class="nav">
+        <nav class="nav" aria-label="Navegação principal">
           <a href="/#conceito">Conceito</a>
           <a href="/#experiencias">Experiências</a>
           <a href="/#como-funciona">Como funciona</a>
@@ -431,7 +454,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
               <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
               <a class="icon-btn" href="${esc(pedidoLink(n, 'footer'))}" aria-label="Iniciar pedido" ${trackFormulario(n, 'footer')}>${ICO.message}</a>
             </div>
-            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.4)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
+            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.72)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
           </div>
         </div>
         <div class="fbar">
@@ -457,8 +480,10 @@ ${head(n, { title: n.title, description: n.description, url, canonical: url })}
     ${jsonld(n)}
   </head>
   <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 ${headerHtml(n)}
 
+    <main id="conteudo">
     <section class="hero">
       <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
       <div class="hero-inner">
@@ -474,7 +499,6 @@ ${headerHtml(n)}
       </div>
     </section>
 
-    <main>
       <section class="block">
         <div class="wrap split">
           <div>
@@ -501,7 +525,7 @@ ${headerHtml(n)}
           <span class="eyebrow-dark">O Processo</span>
           <h2>Simples como deve ser</h2>
           <div class="steps">
-            <div class="step"><span class="num">01</span><b>Você faz o pedido</b><p>Escolhe a experiência (ou conta o que deseja), a data e o número de convidados. O pedido chega no meu WhatsApp.</p></div>
+            <div class="step"><span class="num">01</span><b>Você faz o pedido</b><p>Escolhe a experiência (ou conta o que deseja) e informa a data, o horário e o número de convidados, se já souber. O WhatsApp abre com o pedido preparado para você revisar e enviar.</p></div>
             <div class="step"><span class="num">02</span><b>Confirmamos a data</b><p>Monto o seu orçamento sob medida e reservo o dia com um sinal de 50%. A data passa a ser sua.</p></div>
             <div class="step"><span class="num">03</span><b>A experiência acontece</b><p>Eu orquestro a cozinha de forma invisível. Você aproveita os abraços, a conversa e os sabores.</p></div>
           </div>
@@ -512,7 +536,7 @@ ${headerHtml(n)}
         <div class="wrap split">
           <div class="photo"><img src="/chef-rafael.webp" srcset="/chef-rafael-500.webp 500w, /chef-rafael.webp 1000w" sizes="(min-width:900px) 50vw, 100vw" alt="Chef Rafael Jacob na cozinha" loading="lazy" decoding="async" width="800" height="1000" /></div>
           <div>
-            <span class="eyebrow-dark" style="color:var(--terracotta)">O Anfitrião</span>
+            <span class="eyebrow-dark">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
             <p>Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para que a sua única tarefa seja desfrutar a companhia dos seus convidados.</p>
             <p>É um projeto de família: enquanto comando o fogo e os cortes, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>, com sobremesas que encerram a sua experiência com perfeição.</p>
@@ -581,12 +605,14 @@ ${head(null, {
     title: 'Página não encontrada | Paladares da Mantiqueira',
     description: 'A página que você procura não existe. Conheça o chef particular na Serra da Mantiqueira.',
     url: `${SITE}/404`,
-    canonical: `${SITE}/`,
+    canonical: null,
   })}
     <meta name="robots" content="noindex" />
   </head>
   <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 ${headerHtml({ slug: '404', h1: 'Página não encontrada' })}
+    <main id="conteudo">
     <section class="hero">
       <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
       <div class="hero-inner" style="text-align:center">
@@ -599,6 +625,7 @@ ${headerHtml({ slug: '404', h1: 'Página não encontrada' })}
         </div>
       </div>
     </section>
+    </main>
 ${footerHtml()}
   </body>
 </html>
@@ -628,15 +655,17 @@ fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap);
 
 // --- regenera o llms.txt (público em public/) acrescentando as URLs das landings,
 //     para que IAs descubram as páginas específicas e citáveis por cidade/ocasião ---
+const llmsPath = path.join(root, 'public/llms.txt');
+let baseLlms;
 try {
-  const base = fs.readFileSync(path.join(root, 'public/llms.txt'), 'utf8').trimEnd();
-  const linhasCidades = cidades.map((c) => `- ${c.chip}: ${SITE}/${c.slug}/`).join('\n');
-  const linhasOcasioes = [...sazonais, ...nichos].map((o) => `- ${o.chip}: ${SITE}/${o.slug}/`).join('\n');
-  const extra = `\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
-  fs.writeFileSync(path.join(dist, 'llms.txt'), `${base}${extra}`);
-} catch {
-  /* se não houver public/llms.txt, ignora */
+  baseLlms = fs.readFileSync(llmsPath, 'utf8').trimEnd();
+} catch (error) {
+  throw new Error(`[gen-landings] falha ao ler ${llmsPath}: ${error.message}`, { cause: error });
 }
+const linhasCidades = cidades.map((c) => `- ${c.chip}: ${SITE}/${c.slug}/`).join('\n');
+const linhasOcasioes = [...sazonais, ...nichos].map((o) => `- ${o.chip}: ${SITE}/${o.slug}/`).join('\n');
+const extraLlms = `\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
+fs.writeFileSync(path.join(dist, 'llms.txt'), `${baseLlms}${extraLlms}`);
 
 console.log(
   `[gen-landings] ${landings.length} landings (${cidades.length} cidades + ${sazonais.length} sazonais + ${nichos.length} nichos) + 404 + sitemap (${urls.length} URLs) + llms.txt.`,

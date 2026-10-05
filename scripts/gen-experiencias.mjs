@@ -99,7 +99,6 @@ function parseFicha(slug, src) {
     destaque: meta.destaque || 'lancamento',
     ativo: meta.ativo !== false,
     ordem: meta.ordem ?? 99,
-    servicoHora: meta.servico_hora ?? null,
     sobremesasPor: meta.sobremesas_por ?? null,
     dieteticas: meta.dieteticas || [],
     extrasRecomendados: meta.extras_recomendados || [],
