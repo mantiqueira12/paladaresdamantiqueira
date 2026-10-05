@@ -59,3 +59,15 @@ Essa frente vive em `C:\Users\acer\Documents\Consultorias\App Receitas\` desde 2
 ## 7. Economia de contexto
 
 Não releia todo o repositório para continuar um trabalho. Use `STATUS.md` + o índice e a próxima ação registrados no arquivo de controle da frente. Prefira ler seções específicas (os docs têm cabeçalhos numerados) a arquivos inteiros.
+
+## 8. Fluxo de trabalho no GitHub: Issue → branch → PR → publicação
+
+Para mudanças de código ou conteúdo do site, use uma Issue pequena e verificável e siga o fluxo abaixo. Trabalho administrativo fora deste repositório não precisa de Issue.
+
+1. **Issue:** vincule o trabalho a uma Issue existente quando ela cobrir o escopo. Abra uma nova Issue apenas quando isso estiver autorizado; não crie duplicatas nem invente número ou escopo. Use `.github/ISSUE_TEMPLATE/tarefa.md` para novas tarefas.
+2. **Branch:** mantenha uma branch por Issue, criada a partir da `main` atualizada. O nome pode incluir tipo, número e resumo (por exemplo, `docs/12-fluxo-github`); adapte ao trabalho e ao padrão local. Nunca trabalhe diretamente na `main`.
+3. **Commits:** faça commits pequenos, com escopo confirmado e mensagem clara. Antes de adicionar arquivos, revise `git status` e o diff; selecione somente os caminhos autorizados. Não use `git add .` ou equivalente abrangente quando houver outras mudanças. Exclua a Central-de-Achados privada, dados de clientes/CRM, contratos e recibos. Se a `main` já estiver suja por mudanças locais, preserve-as: não faça reset, stash, limpeza ou autocommit. Prepare o recorte por arquivos/hunks e, quando autorizado, transfira para a branch somente o escopo confirmado, sem sobrescrever as demais mudanças.
+4. **Pull request:** use `.github/pull_request_template.md` e relacione a Issue com `Closes #N` quando o PR concluir o trabalho dela. Se ainda houver trabalho, use `Refs #N`. Confira o diff completo, privacidade e decisões fechadas antes de pedir revisão.
+5. **Verificação:** rode build e os testes pertinentes disponíveis e registre os resultados no PR. Faça a revisão visual apropriada ao escopo. Uma prévia local ou do PR serve para revisão; não significa publicação.
+6. **Integração:** a publicação ocorre pelo fluxo de deploy associado ao merge. Só Rafael autoriza o merge. Agentes não fazem merge nem trabalham diretamente na `main`; push e publicação também dependem de autorização específica.
+7. **Encerramento:** atualize o `STATUS.md` conforme §4 e registre se a entrega está pronta localmente, em revisão ou publicada. Uma entrega local não deve ser descrita como publicada.
