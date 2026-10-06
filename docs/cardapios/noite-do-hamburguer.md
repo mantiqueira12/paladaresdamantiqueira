@@ -40,7 +40,7 @@ extras_recomendados: ["estação de molhos autorais", "chopp artesanal da serra"
 
 ## Inclui / Exclui
 - **Inclui:** chef no fogo e na chapa durante toda a experiência, montagem participativa guiada, mesa de coberturas e molhos autorais e sobremesa assinada pela Fernanda Marton Ateliê; deslocamento incluso em toda a Serra até ~100 km (São José dos Campos).
-- **Exclui:** na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.
+- **Exclui:** na camada **Só o Serviço**, os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.
 
 ## Extras recomendados
 - **Estação de molhos autorais** — amplia a mesa de montagem e dá protagonismo a cada convidado (catálogo completo no doc 07 §4).

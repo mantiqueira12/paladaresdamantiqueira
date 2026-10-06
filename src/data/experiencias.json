@@ -16,7 +16,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 1,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -102,7 +101,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 2,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",
@@ -185,7 +183,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 3,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",
@@ -289,7 +286,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 4,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -404,7 +400,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 5,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -494,7 +489,6 @@
     "destaque": "lancamento",
     "ativo": true,
     "ordem": 6,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -598,7 +592,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 7,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -697,7 +690,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 8,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -792,7 +784,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 9,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -874,7 +865,6 @@
     "destaque": "expansao",
     "ativo": true,
     "ordem": 10,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -987,7 +977,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 11,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -998,7 +987,7 @@
     ],
     "promessa": "A noite descontraída em que o chef grelha e a galera monta o próprio hambúrguer numa mesa farta de opções — sem entradas, sem etiqueta, só o lanche e a roda.",
     "inclui": "chef no fogo e na chapa durante toda a experiência, montagem participativa guiada, mesa de coberturas e molhos autorais e sobremesa assinada pela Fernanda Marton Ateliê; deslocamento incluso em toda a Serra até ~100 km (São José dos Campos).",
-    "exclui": "na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.",
+    "exclui": "na camada **Só o Serviço**, os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.",
     "cardapio": [
       {
         "titulo": "Os hambúrgueres — o chef grelha",
@@ -1069,7 +1058,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 12,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -1080,7 +1068,7 @@
     ],
     "promessa": "A noite descontraída em que o chef prensa os dogões na chapa e a galera monta o seu numa mesa farta de toppings — só o lanche, a roda e o jogo.",
     "inclui": "chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos, técnica de prensado e caramelização, e a sobremesa assinada pela Fernanda Marton Ateliê.",
-    "exclui": "na camada **Só o Serviço** (R$ 100/h, mínimo 3h), os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.",
+    "exclui": "na camada **Só o Serviço**, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.",
     "cardapio": [
       {
         "titulo": "Os dogões — o chef prensa na chapa",
@@ -1147,7 +1135,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 13,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana"
@@ -1221,7 +1208,6 @@
     "destaque": "novidade",
     "ativo": true,
     "ordem": 14,
-    "servicoHora": 100,
     "sobremesasPor": "Fernanda Marton Ateliê",
     "dieteticas": [
       "vegetariana",

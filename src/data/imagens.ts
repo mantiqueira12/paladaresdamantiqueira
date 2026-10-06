@@ -3,7 +3,7 @@
  * TODAS locais em /portfolio/ (public/portfolio/), otimizadas em WebP ~800px
  * por scripts/otimizar-imagens.mjs (doc 13 §2.4/2.5) — as que eram do Unsplash
  * foram baixadas e convertidas; o site não depende mais de CDN externa.
- * Fotos novas do acervo do Rafael: salvar em ../Portifolio e referenciar aqui
+ * Fotos novas do acervo do Rafael: salvar em ../04-Marca-e-Conteudo/Portfolio e referenciar aqui
  * (o portfolioSync do vite.config.ts copia no build).
  */
 export const IMAGEM_FALLBACK = '/portfolio/fallback.webp';

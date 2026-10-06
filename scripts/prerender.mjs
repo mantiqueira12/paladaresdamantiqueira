@@ -40,7 +40,7 @@ const re = /<div id="root"[^>]*>[\s\S]*<\/div>(\s*<\/body>)/;
 if (!re.test(html)) {
   throw new Error('[prerender] não encontrei <div id="root"> … </div></body> no dist/index.html. Estrutura mudou?');
 }
-html = html.replace(re, `<div id="root" data-prerendered="true">${appHtml}</div>$1`);
+html = html.replace(re, (_match, bodyClose) => `<div id="root" data-prerendered="true">${appHtml}</div>${bodyClose}`);
 
 fs.writeFileSync(htmlPath, html);
 

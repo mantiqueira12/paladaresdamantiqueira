@@ -24,8 +24,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Paladares da Mantiqueira" />
-    <meta property="og:title" content="Chef Rafael Jacob | Gastronomia Exclusiva na sua Casa" />
-    <meta property="og:description" content="Leve a sofisticação de um restaurante para a sua casa na Serra da Mantiqueira. Jantares, churrasco, massas e eventos exclusivos com chef particular." />
+    <meta property="og:title" content="Chef Particular na Serra da Mantiqueira | Rafael Jacob" />
+    <meta property="og:description" content="Chef particular para jantares e celebrações em casas de campo na Serra da Mantiqueira. Rafael Jacob cuida do menu, preparo, serviço e organização." />
     <meta property="og:url" content="https://paladaresdamantiqueira.com.br/" />
     <meta property="og:image" content="https://paladaresdamantiqueira.com.br/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -33,8 +33,8 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Chef Rafael Jacob | Gastronomia Exclusiva na sua Casa" />
-    <meta name="twitter:description" content="Chef particular na Serra da Mantiqueira — jantares, churrasco, massas e eventos exclusivos na sua casa." />
+    <meta name="twitter:title" content="Chef Particular na Serra da Mantiqueira | Rafael Jacob" />
+    <meta name="twitter:description" content="Chef particular para jantares e celebrações em casas de campo na Serra da Mantiqueira. Rafael Jacob cuida do menu, preparo, serviço e organização." />
     <meta name="twitter:image" content="https://paladaresdamantiqueira.com.br/og-image.jpg" />
 
     <!-- Entidade do site: ajuda a consolidar o nome exibido na busca. -->
@@ -69,7 +69,6 @@
         "contactType": "reservations",
         "availableLanguage": ["Portuguese"]
       },
-      "priceRange": "$$$",
       "servesCuisine": ["Gastronomia de montanha", "Churrasco", "Cozinha autoral", "Cozinha italiana"],
       "areaServed": [
         { "@type": "Place", "name": "Campos do Jordão" },
@@ -123,13 +122,21 @@
     <!-- LCP: poster do hero servido local e com prioridade alta -->
     <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high">
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-42VSMJHHFD"></script>
+    <!-- Google Analytics 4: desativado em desenvolvimento local; a URL enviada
+         conserva a rota e descarta query/hash potencialmente livres. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-42VSMJHHFD');
+      (() => {
+        const location = window.location;
+        if (['localhost', '127.0.0.1', '::1'].includes(location.hostname)) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-42VSMJHHFD';
+        document.head.append(script);
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-42VSMJHHFD', { page_location: location.origin + location.pathname });
+      })();
     </script>
 
     <style>
@@ -149,9 +156,33 @@
       #seo-fallback h1, #seo-fallback h2 {
         font-family: 'Playfair Display', Georgia, serif;
       }
+      .no-js-contact {
+        max-width: 760px;
+        margin: 96px auto 16px;
+        padding: 20px 24px;
+        border: 1px solid rgba(45, 45, 45, 0.18);
+        border-radius: 16px;
+        background: #fff;
+        color: #2b2b2b;
+        font: 500 16px/1.6 'Inter', system-ui, sans-serif;
+        text-align: center;
+      }
+      .no-js-contact a {
+        display: inline-block;
+        margin: 8px 8px 0;
+        color: #713522;
+        font-weight: 700;
+      }
     </style>
   </head>
   <body>
+    <noscript>
+      <div class="no-js-contact">
+        <p>O pedido interativo precisa de JavaScript. Você ainda pode conversar diretamente com o chef:</p>
+        <a href="https://wa.me/5512997710040">Abrir WhatsApp</a>
+        <a href="tel:+5512997710040">Ligar para +55 12 99771-0040</a>
+      </div>
+    </noscript>
     <div id="root">
       <!-- Fallback de SEO: mesmo conteúdo da página, em HTML, para o Google E
            os crawlers de IA (que não executam JavaScript) indexarem o site.

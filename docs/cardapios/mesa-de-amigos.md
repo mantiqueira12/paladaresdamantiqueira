@@ -48,6 +48,7 @@ extras_recomendados: ["harmonização de vinhos da Mantiqueira", "tábua de quei
 - **Tábua de queijos da serra para abrir a noite** — queijos da Mantiqueira para a chegada dos convidados, enquanto a mesa se acomoda (catálogo completo no doc 07 §4).
 
 ## Notas
+- **Composição interna do menu:** o padrão de Entre Amigos é um menu igual para todos os convidados; exceções são combinadas caso a caso na conversa.
 - **Item-assinatura:** o Banoffee de doce de leite da Fernanda Marton Ateliê é o fecho que quebra a comparação por preço — memória afetiva mineira que não se mede em balança.
 - **Versões dietéticas:** menu vegetariano possível ponta a ponta (entrada de cogumelos + Risoto da Mantiqueira sem a truta + qualquer sobremesa). Confirmar restrições no fechamento.
 - **Operação:** servido empratado para 2–6 pessoas, ao longo de ~3h; ideal para a intimidade da casa de campo. Como é jantar empratado de ritmo lento, roda na camada **Completa** (não no "Só o Serviço").
