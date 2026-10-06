@@ -114,6 +114,13 @@ section[id], #conteudo { scroll-margin-top: 24px; }
 .skip-link { position: fixed; top: 12px; left: 16px; z-index: 100; padding: 14px 20px; background: var(--color-brand-charcoal); color: white; transform: translateY(-150%); border-radius: 4px; }
 .skip-link:focus { transform: translateY(0); }
 .site-header { position: fixed; inset: 0 0 auto; z-index: 50; }
+.scroll-progress { display: none; position: absolute; inset: auto 0 0; height: 2px; overflow: hidden; pointer-events: none; }
+.scroll-progress-fill { display: block; width: 100%; height: 100%; background: var(--color-brand-terracotta); transform: scaleX(0); transform-origin: left center; }
+@keyframes leitura-progresso { to { transform: scaleX(1); } }
+@supports (animation-timeline: scroll(root block)) {
+  .scroll-progress { display: block; }
+  .scroll-progress-fill { animation: leitura-progresso linear both; animation-timeline: scroll(root block); }
+}
 .site-header-inner { height: var(--site-header-height); max-width: 1536px; margin: auto; padding: 0 clamp(20px, 4.5vw, 72px); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .site-brand { display: flex; align-items: center; gap: 14px; min-width: 0; text-decoration: none; }
 .site-brand img { width: 88px; height: auto; flex-shrink: 0; }
@@ -167,6 +174,33 @@ section[id], #conteudo { scroll-margin-top: 24px; }
 .occasion-door:hover .occasion-name svg { transform: translate(3px, -3px); }
 .concept-main-image { overflow: hidden; border-radius: 140px 4px 4px 4px; }
 .concept-detail-image { overflow: hidden; border-radius: 4px; }
+.scroll-reveal { opacity: 1; }
+@keyframes entrada-ao-rolar { from { opacity: .62; } to { opacity: 1; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html.js .scroll-reveal {
+      animation: entrada-ao-rolar linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+img[data-image-pending="true"] {
+  background: linear-gradient(105deg, #e9e5db 28%, #f6f3ec 43%, #e9e5db 58%);
+  background-size: 220% 100%;
+  background-position: 100% 0;
+}
+html.js img[data-image-pending="true"] { animation: imagem-aguardando 1.2s linear infinite; }
+@keyframes imagem-aguardando { to { background-position: -120% 0; } }
+@supports (animation-timeline: scroll(root block)) {
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-progress-fill { animation: none; transform: scaleX(0); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .scroll-reveal,
+  html.js img[data-image-pending="true"] { animation: none; }
+}
 .experience-card:focus-within { outline: 3px solid var(--color-brand-terracotta); outline-offset: 5px; }
 .experience-card button:focus-visible { outline: none; }
 .portfolio-intro { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: end; gap: 48px; margin-bottom: 38px; }

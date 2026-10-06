@@ -4,6 +4,7 @@ import App from './App.tsx';
 import './index.css';
 
 const rootEl = document.getElementById('root')!;
+document.documentElement.classList.add('js');
 const app = (
   <StrictMode>
     <App />

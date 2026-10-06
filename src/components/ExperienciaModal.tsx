@@ -1,4 +1,5 @@
-import { m, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import { m, AnimatePresence, useReducedMotion } from 'motion/react';
 import { X, Users, Clock, Leaf, Check, MessageCircle, CalendarDays } from 'lucide-react';
 import {
   type Experiencia,
@@ -8,6 +9,7 @@ import {
 } from '../data/experiencias';
 import { IMAGEM_FALLBACK, srcSetPortfolio } from '../data/imagens';
 import { useModalA11y } from '../lib/useModalA11y';
+import LoadingImage from './LoadingImage';
 
 interface Props {
   experiencia: Experiencia | null;
@@ -17,6 +19,9 @@ interface Props {
 
 export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }: Props) {
   const dialogRef = useModalA11y(!!experiencia, onFechar);
+  const movimentoReduzido = useReducedMotion();
+  const [imagemComErro, setImagemComErro] = useState<string | null>(null);
+  const imagemFalhou = imagemComErro === experiencia?.imagem;
   const somenteServico = experiencia?.camada === 'servico';
 
   return (
@@ -25,9 +30,10 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
         <m.div
           data-modal-overlay="experiencia"
           className="fixed inset-0 z-[110] flex items-end md:items-center justify-center p-0 md:p-6"
-          initial={{ opacity: 0 }}
+          initial={{ opacity: movimentoReduzido ? 1 : 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: movimentoReduzido ? 0 : 0.18, ease: 'easeIn' }}
         >
           <button
             type="button"
@@ -44,27 +50,26 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
             aria-labelledby="experiencia-modal-titulo"
             tabIndex={-1}
             className="relative z-10 w-full md:max-w-3xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto overflow-x-hidden"
-            initial={{ y: 40, opacity: 0, scale: 0.98 }}
+            initial={movimentoReduzido ? { y: 0, opacity: 1, scale: 1 } : { y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 40, opacity: 0, scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 32 }}
+            exit={{
+              y: movimentoReduzido ? 0 : 20,
+              opacity: 0,
+              scale: movimentoReduzido ? 1 : 0.99,
+              transition: { duration: movimentoReduzido ? 0 : 0.18, ease: 'easeIn' },
+            }}
+            transition={movimentoReduzido ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 32 }}
           >
             {/* Capa */}
             <div className="relative h-56 md:h-72 overflow-hidden rounded-t-3xl md:rounded-t-2xl">
-              <img
-                src={experiencia.imagem}
-                srcSet={srcSetPortfolio(experiencia.imagem)}
+              <LoadingImage
+                key={imagemFalhou ? 'imagem-fallback' : `imagem-${experiencia.imagem}`}
+                src={imagemFalhou ? IMAGEM_FALLBACK : experiencia.imagem}
+                srcSet={imagemFalhou ? undefined : srcSetPortfolio(experiencia.imagem)}
                 sizes="(min-width: 768px) 768px, 100vw"
                 alt={experiencia.nome}
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  const imagem = e.currentTarget;
-                  // Trava única: se o próprio fallback falhar, não repetir.
-                  if (imagem.dataset.fallbackApplied) return;
-                  imagem.dataset.fallbackApplied = 'true';
-                  imagem.removeAttribute('srcset');
-                  imagem.src = IMAGEM_FALLBACK;
-                }}
+                onError={imagemFalhou ? undefined : () => setImagemComErro(experiencia.imagem)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/20 to-transparent" />
               <button
