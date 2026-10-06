@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 // LazyMotion + m: carrega só o subconjunto domAnimation da lib (bundle menor).
 // MotionConfig reducedMotion="user" respeita o prefers-reduced-motion do sistema.
-import { LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
+import { LazyMotion, MotionConfig, domAnimation, m, useReducedMotion } from 'motion/react';
 import {
   MessageCircle,
   MapPin,
@@ -43,6 +43,7 @@ import PortfolioReal from './components/PortfolioReal';
 import SiteHeader from './components/SiteHeader';
 import Hero from './components/Hero';
 import OccasionDoors from './components/OccasionDoors';
+import LoadingImage from './components/LoadingImage';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
@@ -55,6 +56,8 @@ export default function App() {
   const [pedidoPagina, setPedidoPagina] = useState('');
   const [detalhe, setDetalhe] = useState<Experiencia | null>(null);
   const [filtro, setFiltro] = useState<'Todas' | Linha>('Todas');
+  const [jaFiltrou, setJaFiltrou] = useState(false);
+  const movimentoReduzido = useReducedMotion();
 
   // origem: de onde o pedido foi aberto — vira o parâmetro `origem` do evento
   // GA4 solicitar_orcamento no envio, preservando o ponto de entrada.
@@ -93,6 +96,10 @@ export default function App() {
   const solicitarDoDetalhe = (nome: string) => {
     setDetalhe(null);
     abrirPedido(nome, 'card_experiencia');
+  };
+  const alterarFiltro = (novoFiltro: 'Todas' | Linha) => {
+    if (novoFiltro !== filtro) setJaFiltrou(true);
+    setFiltro(novoFiltro);
   };
 
   const lista = useMemo(
@@ -137,7 +144,7 @@ export default function App() {
             </div>
             <div className="w-full md:w-1/2 flex flex-col sm:flex-row gap-4 relative">
               <div className="w-full sm:w-2/3 h-[320px] sm:h-[500px] concept-main-image">
-                <img
+                <LoadingImage
                   src="/portfolio/conceito-sala.webp"
                   srcSet="/portfolio/conceito-sala-400.webp 400w, /portfolio/conceito-sala.webp 800w"
                   sizes="(min-width: 768px) 50vw, 100vw"
@@ -149,7 +156,7 @@ export default function App() {
               </div>
               <div className="w-full sm:w-1/3 h-36 sm:h-auto flex flex-row sm:flex-col gap-4">
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 concept-detail-image">
-                  <img
+                  <LoadingImage
                     src="/portfolio/conceito-defumados.webp"
                     srcSet="/portfolio/conceito-defumados-400.webp 400w, /portfolio/conceito-defumados.webp 800w"
                     sizes="(min-width: 768px) 17vw, 50vw"
@@ -160,7 +167,7 @@ export default function App() {
                   />
                 </div>
                 <div className="w-1/2 h-full sm:w-full sm:h-1/2 concept-detail-image">
-                  <img
+                  <LoadingImage
                     src="/portfolio/harmonizacao-guiada.webp"
                     srcSet="/portfolio/harmonizacao-guiada-400.webp 400w, /portfolio/harmonizacao-guiada.webp 800w"
                     sizes="(min-width: 768px) 17vw, 50vw"
@@ -202,11 +209,11 @@ export default function App() {
             {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável
                 (empilhados ocupavam ~6 linhas); no md+ voltam ao wrap centralizado */}
             <div className="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 md:gap-3 mb-3 overflow-x-auto md:overflow-visible snap-x -mx-6 px-6 md:mx-0 md:px-0 pb-2 md:pb-0 scrollbar-none">
-              <Chip ativo={filtro === 'Todas'} onClick={() => setFiltro('Todas')}>
+              <Chip ativo={filtro === 'Todas'} onClick={() => alterarFiltro('Todas')}>
                 Todas
               </Chip>
               {LINHAS.map((l) => (
-                <Chip key={l} ativo={filtro === l} onClick={() => setFiltro(l)}>
+                <Chip key={l} ativo={filtro === l} onClick={() => alterarFiltro(l)}>
                   {porta(l).rotulo}
                 </Chip>
               ))}
@@ -221,13 +228,13 @@ export default function App() {
             {/* Grade de experiências */}
             <m.div
               key={filtro}
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              initial={jaFiltrou && !movimentoReduzido ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: jaFiltrou && !movimentoReduzido ? 0.24 : 0 }}
               className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             >
-              {lista.map((exp, i) => (
-                <ExperienceCard key={exp.slug} exp={exp} index={i} onVer={() => setDetalhe(exp)} />
+              {lista.map((exp) => (
+                <ExperienceCard key={exp.slug} exp={exp} onVer={() => setDetalhe(exp)} />
               ))}
             </m.div>
 
@@ -278,7 +285,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center">
             <div className="w-full md:w-1/2 relative">
               <div className="aspect-[4/5] rounded-tl-[100px] rounded-br-[100px] overflow-hidden border border-brand-cream/10">
-                <img
+                <LoadingImage
                   src={chefImage}
                   srcSet="/chef-rafael-500.webp 500w, /chef-rafael.webp 1000w"
                   sizes="(min-width: 768px) 50vw, 100vw"
@@ -346,7 +353,7 @@ export default function App() {
         {/* PRE-FOOTER CTA */}
         <section className="relative py-28 md:py-40 flex items-center justify-center text-center px-6 section-border-top overflow-hidden">
           <div className="absolute inset-0">
-            <img
+            <LoadingImage
               src="/hero-poster.webp"
               srcSet="/hero-poster-720.webp 720w, /hero-poster.webp 1440w"
               sizes="100vw"

@@ -3,9 +3,15 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-06**
 
-## Qualidade — Issue #4 pronta localmente em 06/10/2026
+## Qualidade — Issue #3 pronta localmente em 06/10/2026
 
-Backdrops dos dois modais corrigidos com botão nativo sem alteração visual, campos com associação explícita e dependências de hooks resolvidas; exports/tipos Knip reportados removidos sem afetar `PORTAS`. Cinco regras Biome e os checks Knip de exports/tipos estão como erro e sem achados. Lint, Knip, 39 testes Node, 25 Vitest, build e e2e 1440/390 passaram (19 passados, 1 cenário mobile de sitemap pulado). E2e cobre backdrop, conteúdo, Escape, restauração de foco e invalidação da confirmação de cópia ao editar; nenhum envio real ao WhatsApp. Avisos Biome de regras fora da Issue #4 permanecem herdados. Próxima ação: revisão/CI do PR da Issue #4; depois iniciar Issue #3. O estado do Sentry/hash e a execução #2 permanecem registrados abaixo como histórico.
+Issue #2 e Issue #4 estão integradas/publicadas (PR #8, `f67beac`; PR #9, `7f7dea9`). A Issue #3 está pronta na branch `feat/3-movimento-atual`, sobre `7f7dea9`, aguardando revisão/PR e CI pelo integrador. O lote adiciona skeleton progressivo às imagens que aguardam resposta (inclusive fallback), reveals CSS com estado visível por padrão e guardas de suporte/JavaScript, fio de progresso da leitura, saídas de 180 ms nos dois modais, fade de 240 ms após a primeira troca de filtro e respeito a movimento reduzido em todos esses efeitos. Herói permanece sem animação.
+
+Verificação local com Node 24.15.0: `npm run lint` sem erros (25 avisos/3 infos herdados, mesma contagem anterior), `npm run knip`, 39 testes Node, 25 Vitest, build, `verify:build` e e2e passaram; e2e em 1440 px e 390 px teve 35 passados e 1 skip (sitemap mobile). E2e cobre espera/carga/cache/erro/fallback de imagem, progresso, troca rápida de filtros, fade normal e movimento reduzido nos dois modais e conteúdo HTML visível sem JavaScript. O CSS compilado mantém os estados padrão visíveis e põe efeitos scroll-driven sob `@supports`; Chromium local suporta ambas as APIs, então a ausência de suporte foi confirmada pela estrutura da folha compilada, não por execução num motor sem suporte. O CI Node 22 e a revisão/integração ainda dependem do PR do lote. Nenhum envio real ao WhatsApp.
+
+## Qualidade — Issue #4 concluída e publicada em 06/10/2026
+
+Backdrops dos dois modais corrigidos com botão nativo sem alteração visual, campos com associação explícita e dependências de hooks resolvidas; exports/tipos Knip reportados removidos sem afetar `PORTAS`. Cinco regras Biome e os checks Knip de exports/tipos estão como erro e sem achados. Lint, Knip, 39 testes Node, 25 Vitest, build e e2e 1440/390 passaram (19 passados, 1 cenário mobile de sitemap pulado). E2e cobre backdrop, conteúdo, Escape, restauração de foco e invalidação da confirmação de cópia ao editar; nenhum envio real ao WhatsApp. Avisos Biome de regras fora da Issue #4 permanecem herdados. PR #9 (`7f7dea9`) integrado/publicado; a próxima ação é revisão/PR/CI da Issue #3. O estado do Sentry/hash e a execução #2 permanecem registrados abaixo como histórico.
 
 ## Qualidade — Issue #2 pronta localmente em 06/10/2026
 

@@ -58,6 +58,9 @@ export default function SiteHeader({ onSolicitar }: { onSolicitar: () => void })
         <nav id="menu-mobile" className="mobile-nav" aria-label="Navegação mobile" hidden={!menuAberto}>
           {LINKS.map(([href, label]) => <a key={href} href={href} onClick={() => setMenuAberto(false)}>{label}</a>)}
         </nav>
+        <div className="scroll-progress" aria-hidden="true">
+          <span data-scroll-progress-fill className="scroll-progress-fill" />
+        </div>
       </header>
     </>
   );

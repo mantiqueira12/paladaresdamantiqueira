@@ -3,14 +3,13 @@ import { m } from 'motion/react';
 import { ArrowRight, Users } from 'lucide-react';
 import { porta, pessoasLabel, type Experiencia } from '../data/experiencias';
 import { IMAGEM_FALLBACK, srcSetPortfolio } from '../data/imagens';
+import LoadingImage from './LoadingImage';
 
 export default function ExperienceCard({
   exp,
-  index,
   onVer,
 }: {
   exp: Experiencia;
-  index: number;
   onVer: () => void;
 }) {
   const publico = pessoasLabel(exp);
@@ -22,29 +21,19 @@ export default function ExperienceCard({
   return (
     <m.article
       initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
       whileHover={{ y: -3 }}
-      className="experience-card group relative text-left bg-white rounded-sm overflow-hidden border border-brand-line hover:border-brand-moss/40 transition-colors flex flex-col"
+      className="experience-card scroll-reveal group relative text-left bg-white rounded-sm overflow-hidden border border-brand-line hover:border-brand-moss/40 transition-colors flex flex-col"
     >
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
+        <LoadingImage
+          key={imagemFalhou ? 'imagem-fallback' : 'imagem-experiencia'}
           src={imagemFalhou ? IMAGEM_FALLBACK : exp.imagem}
           srcSet={imagemFalhou ? undefined : srcSetPortfolio(exp.imagem)}
           sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
           alt={exp.nome}
           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
           loading="lazy"
-          onError={imagemFalhou ? undefined : (event) => {
-            const image = event.currentTarget;
-            if (image.dataset.fallbackApplied) return;
-            image.dataset.fallbackApplied = 'true';
-            image.onerror = null;
-            image.removeAttribute('srcset');
-            image.src = IMAGEM_FALLBACK;
-            setImagemFalhou(true);
-          }}
+          onError={imagemFalhou ? undefined : () => setImagemFalhou(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
         <span className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-cream/90 text-brand-charcoal px-3 py-1 rounded-full">

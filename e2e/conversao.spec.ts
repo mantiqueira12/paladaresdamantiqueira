@@ -20,6 +20,44 @@ async function neutralizarAnalytics(page: Page) {
   });
 }
 
+async function observarSaida(page: Page) {
+  return page.evaluate(() => new Promise<{ opacidades: string[]; quadros: number }>((resolve) => {
+    const opacidadesObservadas: string[] = [];
+    let quadrosObservados = 0;
+    document.querySelector<HTMLButtonElement>('[role="dialog"] button[aria-label="Fechar"]')?.click();
+    const observar = () => {
+      quadrosObservados += 1;
+      const overlay = document.querySelector<HTMLElement>('[data-modal-overlay]');
+      const dialogo = document.querySelector<HTMLElement>('[role="dialog"]');
+      if (!overlay || !dialogo) {
+        resolve({ opacidades: opacidadesObservadas, quadros: quadrosObservados });
+        return;
+      }
+      opacidadesObservadas.push(`${getComputedStyle(overlay).opacity}:${getComputedStyle(dialogo).opacity}`);
+      requestAnimationFrame(observar);
+    };
+    requestAnimationFrame(observar);
+  }));
+}
+
+async function fecharSemFade(page: Page, modal: ReturnType<Page['getByRole']>) {
+  const saida = await observarSaida(page);
+  await expect(modal).toBeHidden();
+  expect(saida.opacidades.every((opacidade) => opacidade === '1:1')).toBe(true);
+  expect(saida.quadros).toBeLessThanOrEqual(2);
+}
+
+async function fecharComFade(page: Page, modal: ReturnType<Page['getByRole']>) {
+  const saida = await observarSaida(page);
+  await expect(modal).toBeHidden();
+  expect(saida.opacidades.some((opacidade) => {
+    const [overlay, dialogo] = opacidade.split(':').map(Number);
+    return (overlay > 0 && overlay < 1) || (dialogo > 0 && dialogo < 1);
+  })).toBe(true);
+  expect(saida.quadros).toBeGreaterThan(2);
+  expect(saida.quadros).toBeLessThan(40);
+}
+
 test('a solicitação conserva quantidade, horário e mensagem pronta sem enviá-la', async ({ page }) => {
   const pedido = await abrirPedido(page);
   await pedido.getByLabel('Experiência desejada').selectOption({ value: 'Entre Amigos' });
@@ -183,6 +221,171 @@ test('a home não tem erro de execução nem rolagem horizontal', async ({ page 
   const dimensoes = await page.evaluate(() => ({ pagina: document.documentElement.scrollWidth, viewport: window.innerWidth }));
   expect(dimensoes.pagina).toBeLessThanOrEqual(dimensoes.viewport);
   expect(erros).toEqual([]);
+});
+
+test('o skeleton acompanha a espera real da imagem e some depois da carga', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  let liberarResposta!: () => void;
+  let iniciouResposta!: () => void;
+  const respostaLiberada = new Promise<void>((resolve) => { liberarResposta = resolve; });
+  const respostaIniciada = new Promise<void>((resolve) => { iniciouResposta = resolve; });
+  await page.route('**/portfolio/mesa-de-amigos*.webp', async (route) => {
+    iniciouResposta();
+    await respostaLiberada;
+    await route.continue();
+  });
+
+  await page.goto('/');
+  await page.locator('#experiencias').scrollIntoViewIfNeeded();
+  const capa = page.getByRole('img', { name: 'Entre Amigos' });
+  await respostaIniciada;
+  await expect(capa).toHaveCSS('background-image', /linear-gradient/);
+
+  liberarResposta();
+  await expect(capa).toHaveCSS('background-image', 'none');
+
+  await page.getByRole('button', { name: 'Ver detalhes de Entre Amigos' }).click();
+  await expect(page.getByRole('dialog', { name: 'Entre Amigos' }).getByRole('img', { name: 'Entre Amigos' })).toHaveCSS('background-image', 'none');
+});
+
+test('imagem com erro troca pelo fallback e encerra o estado de espera', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await page.route('**/portfolio/mesa-de-amigos*.webp', (route) => route.abort());
+  await page.goto('/');
+  await page.locator('#experiencias').scrollIntoViewIfNeeded();
+  const capa = page.getByRole('img', { name: 'Entre Amigos' });
+
+  await expect(capa).toHaveAttribute('src', /fallback\.webp/);
+  await expect(capa).not.toHaveAttribute('data-image-pending', 'true');
+  await expect(capa).toBeVisible();
+});
+
+test('o skeleton volta enquanto uma imagem fallback ainda está carregando', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await page.route('**/portfolio/mesa-de-amigos*.webp', (route) => route.abort());
+  let liberarFallback!: () => void;
+  let iniciouFallback!: () => void;
+  const fallbackLiberado = new Promise<void>((resolve) => { liberarFallback = resolve; });
+  const fallbackIniciado = new Promise<void>((resolve) => { iniciouFallback = resolve; });
+  await page.route('**/portfolio/fallback.webp', async (route) => {
+    iniciouFallback();
+    await fallbackLiberado;
+    await route.continue();
+  });
+
+  await page.goto('/');
+  await page.locator('#experiencias').scrollIntoViewIfNeeded();
+  const capa = page.getByRole('img', { name: 'Entre Amigos' });
+  await fallbackIniciado;
+  await expect(capa).toHaveAttribute('src', /fallback\.webp/);
+  await expect(capa).toHaveAttribute('data-image-pending', 'true');
+  await expect(capa).toHaveCSS('background-image', /linear-gradient/);
+
+  liberarFallback();
+  await expect(capa).not.toHaveAttribute('data-image-pending', 'true');
+});
+
+test('o conteúdo pré-renderizado permanece visível sem JavaScript', async ({ browser, page }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: page.viewportSize() ?? undefined });
+  const pageSemScript = await context.newPage();
+  await pageSemScript.goto('http://localhost:4173/');
+
+  await expect(pageSemScript.getByRole('heading', { level: 1 }).first()).toBeVisible();
+  const experiencia = pageSemScript.getByRole('heading', { name: 'Entre Amigos' }).first();
+  await expect(experiencia).toBeVisible();
+  const cartao = experiencia.locator('xpath=ancestor::article');
+  await expect(cartao.getByRole('img', { name: 'Entre Amigos' })).toBeVisible();
+  const estado = await cartao.evaluate((element) => ({
+    opacidade: Number(getComputedStyle(element).opacity),
+    animacao: getComputedStyle(element).animationName,
+    jsClass: document.documentElement.classList.contains('js'),
+  }));
+  expect(estado.opacidade).toBeGreaterThan(0);
+  expect(estado.animacao).toBe('none');
+  expect(estado.jsClass).toBe(false);
+  await context.close();
+});
+
+test('o fio de progresso acompanha o avanço da leitura sem interceptar controles', async ({ page }) => {
+  await page.goto('/');
+  const progresso = page.locator('[data-scroll-progress-fill]');
+  await expect(progresso.locator('..')).toBeVisible();
+  await expect.poll(async () => progresso.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).a)).toBeLessThan(0.1);
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await expect.poll(async () => progresso.evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).a)).toBeGreaterThan(0.9);
+  await expect(progresso).toHaveCSS('pointer-events', 'none');
+});
+
+test('trocas rápidas de filtro preservam a seleção e a quantidade final', async ({ page }) => {
+  await page.goto('/');
+  const grade = page.locator('.experience-card').first().locator('xpath=..');
+  await expect(grade).toHaveCSS('opacity', '1');
+
+  await page.evaluate(() => {
+    for (const nome of ['Casa cheia', 'Grandes celebrações', 'Só os mais chegados']) {
+      const botao = [...document.querySelectorAll<HTMLButtonElement>('button')]
+        .find((item) => item.textContent?.trim() === nome);
+      botao?.click();
+    }
+  });
+
+  await expect(page.getByRole('button', { name: 'Só os mais chegados' })).toHaveAttribute('aria-pressed', 'true');
+  const status = page.getByRole('status');
+  await expect(status).toContainText('para Só os mais chegados');
+  const quantidade = Number((await status.innerText()).match(/^\d+/)?.[0]);
+  await expect(page.locator('.experience-card')).toHaveCount(quantidade);
+  await expect(page.locator('.experience-card').first()).toBeVisible();
+});
+
+test('reduzir movimento remove reveal/progresso e encerra modal sem espera', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await neutralizarAnalytics(page);
+  await page.goto('/');
+  await page.locator('#experiencias').scrollIntoViewIfNeeded();
+  const card = page.locator('.experience-card').first();
+  await expect(card).toHaveCSS('opacity', '1');
+  await expect(card).toHaveCSS('animation-name', 'none');
+  await expect(page.locator('[data-scroll-progress-fill]')).toHaveCSS('animation-name', 'none');
+
+  const abrir = page.getByRole('button', { name: 'Ver detalhes de Entre Amigos' });
+  await abrir.click();
+  const modal = page.getByRole('dialog', { name: 'Entre Amigos' });
+  await expect(modal).toBeVisible();
+  await expect(modal).toHaveCSS('opacity', '1');
+  await expect(modal).toHaveCSS('transform', 'none');
+  const iniciou = await page.evaluate(() => performance.now());
+  await fecharSemFade(page, modal);
+  const duracao = await page.evaluate((inicio) => performance.now() - inicio, iniciou);
+  expect(duracao).toBeLessThan(1000);
+
+  const abrirPedidoButton = page.getByRole('banner').getByRole('button', { name: 'Solicitar' });
+  await abrirPedidoButton.click();
+  const pedido = page.getByRole('dialog', { name: 'Vamos planejar o seu encontro?' });
+  await expect(pedido).toBeVisible();
+  await expect(pedido).toHaveCSS('opacity', '1');
+  await expect(pedido).toHaveCSS('transform', 'none');
+  await fecharSemFade(page, pedido);
+});
+
+test('os dois modais fazem fade curto ao fechar com movimento normal', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await page.goto('/');
+  const abrirDetalhe = page.getByRole('button', { name: 'Ver detalhes de Entre Amigos' });
+  await abrirDetalhe.click();
+  const detalhe = page.getByRole('dialog', { name: 'Entre Amigos' });
+  await expect(detalhe).toBeVisible();
+  await page.waitForTimeout(300);
+  await fecharComFade(page, detalhe);
+  await expect(abrirDetalhe).toBeFocused();
+
+  const abrirPedido = page.getByRole('banner').getByRole('button', { name: 'Solicitar' });
+  await abrirPedido.click();
+  const pedido = page.getByRole('dialog', { name: 'Vamos planejar o seu encontro?' });
+  await expect(pedido).toBeVisible();
+  await page.waitForTimeout(300);
+  await fecharComFade(page, pedido);
+  await expect(abrirPedido).toBeFocused();
 });
 
 test('a vitrine mantém as decisões de vocabulário, preço e três portas', async ({ page }) => {

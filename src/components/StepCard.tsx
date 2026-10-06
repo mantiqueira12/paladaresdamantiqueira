@@ -12,7 +12,7 @@ export default function StepCard({
   icon: ReactNode;
 }) {
   return (
-    <div className="bg-white p-8 md:p-10 border-t border-brand-line relative">
+    <div className="scroll-reveal bg-white p-8 md:p-10 border-t border-brand-line relative">
       <div className="w-14 h-14 rounded-full bg-brand-cream flex items-center justify-center text-brand-terracotta mb-6">
         {icon}
       </div>

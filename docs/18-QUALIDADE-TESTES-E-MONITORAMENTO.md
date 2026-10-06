@@ -32,6 +32,14 @@ O link `#topo` aponta para um destino existente na home; sua exceção pontual p
 
 Verificação local de 06/10: lint e Knip passaram; `npm test` passou com 39 testes Node e 25 Vitest; build passou; e2e passou em desktop 1440 px e mobile 390 px (19 passados, 1 cenário de sitemap mobile pulado). Os testes novos fecham cada modal pelo backdrop, confirmam que clique no conteúdo não fecha e verificam a restauração de foco; outro garante que editar o pedido invalida a confirmação de cópia e atualiza a prévia. Os testes interceptam o envio do formulário; nenhuma mensagem real de WhatsApp é enviada.
 
+## Issue #3 — movimento progressivo e saídas de modais
+
+O lote de 06/10/2026 adiciona skeleton de imagem enquanto a fonte corrente aguarda resposta; a espera termina em carga, erro, fallback ou recurso já em cache. Reveals de cartões e etapas, fio de progresso da leitura e skeleton animado são progressivos: os seletores têm padrão visível/estático, os reveals só são ativados com JavaScript, e as animações de rolagem ficam dentro de `@supports`. O Chromium disponível aceita `animation-timeline: scroll()` e `view()`; a ramificação de navegador sem suporte foi verificada na folha CSS de produção (`.scroll-reveal` inicia com `opacity:1`, `.scroll-progress` com `display:none`, regras de animação dentro dos blocos `@supports`), não em um motor incompatível. O HTML pré-renderizado foi testado com JavaScript desativado em 1440 px e 390 px, incluindo a capa da experiência visível.
+
+As duas saídas de modal usam fade de 180 ms e deixam de animar com `prefers-reduced-motion: reduce`; a abertura também fica imediata nessa preferência. Os testes observam as opacidades do overlay e do diálogo a cada quadro desde o clique nativo: com movimento reduzido, a remoção acontece em até dois quadros sem fade; com movimento normal, ambos mostram opacidade intermediária antes de sair. Os testes cobrem 1440 px e 390 px. O fade da grade ocorre apenas após a primeira mudança efetiva de filtro e termina em 240 ms; o e2e troca três filtros rapidamente e confere seleção, status e quantidade finais.
+
+Verificação local de 06/10 com Node 24.15.0: lint sem erros e com a mesma contagem herdada (25 avisos/3 infos), Knip passou, 39 testes Node e 25 Vitest passaram, build e `verify:build` passaram. Playwright em 1440 px e 390 px: 35 passaram, 1 skip no sitemap mobile. O CI Node 22 e a integração ficam para o PR; a suíte completa local não envia ao WhatsApp.
+
 ## Versões de Node
 
 O CI usa Node 22. Vitest 5 e Commitlint 21 requerem Node 22.12 ou superior; Knip 6 também aceita Node 20.19 ou Node 22.12 ou superior. As verificações locais foram executadas com Node 22.23.3. O Netlify permanece em Node 20 (`netlify.toml`) e executa `npm run build`, sem testes; o build do Netlify não foi validado localmente em Node 20 nesta execução. A mudança da versão do Netlify fica fora deste lote.

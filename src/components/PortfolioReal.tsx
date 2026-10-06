@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import LoadingImage from './LoadingImage';
 
 const FOTOS = [
   {
@@ -39,9 +40,9 @@ export default function PortfolioReal({ onConhecer }: { onConhecer: () => void }
 
         <div className="portfolio-grid">
           {FOTOS.map((foto) => (
-            <figure key={foto.arquivo} className="portfolio-photo">
+            <figure key={foto.arquivo} className="portfolio-photo scroll-reveal">
               <div className="portfolio-image">
-                <img
+                <LoadingImage
                   src={`/portfolio/origens-da-serra/${foto.arquivo}.webp`}
                   srcSet={`/portfolio/origens-da-serra/${foto.arquivo}-600.webp 600w, /portfolio/origens-da-serra/${foto.arquivo}.webp 1200w`}
                   sizes={foto.destaque ? '(min-width: 768px) 58vw, 100vw' : '(min-width: 768px) 38vw, 50vw'}

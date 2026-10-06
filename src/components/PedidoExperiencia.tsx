@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { m, AnimatePresence } from 'motion/react';
+import { m, AnimatePresence, useReducedMotion } from 'motion/react';
 import { X, MessageCircle, CalendarHeart, Clock, Users, MapPin, PartyPopper, ChefHat, Sparkles, Copy, Check } from 'lucide-react';
 import { EXPERIENCIAS, acharPorNome } from '../data/experiencias';
 import { montarMensagem, WHATSAPP_NUMBER, WHATSAPP_DISPLAY, type PedidoData } from '../lib/whatsapp';
@@ -72,6 +72,7 @@ export default function PedidoExperiencia({
   const convidadosRef = useRef<HTMLInputElement>(null);
   const horarioRef = useRef<HTMLInputElement>(null);
   const dialogRef = useModalA11y(aberto, onFechar);
+  const movimentoReduzido = useReducedMotion();
 
   useEffect(() => {
     if (aberto) {
@@ -170,9 +171,10 @@ export default function PedidoExperiencia({
         <m.div
           data-modal-overlay="pedido"
           className="fixed inset-0 z-[120] flex items-end md:items-center justify-center p-0 md:p-6"
-          initial={{ opacity: 0 }}
+          initial={{ opacity: movimentoReduzido ? 1 : 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: movimentoReduzido ? 0 : 0.18, ease: 'easeIn' }}
         >
           <button
             type="button"
@@ -189,10 +191,15 @@ export default function PedidoExperiencia({
             aria-labelledby="pedido-modal-titulo"
             tabIndex={-1}
             className="relative z-10 w-full md:max-w-2xl bg-brand-cream rounded-t-3xl md:rounded-2xl shadow-2xl max-h-[92dvh] overflow-y-auto overflow-x-hidden"
-            initial={{ y: 40, opacity: 0, scale: 0.98 }}
+            initial={movimentoReduzido ? { y: 0, opacity: 1, scale: 1 } : { y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 40, opacity: 0, scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+            exit={{
+              y: movimentoReduzido ? 0 : 20,
+              opacity: 0,
+              scale: movimentoReduzido ? 1 : 0.99,
+              transition: { duration: movimentoReduzido ? 0 : 0.18, ease: 'easeIn' },
+            }}
+            transition={movimentoReduzido ? { duration: 0 } : { type: 'spring', stiffness: 320, damping: 32 }}
           >
             {/* Cabeçalho */}
             <div className="sticky top-0 z-10 glass-header px-6 md:px-10 py-5 flex items-start justify-between rounded-t-3xl md:rounded-t-2xl">
