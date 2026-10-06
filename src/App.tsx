@@ -79,16 +79,16 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('pedido') !== '1') return;
 
-    abrirPedido(
-      params.get('experiencia') || '',
-      'landing',
-      {
-        cidade: params.get('cidade') || undefined,
-        ocasiao: params.get('ocasiao') || undefined,
-        pessoas: params.get('pessoas') || undefined,
-      },
-      params.get('pagina') || '',
-    );
+    const experiencia = params.get('experiencia') || '';
+    setPedidoExp(experiencia);
+    setPedidoInicial({
+      cidade: params.get('cidade') || undefined,
+      ocasiao: params.get('ocasiao') || undefined,
+      pessoas: params.get('pessoas') || undefined,
+    });
+    setPedidoPagina(params.get('pagina') || '');
+    setPedidoOrigem('landing');
+    setPedidoAberto(true);
   }, []);
   const solicitarDoDetalhe = (nome: string) => {
     setDetalhe(null);

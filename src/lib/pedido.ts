@@ -1,6 +1,6 @@
 import type { PedidoData } from './whatsapp';
 
-export const FAIXAS_PESSOAS = [
+const FAIXAS_PESSOAS = [
   '2 a 7 pessoas',
   '8 a 12 pessoas',
   '13 a 20 pessoas',

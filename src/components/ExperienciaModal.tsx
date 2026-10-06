@@ -29,7 +29,13 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
+          <button
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm"
+            onClick={onFechar}
+          />
 
           <m.div
             ref={dialogRef}

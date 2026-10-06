@@ -17,7 +17,7 @@
     "tailwindcss"
   ],
   "rules": {
-    "exports": "warn",
-    "types": "warn"
+    "exports": "error",
+    "types": "error"
   }
 }

@@ -8,11 +8,11 @@
 import raw from './experiencias.json';
 import { IMAGENS, IMAGEM_FALLBACK } from './imagens';
 
-export type ItemCardapio = { nome: string; desc: string };
-export type TempoCardapio = { titulo: string; itens: ItemCardapio[] };
-export type Camada = 'completa' | 'servico' | 'ambas';
+type ItemCardapio = { nome: string; desc: string };
+type TempoCardapio = { titulo: string; itens: ItemCardapio[] };
+type Camada = 'completa' | 'servico' | 'ambas';
 export type Linha = 'Íntima' | 'Casa Cheia' | 'Celebração';
-export type Destaque = 'lancamento' | 'novidade' | 'expansao';
+type Destaque = 'lancamento' | 'novidade' | 'expansao';
 
 export interface Experiencia {
   slug: string;
