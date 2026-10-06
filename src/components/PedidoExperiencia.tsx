@@ -69,6 +69,8 @@ export default function PedidoExperiencia({
     [cidadeInicial, dataInicial, horarioInicial, experienciaDoPedido, nomeInicial, ocasiaoInicial, pessoasIniciais, faixaPessoasInicial, soServicoInicial],
   );
   const previewRef = useRef<HTMLPreElement>(null);
+  const previewAtualRef = useRef('');
+  const tentativaCopiaRef = useRef(0);
   const convidadosRef = useRef<HTMLInputElement>(null);
   const horarioRef = useRef<HTMLInputElement>(null);
   const dialogRef = useModalA11y(aberto, onFechar);
@@ -99,6 +101,7 @@ export default function PedidoExperiencia({
   );
 
   const preview = useMemo(() => montarMensagem(pedidoEfetivo), [pedidoEfetivo]);
+  previewAtualRef.current = preview;
   // A confirmação "Copiada" vale só para o texto copiado: qualquer edição a invalida.
   const set = (campo: keyof PedidoData, valor: string | boolean) => {
     setStatusCopia('idle');
@@ -145,11 +148,15 @@ export default function PedidoExperiencia({
   };
 
   const copiarMensagem = async () => {
+    const tentativa = ++tentativaCopiaRef.current;
+    const textoCopiado = preview;
     try {
       if (!navigator.clipboard?.writeText) throw new Error('Clipboard indisponível');
-      await navigator.clipboard.writeText(preview);
+      await navigator.clipboard.writeText(textoCopiado);
+      if (tentativa !== tentativaCopiaRef.current || textoCopiado !== previewAtualRef.current) return;
       setStatusCopia('copiado');
     } catch {
+      if (tentativa !== tentativaCopiaRef.current || textoCopiado !== previewAtualRef.current) return;
       const selecao = window.getSelection();
       const previewEl = previewRef.current;
       if (selecao && previewEl) {

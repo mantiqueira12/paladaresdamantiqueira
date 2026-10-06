@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-06**
 
+## Qualidade — Issue #11 pronta localmente em 06/10/2026
+
+A conclusão de uma escrita assíncrona no clipboard só confirma “Copiada” se a tentativa ainda for a mais recente e o texto continuar sendo a prévia atual. Rejeições obsoletas também não selecionam nem focam uma prévia posterior. E2e controlado reproduz edição durante cópia, confirmação posterior de B e rejeição atrasada concorrente; nenhum envio ao WhatsApp. Implementação isolada em `fix/11-copia-conclusao-tardia`, baseada em `fc44606`; Issue #11 e commit seletivo local preparados para revisão do integrador. Lint sem erros (25 avisos/3 infos herdados), Knip, 39 testes Node, 25 Vitest, build, verificador e e2e completo em 1440/390 passaram (39 passados, 1 skip no sitemap mobile).
+
 ## Qualidade — Issue #3 pronta localmente em 06/10/2026
 
 Issue #2 e Issue #4 estão integradas/publicadas (PR #8, `f67beac`; PR #9, `7f7dea9`). A Issue #3 está pronta na branch `feat/3-movimento-atual`, sobre `7f7dea9`, aguardando revisão/PR e CI pelo integrador. O lote adiciona skeleton progressivo às imagens que aguardam resposta (inclusive fallback), reveals CSS com estado visível por padrão e guardas de suporte/JavaScript, fio de progresso da leitura, saídas de 180 ms nos dois modais, fade de 240 ms após a primeira troca de filtro e respeito a movimento reduzido em todos esses efeitos. Herói permanece sem animação.
