@@ -9,13 +9,13 @@ Este documento descreve os controles automatizados do site e como executá-los l
 | `npm run lint` | Biome + `tsc` | Erros de código, acessibilidade básica (a11y) e de tipos |
 | `npm run knip` | Knip | Código, arquivos e dependências que ninguém usa mais |
 | `npm test` | Node Test Runner + Vitest | Preserva os testes existentes de mensagem/eventos e verifica decisões fechadas (vocabulário, preço público, três portas e capas) |
-| `npm run test:e2e` | Playwright | Pedido, mensagem pronta sem envio, detalhe → pedido, modal, sitemap, erros de console e rolagem lateral. Roda em 1440 px e 390 px |
+| `npm run test:e2e` | Playwright | Pedido, mensagem pronta sem envio, submit interceptado com evento analítico, detalhe → pedido, modal, sitemap, erros de console e rolagem lateral. Roda em 1440 px e 390 px |
 | `npm run commitlint` | Commitlint | Mensagens fora do padrão `tipo: descrição` (ver `AGENTS.md` §8) |
 | `npm run check` | lint + knip + testes | Atalho local para verificações estáticas e testes |
 
 O GitHub Actions (`.github/workflows/ci.yml`) roda lint, Knip, testes, build e Playwright em cada Pull Request e em cada push na `main`; o Commitlint valida as mensagens do PR. O deploy continua sendo do Netlify.
 
-Para rodar localmente: `npm ci`, `npm run check`, `npm run build`, `npx playwright install chromium` e `npm run test:e2e`. O Playwright usa `vite preview` e testa o conteúdo construído em `dist/`; os testes não clicam no botão que abre o WhatsApp nem enviam mensagens.
+Para rodar localmente: `npm ci`, `npm run check`, `npm run build`, `npx playwright install chromium` e `npm run test:e2e`. O Playwright usa `vite preview` e testa o conteúdo construído em `dist/`. Um cenário clica no botão somente depois de interceptar o submit nativo, bloqueando popup e qualquer requisição ao WhatsApp; os demais não clicam no botão. Nenhum teste envia mensagem.
 
 ## Monitoramento de erros (Sentry) — opcional e desligado por padrão
 

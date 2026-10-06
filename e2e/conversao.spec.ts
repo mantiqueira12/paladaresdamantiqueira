@@ -35,6 +35,64 @@ test('a solicitação conserva quantidade, horário e mensagem pronta sem enviá
   await expect(pedido.getByText('Se o WhatsApp abriu, revise a mensagem e toque em enviar por lá.')).toHaveCount(0);
 });
 
+test('o submit interceptado registra só metadados permitidos e confirma o próximo passo', async ({ page }) => {
+  await page.addInitScript(() => {
+    const analyticsWindow = window as unknown as {
+      __gtagCalls: unknown[][];
+      gtag: (...args: unknown[]) => void;
+    };
+    analyticsWindow.__gtagCalls = [];
+    analyticsWindow.gtag = (...args: unknown[]) => analyticsWindow.__gtagCalls.push(args);
+  });
+
+  let requisicoesWhatsApp = 0;
+  let abriuPopup = false;
+  await page.route(/^https:\/\/wa\.me\//, async (route) => {
+    requisicoesWhatsApp += 1;
+    await route.abort();
+  });
+  page.on('popup', () => {
+    abriuPopup = true;
+  });
+
+  const pedido = await abrirPedido(page);
+  await pedido.getByLabel('Experiência desejada').selectOption({ value: 'Entre Amigos' });
+  await pedido.getByLabel('Seu nome').fill('Nome Sigiloso');
+  await pedido.getByLabel('Quantidade de convidados').fill('37');
+  await pedido.getByLabel('Horário desejado').fill('18:30');
+  await pedido.getByLabel('Ocasião').selectOption({ value: 'Aniversário' });
+  await pedido.getByLabel('Cidade / local').fill('Campos do Jordão');
+
+  await pedido.locator('form').evaluate((form) => {
+    form.addEventListener('submit', (evento) => evento.preventDefault(), { capture: true });
+  });
+  await pedido.getByRole('button', { name: 'Abrir no WhatsApp' }).click();
+
+  await expect(pedido.getByText('Se o WhatsApp abriu, revise a mensagem e toque em enviar por lá.')).toBeVisible();
+  const chamadas = await page.evaluate(() => {
+    const analyticsWindow = window as unknown as { __gtagCalls: unknown[][] };
+    return analyticsWindow.__gtagCalls;
+  });
+  expect(chamadas).toHaveLength(1);
+  const [comando, evento, parametros] = chamadas[0] as [string, string, Record<string, unknown>];
+  expect([comando, evento]).toEqual(['event', 'solicitar_orcamento']);
+  expect(parametros).toMatchObject({
+    origem: 'header',
+    experiencia: 'Entre Amigos',
+    ocasiao: 'Aniversário',
+    cidade: 'Campos do Jordão',
+    pessoas: 'Mais de 20 pessoas',
+    so_servico: false,
+  });
+  expect(parametros).not.toHaveProperty('nome');
+  expect(parametros).not.toHaveProperty('horario');
+  expect(JSON.stringify(parametros)).not.toContain('Nome Sigiloso');
+  expect(JSON.stringify(parametros)).not.toContain('18:30');
+  expect(JSON.stringify(parametros)).not.toContain('37');
+  expect(requisicoesWhatsApp).toBe(0);
+  expect(abriuPopup).toBe(false);
+});
+
 test('o caminho detalhe → pedido conserva a experiência depois da renderização', async ({ page }) => {
   await neutralizarAnalytics(page);
   await page.goto('/');
