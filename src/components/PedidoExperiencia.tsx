@@ -17,6 +17,7 @@ import {
 } from '../lib/pedido';
 
 const NOMES_EXPERIENCIAS = EXPERIENCIAS.map((experiencia) => experiencia.nome);
+const PEDIDO_INICIAL_VAZIO: PedidoData = {};
 
 interface Props {
   aberto: boolean;
@@ -32,7 +33,7 @@ export default function PedidoExperiencia({
   aberto,
   onFechar,
   experienciaInicial = '',
-  pedidoInicial = {},
+  pedidoInicial = PEDIDO_INICIAL_VAZIO,
   paginaOrigem = '',
   origem = 'formulario',
 }: Props) {
@@ -42,6 +43,31 @@ export default function PedidoExperiencia({
   const [erroConvidados, setErroConvidados] = useState<string | null>(null);
   const [erroHorario, setErroHorario] = useState<string | null>(null);
   const [statusCopia, setStatusCopia] = useState<'idle' | 'copiado' | 'manual' | 'erro'>('idle');
+  const {
+    cidade: cidadeInicial,
+    data: dataInicial,
+    horario: horarioInicial,
+    experiencia: experienciaDoPedido,
+    nome: nomeInicial,
+    ocasiao: ocasiaoInicial,
+    pessoas: pessoasIniciais,
+    faixaPessoas: faixaPessoasInicial,
+    soServico: soServicoInicial,
+  } = pedidoInicial;
+  const pedidoInicialNormalizado = useMemo(
+    () => normalizarPedidoInicial({
+      cidade: cidadeInicial,
+      data: dataInicial,
+      horario: horarioInicial,
+      experiencia: experienciaDoPedido,
+      nome: nomeInicial,
+      ocasiao: ocasiaoInicial,
+      pessoas: pessoasIniciais,
+      faixaPessoas: faixaPessoasInicial,
+      soServico: soServicoInicial,
+    }, NOMES_EXPERIENCIAS),
+    [cidadeInicial, dataInicial, horarioInicial, experienciaDoPedido, nomeInicial, ocasiaoInicial, pessoasIniciais, faixaPessoasInicial, soServicoInicial],
+  );
   const previewRef = useRef<HTMLPreElement>(null);
   const convidadosRef = useRef<HTMLInputElement>(null);
   const horarioRef = useRef<HTMLInputElement>(null);
@@ -49,11 +75,8 @@ export default function PedidoExperiencia({
 
   useEffect(() => {
     if (aberto) {
-      const experiencia = experienciaInicial || pedidoInicial.experiencia || '';
-      const normalizado = normalizarPedidoInicial(
-        { ...pedidoInicial, experiencia },
-        NOMES_EXPERIENCIAS,
-      );
+      const experiencia = experienciaInicial || pedidoInicialNormalizado.experiencia || '';
+      const normalizado = { ...pedidoInicialNormalizado, experiencia };
       const inicial = normalizado.experiencia ? acharPorNome(normalizado.experiencia) : undefined;
       setPedido({
         ...normalizado,
@@ -65,19 +88,7 @@ export default function PedidoExperiencia({
       setErroHorario(null);
       setStatusCopia('idle');
     }
-  }, [
-    aberto,
-    experienciaInicial,
-    pedidoInicial.cidade,
-    pedidoInicial.data,
-    pedidoInicial.horario,
-    pedidoInicial.experiencia,
-    pedidoInicial.nome,
-    pedidoInicial.ocasiao,
-    pedidoInicial.pessoas,
-    pedidoInicial.faixaPessoas,
-    pedidoInicial.soServico,
-  ]);
+  }, [aberto, experienciaInicial, pedidoInicialNormalizado]);
 
   const expSel = pedido.experiencia ? acharPorNome(pedido.experiencia) : undefined;
   const soServicoObrigatorio = expSel?.camada === 'servico';
@@ -88,13 +99,12 @@ export default function PedidoExperiencia({
 
   const preview = useMemo(() => montarMensagem(pedidoEfetivo), [pedidoEfetivo]);
   // A confirmação "Copiada" vale só para o texto copiado: qualquer edição a invalida.
-  useEffect(() => {
+  const set = (campo: keyof PedidoData, valor: string | boolean) => {
     setStatusCopia('idle');
-  }, [preview]);
-
-  const set = (campo: keyof PedidoData, valor: string | boolean) =>
     setPedido((p) => ({ ...p, [campo]: valor }));
+  };
   const setExperiencia = (nome: string) => {
+    setStatusCopia('idle');
     const escolhida = acharPorNome(nome);
     setPedido((p) => ({
       ...p,
@@ -164,7 +174,13 @@ export default function PedidoExperiencia({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm" onClick={onFechar} />
+          <button
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+            className="absolute inset-0 bg-brand-charcoal/60 backdrop-blur-sm"
+            onClick={onFechar}
+          />
 
           <m.div
             ref={dialogRef}
@@ -206,8 +222,9 @@ export default function PedidoExperiencia({
               </p>
 
               {/* Experiência */}
-              <Campo icone={<ChefHat size={15} />} label="Experiência desejada">
+              <Campo id="pedido-experiencia" icone={<ChefHat size={15} />} label="Experiência desejada">
                 <select
+                  id="pedido-experiencia"
                   value={pedido.experiencia || ''}
                   onChange={(e) => setExperiencia(e.target.value)}
                   className={inputCls}
@@ -223,8 +240,9 @@ export default function PedidoExperiencia({
               </Campo>
 
               <div className="grid md:grid-cols-2 gap-5">
-                <Campo icone={<CalendarHeart size={15} />} label="Data desejada">
+                <Campo id="pedido-data" icone={<CalendarHeart size={15} />} label="Data desejada">
                   <input
+                    id="pedido-data"
                     type="date"
                     min={dataLocalISO()}
                     value={pedido.data || ''}
@@ -243,8 +261,9 @@ export default function PedidoExperiencia({
                   )}
                 </Campo>
 
-                <Campo icone={<Clock size={15} />} label="Horário desejado">
+                <Campo id="pedido-horario" icone={<Clock size={15} />} label="Horário desejado">
                   <input
+                    id="pedido-horario"
                     ref={horarioRef}
                     type="time"
                     step="60"
@@ -264,8 +283,9 @@ export default function PedidoExperiencia({
                   )}
                 </Campo>
 
-                <Campo icone={<Users size={15} />} label="Quantidade de convidados">
+                <Campo id="pedido-convidados" icone={<Users size={15} />} label="Quantidade de convidados">
                   <input
+                    id="pedido-convidados"
                     ref={convidadosRef}
                     type="number"
                     inputMode="numeric"
@@ -274,6 +294,7 @@ export default function PedidoExperiencia({
                     placeholder="Ex.: 12"
                     value={pedido.pessoas || ''}
                     onChange={(e) => {
+                      setStatusCopia('idle');
                       setPedido((p) => ({ ...p, pessoas: e.target.value, faixaPessoas: undefined }));
                       setErroConvidados(null);
                     }}
@@ -293,8 +314,9 @@ export default function PedidoExperiencia({
                   )}
                 </Campo>
 
-                <Campo icone={<PartyPopper size={15} />} label="Ocasião">
+                <Campo id="pedido-ocasiao" icone={<PartyPopper size={15} />} label="Ocasião">
                   <select
+                    id="pedido-ocasiao"
                     value={pedido.ocasiao || ''}
                     onChange={(e) => set('ocasiao', e.target.value)}
                     className={inputCls}
@@ -308,8 +330,9 @@ export default function PedidoExperiencia({
                   </select>
                 </Campo>
 
-                <Campo icone={<MapPin size={15} />} label="Cidade / local">
+                <Campo id="pedido-cidade" icone={<MapPin size={15} />} label="Cidade / local">
                   <input
+                    id="pedido-cidade"
                     type="text"
                     placeholder="Ex.: Campos do Jordão"
                     value={pedido.cidade || ''}
@@ -321,8 +344,9 @@ export default function PedidoExperiencia({
                 </Campo>
               </div>
 
-              <Campo label="Seu nome">
+              <Campo id="pedido-nome" label="Seu nome">
                 <input
+                  id="pedido-nome"
                   type="text"
                   placeholder="Como posso te chamar?"
                   value={pedido.nome || ''}
@@ -421,21 +445,23 @@ const inputCls =
   'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/50 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
 
 function Campo({
+  id,
   label,
   icone,
   children,
 }: {
+  id: string;
   label: string;
   icone?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    <label className="block">
+    <div className="block">
       <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-moss mb-2 flex items-center gap-2">
         {icone}
-        {label}
+        <label htmlFor={id}>{label}</label>
       </span>
       {children}
-    </label>
+    </div>
   );
 }

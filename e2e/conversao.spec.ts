@@ -112,6 +112,20 @@ test('o caminho detalhe → pedido conserva a experiência depois da renderizaç
   await expect(pedido.locator('pre')).toContainText('• Horário desejado: 18:30');
 });
 
+test('editar o pedido invalida a confirmação de cópia e atualiza a prévia', async ({ page, context }) => {
+  await neutralizarAnalytics(page);
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/');
+  const pedido = await abrirPedido(page);
+  const copiar = pedido.getByRole('button', { name: 'Copiar mensagem' });
+  await copiar.click();
+  await expect(pedido.getByRole('button', { name: 'Copiada' })).toBeVisible();
+
+  await pedido.getByLabel('Cidade / local').fill('Santo Antônio do Pinhal');
+  await expect(pedido.getByRole('button', { name: 'Copiar mensagem' })).toBeVisible();
+  await expect(pedido.locator('pre')).toContainText('Santo Antônio do Pinhal');
+});
+
 test('o pedido fecha com Escape e devolve foco ao botão que o abriu', async ({ page }) => {
   await neutralizarAnalytics(page);
   await page.goto('/');
@@ -120,6 +134,38 @@ test('o pedido fecha com Escape e devolve foco ao botão que o abriu', async ({ 
   const pedido = page.getByRole('dialog', { name: 'Vamos planejar o seu encontro?' });
   await expect(pedido).toBeVisible();
   await page.keyboard.press('Escape');
+  await expect(pedido).toBeHidden();
+  await expect(abrir).toBeFocused();
+});
+
+test('o backdrop do detalhe fecha o modal e devolve foco sem transformar o conteúdo em alvo', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await page.goto('/');
+  const abrir = page.getByRole('button', { name: 'Ver detalhes de Entre Amigos' });
+  await abrir.click();
+  const detalhe = page.getByRole('dialog', { name: 'Entre Amigos' });
+  await expect(detalhe).toBeVisible();
+
+  await detalhe.getByRole('heading', { name: 'Entre Amigos' }).click();
+  await expect(detalhe).toBeVisible();
+  await page.mouse.click(5, 5);
+
+  await expect(detalhe).toBeHidden();
+  await expect(abrir).toBeFocused();
+});
+
+test('o backdrop do pedido fecha o modal e devolve foco sem transformar o conteúdo em alvo', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await page.goto('/');
+  const abrir = page.getByRole('banner').getByRole('button', { name: 'Solicitar' });
+  await abrir.click();
+  const pedido = page.getByRole('dialog', { name: 'Vamos planejar o seu encontro?' });
+  await expect(pedido).toBeVisible();
+
+  await pedido.getByRole('heading', { name: 'Vamos planejar o seu encontro?' }).click();
+  await expect(pedido).toBeVisible();
+  await page.mouse.click(5, 5);
+
   await expect(pedido).toBeHidden();
   await expect(abrir).toBeFocused();
 });

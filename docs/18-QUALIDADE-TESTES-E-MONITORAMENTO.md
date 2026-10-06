@@ -19,16 +19,18 @@ Para rodar localmente: `npm ci`, `npm run check`, `npm run build`, `npx playwrig
 
 ## Monitoramento de erros (Sentry) — opcional e desligado por padrão
 
-- O código está em `src/lib/monitoramento.ts` e só é incluído quando `VITE_SENTRY_DSN` existe no ambiente de build. Sem ela, a saída JavaScript principal é byte a byte igual à base desta implementação: 409.297 bytes, SHA-256 `5580aac7fee0c7d02d6f1686052f5d15bab8af89161241107a9b417a8119d9d7`.
+- O código está em `src/lib/monitoramento.ts` e só é incluído quando `VITE_SENTRY_DSN` existe no ambiente de build. Na verificação da Issue #2, antes das correções funcionais da Issue #4, sem DSN a saída JavaScript principal tinha 409.297 bytes, SHA-256 `5580aac7fee0c7d02d6f1686052f5d15bab8af89161241107a9b417a8119d9d7`. Esse hash registra a verificação #2; o build #4 tem bundle atualizado.
 - Com DSN, o bootstrap entra no bundle de entrada e carrega o SDK de forma assíncrona, em um chunk separado, quando o navegador fica ocioso. `sendDefaultPii` está desligado, tracing está desativado, não há Replay e `beforeSend` remove IP e cabeçalhos de cookies. A opção foi exercitada com DSN fictício; nenhum serviço externo foi ativado nem recebeu eventos.
 - Para ligar: criar conta gratuita em sentry.io → projeto "Browser JavaScript" → copiar o DSN → Netlify › Site settings › Environment variables › `VITE_SENTRY_DSN` → novo deploy. **Depende do Rafael** (conta e painel).
 - Antes de ligar, avaliar se a política de privacidade do site precisa mencionar o serviço (LGPD).
 
-## Pendências conhecidas para a Issue #4
+## Issue #4 — correções de acessibilidade e dependências
 
-As regras herdadas de acessibilidade e dependências de hooks estão em aviso durante este lote; não foram usadas para alterar componentes existentes. O Biome aponta `useValidAnchor` em `SiteHeader.tsx` para o link `#topo`, interação de clique no backdrop dos modais (`ExperienciaModal.tsx` e `PedidoExperiencia.tsx`) e dependências de hooks em `App.tsx` e `PedidoExperiencia.tsx`. A regra de label não acusa o formulário atual. A Issue #4 deve revisar essas ocorrências e promover as regras aplicáveis para erro depois das correções.
+Em 06/10/2026, `noStaticElementInteractions`, `useKeyWithClickEvents`, `noLabelWithoutControl`, `useValidAnchor` e `useExhaustiveDependencies` foram promovidas a erro. Os dois backdrops agora são botões nativos fora da ordem de tabulação e da árvore acessível; Escape continua fechando o diálogo e o foco retorna ao acionador. Os campos de `Campo` têm associação explícita por `htmlFor`/`id`. `App.tsx` lê parâmetros da landing sem depender de callback instável; `PedidoExperiencia.tsx` memoriza dados iniciais por valor, evitando repetição do efeito e preservando edições durante renderizações sem mudança dos dados. A confirmação de cópia é invalidada nas ações que editam o pedido.
 
-Knip termina com avisos para exports/tipos não usados (`FAIXAS_PESSOAS` em `src/lib/pedido.ts` e tipos em `src/data/experiencias.ts`). `PORTAS` não é reportado. Esses avisos ficam registrados para triagem; nenhum código foi removido neste lote.
+O link `#topo` aponta para um destino existente na home; sua exceção pontual para `useValidAnchor` está documentada junto ao elemento. `PORTAS` permanece exportado e usado por `OccasionDoors`/`porta()`. `FAIXAS_PESSOAS` e os tipos auxiliares reportados pelo Knip deixaram de ser exports públicos. As regras `exports` e `types` do Knip agora são erros.
+
+Verificação local de 06/10: lint e Knip passaram; `npm test` passou com 39 testes Node e 25 Vitest; build passou; e2e passou em desktop 1440 px e mobile 390 px (19 passados, 1 cenário de sitemap mobile pulado). Os testes novos fecham cada modal pelo backdrop, confirmam que clique no conteúdo não fecha e verificam a restauração de foco; outro garante que editar o pedido invalida a confirmação de cópia e atualiza a prévia. Os testes interceptam o envio do formulário; nenhuma mensagem real de WhatsApp é enviada.
 
 ## Versões de Node
 

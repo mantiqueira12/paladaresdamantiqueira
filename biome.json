@@ -11,12 +11,12 @@
     "rules": {
       "preset": "recommended",
       "a11y": {
-        "noStaticElementInteractions": "warn",
-        "useKeyWithClickEvents": "warn",
-        "noLabelWithoutControl": "warn",
-        "useValidAnchor": "warn"
+        "noStaticElementInteractions": "error",
+        "useKeyWithClickEvents": "error",
+        "noLabelWithoutControl": "error",
+        "useValidAnchor": "error"
       },
-      "correctness": { "useExhaustiveDependencies": "warn" },
+      "correctness": { "useExhaustiveDependencies": "error" },
       "suspicious": { "noAssignInExpressions": "warn", "noSparseArray": "warn" }
     }
   }

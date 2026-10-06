@@ -1,7 +1,11 @@
 # STATUS — Estado Vivo do Projeto
 
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
-> Última atualização: **2026-07-19**
+> Última atualização: **2026-10-06**
+
+## Qualidade — Issue #4 pronta localmente em 06/10/2026
+
+Backdrops dos dois modais corrigidos com botão nativo sem alteração visual, campos com associação explícita e dependências de hooks resolvidas; exports/tipos Knip reportados removidos sem afetar `PORTAS`. Cinco regras Biome e os checks Knip de exports/tipos estão como erro e sem achados. Lint, Knip, 39 testes Node, 25 Vitest, build e e2e 1440/390 passaram (19 passados, 1 cenário mobile de sitemap pulado). E2e cobre backdrop, conteúdo, Escape, restauração de foco e invalidação da confirmação de cópia ao editar; nenhum envio real ao WhatsApp. Avisos Biome de regras fora da Issue #4 permanecem herdados. Próxima ação: revisão/CI do PR da Issue #4; depois iniciar Issue #3. O estado do Sentry/hash e a execução #2 permanecem registrados abaixo como histórico.
 
 ## Qualidade — Issue #2 pronta localmente em 06/10/2026
 

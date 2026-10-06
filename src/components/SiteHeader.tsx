@@ -34,6 +34,7 @@ export default function SiteHeader({ onSolicitar }: { onSolicitar: () => void })
       <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
       <header className="site-header glass-header">
         <div className="site-header-inner">
+          {/* biome-ignore lint/a11y/useValidAnchor: #topo existe como destino de navegação na home. */}
           <a href="#topo" className="site-brand" onClick={() => setMenuAberto(false)} aria-label="Paladares da Mantiqueira — início">
             <img src="/logo-emblema.png" alt="" width={320} height={98} />
             <span className="site-brand-copy">
