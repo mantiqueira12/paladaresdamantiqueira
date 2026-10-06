@@ -8,30 +8,43 @@
     "build": "tsc --noEmit && vite build && vite build --ssr src/entry-server.tsx --outDir dist/server && node scripts/prerender.mjs && node scripts/gen-landings.mjs",
     "build:client": "vite build",
     "preview": "vite preview",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/*.test.mjs && vitest run",
+    "test:node": "node --test tests/*.test.mjs",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
     "verify:build": "node scripts/verify-build.mjs",
     "clean": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\"",
     "gen:cardapios": "node scripts/gen-experiencias.mjs",
     "gen:imagens-responsivas": "node scripts/gerar-imagens-responsivas.mjs",
     "prebuild": "node scripts/gen-experiencias.mjs && node scripts/gerar-imagens-responsivas.mjs",
-    "lint": "tsc --noEmit",
+    "lint": "biome lint && tsc --noEmit",
+    "knip": "knip",
+    "commitlint": "commitlint --from origin/main --to HEAD",
+    "check": "npm run lint && npm run knip && npm test",
     "otimizar:imagens": "node scripts/otimizar-imagens.mjs"
   },
   "dependencies": {
+    "@sentry/browser": "^10.76.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.15",
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.1.14",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.0.4",
+    "knip": "^6.39.0",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "vite": "^6.2.0",
+    "vitest": "^5.0.3"
   }
 }

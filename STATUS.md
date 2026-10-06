@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-07-19**
 
+## Qualidade — Issue #2 pronta localmente em 06/10/2026
+
+Biome + TypeScript, Knip, testes Node/Vitest, Playwright em 1440 px e 390 px, Commitlint, CI e Sentry opcional foram integrados sobre `e17c976`, preservando os seis testes Node e o helper existentes. As verificações locais passaram; avisos herdados de acessibilidade, hooks e exports ficam delimitados para a Issue #4. Sem DSN, o bundle principal permaneceu com 409.297 bytes e SHA-256 `5580aac7fee0c7d02d6f1686052f5d15bab8af89161241107a9b417a8119d9d7`; a ativação fictícia confirmou o SDK em chunk dinâmico separado, sem envio real. Próxima ação: abrir o PR da Issue #2 e confirmar o CI verde; Sentry real continua opcional e depende de conta/DSN definidos por Rafael.
+
 ## O que está no ar
 
 | Ativo | Estado |

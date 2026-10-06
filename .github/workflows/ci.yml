@@ -1,0 +1,64 @@
+name: CI
+
+# Roda em todo Pull Request e em todo push na main.
+# O deploy em si continua sendo do Netlify (deploy contínuo a partir da main).
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qualidade:
+    name: Lint, testes e build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint (Biome + TypeScript)
+        run: npm run lint
+      - name: Código morto (Knip)
+        run: npm run knip
+      - name: Testes unitários (Vitest)
+        run: npm test
+      - name: Build de produção
+        run: npm run build
+      - name: Instalar Chromium (Playwright)
+        run: npx playwright install --with-deps chromium
+      - name: Testes de ponta a ponta (Playwright)
+        run: npm run test:e2e
+      - name: Guardar relatório em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
+
+  commits:
+    name: Padrão de commits
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Validar mensagens dos commits do PR
+        run: npx commitlint --from "origin/${{ github.base_ref }}" --to HEAD --verbose

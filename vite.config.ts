@@ -2,7 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
 /**
  * Sincroniza automaticamente ../04-Marca-e-Conteudo/Portfolio → public/portfolio/
@@ -201,9 +201,28 @@ ${faqHtml}
   };
 }
 
-export default defineConfig(() => {
+/**
+ * O monitoramento é um segundo ponto de entrada incluído somente quando o
+ * DSN está definido no build. Sem DSN, o HTML e o bundle principal continuam
+ * sem referência ao Sentry.
+ */
+function sentryBootstrap(dsn?: string) {
   return {
-    plugins: [portfolioSync(), seoInject(), react(), tailwindcss()],
+    name: 'sentry-bootstrap',
+    transformIndexHtml: {
+      order: 'pre' as const,
+      handler(html: string) {
+        const tag = dsn ? '<script type="module" src="/src/lib/monitoramento-entry.ts"></script>' : '';
+        return html.replace('<!--SENTRY_BOOTSTRAP-->', tag);
+      },
+    },
+  };
+}
+
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), 'VITE_');
+  return {
+    plugins: [sentryBootstrap(env.VITE_SENTRY_DSN), portfolioSync(), seoInject(), react(), tailwindcss()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
