@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "includes": ["src/**", "scripts/**", "tests/**", "e2e/**", "*.ts", "!**/*.json"]
+  },
+  "formatter": { "enabled": false },
+  "assist": { "enabled": false },
+  "css": { "parser": { "tailwindDirectives": true } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "a11y": {
+        "noStaticElementInteractions": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noLabelWithoutControl": "warn",
+        "useValidAnchor": "warn"
+      },
+      "correctness": { "useExhaustiveDependencies": "warn" },
+      "suspicious": { "noAssignInExpressions": "warn", "noSparseArray": "warn" }
+    }
+  }
+}

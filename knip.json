@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/entry-server.tsx",
+    "src/lib/monitoramento-entry.ts",
+    "scripts/*.mjs",
+    "e2e/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}",
+    "scripts/**/*.mjs",
+    "e2e/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "ignoreDependencies": [
+    "tailwindcss"
+  ],
+  "rules": {
+    "exports": "warn",
+    "types": "warn"
+  }
+}
