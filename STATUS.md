@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Imagens — Issue #23 pronta localmente em 07/10/2026
+
+LoadingImage agora encaminha ao consumidor a falha nativa ou a imagem já completa sem pixels que ocorreu antes da hidratação; ExperienceCard e ExperienciaModal trocam para o fallback uma única vez por origem. O teste E2E segura bundle e imagem para reproduzir erro real pré-hidratação e confirma que fallback também falhando não gera ciclo. RED na base e GREEN final em 1440×900 e 390×844; testes antigos de fallback/skeleton passaram nos dois viewports. `npm run lint` passou (25 avisos/3 infos Biome preexistentes), `npm test` (39 Node + 25 Vitest), build e `verify:build` passaram. Causa limitada ao bug de pré-hidratação demonstrado; a intermitência do runner/CI permanece sem conclusão. Branch `fix/23-imagem-pre-hidratacao`, baseada em `144d784`; CI completo e prévia seguem como gates do integrador.
+
 ## Runtime — Issue #21 pronta localmente em 07/10/2026
 
 Issue #21 alinha desenvolvimento, CI e build Netlify em Node 24 por `.nvmrc`. A branch `chore/21-node24-build` parte de `c80e9013dc403d7d7f0e26f914b7dc951981ef2e`; `.nvmrc` define 24, Netlify lê a versão pelo arquivo, e os dois jobs do CI usam `node-version-file: .nvmrc` com checkout v5/setup-node v5; upload-artifact v6 mantém os traces de falha. CI e prévia oficial ainda são gates do integrador; nenhuma publicação ou merge ocorreu.

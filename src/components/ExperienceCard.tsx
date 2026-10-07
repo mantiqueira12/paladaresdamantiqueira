@@ -33,7 +33,7 @@ export default function ExperienceCard({
           alt={exp.nome}
           className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
           loading="lazy"
-          onError={imagemFalhou ? undefined : () => setImagemFalhou(true)}
+          onImageFailure={imagemFalhou ? undefined : () => setImagemFalhou(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/40 to-transparent" />
         <span className="absolute top-3 left-3 text-[9px] uppercase tracking-[0.2em] font-bold bg-brand-cream/90 text-brand-charcoal px-3 py-1 rounded-full">

@@ -69,7 +69,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                 sizes="(min-width: 768px) 768px, 100vw"
                 alt={experiencia.nome}
                 className="w-full h-full object-cover"
-                onError={imagemFalhou ? undefined : () => setImagemComErro(experiencia.imagem)}
+                onImageFailure={imagemFalhou ? undefined : () => setImagemComErro(experiencia.imagem)}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/90 via-brand-charcoal/20 to-transparent" />
               <button
