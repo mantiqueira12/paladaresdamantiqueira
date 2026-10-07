@@ -20,6 +20,37 @@ async function neutralizarAnalytics(page: Page) {
   });
 }
 
+async function controlarClipboard(page: Page) {
+  await page.addInitScript(() => {
+    const writes: Array<{
+      text: string;
+      resolve: () => void;
+      reject: (reason?: unknown) => void;
+    }> = [];
+    Object.defineProperty(window, '__clipboardWrites', { configurable: true, value: writes });
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText(text: string) {
+          return new Promise<void>((resolve, reject) => writes.push({ text, resolve, reject }));
+        },
+      },
+    });
+  });
+}
+
+type ClipboardWrites = Array<{
+  text: string;
+  resolve: () => void;
+  reject: (reason?: unknown) => void;
+}>;
+
+async function aguardarEscritasClipboard(page: Page, quantidade: number) {
+  await expect.poll(() => page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites.length
+  ))).toBe(quantidade);
+}
+
 async function observarSaida(page: Page) {
   return page.evaluate(() => new Promise<{ opacidades: string[]; quadros: number }>((resolve) => {
     const opacidadesObservadas: string[] = [];
@@ -162,6 +193,57 @@ test('editar o pedido invalida a confirmação de cópia e atualiza a prévia', 
   await pedido.getByLabel('Cidade / local').fill('Santo Antônio do Pinhal');
   await expect(pedido.getByRole('button', { name: 'Copiar mensagem' })).toBeVisible();
   await expect(pedido.locator('pre')).toContainText('Santo Antônio do Pinhal');
+});
+
+test('uma cópia resolvida depois da edição não confirma o texto novo', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await controlarClipboard(page);
+  await page.goto('/');
+  const pedido = await abrirPedido(page);
+  const cidade = pedido.getByLabel('Cidade / local');
+  await cidade.fill('São Bento do Sapucaí');
+  await pedido.getByRole('button', { name: 'Copiar mensagem' }).click();
+  await aguardarEscritasClipboard(page, 1);
+  expect(await page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites[0].text
+  ))).toContain('São Bento do Sapucaí');
+
+  await cidade.fill('Santo Antônio do Pinhal');
+  await page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites[0].resolve()
+  ));
+  await expect(pedido.getByRole('button', { name: 'Copiar mensagem' })).toBeVisible();
+
+  await pedido.getByRole('button', { name: 'Copiar mensagem' }).click();
+  await aguardarEscritasClipboard(page, 2);
+  await page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites[1].resolve()
+  ));
+  await expect(pedido.getByRole('button', { name: 'Copiada' })).toBeVisible();
+});
+
+test('uma rejeição antiga do clipboard não substitui a confirmação mais recente', async ({ page }) => {
+  await neutralizarAnalytics(page);
+  await controlarClipboard(page);
+  await page.goto('/');
+  const pedido = await abrirPedido(page);
+  const cidade = pedido.getByLabel('Cidade / local');
+  await cidade.fill('São Bento do Sapucaí');
+  await pedido.getByRole('button', { name: 'Copiar mensagem' }).click();
+  await aguardarEscritasClipboard(page, 1);
+
+  await cidade.fill('Santo Antônio do Pinhal');
+  await pedido.getByRole('button', { name: 'Copiar mensagem' }).click();
+  await aguardarEscritasClipboard(page, 2);
+  await page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites[1].resolve()
+  ));
+  await expect(pedido.getByRole('button', { name: 'Copiada' })).toBeVisible();
+
+  await page.evaluate(() => (
+    (window as typeof window & { __clipboardWrites: ClipboardWrites }).__clipboardWrites[0].reject(new Error('late failure'))
+  ));
+  await expect(pedido.getByRole('button', { name: 'Copiada' })).toBeVisible();
 });
 
 test('o pedido fecha com Escape e devolve foco ao botão que o abriu', async ({ page }) => {

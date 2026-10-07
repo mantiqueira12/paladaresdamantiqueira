@@ -40,6 +40,10 @@ As duas saídas de modal usam fade de 180 ms e deixam de animar com `prefers-red
 
 Verificação local de 06/10 com Node 24.15.0: lint sem erros e com a mesma contagem herdada (25 avisos/3 infos), Knip passou, 39 testes Node e 25 Vitest passaram, build e `verify:build` passaram. Playwright em 1440 px e 390 px: 35 passaram, 1 skip no sitemap mobile. O CI Node 22 e a integração ficam para o PR; a suíte completa local não envia ao WhatsApp.
 
+## Issue #11 — conclusão tardia de cópia
+
+Em 06/10/2026, `PedidoExperiencia` passou a aceitar a resolução ou rejeição de `clipboard.writeText` somente quando a tentativa continua atual e o texto ainda corresponde à prévia. Assim, editar durante a cópia mantém a confirmação invalidada; uma falha antiga não substitui o estado de uma cópia posterior nem seleciona/foca a prévia nova. E2e com promessas controladas cobre edição entre copiar A e resolver A, cópia bem-sucedida de B e rejeição tardia de A após a confirmação de B. Verificação local: lint sem erros (25 avisos/3 infos herdados), 39 testes Node, 25 Vitest, build e Playwright completo em 1440 px e 390 px (39 passaram, 1 skip no sitemap mobile). Nenhuma mensagem real de WhatsApp é enviada.
+
 ## Versões de Node
 
 O CI usa Node 22. Vitest 5 e Commitlint 21 requerem Node 22.12 ou superior; Knip 6 também aceita Node 20.19 ou Node 22.12 ou superior. As verificações locais foram executadas com Node 22.23.3. O Netlify permanece em Node 20 (`netlify.toml`) e executa `npm run build`, sem testes; o build do Netlify não foi validado localmente em Node 20 nesta execução. A mudança da versão do Netlify fica fora deste lote.
