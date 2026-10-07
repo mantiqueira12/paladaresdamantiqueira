@@ -1,7 +1,11 @@
 # STATUS — Estado Vivo do Projeto
 
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
-> Última atualização: **2026-10-06**
+> Última atualização: **2026-10-07**
+
+## Issue #13 — texto original da marca pronto localmente em 07/10/2026
+
+A citação sem autoria verificada foi substituída por uma frase original da marca que descreve menu, preparo e serviço na casa do cliente. Issue #13, branch `fix/13-texto-original-chef`, sobre `acd1e6e`; alteração restrita a `src/App.tsx`, preservando o markup e as classes do parágrafo. `npm run build`, `npm run verify:build` e conferência do HTML renderizado passaram. Próxima ação: CI e preview do Pull Request antes do merge já autorizado.
 
 ## Qualidade — Issue #11 pronta localmente em 06/10/2026
 

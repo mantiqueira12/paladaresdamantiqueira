@@ -325,8 +325,7 @@ export default function App() {
                   —, com sobremesas exclusivas que encerram a sua experiência com perfeição.
                 </p>
                 <p className="italic border-l-2 border-brand-terracotta pl-6 text-brand-cream/90">
-                  "Existe uma imensa diferença entre o simples prazer de comer e o prazer da mesa. A ciência dá um nome a
-                  essa arte sagrada de dividir a mesa: comensalidade."
+                  Na sua casa, cuido do menu, do preparo e do serviço para você aproveitar a mesa com quem convidou.
                 </p>
               </div>
             </div>
