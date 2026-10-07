@@ -3,9 +3,13 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
-## Acessibilidade — Issue #15 pronta localmente em 07/10/2026
+## Dependências — Issue #17 em revisão em 07/10/2026
 
-Issue #15, branch `fix/15-acessibilidade-conteudo` sobre `8fb7205` (PR #14 integrado), corrige foco do skip link para o `main` nas 14 landings e na 404, nome acessível da marca/tagline no logo e contraste do rótulo “Não incluso”. [Issue #15](https://github.com/mantiqueira12/paladaresdamantiqueira/issues/15). Testes dirigidos: 6 e2e Playwright passaram nos viewports 1440/390; teste de geração estática, build e `verify:build` passaram. Axe 4.14.0 em 34 casos (home + 14 landings, desktop/mobile, além de pedido e ficha de experiência em ambos os viewports), sem violações automatizadas encontradas; automação não certifica WCAG. Próxima ação: CI e prévia do PR antes do merge já autorizado.
+PR #16 está integrado/publicado em `b9508aa97288c9722faec9167352550c1ad428b9` (deploy `6ac5d509df176c00075794e9`; CI main #37575277127 passou: 25 Vitest, 45 E2E e 1 skip). Issue #17 ([SITE-SEC-08](https://github.com/mantiqueira12/paladaresdamantiqueira/issues/17)) atualiza somente o lockfile para seis dependências de build; `package.json` permaneceu byte a byte idêntico. `npm ci`, auditoria (0 vulnerabilidades), lint (TypeScript OK; 25 avisos/3 infos Biome herdados), testes (39 Node + 25 Vitest), build e verificador passaram; hashes das 20 imagens WebP geradas pelo sharp e do manifesto permaneceram idênticos. E2E completo local: 43 passaram, 1 skip, 2 testes desktop de fallback de imagem falharam; os mesmos dois passaram isolados com um worker. Causa ainda não estabelecida; não houve alteração de código/testes para contornar. Integrador autorizou commit/push deste recorte para revisão. Próxima ação única: exigir CI completo do PR em Node 22/Linux e conferir a prévia antes de merge/publicação; a suíte local não é descrita como integralmente aprovada.
+
+## Acessibilidade — Issue #15 integrada/publicada em 07/10/2026
+
+Issue #15, branch `fix/15-acessibilidade-conteudo` sobre `8fb7205` (PR #16 integrado), corrige foco do skip link para o `main` nas 14 landings e na 404, nome acessível da marca/tagline no logo e contraste do rótulo “Não incluso”. [Issue #15](https://github.com/mantiqueira12/paladaresdamantiqueira/issues/15). Testes dirigidos: 6 e2e Playwright passaram nos viewports 1440/390; teste de geração estática, build e `verify:build` passaram. Axe 4.14.0 em 34 casos (home + 14 landings, desktop/mobile, além de pedido e ficha de experiência em ambos os viewports), sem violações automatizadas encontradas; automação não certifica WCAG. CI main #37575277127 passou após integração.
 
 PR #14 está integrado em `8fb7205`, publicado no deploy `6ac5cdf8d5006e000891cf43`; CI da main #37572834321 passou (25 Vitest, 39 e2e e 1 skip). A Issue #13 abaixo é histórico, sucedida pela publicação do PR #14.
 
