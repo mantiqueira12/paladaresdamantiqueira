@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Acessibilidade — Issue #19 pronta localmente em 07/10/2026
+
+A Issue #19 ajusta o contraste dos placeholders de cidade/nome do pedido e do texto de crédito de sobremesas na ficha Entre Amigos, de 50% para 70% de opacidade. A produção continua no PR #18 integrado em `166369b` e publicado no deploy `6ac6232`; este recorte está pronto localmente para revisão. O E2E mede as cores compostas com campos vazios e o crédito visível em 1440×900 e 390×844: 5,25:1 nos placeholders e 5,15:1 no crédito. Build, verificador e lint passaram; lint mantém 25 avisos e 3 informações preexistentes, sem erro. Próxima ação única: revisão seletiva pelo integrador e PR para CI e prévia antes do merge já autorizado.
+
 ## Dependências — Issue #17 em revisão em 07/10/2026
 
 PR #16 está integrado/publicado em `b9508aa97288c9722faec9167352550c1ad428b9` (deploy `6ac5d509df176c00075794e9`; CI main #37575277127 passou: 25 Vitest, 45 E2E e 1 skip). Issue #17 ([SITE-SEC-08](https://github.com/mantiqueira12/paladaresdamantiqueira/issues/17)) atualiza somente o lockfile para seis dependências de build; `package.json` permaneceu byte a byte idêntico. `npm ci`, auditoria (0 vulnerabilidades), lint (TypeScript OK; 25 avisos/3 infos Biome herdados), testes (39 Node + 25 Vitest), build e verificador passaram; hashes das 20 imagens WebP geradas pelo sharp e do manifesto permaneceram idênticos. E2E completo local: 43 passaram, 1 skip, 2 testes desktop de fallback de imagem falharam; os mesmos dois passaram isolados com um worker. Causa ainda não estabelecida; não houve alteração de código/testes para contornar. Integrador autorizou commit/push deste recorte para revisão. Próxima ação única: exigir CI completo do PR em Node 22/Linux e conferir a prévia antes de merge/publicação; a suíte local não é descrita como integralmente aprovada.

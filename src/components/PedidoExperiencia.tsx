@@ -456,7 +456,7 @@ export default function PedidoExperiencia({
 
 // text-base no mobile: fontes <16px fazem o Safari iOS dar zoom automático ao focar o campo
 const inputCls =
-  'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/50 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
+  'w-full bg-white border border-brand-line rounded-xl px-4 py-3 text-base md:text-sm text-brand-charcoal placeholder:text-brand-charcoal/70 outline-none focus:border-brand-terracotta focus:ring-2 focus:ring-brand-terracotta/15 transition-all';
 
 function Campo({
   id,
