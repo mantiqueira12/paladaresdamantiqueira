@@ -5,10 +5,6 @@
   command = "npm run build"
   publish = "dist"
 
-[build.environment]
-  # Fixa a versão do Node no build (mesma família do desenvolvimento).
-  NODE_VERSION = "20"
-
 # Consolida a URL pública padrão do Netlify no domínio canônico, preservando
 # o caminho acessado (por exemplo, uma landing local específica).
 [[redirects]]

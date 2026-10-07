@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Runtime — Issue #21 pronta localmente em 07/10/2026
+
+Issue #21 alinha desenvolvimento, CI e build Netlify em Node 24 por `.nvmrc`. A branch `chore/21-node24-build` parte de `c80e9013dc403d7d7f0e26f914b7dc951981ef2e`; `.nvmrc` define 24, Netlify lê a versão pelo arquivo, e os dois jobs do CI usam `node-version-file: .nvmrc` com checkout v5/setup-node v5; upload-artifact v6 mantém os traces de falha. CI e prévia oficial ainda são gates do integrador; nenhuma publicação ou merge ocorreu.
+
 ## Acessibilidade — Issue #19 pronta localmente em 07/10/2026
 
 A Issue #19 ajusta o contraste dos placeholders de cidade/nome do pedido e do texto de crédito de sobremesas na ficha Entre Amigos, de 50% para 70% de opacidade. A produção continua no PR #18 integrado em `166369b` e publicado no deploy `6ac6232`; este recorte está pronto localmente para revisão. O E2E mede as cores compostas com campos vazios e o crédito visível em 1440×900 e 390×844: 5,25:1 nos placeholders e 5,15:1 no crédito. Build, verificador e lint passaram; lint mantém 25 avisos e 3 informações preexistentes, sem erro. Próxima ação única: revisão seletiva pelo integrador e PR para CI e prévia antes do merge já autorizado.
