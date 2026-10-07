@@ -406,9 +406,9 @@ function head(n, { title, description, url, canonical }) {
 function headerHtml(n) {
   return `    <header>
       <div class="inner">
-        <a class="brand" href="/" aria-label="Paladares da Mantiqueira — início">
-          <img src="/logo-emblema.png" alt="Paladares da Mantiqueira" width="320" height="98" />
-          <span class="brand-txt"><b>Paladares da Mantiqueira</b><small>Concierge Gastronômico</small></span>
+        <a class="brand" href="/" aria-label="Paladares da Mantiqueira — Concierge Gastronômico">
+          <img src="/logo-emblema.png" alt="" width="320" height="98" />
+          <span class="brand-txt"><b>Paladares da Mantiqueira</b> <small>Concierge Gastronômico</small></span>
         </a>
         <nav class="nav" aria-label="Navegação principal">
           <a href="/#conceito">Conceito</a>
@@ -483,7 +483,7 @@ ${head(n, { title: n.title, description: n.description, url, canonical: url })}
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 ${headerHtml(n)}
 
-    <main id="conteudo">
+    <main id="conteudo" tabindex="-1">
     <section class="hero">
       <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
       <div class="hero-inner">
@@ -612,7 +612,7 @@ ${head(null, {
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 ${headerHtml({ slug: '404', h1: 'Página não encontrada' })}
-    <main id="conteudo">
+    <main id="conteudo" tabindex="-1">
     <section class="hero">
       <img class="hero-bg" src="/hero-poster.webp" srcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" sizes="100vw" alt="" aria-hidden="true" />
       <div class="hero-inner" style="text-align:center">

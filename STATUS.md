@@ -3,9 +3,15 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
-## Issue #13 — texto original da marca pronto localmente em 07/10/2026
+## Acessibilidade — Issue #15 pronta localmente em 07/10/2026
 
-A citação sem autoria verificada foi substituída por uma frase original da marca que descreve menu, preparo e serviço na casa do cliente. Issue #13, branch `fix/13-texto-original-chef`, sobre `acd1e6e`; alteração restrita a `src/App.tsx`, preservando o markup e as classes do parágrafo. `npm run build`, `npm run verify:build` e conferência do HTML renderizado passaram. Próxima ação: CI e preview do Pull Request antes do merge já autorizado.
+Issue #15, branch `fix/15-acessibilidade-conteudo` sobre `8fb7205` (PR #14 integrado), corrige foco do skip link para o `main` nas 14 landings e na 404, nome acessível da marca/tagline no logo e contraste do rótulo “Não incluso”. [Issue #15](https://github.com/mantiqueira12/paladaresdamantiqueira/issues/15). Testes dirigidos: 6 e2e Playwright passaram nos viewports 1440/390; teste de geração estática, build e `verify:build` passaram. Axe 4.14.0 em 34 casos (home + 14 landings, desktop/mobile, além de pedido e ficha de experiência em ambos os viewports), sem violações automatizadas encontradas; automação não certifica WCAG. Próxima ação: CI e prévia do PR antes do merge já autorizado.
+
+PR #14 está integrado em `8fb7205`, publicado no deploy `6ac5cdf8d5006e000891cf43`; CI da main #37572834321 passou (25 Vitest, 39 e2e e 1 skip). A Issue #13 abaixo é histórico, sucedida pela publicação do PR #14.
+
+## Histórico — Issue #13, texto original da marca (07/10/2026)
+
+A citação sem autoria verificada foi substituída por uma frase original da marca que descreve menu, preparo e serviço na casa do cliente. Issue #13, branch `fix/13-texto-original-chef`, sobre `acd1e6e`; alteração restrita a `src/App.tsx`, preservando o markup e as classes do parágrafo. `npm run build`, `npm run verify:build` e conferência do HTML renderizado passaram. O texto foi publicado no PR #14, conforme registro acima.
 
 ## Qualidade — Issue #11 pronta localmente em 06/10/2026
 

@@ -98,7 +98,11 @@ test('landings geradas oferecem navegação por teclado, movimento reduzido e an
     const html = fs.readFileSync(path.join(root, 'dist', 'chef-particular-em-campos-do-jordao', 'index.html'), 'utf8');
 
     assert.match(html, /href="#conteudo"[^>]*>Pular para o conteúdo/);
-    assert.match(html, /<main id="conteudo"/);
+    assert.match(html, /<main id="conteudo" tabindex="-1">/);
+    assert.match(html, /<a class="brand" href="\/" aria-label="Paladares da Mantiqueira — Concierge Gastronômico">[\s\S]*?<img src="\/logo-emblema\.png" alt=""/);
+    assert.match(html, /<b>Paladares da Mantiqueira<\/b> <small>Concierge Gastronômico/);
+    const notFoundHtml = fs.readFileSync(path.join(root, 'dist', '404.html'), 'utf8');
+    assert.match(notFoundHtml, /<main id="conteudo" tabindex="-1">/);
     assert.match(html, /:focus-visible/);
     assert.match(html, /prefers-reduced-motion:\s*reduce/);
     assert.doesNotMatch(html, /<script async src="https:\/\/www\.googletagmanager\.com/);
