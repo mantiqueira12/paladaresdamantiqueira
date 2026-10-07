@@ -167,7 +167,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                     </>
                   )}
                   {experiencia.sobremesasPor && (
-                    <p className="text-xs text-brand-charcoal/50 italic flex items-center gap-2">
+                    <p className="text-xs text-brand-charcoal/70 italic flex items-center gap-2">
                       <Leaf size={13} className="text-brand-moss" /> Sobremesas por{' '}
                       <a
                         href="https://www.instagram.com/fernandamarton.docesmomentos/"
