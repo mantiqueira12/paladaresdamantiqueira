@@ -134,7 +134,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                   )}
                   {experiencia.exclui && (
                     <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
-                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-charcoal/50 mb-2">
+                      <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-charcoal/75 mb-2">
                         Não incluso
                       </p>
                       <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.exclui}</p>
