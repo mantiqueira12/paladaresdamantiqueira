@@ -71,8 +71,11 @@ export default function PedidoExperiencia({
   const previewRef = useRef<HTMLPreElement>(null);
   const previewAtualRef = useRef('');
   const tentativaCopiaRef = useRef(0);
+  const dataRef = useRef<HTMLInputElement>(null);
   const convidadosRef = useRef<HTMLInputElement>(null);
   const horarioRef = useRef<HTMLInputElement>(null);
+  const cabecalhoStickyRef = useRef<HTMLDivElement>(null);
+  const rodapeStickyRef = useRef<HTMLFormElement>(null);
   const dialogRef = useModalA11y(aberto, onFechar);
   const movimentoReduzido = useReducedMotion();
 
@@ -92,6 +95,31 @@ export default function PedidoExperiencia({
       setStatusCopia('idle');
     }
   }, [aberto, experienciaInicial, pedidoInicialNormalizado]);
+
+  // O scroll do foco respeita o tamanho atual das duas barras sticky, inclusive quando o conteúdo reflowa.
+  useEffect(() => {
+    const dialogo = dialogRef.current;
+    const cabecalho = cabecalhoStickyRef.current;
+    const rodape = rodapeStickyRef.current;
+    if (!aberto || !dialogo || !cabecalho || !rodape) return;
+
+    const atualizarScrollPadding = () => {
+      dialogo.style.scrollPaddingTop = `${cabecalho.offsetHeight}px`;
+      dialogo.style.scrollPaddingBottom = `${rodape.offsetHeight}px`;
+    };
+    const observador = new ResizeObserver(atualizarScrollPadding);
+    observador.observe(cabecalho);
+    observador.observe(rodape);
+    window.addEventListener('resize', atualizarScrollPadding);
+    atualizarScrollPadding();
+
+    return () => {
+      observador.disconnect();
+      window.removeEventListener('resize', atualizarScrollPadding);
+      dialogo.style.removeProperty('scroll-padding-top');
+      dialogo.style.removeProperty('scroll-padding-bottom');
+    };
+  }, [aberto, dialogRef]);
 
   const expSel = pedido.experiencia ? acharPorNome(pedido.experiencia) : undefined;
   const soServicoObrigatorio = expSel?.camada === 'servico';
@@ -134,7 +162,8 @@ export default function PedidoExperiencia({
     setErroHorario(erroHora);
     if (erro || erroQuantidade || erroHora) {
       evento.preventDefault();
-      if (!erro) (erroQuantidade ? convidadosRef : horarioRef).current?.focus();
+      if (erro) dataRef.current?.focus();
+      else (erroQuantidade ? convidadosRef : horarioRef).current?.focus();
       return;
     }
     rastrearOrcamento(origem, pedidoEfetivo.experiencia, {
@@ -209,7 +238,7 @@ export default function PedidoExperiencia({
             transition={movimentoReduzido ? { duration: 0 } : { type: 'spring', stiffness: 320, damping: 32 }}
           >
             {/* Cabeçalho */}
-            <div className="sticky top-0 z-10 glass-header px-6 md:px-10 py-5 flex items-start justify-between rounded-t-3xl md:rounded-t-2xl">
+            <div ref={cabecalhoStickyRef} className="sticky top-0 z-10 glass-header px-6 md:px-10 py-5 flex items-start justify-between rounded-t-3xl md:rounded-t-2xl">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.35em] text-brand-terracotta font-bold flex items-center gap-2">
                   <Sparkles size={13} /> Pedido de Experiência
@@ -257,6 +286,7 @@ export default function PedidoExperiencia({
                 <Campo id="pedido-data" icone={<CalendarHeart size={15} />} label="Data desejada">
                   <input
                     id="pedido-data"
+                    ref={dataRef}
                     type="date"
                     min={dataLocalISO()}
                     value={pedido.data || ''}
@@ -427,6 +457,7 @@ export default function PedidoExperiencia({
 
             {/* Rodapé / ação */}
             <form
+              ref={rodapeStickyRef}
               action={`https://wa.me/${WHATSAPP_NUMBER}`}
               method="get"
               target="_blank"
