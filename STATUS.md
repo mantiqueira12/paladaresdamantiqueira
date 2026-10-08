@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Acessibilidade — Issue #25 pronta localmente em 07/10/2026
+
+O gerador das 14 landings mantém o FAQ nativo `<details>/<summary>`, mas agora apresenta `+`/`–` dentro de indicador `aria-hidden`, sem contaminar o nome acessível da pergunta. `scroll-padding-top: 80px` no documento também mantém foco por teclado abaixo do cabeçalho fixo; `#conteudo` conserva seu `scroll-margin-top`. E2E dirigido confirmou nome, abertura por Enter, fechamento por Space, indicador visível e navegação Shift+Tab no rodapé em 1440×900 e 390×844; revisou os 14 HTMLs e a 404. Build, lint, testes unitários e verificador passaram; CI e prévia ainda são gates do integrador.
+
 ## Imagens — Issue #23 pronta localmente em 07/10/2026
 
 LoadingImage agora encaminha ao consumidor a falha nativa ou a imagem já completa sem pixels que ocorreu antes da hidratação; ExperienceCard e ExperienciaModal trocam para o fallback uma única vez por origem. O teste E2E segura bundle e imagem para reproduzir erro real pré-hidratação e confirma que fallback também falhando não gera ciclo. RED na base e GREEN final em 1440×900 e 390×844; testes antigos de fallback/skeleton passaram nos dois viewports. `npm run lint` passou (25 avisos/3 infos Biome preexistentes), `npm test` (39 Node + 25 Vitest), build e `verify:build` passaram. Causa limitada ao bug de pré-hidratação demonstrado; a intermitência do runner/CI permanece sem conclusão. Branch `fix/23-imagem-pre-hidratacao`, baseada em `144d784`; CI completo e prévia seguem como gates do integrador.

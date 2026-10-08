@@ -218,7 +218,7 @@ const CSS = `
   @font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;font-display:swap;src:url('/fonts/playfair-display-400-italic.woff2') format('woff2')}
   :root{--cream:${T.cream};--charcoal:${T.charcoal};--terracotta:${T.terracotta};--terracotta-light:${T.terracottaLight};--moss:${T.moss};--line:${T.line}}
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--charcoal);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased}
   :focus-visible{outline:3px solid var(--terracotta);outline-offset:4px}
   #conteudo{scroll-margin-top:80px}
@@ -332,8 +332,11 @@ const CSS = `
   details{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   summary{cursor:pointer;list-style:none;padding:22px 28px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:16px}
   summary::-webkit-details-marker{display:none}
-  summary:after{content:"+";color:var(--terracotta);font-size:1.5rem;font-weight:400;line-height:1}
-  details[open] summary:after{content:"–"}
+  .faq-indicator{display:inline-grid;place-items:center;flex:none;color:var(--terracotta);font-size:1.5rem;font-weight:400;line-height:1}
+  .faq-indicator-closed,.faq-indicator-open{grid-area:1/1}
+  .faq-indicator-open{display:none}
+  details[open] .faq-indicator-closed{display:none}
+  details[open] .faq-indicator-open{display:inline}
   details .ans{padding:0 28px 24px;color:rgba(45,45,45,.82);font-size:.98rem;font-style:italic;line-height:1.7}
 
   /* faixa CTA */
@@ -563,7 +566,7 @@ ${headerHtml(n)}
           <div class="faq">
             ${FAQ_LANDING.map(
               (f) =>
-                `<details><summary>${esc(f.pergunta)}</summary><div class="ans">${esc(f.resposta)}</div></details>`,
+                `<details><summary>${esc(f.pergunta)}<span class="faq-indicator" aria-hidden="true"><span class="faq-indicator-closed">+</span><span class="faq-indicator-open">–</span></span></summary><div class="ans">${esc(f.resposta)}</div></details>`,
             ).join('\n            ')}
           </div>
         </div>
