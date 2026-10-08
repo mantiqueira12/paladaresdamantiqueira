@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Pedido acessível — Issue #27 pronta localmente em 07/10/2026
+
+O modal do pedido aplica `scroll-padding` com as alturas de layout atuais do cabeçalho e rodapé sticky, acompanhando resize/reflow por `ResizeObserver` e removendo observadores/listeners ao fechar. Submissão com data inválida devolve foco ao campo; quantidade e horário conservam a prioridade existente quando a data está válida. RED foi reproduzido no mobile; GREEN confirmou foco integralmente entre as barras em 390×844 e após resize para 390×720, além de erro de data acessível e sem abertura/requisição ao WhatsApp em 1440×900 e 390×844. Testes existentes de Escape e backdrop/retorno de foco passaram nos dois viewports. Build, verificador e lint passaram; lint manteve 25 avisos e 3 informações Biome preexistentes. Branch `fix/27-pedido-acessivel`, baseada em `60da8e21`; CI integral e prévia seguem como gates do integrador.
+
 ## Acessibilidade — Issue #25 pronta localmente em 07/10/2026
 
 O gerador das 14 landings mantém o FAQ nativo `<details>/<summary>`, mas agora apresenta `+`/`–` dentro de indicador `aria-hidden`, sem contaminar o nome acessível da pergunta. `scroll-padding-top: 80px` no documento também mantém foco por teclado abaixo do cabeçalho fixo; `#conteudo` conserva seu `scroll-margin-top`. E2E dirigido confirmou nome, abertura por Enter, fechamento por Space, indicador visível e navegação Shift+Tab no rodapé em 1440×900 e 390×844; revisou os 14 HTMLs e a 404. Build, lint, testes unitários e verificador passaram; CI e prévia ainda são gates do integrador.
