@@ -29,6 +29,10 @@ export type OrigemOrcamento =
   | 'card_experiencia'
   | 'rodape'
   | 'landing'
+  | 'landing_header'
+  | 'landing_hero'
+  | 'landing_band'
+  | 'landing_footer'
   | 'formulario';
 
 const ORIGENS = new Set<OrigemOrcamento>([
@@ -39,6 +43,10 @@ const ORIGENS = new Set<OrigemOrcamento>([
   'card_experiencia',
   'rodape',
   'landing',
+  'landing_header',
+  'landing_hero',
+  'landing_band',
+  'landing_footer',
   'formulario',
 ]);
 
@@ -99,6 +107,20 @@ const PAGINAS = new Set([
 function categoria(valor: string | undefined, permitidos: ReadonlySet<string>): string | undefined {
   if (!valor) return undefined;
   return permitidos.has(valor) ? valor : '(outra)';
+}
+
+/** Mede a abertura direta do pedido sem enviar conteúdo do formulário. */
+export function rastrearAberturaPedido(origem: OrigemOrcamento): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const gtag = window.gtag;
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'abrir_formulario', {
+      origem: ORIGENS.has(origem) ? origem : 'formulario',
+    });
+  } catch {
+    // A abertura do formulário não depende da telemetria.
+  }
 }
 
 /**

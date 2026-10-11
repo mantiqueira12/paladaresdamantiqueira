@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Atribuição do pedido — Issue #29 pronta localmente em 11/10/2026
+
+Checkout isolado `fix/29-origem-pedido`, base `281e535`: retorno automático mapeia somente `ponto=header/hero/band/footer` para `landing_header/landing_hero/landing_band/landing_footer`; demais valores conservam `landing`. Aberturas diretas da home emitem uma vez `abrir_formulario` com origem permitida, sem conteúdo do pedido; retorno automático não duplica a abertura emitida pela landing. RED comprovado antes do patch; GREEN: 19 testes unitários de analytics, 5 testes Node pertinentes e 26 E2E dirigidos em desktop/celular. Build e `verify:build` passaram. Nenhum envio externo ou publicação; próxima ação única: revisão independente do integrador antes do fluxo Git.
+
 ## Pedido acessível — Issue #27 pronta localmente em 07/10/2026
 
 O modal do pedido aplica `scroll-padding` com as alturas de layout atuais do cabeçalho e rodapé sticky, acompanhando resize/reflow por `ResizeObserver` e removendo observadores/listeners ao fechar. Submissão com data inválida devolve foco ao campo; quantidade e horário conservam a prioridade existente quando a data está válida. RED foi reproduzido no mobile; GREEN confirmou foco integralmente entre as barras em 390×844 e após resize para 390×720, além de erro de data acessível e sem abertura/requisição ao WhatsApp em 1440×900 e 390×844. Testes existentes de Escape e backdrop/retorno de foco passaram nos dois viewports. Build, verificador e lint passaram; lint manteve 25 avisos e 3 informações Biome preexistentes. Branch `fix/27-pedido-acessivel`, baseada em `60da8e21`; CI integral e prévia seguem como gates do integrador.

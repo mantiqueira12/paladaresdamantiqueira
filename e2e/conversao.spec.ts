@@ -142,8 +142,9 @@ test('o submit interceptado registra só metadados permitidos e confirma o próx
     const analyticsWindow = window as unknown as { __gtagCalls: unknown[][] };
     return analyticsWindow.__gtagCalls;
   });
-  expect(chamadas).toHaveLength(1);
-  const [comando, evento, parametros] = chamadas[0] as [string, string, Record<string, unknown>];
+  expect(chamadas).toHaveLength(2);
+  expect(chamadas[0]).toEqual(['event', 'abrir_formulario', { origem: 'header' }]);
+  const [comando, evento, parametros] = chamadas[1] as [string, string, Record<string, unknown>];
   expect([comando, evento]).toEqual(['event', 'solicitar_orcamento']);
   expect(parametros).toMatchObject({
     origem: 'header',
