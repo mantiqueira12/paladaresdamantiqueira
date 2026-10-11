@@ -109,6 +109,11 @@ function categoria(valor: string | undefined, permitidos: ReadonlySet<string>): 
   return permitidos.has(valor) ? valor : '(outra)';
 }
 
+/** Contexto de página limitado às landings já admitidas na telemetria. */
+export function normalizarPaginaPedido(valor?: string): string | undefined {
+  return valor && PAGINAS.has(valor) ? valor : undefined;
+}
+
 /** Mede a abertura direta do pedido sem enviar conteúdo do formulário. */
 export function rastrearAberturaPedido(origem: OrigemOrcamento): void {
   if (typeof window === 'undefined') return;
@@ -147,7 +152,7 @@ export function rastrearOrcamento(
       cidade: categoria(detalhes?.cidade, CIDADES),
       pessoas: categoria(detalhes?.pessoas, FAIXAS),
       so_servico: typeof detalhes?.soServico === 'boolean' ? detalhes.soServico : undefined,
-      pagina: detalhes?.pagina && PAGINAS.has(detalhes.pagina) ? detalhes.pagina : undefined,
+      pagina: normalizarPaginaPedido(detalhes?.pagina),
     });
   } catch {
     // Bloqueadores, extensões e políticas de privacidade podem interromper o GA.

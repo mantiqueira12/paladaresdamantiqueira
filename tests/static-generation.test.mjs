@@ -202,3 +202,34 @@ test('prerender preserva sequências especiais do HTML renderizado literalmente'
     cleanup(root);
   }
 });
+
+test('navegação para home preserva contexto e hash sem iniciar pedido, inclusive header e Veja também', () => {
+  const root = fixture();
+  try {
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    for (const [slug, cidade, ocasiao] of [
+      ['chef-particular-em-campos-do-jordao', 'Campos do Jordão', null],
+      ['chef-para-aniversario-na-serra-da-mantiqueira', null, 'Aniversário'],
+    ]) {
+      const html = fs.readFileSync(path.join(root, 'dist', slug, 'index.html'), 'utf8');
+      const links = [...html.matchAll(/href="([^"]+)"/g)].map((match) => new URL(match[1].replaceAll('&amp;', '&'), 'https://example.test'));
+      const navegacao = links.filter((url) => url.pathname === '/' && ['#conceito', '#experiencias', '#como-funciona', '#chef'].includes(url.hash));
+      assert.equal(navegacao.length, 6);
+      for (const url of navegacao) {
+        assert.equal(url.searchParams.get('pedido'), null);
+        assert.equal(url.searchParams.get('pagina'), slug);
+        assert.equal(url.searchParams.get('cidade'), cidade);
+        assert.equal(url.searchParams.get('ocasiao'), ocasiao);
+      }
+      assert.ok(links.some((url) => url.pathname !== '/' && url.pathname.includes('chef-')));
+    }
+    const notFound = fs.readFileSync(path.join(root, 'dist', '404.html'), 'utf8');
+    assert.match(notFound, /href="\/#experiencias"/);
+    const navegacao404 = [...notFound.matchAll(/href="([^"]+)"/g)]
+      .map((match) => new URL(match[1].replaceAll('&amp;', '&'), 'https://example.test'))
+      .filter((url) => url.pathname === '/' && url.hash);
+    assert.ok(navegacao404.length > 0);
+    for (const url of navegacao404) assert.equal(url.search, '');
+  } finally { cleanup(root); }
+});
