@@ -128,9 +128,29 @@ test('montarMensagem funciona sem nenhum campo opcional', () => {
     [
       'Olá, Chef Rafael! 🌿',
       'Gostaria de planejar uma experiência com você — ainda estou escolhendo qual combina mais com o momento.',
-      'Pode me dizer se a data está disponível e qual é o próximo passo?',
+      'Pode me orientar sobre o próximo passo?',
     ].join('\n\n'),
   );
+});
+
+test('pedido normalizado sem data conserva detalhes e pergunta somente pelo próximo passo', () => {
+  const pedido = normalizarPedidoInicial({
+    experiencia: 'Origens da Serra',
+    ocasiao: 'Aniversário',
+    pessoas: ' 037 ',
+    horario: ' 18:30 ',
+    cidade: 'Gonçalves',
+    data: '',
+  }, ['Origens da Serra']);
+  const mensagem = montarMensagem(pedido);
+
+  assert.equal(mensagem, [
+    'Olá, Chef Rafael! 🌿',
+    'Gostaria de solicitar a experiência *Origens da Serra*.',
+    '• Ocasião: Aniversário\n• Convidados: 37\n• Horário desejado: 18:30\n• Local: Gonçalves',
+    'Pode me orientar sobre o próximo passo?',
+  ].join('\n\n'));
+  assert.equal(new URL(linkWhatsApp(pedido)).searchParams.get('text'), mensagem);
 });
 
 test('montarMensagem trata a opção Outra como conversa aberta, sem nome de pacote artificial', () => {
@@ -146,6 +166,7 @@ test('linkWhatsApp codifica exatamente a mensagem produzida', () => {
 
   assert.equal(url.origin + url.pathname, 'https://wa.me/5512997710040');
   assert.equal(url.searchParams.get('text'), montarMensagem(pedido));
+  assert.equal(url.searchParams.get('text').endsWith('Pode me orientar sobre o próximo passo?'), true);
   assert.equal(linkWhatsApp(pedido).includes('João'), false);
   assert.equal(linkWhatsApp(pedido).includes('& Bia'), false);
 });
