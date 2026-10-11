@@ -1,9 +1,45 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { rastrearOrcamento } from '../../src/lib/analytics';
+import { rastrearAberturaPedido, rastrearOrcamento, type OrigemOrcamento } from '../../src/lib/analytics';
 
 afterEach(() => {
   vi.unstubAllGlobals();
 });
+
+describe('rastrearAberturaPedido', () => {
+  it.each(['header', 'hero', 'texto_experiencias', 'pre_rodape', 'card_experiencia', 'rodape', 'landing_header', 'landing_hero', 'landing_band', 'landing_footer'] as OrigemOrcamento[])(
+    'emite somente a origem permitida %s', (origem) => {
+      const gtag = vi.fn();
+      vi.stubGlobal('window', { gtag });
+      rastrearAberturaPedido(origem);
+      expect(gtag.mock.calls).toEqual([['event', 'abrir_formulario', { origem }]]);
+    },
+  );
+
+  it('descarta origem livre e usa formulario', () => {
+    const gtag = vi.fn();
+    vi.stubGlobal('window', { gtag });
+    rastrearAberturaPedido('Nome Privado' as OrigemOrcamento);
+    expect(gtag.mock.calls).toEqual([['event', 'abrir_formulario', { origem: 'formulario' }]]);
+  });
+
+  it('tolera SSR, coletor ausente e coletor que lança', () => {
+    vi.stubGlobal('window', undefined);
+    expect(() => rastrearAberturaPedido('header')).not.toThrow();
+    vi.stubGlobal('window', {});
+    expect(() => rastrearAberturaPedido('header')).not.toThrow();
+    vi.stubGlobal('window', { gtag: () => { throw new Error('bloqueado'); } });
+    expect(() => rastrearAberturaPedido('header')).not.toThrow();
+  });
+});
+
+it.each(['landing_header', 'landing_hero', 'landing_band', 'landing_footer'] as OrigemOrcamento[])(
+  'preserva %s no evento final', (origem) => {
+    const gtag = vi.fn();
+    vi.stubGlobal('window', { gtag });
+    rastrearOrcamento(origem);
+    expect(gtag.mock.calls[0][2].origem).toBe(origem);
+  },
+);
 
 describe('rastrearOrcamento', () => {
   it('dispara solicitar_orcamento no GA4 com origem e detalhes', () => {

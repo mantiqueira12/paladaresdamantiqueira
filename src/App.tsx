@@ -31,7 +31,7 @@ import CIDADES from './data/cidades.json';
 import SAZONAIS from './data/sazonais.json';
 import NICHOS from './data/nichos.json';
 import { WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK, type PedidoData } from './lib/whatsapp';
-import { type OrigemOrcamento } from './lib/analytics';
+import { rastrearAberturaPedido, type OrigemOrcamento } from './lib/analytics';
 import PedidoExperiencia from './components/PedidoExperiencia';
 import ExperienciaModal from './components/ExperienciaModal';
 import SectionHeading from './components/SectionHeading';
@@ -73,6 +73,7 @@ export default function App() {
     setPedidoPagina(pagina);
     setPedidoOrigem(origem);
     setPedidoAberto(true);
+    rastrearAberturaPedido(origem);
   };
 
   // As landings estáticas trazem o visitante de volta para a home com contexto.
@@ -90,7 +91,13 @@ export default function App() {
       pessoas: params.get('pessoas') || undefined,
     });
     setPedidoPagina(params.get('pagina') || '');
-    setPedidoOrigem('landing');
+    const ponto = params.get('ponto');
+    const origem: OrigemOrcamento =
+      ponto === 'header' ? 'landing_header' :
+      ponto === 'hero' ? 'landing_hero' :
+      ponto === 'band' ? 'landing_band' :
+      ponto === 'footer' ? 'landing_footer' : 'landing';
+    setPedidoOrigem(origem);
     setPedidoAberto(true);
   }, []);
   const solicitarDoDetalhe = (nome: string) => {
