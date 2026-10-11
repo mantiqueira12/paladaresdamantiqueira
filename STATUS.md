@@ -3,6 +3,9 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Contexto do catálogo — Issue #31 pronta localmente em 11/10/2026
+
+Checkout isolado `fix/31-contexto-catalogo`, base `a77b62e`: navegação de explorar das landings conserva página/cidade/ocasião e hash sem `pedido=1`. App retém contexto normalizado durante a visita e as entradas explícitas do pedido o herdam; experiência escolhida no detalhe prevalece. Validação de página compartilha a allowlist existente de analytics. RED: link secundário City → catálogo → detalhe → pedido perdia cidade. GREEN: 28 E2E dirigidos (6 novos + 22 CRO09) em 1440×900 e 390×844, 27 testes Node pertinentes e 19 unitários analytics; build final, verificador, lint e Knip passaram. Lint reporta 24 avisos/3 infos; Knip só hint de configuração CSS. Destinos externos bloqueados e submissão impedida em testes. Nenhum commit/push/publicação nesta entrega; próxima ação única: revisão independente pelo integrador e gates CI/prévia do PR.
 ## Atribuição do pedido — Issue #29 pronta localmente em 11/10/2026
 
 Checkout isolado `fix/29-origem-pedido`, base `281e535`: retorno automático mapeia somente `ponto=header/hero/band/footer` para `landing_header/landing_hero/landing_band/landing_footer`; demais valores conservam `landing`. Aberturas diretas da home emitem uma vez `abrir_formulario` com origem permitida, sem conteúdo do pedido; retorno automático não duplica a abertura emitida pela landing. RED comprovado antes do patch; GREEN: 19 testes unitários de analytics, 5 testes Node pertinentes e 26 E2E dirigidos em desktop/celular. Build e `verify:build` passaram. Nenhum envio externo ou publicação; próxima ação única: revisão independente do integrador antes do fluxo Git.

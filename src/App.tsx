@@ -31,7 +31,8 @@ import CIDADES from './data/cidades.json';
 import SAZONAIS from './data/sazonais.json';
 import NICHOS from './data/nichos.json';
 import { WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK, type PedidoData } from './lib/whatsapp';
-import { rastrearAberturaPedido, type OrigemOrcamento } from './lib/analytics';
+import { normalizarPaginaPedido, rastrearAberturaPedido, type OrigemOrcamento } from './lib/analytics';
+import { normalizarPedidoInicial } from './lib/pedido';
 import PedidoExperiencia from './components/PedidoExperiencia';
 import ExperienciaModal from './components/ExperienciaModal';
 import SectionHeading from './components/SectionHeading';
@@ -65,8 +66,8 @@ export default function App() {
   const abrirPedido = (
     nome = '',
     origem: OrigemOrcamento = 'formulario',
-    iniciais: PedidoData = {},
-    pagina = '',
+    iniciais: PedidoData = pedidoInicial,
+    pagina = pedidoPagina,
   ) => {
     setPedidoExp(nome || iniciais.experiencia || '');
     setPedidoInicial(iniciais);
@@ -77,20 +78,20 @@ export default function App() {
   };
 
   // As landings estáticas trazem o visitante de volta para a home com contexto.
-  // O formulário abre pré-preenchido; só o clique final nele conta como abertura
-  // do WhatsApp (`solicitar_orcamento`).
+  // Explorar conserva o contexto nesta visita; só pedido=1 abre automaticamente.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('pedido') !== '1') return;
-
-    const experiencia = params.get('experiencia') || '';
-    setPedidoExp(experiencia);
-    setPedidoInicial({
+    const iniciais = normalizarPedidoInicial({
+      experiencia: params.get('experiencia') || undefined,
       cidade: params.get('cidade') || undefined,
       ocasiao: params.get('ocasiao') || undefined,
       pessoas: params.get('pessoas') || undefined,
-    });
-    setPedidoPagina(params.get('pagina') || '');
+    }, EXPERIENCIAS.map((experiencia) => experiencia.nome));
+    setPedidoInicial(iniciais);
+    setPedidoPagina(normalizarPaginaPedido(params.get('pagina') || undefined) || '');
+    if (params.get('pedido') !== '1') return;
+
+    setPedidoExp(iniciais.experiencia || '');
     const ponto = params.get('ponto');
     const origem: OrigemOrcamento =
       ponto === 'header' ? 'landing_header' :

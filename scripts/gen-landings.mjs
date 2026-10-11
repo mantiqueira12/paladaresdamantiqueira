@@ -115,12 +115,24 @@ function ocasiaoDaLanding(n) {
   return '';
 }
 
-function pedidoLink(n, ponto) {
-  const params = new URLSearchParams({ pedido: '1', pagina: n.slug, ponto });
+function contextoLanding(n) {
+  const params = new URLSearchParams({ pagina: n.slug });
   if (n.areaServedType === 'City') params.set('cidade', n.areaServedName);
   const ocasiao = ocasiaoDaLanding(n);
   if (ocasiao) params.set('ocasiao', ocasiao);
+  return params;
+}
+
+function pedidoLink(n, ponto) {
+  const params = contextoLanding(n);
+  params.set('pedido', '1');
+  params.set('ponto', ponto);
   return `/?${params.toString()}`;
+}
+
+function navegacaoLink(n, destino) {
+  if (n.slug === '404') return `/#${destino}`;
+  return `/?${contextoLanding(n).toString()}#${destino}`;
 }
 
 // Mede o início do pedido separadamente. A conversão `solicitar_orcamento`
@@ -414,10 +426,10 @@ function headerHtml(n) {
           <span class="brand-txt"><b>Paladares da Mantiqueira</b> <small>Concierge Gastronômico</small></span>
         </a>
         <nav class="nav" aria-label="Navegação principal">
-          <a href="/#conceito">Conceito</a>
-          <a href="/#experiencias">Experiências</a>
-          <a href="/#como-funciona">Como funciona</a>
-          <a href="/#chef">O Chef</a>
+          <a href="${esc(navegacaoLink(n, 'conceito'))}">Conceito</a>
+          <a href="${esc(navegacaoLink(n, 'experiencias'))}">Experiências</a>
+          <a href="${esc(navegacaoLink(n, 'como-funciona'))}">Como funciona</a>
+          <a href="${esc(navegacaoLink(n, 'chef'))}">O Chef</a>
         </nav>
         <div class="actions">
           <a class="icon-btn tel" href="tel:${TEL}" title="Ligar agora" aria-label="Ligar agora">${ICO.phone}</a>
@@ -496,7 +508,7 @@ ${headerHtml(n)}
         <p class="lead">${n.lead}</p>
         <div class="cta-row">
           <a class="btn" href="${esc(pedidoLink(n, 'hero'))}" ${trackFormulario(n, 'hero')}>Solicitar minha experiência ${ICO.arrow}</a>
-          <a class="btn ghost-light" href="/#experiencias">Ver as experiências</a>
+          <a class="btn ghost-light" href="${esc(navegacaoLink(n, 'experiencias'))}">Ver as experiências</a>
         </div>
         <p class="cta-note">Orçamento sem compromisso · resposta no WhatsApp no mesmo dia</p>
       </div>
@@ -586,7 +598,7 @@ ${headerHtml(n)}
           <h2>Outras experiências e regiões</h2>
           <div class="others">
             ${outras.map((o) => `<a href="/${o.slug}/">${esc(o.serviceName)}</a>`).join('\n            ')}
-            <a href="/#experiencias">Ver todas as experiências</a>
+            <a href="${esc(navegacaoLink(n, 'experiencias'))}">Ver todas as experiências</a>
           </div>
         </div>
       </section>
