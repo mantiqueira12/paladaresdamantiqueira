@@ -3,6 +3,10 @@
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
 > Última atualização: **2026-10-07**
 
+## Fecho da mensagem sem data — Issue #33 pronta localmente em 11/10/2026
+
+Checkout isolado `fix/33-fecho-sem-data`, base `6fa919fbfcc63697dd9ee735072fb7299120e8b9`: mensagem sem data passa a terminar em “Pode me orientar sobre o próximo passo?”. Com data preenchida mantém a pergunta sobre disponibilidade e próximo passo. RED reproduzido em `montarMensagem({})`; GREEN: 17 testes Node do pedido e 9 Vitest de WhatsApp, cobrindo campo ausente/vazio normalizado, detalhes e codificação do link. Build, `verify:build`, lint e Knip passaram; lint mantém 24 avisos/3 informações, Knip somente hint CSS. Sem E2E adicional: a prévia consome diretamente o gerador testado e o recorte não altera UI. Nenhum envio externo, stage, commit, push ou publicação pelo executor. Trata-se somente do fecho de SITE-CRO-03, sem concluir o achado inteiro. Próxima ação única: revisão independente e gates de integração pelo integrador da Issue #33.
+
 ## Contexto do catálogo — Issue #31 pronta localmente em 11/10/2026
 
 Checkout isolado `fix/31-contexto-catalogo`, base `a77b62e`: navegação de explorar das landings conserva página/cidade/ocasião e hash sem `pedido=1`. App retém contexto normalizado durante a visita e as entradas explícitas do pedido o herdam; experiência escolhida no detalhe prevalece. Validação de página compartilha a allowlist existente de analytics. RED: link secundário City → catálogo → detalhe → pedido perdia cidade. GREEN: 28 E2E dirigidos (6 novos + 22 CRO09) em 1440×900 e 390×844, 27 testes Node pertinentes e 19 unitários analytics; build final, verificador, lint e Knip passaram. Lint reporta 24 avisos/3 infos; Knip só hint de configuração CSS. Destinos externos bloqueados e submissão impedida em testes. Nenhum commit/push/publicação nesta entrega; próxima ação única: revisão independente pelo integrador e gates CI/prévia do PR.

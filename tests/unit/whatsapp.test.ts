@@ -14,6 +14,8 @@ describe('montarMensagem', () => {
     expect(msg).toContain('Olá, Chef Rafael!');
     expect(msg).toContain('ainda estou escolhendo');
     expect(msg).toContain('próximo passo');
+    expect(msg.endsWith('Pode me orientar sobre o próximo passo?')).toBe(true);
+    expect(msg).not.toContain('data');
   });
 
   it('inclui nome, experiência e detalhes com a data em formato brasileiro', () => {
@@ -31,6 +33,7 @@ describe('montarMensagem', () => {
     expect(msg).toContain('• Convidados: 8 a 12 pessoas');
     expect(msg).toContain('• Data desejada: 24/10/2026');
     expect(msg).toContain('• Local: Campos do Jordão');
+    expect(msg.endsWith('Pode me dizer se a data está disponível e qual é o próximo passo?')).toBe(true);
   });
 
   it('só menciona "Só o Serviço" quando o cliente escolheu esse formato', () => {
