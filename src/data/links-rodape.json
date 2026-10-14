@@ -1,0 +1,62 @@
+{
+  "cidades": [
+    {
+      "slug": "chef-particular-em-campos-do-jordao",
+      "label": "Chef particular em Campos do Jordão"
+    },
+    {
+      "slug": "chef-particular-em-santo-antonio-do-pinhal",
+      "label": "Chef particular em Santo Antônio do Pinhal"
+    },
+    {
+      "slug": "chef-particular-em-sao-bento-do-sapucai",
+      "label": "Chef particular em São Bento do Sapucaí"
+    },
+    {
+      "slug": "chef-particular-em-monte-verde",
+      "label": "Chef particular em Monte Verde"
+    },
+    {
+      "slug": "chef-particular-em-goncalves",
+      "label": "Chef particular em Gonçalves"
+    },
+    {
+      "slug": "chef-particular-em-sao-jose-dos-campos",
+      "label": "Chef particular em São José dos Campos"
+    }
+  ],
+  "ocasioes": [
+    {
+      "slug": "jantar-de-reveillon-na-serra-da-mantiqueira",
+      "label": "Réveillon na serra"
+    },
+    {
+      "slug": "jantar-de-inverno-e-fondue-na-serra-da-mantiqueira",
+      "label": "Inverno e fondue"
+    },
+    {
+      "slug": "jantar-romantico-na-serra-da-mantiqueira",
+      "label": "Jantar romântico"
+    },
+    {
+      "slug": "jantar-de-bodas-e-pedido-de-casamento-na-serra-da-mantiqueira",
+      "label": "Bodas e pedido"
+    },
+    {
+      "slug": "chef-para-pousadas-e-casas-de-temporada-na-serra-da-mantiqueira",
+      "label": "Pousadas e temporada"
+    },
+    {
+      "slug": "personal-chef-na-serra-da-mantiqueira",
+      "label": "Personal chef"
+    },
+    {
+      "slug": "chef-para-casamento-e-mini-wedding-na-serra-da-mantiqueira",
+      "label": "Casamento e mini wedding"
+    },
+    {
+      "slug": "chef-para-aniversario-na-serra-da-mantiqueira",
+      "label": "Aniversário"
+    }
+  ]
+}
