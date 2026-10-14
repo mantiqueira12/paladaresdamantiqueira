@@ -27,9 +27,7 @@ import {
   type Linha,
 } from './data/experiencias';
 import FAQ from './data/faq.json';
-import CIDADES from './data/cidades.json';
-import SAZONAIS from './data/sazonais.json';
-import NICHOS from './data/nichos.json';
+import LINKS_RODAPE from './data/links-rodape.json';
 import { WHATSAPP_DISPLAY, GOOGLE_REVIEW_LINK, type PedidoData } from './lib/whatsapp';
 import { normalizarPaginaPedido, rastrearAberturaPedido, type OrigemOrcamento } from './lib/analytics';
 import { normalizarPedidoInicial } from './lib/pedido';
@@ -407,11 +405,11 @@ export default function App() {
               Área de Atendimento
             </h3>
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
-              {CIDADES.map((c) => (
+              {LINKS_RODAPE.cidades.map((c) => (
                 <li key={c.slug} className="flex gap-2">
                   <MapPin size={14} className="text-brand-terracotta shrink-0" />
                   <a href={`/${c.slug}/`} className="hover:text-brand-terracotta transition-colors">
-                    Chef particular em {c.cidade}
+                    {c.label}
                   </a>
                 </li>
               ))}
@@ -426,11 +424,11 @@ export default function App() {
               Ocasiões
             </h3>
             <ul className="space-y-4 text-xs font-medium text-brand-charcoal/80">
-              {[...SAZONAIS, ...NICHOS].map((o) => (
+              {LINKS_RODAPE.ocasioes.map((o) => (
                 <li key={o.slug} className="flex gap-2">
                   <CalendarHeart size={14} className="text-brand-terracotta shrink-0" />
                   <a href={`/${o.slug}/`} className="hover:text-brand-terracotta transition-colors">
-                    {o.chip}
+                    {o.label}
                   </a>
                 </li>
               ))}
