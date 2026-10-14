@@ -43,7 +43,12 @@ test('FAQ das landings mantém pergunta acessível, estado nativo e indicador de
     const response = await page.request.get(new URL(path, page.url()).toString());
     expect(response.ok(), `${path} should be generated`).toBe(true);
     const html = await response.text();
-    expect(html.match(/class="faq-indicator" aria-hidden="true"/g) ?? [], path).toHaveLength(5);
+    const summaries = html.match(/<summary>/g) ?? [];
+    expect(summaries.length, path).toBeGreaterThanOrEqual(5);
+    expect(html.match(/class="faq-indicator" aria-hidden="true"/g) ?? [], path).toHaveLength(summaries.length);
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1]));
+    expect(schemas.find((schema) => schema['@type'] === 'FAQPage').mainEntity, path).toHaveLength(summaries.length);
   }
 
   const notFound = await page.request.get(new URL('/404.html', page.url()).toString());

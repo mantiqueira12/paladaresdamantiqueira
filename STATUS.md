@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**SEO — lote local de 14/10/2026:** três landings existentes (Campos do Jordão, São José dos Campos e casamento/mini-wedding) com dois parágrafos e duas FAQs próprias, conteúdo visível e schema alinhados. Base3293346; build/verify/check43Node+41Vitest e revisão independente aprovados; E2E pertinente5aprovados/1ignorado. Conteúdo próprio643/647/659palavras incluindo listas/FAQs específicas. Home/JS e11demaislandings idênticos àbase. Guardar localmente para Issue/PR/push/CI em18/10, conforme decisão deRafael; nenhum deploy deste lote.
+
+
 **Desempenho — 14/10/2026:** Issue35, manifesto mínimo derivado para14links de rodapé, mesmos destinos/rótulos/ordem e conteúdo. Base02fb095; Node24.15.0; JS412587→388321bytesraw e125170→120771gzip. Build/verify/lint/knip,42testesNode+41Vitest passaram. E2E final2workers87aprovados/1ignorado; primeira execução10workers86aprovados/1timeout/1ignorado, causa não demonstrada. Revisão independente sem achado. PR/CI/publicação pendentes.
 
 

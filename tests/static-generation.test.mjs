@@ -37,6 +37,37 @@ function cleanup(root) {
   fs.rmSync(root, { recursive: true, force: true });
 }
 
+test('FAQs próprias aparecem somente na página correspondente e no mesmo FAQPage', () => {
+  const root = fixture();
+  try {
+    for (const name of ['cidades', 'nichos']) {
+      const file = path.join(root, 'src', 'data', `${name}.json`);
+      const values = JSON.parse(fs.readFileSync(file, 'utf8'));
+      values[0].faq = [{ pergunta: `Pergunta exclusiva ${name}?`, resposta: `Resposta exclusiva ${name}.` }];
+      fs.writeFileSync(file, JSON.stringify(values));
+    }
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    for (const [slug, name] of [
+      ['chef-particular-em-campos-do-jordao', 'cidades'],
+      ['jantar-de-bodas-e-pedido-de-casamento-na-serra-da-mantiqueira', 'nichos'],
+    ]) {
+      const html = fs.readFileSync(path.join(root, 'dist', slug, 'index.html'), 'utf8');
+      assert.ok(html.includes(`<summary>Pergunta exclusiva ${name}?`));
+      const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+      const faq = schemas.find(schema => schema['@type'] === 'FAQPage');
+      assert.deepEqual(faq.mainEntity.at(-1), {
+        '@type': 'Question', name: `Pergunta exclusiva ${name}?`,
+        acceptedAnswer: { '@type': 'Answer', text: `Resposta exclusiva ${name}.` },
+      });
+    }
+    const other = fs.readFileSync(path.join(root, 'dist', 'chef-particular-em-goncalves', 'index.html'), 'utf8');
+    assert.ok(!other.includes('Pergunta exclusiva'));
+  } finally {
+    cleanup(root);
+  }
+});
+
 test('gen-landings aborta antes de escrever quando um slug está duplicado', () => {
   const root = fixture();
   try {

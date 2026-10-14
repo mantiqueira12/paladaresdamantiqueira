@@ -47,6 +47,7 @@ const cidades = load('cidades.json').map((c) => ({
   h1: c.h1,
   lead: c.lead,
   paragrafos: c.paragrafos,
+  faq: c.faq,
   experienciaTitulo: `A experiência em ${c.cidade}`,
   listaTitulo: `Ocasiões em ${c.cidade}`,
   lista: c.ocasioes,
@@ -92,6 +93,7 @@ if (!fs.existsSync(homePath) || !/<div\s+id=["']root["'][^>]*\bdata-prerendered=
 // exige que o conteúdo do schema esteja visível na página).
 const FAQ_TODAS = load('faq.json');
 const FAQ_LANDING = [FAQ_TODAS[0], FAQ_TODAS[1], FAQ_TODAS[2], FAQ_TODAS[4], FAQ_TODAS[6]].filter(Boolean);
+const faqDaLanding = (landing) => [...FAQ_LANDING, ...(landing.faq ?? [])];
 
 /* ------------------------------------------------------------------ ícones SVG */
 const ICO = {
@@ -207,7 +209,7 @@ function jsonld(n) {
   const faq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_LANDING.map((f) => ({
+    mainEntity: faqDaLanding(n).map((f) => ({
       '@type': 'Question',
       name: jl(f.pergunta),
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
@@ -576,7 +578,7 @@ ${headerHtml(n)}
             <h2>Dúvidas comuns</h2>
           </div>
           <div class="faq">
-            ${FAQ_LANDING.map(
+            ${faqDaLanding(n).map(
               (f) =>
                 `<details><summary>${esc(f.pergunta)}<span class="faq-indicator" aria-hidden="true"><span class="faq-indicator-closed">+</span><span class="faq-indicator-open">–</span></span></summary><div class="ans">${esc(f.resposta)}</div></details>`,
             ).join('\n            ')}
