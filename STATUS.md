@@ -1,6 +1,6 @@
 # STATUS — Estado Vivo do Projeto
 
-**Avanço — 14/10/2026:** PERF04 implementado e revisado localmente na Issue35, com redução24266bytesraw/4399gzip; build/verify/check passaram, E2E integral em verificação após um timeout móvel. [Evidências](../01-Administracao/Central-de-Achados/rodadas/2026-10-14-retomada-projeto/perf04.md). P03/P04 respondidas: infraestrutura por perguntas/vídeo/visita técnica nos três contextos, chegada geralmente1hora antes, tempo variável; F3-02 destravado. SaldoPaulo confirmado; Jayro sem retorno. Nenhum deploy deste lote ainda.
+**Desempenho — 14/10/2026:** Issue35, manifesto mínimo derivado para14links de rodapé, mesmos destinos/rótulos/ordem e conteúdo. Base02fb095; Node24.15.0; JS412587→388321bytesraw e125170→120771gzip. Build/verify/lint/knip,42testesNode+41Vitest passaram. E2E final2workers87aprovados/1ignorado; primeira execução10workers86aprovados/1timeout/1ignorado, causa não demonstrada. Revisão independente sem achado. PR/CI/publicação pendentes.
 
 
 > **Regra:** todo agente lê este arquivo ANTES de trabalhar e o atualiza AO TERMINAR (ver protocolo no `AGENTS.md`).
