@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**Confirmação e clássicos — 15/10/2026:** Rafael confirmou já ter realizado serviços de Natal e Réveillon, sem fotos desses eventos no projeto. Autorizou preparar clássicos da época para revisar quais entram este ano. Sugestões de Natal (peru/lombo, farofa, arroz com amêndoas, rabanada/pavê) e Réveillon (lentilhas, peixe/filé, arroz com castanhas, cheesecake/pavê) preparadas no lote local, explicitamente como sugestões. Seleção final aguarda revisão; imagens continuam identificadas como Origens da Serra. Sem publicação antes de 18/10.
+
+
 **15/10/2026 — lote local ampliado para 18/10:** Natal como ocasião sob medida, Réveillon enriquecido com prova contextual de Origens da Serra, arquivos llms.txt/llm.txt idênticos, header de descoberta e dois 301 específicos. Build/verificador/check:44 Node+41 Vitest; E2E final89 aprovados/1 ignorado, sem retry; revisão independente após correções.15 landings/16 URLs. Biografia em variações para escolha, sem substituição. Sem push/merge/deploy; conferir CI/prévia/redirects e créditos em18/10.
 
 

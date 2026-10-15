@@ -1,5 +1,8 @@
 # 09 · Decisões Fechadas
 
+**Confirmação e clássicos — 15/10/2026:** Rafael confirmou já ter realizado serviços de Natal e Réveillon, sem fotos desses eventos no projeto. Autorizou preparar clássicos da época para revisar quais entram este ano. Sugestões de Natal (peru/lombo, farofa, arroz com amêndoas, rabanada/pavê) e Réveillon (lentilhas, peixe/filé, arroz com castanhas, cheesecake/pavê) preparadas no lote local, explicitamente como sugestões. Seleção final aguarda revisão; imagens continuam identificadas como Origens da Serra. Sem publicação antes de 18/10.
+
+
 **Decisão de Rafael — 15/10/2026:** ampliar o lote conjunto de 18/10 com orientação por llms.txt/llm.txt, correções das duas URLs históricas e conteúdo de Natal/Réveillon. Natal autorizado como ocasião sob medida no site; não cria menu fixo, preço ou disponibilidade confirmada. Prova de outros eventos deve manter o contexto verdadeiro. Preparar variações da apresentação pessoal; escolha da redação permanece aberta. Não fazer push, merge ou deploy antes de 18/10.
 
 
