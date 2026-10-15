@@ -210,6 +210,13 @@ export default function App() {
                 Noite do Hambúrguer, para um encontro informal ou pequena celebração (10 a 30). As faixas são
                 referências — conte seu grupo no pedido para combinarmos o formato.
               </p>
+              <p className="text-base text-brand-charcoal/85 leading-relaxed mt-5">
+                Para celebrar o fim de ano, conheça as propostas de{' '}
+                <a href="/jantar-de-natal-na-serra-da-mantiqueira/" className="underline underline-offset-4">Natal</a>{' '}
+                e{' '}
+                <a href="/jantar-de-reveillon-na-serra-da-mantiqueira/" className="underline underline-offset-4">Réveillon</a>{' '}
+                na casa de campo. Cardápio e disponibilidade são combinados na conversa.
+              </p>
             </div>
 
             {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável

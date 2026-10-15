@@ -1,5 +1,8 @@
 # 09 · Decisões Fechadas
 
+**Decisão de Rafael — 15/10/2026:** ampliar o lote conjunto de 18/10 com orientação por llms.txt/llm.txt, correções das duas URLs históricas e conteúdo de Natal/Réveillon. Natal autorizado como ocasião sob medida no site; não cria menu fixo, preço ou disponibilidade confirmada. Prova de outros eventos deve manter o contexto verdadeiro. Preparar variações da apresentação pessoal; escolha da redação permanece aberta. Não fazer push, merge ou deploy antes de 18/10.
+
+
 **Paladares da Mantiqueira — Chef Particular na Serra da Mantiqueira**
 Consolidação do checklist do plano de negócio | Versão 1.0 | Junho/2026
 

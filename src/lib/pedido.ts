@@ -15,6 +15,7 @@ export const OCASIOES = [
   'Reunião de família',
   'Confraternização',
   'Réveillon na serra',
+  'Natal na serra',
   'Outra ocasião',
 ] as const;
 

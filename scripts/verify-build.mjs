@@ -13,9 +13,10 @@ const projectRoot = path.resolve(scriptDir, '..');
 /**
  * Manifesto das rotas aprovadas. É o oráculo do verificador e NÃO pode ser
  * derivado de src/data/*.json — são esses arquivos que estão sendo auditados.
- * 14 landings + home = 15 URLs. Alterar esta lista é decisão de negócio.
+ * 15 landings + home = 16 URLs, incluindo Natal autorizado em 15/10/2026.
  */
 const APPROVED_SLUGS = Object.freeze([
+  'jantar-de-natal-na-serra-da-mantiqueira',
   'chef-particular-em-campos-do-jordao',
   'chef-particular-em-santo-antonio-do-pinhal',
   'chef-particular-em-sao-bento-do-sapucai',
@@ -217,9 +218,9 @@ const isCli = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).hr
 if (isCli) {
   try {
     const result = verifyBuild();
-    if (result.landings !== 14 || result.sitemapUrls !== 15) {
+    if (result.landings !== 15 || result.sitemapUrls !== 16) {
       throw new Error(
-        `[verify-build] manifesto aprovado deveria ter 14 landings e 15 URLs; tem ${result.landings} e ${result.sitemapUrls}`,
+        `[verify-build] manifesto aprovado deveria ter 15 landings e 16 URLs; tem ${result.landings} e ${result.sitemapUrls}`,
       );
     }
     console.log(`[verify-build] OK — ${result.pages} páginas indexáveis (${result.landings} landings) e ${result.sitemapUrls} URLs no sitemap.`);

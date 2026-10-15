@@ -37,6 +37,22 @@ function cleanup(root) {
   fs.rmSync(root, { recursive: true, force: true });
 }
 
+test('Natal preserva contexto no pedido e arquivos LLM têm conteúdo idêntico', () => {
+  const root = fixture();
+  try {
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
+    assert.match(html, /ocasiao=Natal\+na\+serra/);
+    assert.match(html, /Registro real de Origens da Serra/);
+    assert.match(html, /não é um registro de ceia de Natal ou Réveillon/);
+    assert.equal(fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'), fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'));
+    assert.match(fs.readFileSync(path.join(root, 'dist', 'sitemap.xml'), 'utf8'), /jantar-de-natal-na-serra-da-mantiqueira/);
+  } finally {
+    cleanup(root);
+  }
+});
+
 test('FAQs próprias aparecem somente na página correspondente e no mesmo FAQPage', () => {
   const root = fixture();
   try {

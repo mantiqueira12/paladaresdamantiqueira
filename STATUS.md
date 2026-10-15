@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**15/10/2026 — lote local ampliado para 18/10:** Natal como ocasião sob medida, Réveillon enriquecido com prova contextual de Origens da Serra, arquivos llms.txt/llm.txt idênticos, header de descoberta e dois 301 específicos. Build/verificador/check:44 Node+41 Vitest; E2E final89 aprovados/1 ignorado, sem retry; revisão independente após correções.15 landings/16 URLs. Biografia em variações para escolha, sem substituição. Sem push/merge/deploy; conferir CI/prévia/redirects e créditos em18/10.
+
+
 **SEO — lote local de 14/10/2026:** três landings existentes (Campos do Jordão, São José dos Campos e casamento/mini-wedding) com dois parágrafos e duas FAQs próprias, conteúdo visível e schema alinhados. Base3293346; build/verify/check43Node+41Vitest e revisão independente aprovados; E2E pertinente5aprovados/1ignorado. Conteúdo próprio643/647/659palavras incluindo listas/FAQs específicas. Home/JS e11demaislandings idênticos àbase. Guardar localmente para Issue/PR/push/CI em18/10, conforme decisão deRafael; nenhum deploy deste lote.
 
 

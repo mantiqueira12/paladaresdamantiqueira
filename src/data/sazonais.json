@@ -1,5 +1,35 @@
 [
   {
+    "slug": "jantar-de-natal-na-serra-da-mantiqueira",
+    "title": "Ceia de Natal com Chef Particular na Mantiqueira",
+    "description": "Planeje a ceia de Natal em casa de campo na Mantiqueira com Rafael Jacob: cardápio sob medida, avaliação da cozinha e orçamento por ocasião.",
+    "h1": "Ceia de Natal com Chef Particular na Serra da Mantiqueira",
+    "lead": "Uma mesa de Natal para reunir a família na casa de campo. Conte como deseja celebrar; combinamos o cardápio e a organização da cozinha.",
+    "paragrafos": [
+      "O Natal em uma casa de campo reúne pessoas, histórias e uma cozinha que nem sempre é a mesma do dia a dia. Na <strong>Paladares da Mantiqueira</strong>, Rafael Jacob conversa com você sobre a data desejada, a cidade, o número de convidados e o clima da ceia antes de preparar o orçamento. A consulta de uma data não equivale a reserva ou disponibilidade confirmada.",
+      "Na experiência completa, o escopo combinado reúne curadoria do cardápio, compra dos ingredientes, preparo e serviço. A <strong>Fernanda Marton Ateliê</strong> participa com a confeitaria das experiências completas. O menu natalino é combinado na conversa: não há um pacote único de pratos, duração ou equipe para qualquer grupo.",
+      "A estrutura da casa é avaliada por perguntas, vídeo ou visita técnica. Forno, fogão e panelas ajudam a iniciar essa conversa; a necessidade de complementos depende do menu e do imóvel. Assim, a proposta considera a cozinha disponível antes de fechar a execução.",
+      "Se você prefere comprar os ingredientes, pode conversar sobre a modalidade <strong>Só o Serviço</strong>, contratada como mão de obra. As inclusões são diferentes das experiências completas e ficam registradas na proposta. O deslocamento é combinado conforme o local, dentro da área de atendimento e das condições do serviço."
+    ],
+    "experienciaTitulo": "O Natal começa pelo planejamento da sua mesa",
+    "listaTitulo": "O que combinamos para a ceia",
+    "lista": [
+      "Data desejada, cidade e número de convidados",
+      "Preferências de cardápio e formato da celebração",
+      "Condições da cozinha e complementos necessários",
+      "Inclusões, horário e organização registrados na proposta"
+    ],
+    "faq": [
+      {"pergunta": "A Paladares tem um cardápio fixo de Natal?", "resposta": "O cardápio é combinado conforme a ocasião, o grupo e a cozinha disponível. Conte suas preferências no pedido para receber uma proposta com o escopo definido."},
+      {"pergunta": "Enviar o pedido confirma a minha data de Natal?", "resposta": "Não. O pedido inicia a conversa sobre disponibilidade e orçamento. A reserva acontece após os combinados e a confirmação do sinal de 50%."}
+    ],
+    "provaReal": true,
+    "ctaTitulo": "Vamos conversar sobre a sua ceia de Natal?",
+    "serviceName": "Ceia de Natal com chef particular na Serra da Mantiqueira",
+    "breadcrumb": "Natal na serra",
+    "chip": "Natal na serra"
+  },
+  {
     "slug": "jantar-de-reveillon-na-serra-da-mantiqueira",
     "title": "Jantar de Réveillon com Chef Particular na Serra",
     "description": "Chef particular para o seu réveillon e ceia de Ano Novo na Serra da Mantiqueira: um jantar de virada de alta gastronomia na sua casa de campo.",
@@ -7,17 +37,22 @@
     "lead": "A virada do ano com a experiência de um ótimo restaurante na sua casa de campo na serra. Você recebe os abraços da meia-noite; eu assumo o fogão.",
     "paragrafos": [
       "Passar o réveillon na Serra da Mantiqueira é tradição — e a sua ceia de Ano Novo merece a mesma alta gastronomia de um grande restaurante, só que na intimidade da sua casa de campo. O <strong>Paladares da Mantiqueira</strong> leva o <strong>chef particular</strong> até você: eu cuido da curadoria do menu, da compra dos insumos, do preparo e do serviço da virada.",
-      "De uma ceia sofisticada de cinco tempos a um churrasco de Ano Novo com a casa cheia, o cardápio é desenhado com você. As sobremesas para brindar a meia-noite são assinadas pela <strong>Fernanda Marton Ateliê</strong>. Você aproveita a contagem regressiva com quem ama, sem se preocupar com a cozinha nem com a pia.",
-      "Atendo toda a Serra da Mantiqueira sem taxa de deslocamento (até cerca de 100 km). As datas de fim de ano são concorridas — vale alinhar a sua com 2 a 3 meses de antecedência."
+      "O cardápio é desenhado com você conforme o grupo, o horário desejado e a estrutura do imóvel. Nas experiências completas, a <strong>Fernanda Marton Ateliê</strong> participa com as sobremesas. O formato, as inclusões e a organização da cozinha ficam definidos na proposta para você aproveitar a celebração.",
+      "A data desejada, o local e o tamanho do grupo orientam a proposta. Avaliamos a cozinha por perguntas, vídeo ou visita técnica e combinamos os complementos necessários. O deslocamento segue as condições da área atendida; consulte a disponibilidade antes de planejar o serviço como confirmado."
     ],
     "experienciaTitulo": "Um réveillon sem você sair da festa",
     "listaTitulo": "O que a sua virada pode ter",
     "lista": [
       "Ceia de Ano Novo de alta gastronomia, montada na sua casa",
-      "Menu de cinco tempos ou churrasco de virada — você escolhe",
+      "Cardápio e formato combinados conforme o grupo e a cozinha",
       "Sobremesas da Fernanda Marton Ateliê para a meia-noite",
-      "Atendimento em toda a serra, sem taxa de deslocamento"
+      "Avaliação da estrutura e condições de atendimento na proposta"
     ],
+    "faq": [
+      {"pergunta": "Posso combinar o horário do jantar de Réveillon?", "resposta": "Informe o horário desejado no pedido. A chegada costuma acontecer cerca de uma hora antes do serviço, mas varia conforme a experiência; a organização e o horário efetivo são combinados na proposta."},
+      {"pergunta": "Como sei se a cozinha da casa serve para a ceia?", "resposta": "A avaliação pode ser feita por perguntas, vídeo ou visita técnica. Forno, fogão e panelas são referências iniciais; os complementos dependem da estrutura do imóvel e do cardápio escolhido."}
+    ],
+    "provaReal": true,
     "ctaTitulo": "Vamos planejar a sua virada na serra?",
     "serviceName": "Jantar de réveillon com chef particular na Serra da Mantiqueira",
     "breadcrumb": "Réveillon na serra",

@@ -37,7 +37,7 @@ test('FAQ das landings mantém pergunta acessível, estado nativo e indicador de
   const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map(([, location]) => new URL(location).pathname)
     .filter((pathname) => pathname !== '/');
-  expect(paths).toHaveLength(14);
+  expect(paths).toHaveLength(15);
 
   for (const path of paths) {
     const response = await page.request.get(new URL(path, page.url()).toString());
@@ -62,7 +62,7 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
   const linkInicial = page.locator('footer .fbar a').first();
   await linkInicial.focus();
 
-  for (let step = 1; step <= 13; step += 1) {
+  for (let step = 1; step <= 14; step += 1) {
     await page.keyboard.press('Shift+Tab');
     await page.waitForFunction(() => {
       const active = document.activeElement;
@@ -79,8 +79,9 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
       return state.__faqFocusStable >= 4;
     });
 
-    if (step === 12 || step === 13) {
-      const esperado = step === 12 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
+    // Natal adiciona um link antes da lista de ocasiões no percurso reverso.
+    if (step === 13 || step === 14) {
+      const esperado = step === 13 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
       const resultado = await page.evaluate(() => {
         const active = document.activeElement as HTMLElement;
         const rect = active.getBoundingClientRect();

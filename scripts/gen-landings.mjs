@@ -114,6 +114,7 @@ function ocasiaoDaLanding(n) {
   }
   if (n.slug.includes('aniversario')) return 'Aniversário';
   if (n.slug.includes('reveillon')) return 'Réveillon na serra';
+  if (n.slug.includes('natal')) return 'Natal na serra';
   return '';
 }
 
@@ -527,6 +528,18 @@ ${headerHtml(n)}
         </div>
       </section>
 
+      ${n.provaReal ? `<section class="block cream">
+        <div class="wrap split">
+          <div>
+            <h2>Uma experiência real da nossa cozinha</h2>
+            <p class="body">Tábua de queijos, ravióli artesanal e cheesecake foram registrados durante uma realização de Origens da Serra. São exemplos do trabalho da Paladares para ajudar você a conhecer nossa cozinha antes de combinar a sua celebração.</p>
+            <p class="body">A foto é de Origens da Serra: não é um registro de ceia de Natal ou Réveillon. O cardápio da sua data será combinado na proposta.</p>
+            <a class="btn" href="/#portfolio-real">Conhecer o registro completo</a>
+          </div>
+          <figure><div class="pill"><img src="/portfolio/origens-da-serra/origens-da-serra-cheesecake.webp" alt="Cheesecakes com morango em uma realização de Origens da Serra" loading="lazy" decoding="async" width="1086" height="1448" /></div><figcaption>Registro real de Origens da Serra — cheesecake com morango.</figcaption></figure>
+        </div>
+      </section>` : ''}
+
       <section class="block cream">
         <div class="wrap">
           <span class="eyebrow-dark">Ocasiões</span>
@@ -683,6 +696,8 @@ const linhasCidades = cidades.map((c) => `- ${c.chip}: ${SITE}/${c.slug}/`).join
 const linhasOcasioes = [...sazonais, ...nichos].map((o) => `- ${o.chip}: ${SITE}/${o.slug}/`).join('\n');
 const extraLlms = `\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
 fs.writeFileSync(path.join(dist, 'llms.txt'), `${baseLlms}${extraLlms}`);
+// Compatibilidade com a grafia singular; mesma fonte, sem conteúdo divergente.
+fs.writeFileSync(path.join(dist, 'llm.txt'), `${baseLlms}${extraLlms}`);
 
 console.log(
   `[gen-landings] ${landings.length} landings (${cidades.length} cidades + ${sazonais.length} sazonais + ${nichos.length} nichos) + 404 + sitemap (${urls.length} URLs) + llms.txt.`,
