@@ -451,6 +451,10 @@
           {
             "nome": "Carne seca com abóbora e queijo coalho",
             "desc": "Brasil contemporâneo numa pizza de personalidade."
+          },
+          {
+            "nome": "Verde — abobrinha, pesto e ricota",
+            "desc": "(vegetariana) — leve e perfumada, para equilibrar a rodada."
           }
         ]
       },
@@ -535,6 +539,10 @@
         "titulo": "Entradas quentes",
         "itens": [
           {
+            "nome": "Creme de pinhão",
+            "desc": "(inverno) — o pinhão da serra na estação, cremoso e reconfortante, finalizado à mesa."
+          },
+          {
             "nome": "Ravióli de queijo da serra",
             "desc": "massa fresca recheada com queijo da Mantiqueira, manteiga de ervas e nozes tostadas."
           },
@@ -570,7 +578,7 @@
         "itens": [
           {
             "nome": "Seleção cenográfica da chef Fernanda",
-            "desc": "mini porções de uma seleção de sobremesas do menu da Fernanda Marton, montadas diretamente à mesa no encerramento dos cinco tempos, como espetáculo final da noite."
+            "desc": "pequenas apresentações de uma seleção de sobremesas do menu da Fernanda Marton, montadas diretamente à mesa no encerramento dos cinco tempos, como espetáculo final da noite."
           }
         ]
       }
@@ -926,6 +934,10 @@
           {
             "nome": "Velouté de cogumelos",
             "desc": "creme aveludado de cogumelos frescos com fio de azeite e crocante de pão."
+          },
+          {
+            "nome": "Creme de pinhão",
+            "desc": "(inverno) — o pinhão da serra na estação, cremoso e reconfortante, finalizado à mesa."
           }
         ]
       },
@@ -986,8 +998,8 @@
       "chopp artesanal da serra"
     ],
     "promessa": "A noite descontraída em que o chef grelha e a galera monta o próprio hambúrguer numa mesa farta de opções — sem entradas, sem etiqueta, só o lanche e a roda.",
-    "inclui": "chef no fogo e na chapa durante toda a experiência, montagem participativa guiada, mesa de coberturas e molhos autorais e sobremesa assinada pela Fernanda Marton Ateliê; deslocamento incluso em toda a Serra até ~100 km (São José dos Campos).",
-    "exclui": "na camada **Só o Serviço**, os insumos, bebidas e a logística ficam por conta do cliente — o chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.",
+    "inclui": "chef no fogo e na chapa durante toda a experiência, montagem participativa guiada e mesa de coberturas e molhos autorais; na experiência completa, também a sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso em toda a Serra até ~100 km (São José dos Campos).",
+    "exclui": "na modalidade Só o Serviço, os insumos, bebidas e a logística ficam por conta do cliente; confeitaria e sobremesas do Ateliê não estão incluídas. O chef leva a mão de obra e o toque de chef. Bebidas alcoólicas não acompanham a experiência.",
     "cardapio": [
       {
         "titulo": "Os hambúrgueres — o chef grelha",
@@ -1067,8 +1079,8 @@
       "Chope artesanal / refrigerantes em garrafa de vidro"
     ],
     "promessa": "A noite descontraída em que o chef prensa os dogões na chapa e a galera monta o seu numa mesa farta de toppings — só o lanche, a roda e o jogo.",
-    "inclui": "chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos, técnica de prensado e caramelização, e a sobremesa assinada pela Fernanda Marton Ateliê.",
-    "exclui": "na camada **Só o Serviço**, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.",
+    "inclui": "chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos e técnica de prensado e caramelização; na experiência completa, também a sobremesa assinada pela Fernanda Marton Ateliê.",
+    "exclui": "na modalidade Só o Serviço, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente; confeitaria e sobremesas do Ateliê não estão incluídas. O chef leva a mão e a técnica. Na experiência completa, curadoria, compras e execução seguem o escopo da proposta.",
     "cardapio": [
       {
         "titulo": "Os dogões — o chef prensa na chapa",
@@ -1080,6 +1092,10 @@
           {
             "nome": "Dog do campo",
             "desc": "linguiça artesanal da Mantiqueira no pão de fermentação natural, queijo da serra derretido."
+          },
+          {
+            "nome": "Dog verde",
+            "desc": "(vegetariano) — salsicha vegetal grelhada e queijo da serra; o mesmo carinho, sem carne."
           }
         ]
       },
@@ -1144,8 +1160,8 @@
       "tábua de queijos da serra"
     ],
     "promessa": "A noite em que o boteco mais querido da montanha abre dentro da sua casa de campo — uma mesa farta de petiscos saindo da cozinha sem parar, e ninguém sai da conversa.",
-    "inclui": "chef no preparo e na finalização dos petiscos quentes ao longo da noite, serviço contínuo de petiscos direto da cozinha para a mesa, e sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos).",
-    "exclui": "bebidas (por conta dos convidados), louças e utensílios de festa, e, na camada \"Só o Serviço\", a compra dos insumos e a logística — que ficam com o cliente.",
+    "inclui": "chef no preparo e na finalização dos petiscos quentes ao longo da noite e serviço contínuo de petiscos direto da cozinha para a mesa; na experiência completa, também a sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos).",
+    "exclui": "bebidas (por conta dos convidados), louças e utensílios de festa. Na modalidade Só o Serviço, a compra dos insumos e a logística ficam com o cliente; confeitaria e sobremesas do Ateliê não estão incluídas.",
     "cardapio": [
       {
         "titulo": "Mesa de petiscos do boteco — variados e em fluxo contínuo",

@@ -36,7 +36,7 @@ test('FAQ das landings mantém pergunta acessível, estado nativo e indicador de
   const xml = await sitemap.text();
   const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map(([, location]) => new URL(location).pathname)
-    .filter((pathname) => pathname !== '/');
+    .filter((pathname) => pathname !== '/' && pathname !== '/cardapios/');
   expect(paths).toHaveLength(15);
 
   for (const path of paths) {

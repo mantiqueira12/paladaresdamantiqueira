@@ -46,7 +46,7 @@ Uma experiência-degustação em cinco tempos, pensada para as noites que merece
 - **Roulade de leitoa** — leitoa enrolada e assada lentamente, pele crocante e carne macia, ao estilo porchetta com ervas da serra.
 
 ## Sobremesa — finalização à mesa  *(Doces pela Fernanda Marton Ateliê)*
-- **Seleção cenográfica da chef Fernanda** — mini porções de uma seleção de sobremesas do menu da Fernanda Marton, montadas diretamente à mesa no encerramento dos cinco tempos, como espetáculo final da noite.
+- **Seleção cenográfica da chef Fernanda** — pequenas apresentações de uma seleção de sobremesas do menu da Fernanda Marton, montadas diretamente à mesa no encerramento dos cinco tempos, como espetáculo final da noite.
 
 ## Inclui / Exclui
 - **Inclui:** curadoria do menu, compra dos insumos, execução completa, cinco tempos servidos e narrados pelo chef à mesa, sobremesa da Fernanda Marton Ateliê, deslocamento incluso em toda a Serra até ~100 km (até São José dos Campos), montagem e organização da cozinha ao fim da noite.

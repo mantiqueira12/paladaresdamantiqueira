@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderCatalogo } from './catalogo-publico.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -185,7 +186,7 @@ function jsonld(n) {
     name: 'Rafael Jacob',
     jobTitle: 'Chef Particular',
     url: `${SITE}/`,
-    image: `${SITE}/og-image.jpg`,
+    image: `${SITE}/chef-rafael.webp`,
     worksFor: { '@id': `${SITE}/#business` },
     sameAs: [IG_CHEF],
   };
@@ -569,7 +570,7 @@ ${headerHtml(n)}
             <span class="eyebrow-dark">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
             <p>Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para que a sua única tarefa seja desfrutar a companhia dos seus convidados.</p>
-            <p>É um projeto de família: enquanto comando o fogo e os cortes, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>, com sobremesas que encerram a sua experiência com perfeição.</p>
+            <p>É um projeto de família: nas experiências completas, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>. Na modalidade Só o Serviço, a contratação é de mão de obra; ingredientes e estrutura ficam com o cliente.</p>
             <p class="quote">"Minha cozinha é sobre hospitalidade."</p>
           </div>
         </div>
@@ -672,8 +673,13 @@ for (const n of landings) {
 // 404 branded (o Netlify serve dist/404.html automaticamente como página de erro)
 fs.writeFileSync(path.join(dist, '404.html'), page404());
 
+const catalogo = renderCatalogo(load('experiencias.json'), { css: CSS });
+fs.mkdirSync(path.join(dist, 'cardapios'), { recursive: true });
+fs.writeFileSync(path.join(dist, 'cardapios/index.html'), catalogo.html);
+fs.writeFileSync(path.join(dist, 'cardapios.md'), catalogo.markdown);
+
 // --- regenera o sitemap (home + todas as landings) ---
-const urls = [`${SITE}/`, ...landings.map((n) => `${SITE}/${n.slug}/`)];
+const urls = [`${SITE}/`, ...landings.map((n) => `${SITE}/${n.slug}/`), `${SITE}/cardapios/`];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
@@ -694,7 +700,7 @@ try {
 }
 const linhasCidades = cidades.map((c) => `- ${c.chip}: ${SITE}/${c.slug}/`).join('\n');
 const linhasOcasioes = [...sazonais, ...nichos].map((o) => `- ${o.chip}: ${SITE}/${o.slug}/`).join('\n');
-const extraLlms = `\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
+const extraLlms = `\n\n## Cardápios completos\n- [Fichas e cardápios](https://paladaresdamantiqueira.com.br/cardapios/): opções de cada experiência e suas modalidades.\n- [Cardápios em texto](https://paladaresdamantiqueira.com.br/cardapios.md): o mesmo conteúdo público, derivado das fichas.\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
 fs.writeFileSync(path.join(dist, 'llms.txt'), `${baseLlms}${extraLlms}`);
 // Compatibilidade com a grafia singular; mesma fonte, sem conteúdo divergente.
 fs.writeFileSync(path.join(dist, 'llm.txt'), `${baseLlms}${extraLlms}`);

@@ -217,6 +217,9 @@ export default function App() {
                 <a href="/jantar-de-reveillon-na-serra-da-mantiqueira/" className="underline underline-offset-4">Réveillon</a>{' '}
                 na casa de campo. Cardápio e disponibilidade são combinados na conversa.
               </p>
+              <p className="text-base text-brand-charcoal/85 leading-relaxed mt-5">
+                <a href="/cardapios/" className="underline underline-offset-4">Consultar os cardápios e as opções de cada experiência</a>
+              </p>
             </div>
 
             {/* Filtros por porta de ocasião — no mobile viram faixa horizontal rolável
@@ -325,7 +328,7 @@ export default function App() {
                   que a sua única tarefa seja desfrutar a companhia dos seus convidados.
                 </p>
                 <p>
-                  Este é um <strong>projeto de família</strong>: enquanto comando o fogo e os cortes, minha esposa{' '}
+                  Este é um <strong>projeto de família</strong>: nas experiências completas, minha esposa{' '}
                   <strong className="text-brand-cream">Fernanda Marton</strong> assina a confeitaria artesanal — o{' '}
                   <a
                     href="https://www.instagram.com/fernandamarton.docesmomentos/"
@@ -338,7 +341,7 @@ export default function App() {
                   —, com sobremesas exclusivas que encerram a sua experiência com perfeição.
                 </p>
                 <p className="italic border-l-2 border-brand-terracotta pl-6 text-brand-cream/90">
-                  Na sua casa, cuido do menu, do preparo e do serviço para você aproveitar a mesa com quem convidou.
+                  Nas experiências completas, cuido do menu, do preparo e do serviço para você aproveitar a mesa com quem convidou.
                 </p>
               </div>
             </div>

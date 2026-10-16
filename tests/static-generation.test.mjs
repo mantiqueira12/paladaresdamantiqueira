@@ -15,7 +15,8 @@ function fixture() {
   fs.mkdirSync(path.join(root, 'public'), { recursive: true });
   fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
   fs.copyFileSync(path.join(projectRoot, 'scripts', 'gen-landings.mjs'), path.join(root, 'scripts', 'gen-landings.mjs'));
-  for (const name of ['cidades.json', 'sazonais.json', 'nichos.json', 'faq.json', 'tokens.json']) {
+  fs.copyFileSync(path.join(projectRoot, 'scripts', 'catalogo-publico.mjs'), path.join(root, 'scripts', 'catalogo-publico.mjs'));
+  for (const name of ['cidades.json', 'sazonais.json', 'nichos.json', 'faq.json', 'tokens.json', 'experiencias.json']) {
     fs.copyFileSync(path.join(projectRoot, 'src', 'data', name), path.join(root, 'src', 'data', name));
   }
   fs.copyFileSync(path.join(projectRoot, 'public', 'llms.txt'), path.join(root, 'public', 'llms.txt'));
@@ -152,6 +153,9 @@ test('landings geradas oferecem navegação por teclado, movimento reduzido e an
     assert.match(notFoundHtml, /<main id="conteudo" tabindex="-1">/);
     assert.match(html, /:focus-visible/);
     assert.match(html, /prefers-reduced-motion:\s*reduce/);
+    const person = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1])).find((schema) => schema['@type'] === 'Person');
+    assert.equal(person.image, 'https://paladaresdamantiqueira.com.br/chef-rafael.webp');
     assert.doesNotMatch(html, /<script async src="https:\/\/www\.googletagmanager\.com/);
 
     const analyticsScript = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)]

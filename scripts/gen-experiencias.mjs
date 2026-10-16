@@ -53,8 +53,9 @@ function limparTitulo(t) {
 /** Extrai itens "- **Nome** — descrição" de um bloco. */
 function parseItens(bloco) {
   const itens = [];
-  for (const m of bloco.matchAll(/^-\s+\*\*(.+?)\*\*\s*[—-]\s*(.+)$/gm)) {
-    itens.push({ nome: m[1].trim(), desc: m[2].trim() });
+  for (const m of bloco.matchAll(/^-\s+\*\*(.+?)\*\*\s*(?:\*(\([^*\n]+\))\*\s*)?[—-]\s*(.+)$/gm)) {
+    const descricao = m[3].trim();
+    itens.push({ nome: m[1].trim(), desc: m[2] ? `${m[2].trim()} — ${descricao}` : descricao });
   }
   return itens;
 }
