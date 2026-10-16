@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**Bloco 05 pronto local — 15/10:** contexto de cidade/ocasião preservado no caminho landing→catálogo→pedido, direto e viahome. Quatro falhas reproduzidas antes da correção; escolha explícita mantida e query livre descartada. Build/verify/check aprovados:49Node+41Vitest; E2E completo107aprovados/1ignorado,semretry,com4workers. Revisão independente sem bloqueio. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-05-contexto/README.md). Sem push/deploy antes18/10; próxima ação do lote: revisão editorial e gates externos no dia18.
+
+
 **Bloco 03 — coerência, 15/10:** dois agentes não encontraram contradições factuais de identidade/escopo. FAQ complementada com Monte Verde e Gonçalves; HTML/schema coerentes em16páginas comFAQ. Build/verify aprovados e4E2E pertinentes passaram. Bio preservada para escolha. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-03-coerencia/README.md). Sem push/deploy antes18/10. Próxima ação: folha curta de revisão editorial do lote.
 
 

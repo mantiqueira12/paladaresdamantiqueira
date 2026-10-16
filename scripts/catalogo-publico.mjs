@@ -1,8 +1,29 @@
 const plain = (value) => String(value ?? '').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1');
 const esc = (value) => plain(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/** Recupera apenas contexto público definido no build, nunca texto livre da query. */
+export function contextoDoCatalogo(pagina, contextos) {
+  const contexto = contextos.find((item) => item.pagina === pagina);
+  const params = new URLSearchParams();
+  if (!contexto) return params;
+  for (const key of ['pagina', 'cidade', 'ocasiao']) {
+    if (typeof contexto[key] === 'string' && contexto[key]) params.set(key, contexto[key]);
+  }
+  return params;
+}
+
 /** Projeção pública explícita: não serializa preços, notas ou metadados internos. */
-export function renderCatalogo(experiencias, { css = '' } = {}) {
+export function renderCatalogo(experiencias, { css = '', contextos = [] } = {}) {
+  const contextosPublicos = contextos.map(({ pagina, cidade, ocasiao }) => ({ pagina, cidade, ocasiao }));
+  const scriptContexto = `(() => {
+    const params = (${contextoDoCatalogo.toString()})(new URLSearchParams(location.search).get('pagina'), ${JSON.stringify(contextosPublicos).replace(/</g, '\\u003c')});
+    if (!params.size) return;
+    for (const link of document.querySelectorAll('a[data-contexto-catalogo]')) {
+      const url = new URL(link.getAttribute('href'), location.origin);
+      for (const [key, value] of params) url.searchParams.set(key, value);
+      link.setAttribute('href', url.pathname + url.search + url.hash);
+    }
+  })();`;
   const seen = new Set();
   const fichas = experiencias.filter((item) => item.ativo !== false).map((item) => {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.slug)) throw new Error('slug de catálogo inválido');
@@ -26,7 +47,7 @@ export function renderCatalogo(experiencias, { css = '' } = {}) {
   const sections = fichas.map((ficha) => `<section id="${ficha.slug}" class="catalog-section">
     <h2>${esc(ficha.nome)}</h2><p>${esc(ficha.promessa)}</p><p class="catalog-mode">${esc(ficha.modalidades)}</p>
     ${ficha.secoes.map((section) => `<h3>${esc(section.titulo)}</h3><ul>${section.itens.map((dish) => `<li><strong>${esc(dish.nome)}</strong>${dish.desc ? ` — ${esc(dish.desc)}` : ''}</li>`).join('')}</ul>`).join('')}
-    <p><a href="/?${esc(new URLSearchParams({ pedido: '1', experiencia: ficha.nome }).toString())}">Conversar sobre ${esc(ficha.nome)}</a> · <a href="#indice">Voltar ao índice</a></p>
+    <p><a data-contexto-catalogo href="/?${esc(new URLSearchParams({ pedido: '1', experiencia: ficha.nome }).toString())}">Conversar sobre ${esc(ficha.nome)}</a> · <a href="#indice">Voltar ao índice</a></p>
   </section>`).join('\n');
   const markdownSections = fichas.map((ficha) => {
     const menus = ficha.secoes.map((section) => {
@@ -68,11 +89,11 @@ export function renderCatalogo(experiencias, { css = '' } = {}) {
   @media(max-width:600px){#indice ul{columns:1}.catalog-wrap h1{font-size:2.3rem}}
   </style></head><body><a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <main id="conteudo" tabindex="-1" class="catalog-wrap">
-  <nav class="catalog-nav" aria-label="Navegação principal"><a href="/">Paladares da Mantiqueira</a><a href="/#experiencias">Explorar as experiências</a></nav>
+  <nav class="catalog-nav" aria-label="Navegação principal"><a href="/">Paladares da Mantiqueira</a><a data-contexto-catalogo href="/#experiencias">Explorar as experiências</a></nav>
   <h1>Cardápios para celebrar na Mantiqueira</h1><p>${intro}</p><details class="catalog-scope"><summary>O que muda entre as modalidades</summary><p>${escopo}</p></details>
   <nav id="indice" aria-label="Índice dos cardápios"><h2>Encontre uma experiência</h2><ul>${fichas.map((ficha) => `<li><a href="#${ficha.slug}">${esc(ficha.nome)}</a></li>`).join('')}</ul></nav>
   ${sections}
   <footer><p>Converse sobre seu encontro: <a href="https://wa.me/5512997710040">WhatsApp</a> · <a href="tel:+5512997710040">+55 12 99771-0040</a></p><p><a href="/jantar-de-natal-na-serra-da-mantiqueira/">Natal</a> · <a href="/jantar-de-reveillon-na-serra-da-mantiqueira/">Réveillon</a></p></footer>
-  </main></body></html>`;
+  </main><script>${scriptContexto}</script></body></html>`;
   return { html, markdown };
 }

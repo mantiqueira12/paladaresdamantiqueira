@@ -456,7 +456,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
           <div class="fcol fbrand">
             <b>Paladares da Mantiqueira</b>
             <p>Concierge Gastronômico e Personal Chef na Serra da Mantiqueira. Experiências de mesa para os seus momentos de celebração — em Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e toda a serra até São José dos Campos.</p>
-            <p><a href="/cardapios/">Ver cardápios</a></p>
+            <p><a href="${esc(n.slug === '404' ? '/cardapios/' : `/cardapios/?${new URLSearchParams({ pagina: n.slug })}`)}">Ver cardápios</a></p>
           </div>
           <div class="fcol">
             <h3>Área de Atendimento</h3>
@@ -677,7 +677,10 @@ for (const n of landings) {
 // 404 branded (o Netlify serve dist/404.html automaticamente como página de erro)
 fs.writeFileSync(path.join(dist, '404.html'), page404());
 
-const catalogo = renderCatalogo(load('experiencias.json'), { css: CSS });
+const catalogo = renderCatalogo(load('experiencias.json'), {
+  css: CSS,
+  contextos: landings.map((n) => Object.fromEntries(contextoLanding(n))),
+});
 fs.mkdirSync(path.join(dist, 'cardapios'), { recursive: true });
 fs.writeFileSync(path.join(dist, 'cardapios/index.html'), catalogo.html);
 fs.writeFileSync(path.join(dist, 'cardapios.md'), catalogo.markdown);

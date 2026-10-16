@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { renderCatalogo } from '../scripts/catalogo-publico.mjs';
+import { contextoDoCatalogo, renderCatalogo } from '../scripts/catalogo-publico.mjs';
 
 const ficha = {
   slug: 'menu-real', nome: 'Menu da casa', camada: 'ambas', promessa: 'Uma mesa para reunir.',
@@ -30,4 +30,16 @@ test('catálogo gera HTML e texto da mesma ficha, sem campos internos e com esca
 test('catálogo rejeita âncoras inseguras e duplicadas', () => {
   assert.throws(() => renderCatalogo([{ ...ficha, slug: '../escape' }]), /slug/i);
   assert.throws(() => renderCatalogo([ficha, ficha]), /duplicado/i);
+});
+
+test('contexto do catálogo projeta só campos públicos da página conhecida', () => {
+  const contextos = [{ pagina: 'pagina-conhecida', cidade: 'Campos do Jordão', ocasiao: 'Natal na serra', experiencia: 'Escolha anterior', nome: 'TEXTO_PRIVADO' }];
+  assert.deepEqual(Object.fromEntries(contextoDoCatalogo('pagina-conhecida', contextos)), {
+    pagina: 'pagina-conhecida', cidade: 'Campos do Jordão', ocasiao: 'Natal na serra',
+  });
+  assert.equal(contextoDoCatalogo('pagina-adulterada', contextos).toString(), '');
+  assert.equal(contextoDoCatalogo(null, contextos).toString(), '');
+  const html = renderCatalogo([ficha], { contextos }).html;
+  assert.ok(!html.includes('TEXTO_PRIVADO'));
+  assert.ok(!html.includes('Escolha anterior'));
 });

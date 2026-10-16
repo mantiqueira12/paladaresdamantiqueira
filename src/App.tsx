@@ -218,7 +218,7 @@ export default function App() {
                 na casa de campo. Cardápio e disponibilidade são combinados na conversa.
               </p>
               <p className="text-base text-brand-charcoal/85 leading-relaxed mt-5">
-                <a href="/cardapios/" className="underline underline-offset-4">Consultar os cardápios e as opções de cada experiência</a>
+                <a href={pedidoPagina ? `/cardapios/?${new URLSearchParams({ pagina: pedidoPagina })}` : '/cardapios/'} className="underline underline-offset-4">Consultar os cardápios e as opções de cada experiência</a>
               </p>
             </div>
 
