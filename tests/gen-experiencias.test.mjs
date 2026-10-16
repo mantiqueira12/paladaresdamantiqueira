@@ -15,15 +15,21 @@ test('geração preserva item com anotação sazonal em itálico antes do traves
       path.join(root, 'scripts', 'gen-experiencias.mjs'),
     );
     fs.writeFileSync(path.join(root, 'docs', 'cardapios', 'harmonizacao.md'), `---
-nome: "Harmonização de teste"
+nome: "**Harmonização** de teste"
 ativo: true
 ordem: 1
 ---
 # Harmonização de teste
 
+**Promessa:** Uma *mesa* com __cuidado__ e asterisco solto * preservado.
+
 ## Entrada quente
 - **Creme de pinhão** *(inverno)* — o pinhão da serra na estação.
-- **Velouté de cogumelos** — creme de cogumelos frescos.
+- **Velouté de cogumelos** — creme de **cogumelos** frescos, _da serra_; lote_interno e 2 * 3.
+
+## Inclui / exclui
+**Inclui:** confeitaria por **Doces pela Fernanda Marton Ateliê**.
+**Exclui:** bebidas e *extras* sob consulta.
 `);
     const result = spawnSync(process.execPath, [path.join(root, 'scripts', 'gen-experiencias.mjs')], {
       cwd: root,
@@ -31,9 +37,13 @@ ordem: 1
     });
     assert.equal(result.status, 0, result.stderr);
     const values = JSON.parse(fs.readFileSync(path.join(root, 'src', 'data', 'experiencias.json'), 'utf8'));
+    assert.equal(values[0].nome, 'Harmonização de teste');
+    assert.equal(values[0].promessa, 'Uma mesa com cuidado e asterisco solto * preservado.');
+    assert.equal(values[0].inclui, 'confeitaria por Doces pela Fernanda Marton Ateliê.');
+    assert.equal(values[0].exclui, 'bebidas e extras sob consulta.');
     assert.deepEqual(values[0].cardapio[0].itens, [
       { nome: 'Creme de pinhão', desc: '(inverno) — o pinhão da serra na estação.' },
-      { nome: 'Velouté de cogumelos', desc: 'creme de cogumelos frescos.' },
+      { nome: 'Velouté de cogumelos', desc: 'creme de cogumelos frescos, da serra; lote_interno e 2 * 3.' },
     ]);
   } finally {
     // Only remove the unique fixture directory created by this test.

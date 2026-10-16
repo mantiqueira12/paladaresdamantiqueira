@@ -165,7 +165,7 @@ function jsonld(n) {
     name: 'Paladares da Mantiqueira',
     alternateName: 'Chef Rafael Jacob - Chef Particular',
     url: `${SITE}/`,
-    image: `${SITE}/og-image.jpg`,
+    image: `${SITE}/portfolio/origens-da-serra/origens-da-serra-tabua-queijos.webp`,
     telephone: TEL,
     areaServed: [
       'Campos do Jordão',
@@ -408,13 +408,16 @@ function head(n, { title, description, url, canonical }) {
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(stripTags(description))}" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${SITE}/og-image.jpg" />
+    <meta property="og:image" content="${SITE}/social/paladares-mantiqueira.jpg" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(title)}" />
     <meta name="twitter:description" content="${esc(stripTags(description))}" />
-    <meta name="twitter:image" content="${SITE}/og-image.jpg" />
+    <meta name="twitter:image" content="${SITE}/social/paladares-mantiqueira.jpg" />
+    <meta name="twitter:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra." />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
     <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high" />
@@ -453,6 +456,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
           <div class="fcol fbrand">
             <b>Paladares da Mantiqueira</b>
             <p>Concierge Gastronômico e Personal Chef na Serra da Mantiqueira. Experiências de mesa para os seus momentos de celebração — em Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e toda a serra até São José dos Campos.</p>
+            <p><a href="/cardapios/">Ver cardápios</a></p>
           </div>
           <div class="fcol">
             <h3>Área de Atendimento</h3>
@@ -473,7 +477,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
               <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
               <a class="icon-btn" href="${esc(pedidoLink(n, 'footer'))}" aria-label="Iniciar pedido" ${trackFormulario(n, 'footer')}>${ICO.message}</a>
             </div>
-            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.72)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
+            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.72)"><a href="tel:${TEL}">+55 12 99771-0040</a> · @paladaresdamantiqueira</p>
           </div>
         </div>
         <div class="fbar">

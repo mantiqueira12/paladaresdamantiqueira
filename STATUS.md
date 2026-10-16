@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**Bloco02 pronto local —15/10:** capa Paladares com foto original deOrigens e metadados das17URLs; catálogo e telefone no rodapé das15landings;3campos deênfase limpos. Build/verify/check aprovados:48Node+41Vitest. E2E final97aprovados/1ignorado com4workers, após falha inicial de amostragem dofade registrada. Revisão independente sembloqueio. Sem push/merge/deploy antes18/10. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-02-identidade/README.md). Próxima frente: coerência factual entre apresentações públicas, sem substituir bio pendente.
+
+
 **15/10 — bloco de conteúdo consultável pronto local:** página única /cardapios/ e /cardapios.md derivadas das fichas e ligadas à home/LLM; parser recupera itens com anotação sazonal; retrato Person usa a imagem designada do chef; escopo da confeitaria/curadoria qualificado por modalidade, incluindo três fichas e modal.14 experiências,155 ocorrências de itens (não155pratos),15 landings+catálogo+home,17 URLs. Build/verificador/check:48 Node+41 Vitest, E2E95 aprovados/1 ignorado, sem retry. Sem push/merge/deploy antes de18/10. Biografia e clássicos anuais permanecem para escolha; não houve revisão geral de oferta.
 
 

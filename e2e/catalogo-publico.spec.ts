@@ -1,5 +1,21 @@
 import { expect, test } from '@playwright/test';
 
+test('landing oferece ligação e consulta direta do catálogo no rodapé', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+  const page = await context.newPage();
+  await page.goto(`${baseURL}/jantar-de-natal-na-serra-da-mantiqueira/`);
+  const phone = page.locator('footer').getByRole('link', { name: '+55 12 99771-0040', exact: true });
+  await phone.scrollIntoViewIfNeeded();
+  await expect(phone).toBeVisible();
+  await expect(phone).toHaveAttribute('href', 'tel:+5512997710040');
+  await phone.focus();
+  await expect(phone).toBeFocused();
+  await page.locator('footer').getByRole('link', { name: 'Ver cardápios', exact: true }).click();
+  await expect(page).toHaveURL(/\/cardapios\/$/);
+  await expect(page.locator('.catalog-section')).toHaveCount(14);
+  await context.close();
+});
+
 test('cardápios são navegáveis e completos com JavaScript desligado', async ({ browser, baseURL }) => {
   if (!baseURL) throw new Error('baseURL deve estar configurada para o teste');
   const context = await browser.newContext({ javaScriptEnabled: false });

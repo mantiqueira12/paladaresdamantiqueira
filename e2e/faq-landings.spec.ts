@@ -62,7 +62,7 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
   const linkInicial = page.locator('footer .fbar a').first();
   await linkInicial.focus();
 
-  for (let step = 1; step <= 14; step += 1) {
+  for (let step = 1; step <= 15; step += 1) {
     await page.keyboard.press('Shift+Tab');
     await page.waitForFunction(() => {
       const active = document.activeElement;
@@ -79,9 +79,9 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
       return state.__faqFocusStable >= 4;
     });
 
-    // Natal adiciona um link antes da lista de ocasiões no percurso reverso.
-    if (step === 13 || step === 14) {
-      const esperado = step === 13 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
+    // O telefone clicável e Natal precedem a lista de cidades no percurso reverso.
+    if (step === 14 || step === 15) {
+      const esperado = step === 14 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
       const resultado = await page.evaluate(() => {
         const active = document.activeElement as HTMLElement;
         const rect = active.getBoundingClientRect();

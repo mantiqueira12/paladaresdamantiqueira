@@ -50,7 +50,7 @@
         "itens": [
           {
             "nome": "Truta ao molho da estação",
-            "desc": "truta da Mantiqueira selada, com um molho fresco escolhido junto com você no dia: alcaparras, camarões, *beurre meunière* e outros clássicos que conversam com o peixe. Acompanha mix de legumes da serra."
+            "desc": "truta da Mantiqueira selada, com um molho fresco escolhido junto com você no dia: alcaparras, camarões, beurre meunière e outros clássicos que conversam com o peixe. Acompanha mix de legumes da serra."
           },
           {
             "nome": "Fraldinha com purê e cogumelos",
@@ -707,7 +707,7 @@
       "Hora extra de mesa posta"
     ],
     "promessa": "Uma tarde inteira reunida à mesa, num café colonial farto de pães, bolos, tortas e doces — onde a confeitaria de Fernanda Marton é a estrela e à casa só cabe receber.",
-    "inclui": "curadoria, compra dos insumos e execução completa; toda a confeitaria assinada por **Doces pela Fernanda Marton Ateliê**; café especial e seleção de chás; montagem da mesa posta no estilo café colonial; deslocamento incluso por toda a Serra até ~100 km (São José dos Campos).",
+    "inclui": "curadoria, compra dos insumos e execução completa; toda a confeitaria assinada por Doces pela Fernanda Marton Ateliê; café especial e seleção de chás; montagem da mesa posta no estilo café colonial; deslocamento incluso por toda a Serra até ~100 km (São José dos Campos).",
     "exclui": "aluguel de mobiliário ou louça extra além do combinado; bebidas alcoólicas; estrutura de tenda/aquecimento do espaço.",
     "cardapio": [
       {
@@ -894,7 +894,7 @@
           },
           {
             "nome": "O chef harmoniza",
-            "desc": "montamos a carta à sua escolha: vinhos da **Mantiqueira**, do **Novo Mundo** ou do **Velho Mundo**. A disponibilidade depende dos fornecedores e da safra, por isso cada carta é criada sob demanda."
+            "desc": "montamos a carta à sua escolha: vinhos da Mantiqueira, do Novo Mundo ou do Velho Mundo. A disponibilidade depende dos fornecedores e da safra, por isso cada carta é criada sob demanda."
           }
         ]
       },

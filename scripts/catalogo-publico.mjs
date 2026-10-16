@@ -41,6 +41,18 @@ export function renderCatalogo(experiencias, { css = '' } = {}) {
   <title>Cardápios e experiências | Paladares da Mantiqueira</title>
   <meta name="description" content="Consulte os cardápios da Paladares da Mantiqueira: pratos, experiências e modalidades para celebrar em casa, com o chef Rafael Jacob.">
   <link rel="canonical" href="https://paladaresdamantiqueira.com.br/cardapios/">
+  <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Paladares da Mantiqueira">
+  <meta property="og:title" content="Cardápios e experiências | Paladares da Mantiqueira">
+  <meta property="og:description" content="Consulte pratos, experiências e modalidades para celebrar em casa, com o chef Rafael Jacob.">
+  <meta property="og:url" content="https://paladaresdamantiqueira.com.br/cardapios/">
+  <meta property="og:image" content="https://paladaresdamantiqueira.com.br/social/paladares-mantiqueira.jpg">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Cardápios e experiências | Paladares da Mantiqueira">
+  <meta name="twitter:description" content="Consulte pratos, experiências e modalidades para celebrar em casa, com o chef Rafael Jacob.">
+  <meta name="twitter:image" content="https://paladaresdamantiqueira.com.br/social/paladares-mantiqueira.jpg">
+  <meta name="twitter:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.">
   <link rel="alternate" type="text/markdown" href="/cardapios.md"><link rel="describedby" href="/llms.txt">
   <script type="application/ld+json">${schema}</script>
   <style>${css}
