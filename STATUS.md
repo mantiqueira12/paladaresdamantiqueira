@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**Bloco 03 — coerência, 15/10:** dois agentes não encontraram contradições factuais de identidade/escopo. FAQ complementada com Monte Verde e Gonçalves; HTML/schema coerentes em16páginas comFAQ. Build/verify aprovados e4E2E pertinentes passaram. Bio preservada para escolha. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-03-coerencia/README.md). Sem push/deploy antes18/10. Próxima ação: folha curta de revisão editorial do lote.
+
+
 **Bloco02 pronto local —15/10:** capa Paladares com foto original deOrigens e metadados das17URLs; catálogo e telefone no rodapé das15landings;3campos deênfase limpos. Build/verify/check aprovados:48Node+41Vitest. E2E final97aprovados/1ignorado com4workers, após falha inicial de amostragem dofade registrada. Revisão independente sembloqueio. Sem push/merge/deploy antes18/10. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-02-identidade/README.md). Próxima frente: coerência factual entre apresentações públicas, sem substituir bio pendente.
 
 
