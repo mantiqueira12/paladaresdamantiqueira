@@ -573,7 +573,7 @@ ${headerHtml(n)}
           <div>
             <span class="eyebrow-dark">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
-            <p>Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para que a sua única tarefa seja desfrutar a companhia dos seus convidados.</p>
+            <p>Sou <strong>Rafael Jacob</strong>, chef da Paladares da Mantiqueira. Estudei gastronomia no Senac Campos do Jordão em 2010 e trabalho na área desde então. Hoje preparo experiências à mesa em casas de campo e hospedagens da Serra da Mantiqueira. Nas experiências completas, cuido do cardápio, das compras, do preparo e do serviço. Minha esposa, Fernanda Marton, assina a confeitaria pelo Fernanda Marton Ateliê.</p>
             <p>É um projeto de família: nas experiências completas, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>. Na modalidade Só o Serviço, a contratação é de mão de obra; ingredientes e estrutura ficam com o cliente.</p>
             <p class="quote">"Minha cozinha é sobre hospitalidade."</p>
           </div>

@@ -323,13 +323,13 @@ export default function App() {
               <SectionHeading className="text-brand-cream">A Arte de Receber Bem</SectionHeading>
               <div className="space-y-6 text-brand-cream/85 font-light leading-relaxed text-lg">
                 <p>
-                  Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia e passagens por
-                  restaurantes renomados, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para
-                  que a sua única tarefa seja desfrutar a companhia dos seus convidados.
+                  Sou <strong>Rafael Jacob</strong>, chef da Paladares da Mantiqueira. Estudei gastronomia no Senac
+                  Campos do Jordão em 2010 e trabalho na área desde então. Hoje preparo experiências à mesa em casas
+                  de campo e hospedagens da Serra da Mantiqueira. Nas experiências completas, cuido do cardápio,
+                  das compras, do preparo e do serviço.
                 </p>
                 <p>
-                  Este é um <strong>projeto de família</strong>: nas experiências completas, minha esposa{' '}
-                  <strong className="text-brand-cream">Fernanda Marton</strong> assina a confeitaria artesanal — o{' '}
+                  Minha esposa, <strong className="text-brand-cream">Fernanda Marton</strong>, assina a confeitaria pelo{' '}
                   <a
                     href="https://www.instagram.com/fernandamarton.docesmomentos/"
                     target="_blank"
@@ -337,8 +337,7 @@ export default function App() {
                     className="text-brand-cream underline decoration-dotted underline-offset-2 hover:text-brand-terracotta transition-colors"
                   >
                     <strong>Fernanda Marton Ateliê</strong>
-                  </a>{' '}
-                  —, com sobremesas exclusivas que encerram a sua experiência com perfeição.
+                  </a>.
                 </p>
                 <p className="italic border-l-2 border-brand-terracotta pl-6 text-brand-cream/90">
                   Nas experiências completas, cuido do menu, do preparo e do serviço para você aproveitar a mesa com quem convidou.
