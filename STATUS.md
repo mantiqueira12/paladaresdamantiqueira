@@ -1,5 +1,8 @@
 # STATUS — Estado Vivo do Projeto
 
+**20/10 — lote em preparação para PR, Issue #37:** fetch confirma main3293346; produção ainda sem catálogo/Natal. Créditos Netlify renovados e conferidos. Novo build/verify/check aprovados:49Node+41Vitest; E2E107aprovados/1ignorado com4workers,semretry. Revisão independente do diff sem bloqueantes. Lote34arquivos preserva14experiências/17URLs. Push/PR de revisão; merge e produção ainda dependem da autorização específica. Bio permanece sem substituição e clássicos são sugestões. Refs #37.
+
+
 **Bloco 05 pronto local — 15/10:** contexto de cidade/ocasião preservado no caminho landing→catálogo→pedido, direto e viahome. Quatro falhas reproduzidas antes da correção; escolha explícita mantida e query livre descartada. Build/verify/check aprovados:49Node+41Vitest; E2E completo107aprovados/1ignorado,semretry,com4workers. Revisão independente sem bloqueio. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-05-contexto/README.md). Sem push/deploy antes18/10; próxima ação do lote: revisão editorial e gates externos no dia18.
 
 
