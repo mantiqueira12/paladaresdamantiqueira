@@ -81,7 +81,9 @@
     "paragrafos": [
       "Cada vez mais casais escolhem um <strong>casamento íntimo</strong> ou <strong>mini wedding</strong> na Serra da Mantiqueira, longe dos grandes salões. O <strong>Paladares da Mantiqueira</strong> leva o <strong>chef particular</strong> até a casa de campo ou a pousada da celebração para transformar o dia em uma experiência de alta gastronomia — com uma intimidade que nenhum salão oferece.",
       "O menu é desenhado a quatro mãos com vocês, pensado para a emoção da data, e o bolo e os doces de celebração são assinados pela <strong>Fernanda Marton Ateliê</strong>. De um elopement a dois a uma recepção com os convidados mais próximos, eu cuido da curadoria, dos insumos, do preparo e do serviço, de forma discreta.",
-      "Atendo toda a Serra da Mantiqueira — Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e região — sem taxa de deslocamento (até cerca de 100 km). Por serem datas únicas, vale alinhar a sua com antecedência."
+      "Atendo toda a Serra da Mantiqueira — Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e região — sem taxa de deslocamento (até cerca de 100 km). Por serem datas únicas, vale alinhar a sua com antecedência.",
+      "Para um casamento íntimo ou mini-wedding em casa de campo ou pousada na Mantiqueira, conhecer o lugar faz parte do planejamento gastronômico. Eu avalio a cozinha por perguntas, por um vídeo ou por uma visita técnica, conforme o caso. A conferência passa pelo básico, como forno, fogão e panelas, para entender o que estará disponível e quais complementos preciso levar. O procedimento vale também para os outros tipos de imóvel atendidos; uma celebração de casamento não elimina a necessidade de avaliar a estrutura real. O casal pode apresentar a ocasião, a estimativa de convidados e a ideia de menu, e a proposta reúne essas informações com o local escolhido. Não presumo equipe, capacidade máxima ou condições de montagem somente por se tratar de uma pousada. O escopo gastronômico precisa ser combinado para aquela celebração antes de virar um compromisso de atendimento.",
+      "O início do serviço da refeição e o tempo de preparo devem acompanhar o encontro que estamos organizando. Em geral, minha chegada acontece cerca de uma hora antes de iniciar o serviço, mas essa antecedência varia; não é um horário fixo para todo casamento ou mini-wedding. A duração do atendimento também deve ser alinhada para a experiência escolhida. No pedido, informe a data desejada, o horário e o número aproximado de convidados, quando já estiverem definidos. Você pode escolher um menu do catálogo ou contar o que imagina para a mesa do casal. A mensagem é preparada pelo site para revisão e envio no WhatsApp. Na conversa, confirmamos disponibilidade e elaboramos o orçamento. Nas experiências completas, cuido da curadoria, da compra dos ingredientes, do preparo e do serviço, com sobremesa assinada pela Fernanda Marton Ateliê. A reserva depende da confirmação da data e do sinal combinado, e o valor é apresentado na proposta sob medida."
     ],
     "experienciaTitulo": "Um casamento à altura da data",
     "listaTitulo": "Celebrações que fazemos",
@@ -95,7 +97,17 @@
     "ctaTitulo": "Vamos planejar o seu casamento na serra?",
     "serviceName": "Chef para casamento e mini wedding na Serra da Mantiqueira",
     "breadcrumb": "Casamento e mini wedding",
-    "chip": "Casamento e mini wedding"
+    "chip": "Casamento e mini wedding",
+    "faq": [
+      {
+        "pergunta": "A cozinha da pousada precisa ser avaliada antes do mini-wedding?",
+        "resposta": "Sim. Confirmo a infraestrutura por perguntas, vídeo ou visita técnica, conforme o caso. Preciso conhecer o básico disponível, como forno, fogão e panelas, para avaliar o preparo e os complementos que vou levar. O menu e o atendimento são combinados para o local escolhido; o nome pousada, por si só, não confirma a estrutura necessária para a celebração."
+      },
+      {
+        "pergunta": "Existe um tempo fixo de chegada e atendimento para casamento íntimo?",
+        "resposta": "Não. Em geral, chego cerca de uma hora antes de iniciar o serviço, mas esse tempo varia conforme a operação. A antecedência e a duração do atendimento devem ser combinadas para o menu e a celebração. Informe no pedido o horário que já tiver definido; a proposta será alinhada à refeição que vamos preparar e servir no local."
+      }
+    ]
   },
   {
     "slug": "chef-para-aniversario-na-serra-da-mantiqueira",

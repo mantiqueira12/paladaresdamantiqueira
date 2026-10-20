@@ -15,6 +15,13 @@ const OUT = join(ROOT, 'src', 'data', 'experiencias.json');
 
 const SECOES_NAO_CARDAPIO = ['inclui / exclui', 'extras recomendados', 'notas'];
 
+/** Campos exibidos como texto: remove só pares de ênfase, sem consumir sinais soltos. */
+function textoSimples(texto) {
+  return texto
+    .replace(/(\*\*|__)(?=\S)(.+?\S|\S)\1/g, '$2')
+    .replace(/(?<![\p{L}\p{N}_])([*_])(?=\S)([^*_]*?\S)\1(?![\p{L}\p{N}_])/gu, '$2');
+}
+
 /** Parser de frontmatter simples (valores escalares, arrays inline JSON). */
 function parseFrontmatter(yaml) {
   const out = {};
@@ -44,17 +51,18 @@ function parseFrontmatter(yaml) {
 
 /** Limpa o título de um tempo do cardápio. */
 function limparTitulo(t) {
-  return t
+  return textoSimples(t
     .replace(/\s*\*\(.*?\)\*\s*$/, '') // remove "*(Doces ...)*"
     .replace(/\s*[—-]\s*escolha\s*\d+\s*$/i, '') // remove "— escolha 1"
-    .trim();
+    .trim());
 }
 
 /** Extrai itens "- **Nome** — descrição" de um bloco. */
 function parseItens(bloco) {
   const itens = [];
-  for (const m of bloco.matchAll(/^-\s+\*\*(.+?)\*\*\s*[—-]\s*(.+)$/gm)) {
-    itens.push({ nome: m[1].trim(), desc: m[2].trim() });
+  for (const m of bloco.matchAll(/^-\s+\*\*(.+?)\*\*\s*(?:\*(\([^*\n]+\))\*\s*)?[—-]\s*(.+)$/gm)) {
+    const descricao = textoSimples(m[3].trim());
+    itens.push({ nome: textoSimples(m[1].trim()), desc: m[2] ? `${m[2].trim()} — ${descricao}` : descricao });
   }
   return itens;
 }
@@ -88,7 +96,7 @@ function parseFicha(slug, src) {
 
   return {
     slug,
-    nome: meta.nome,
+    nome: textoSimples(meta.nome),
     linha: meta.linha,
     ocasioes: meta.ocasioes || [],
     pessoasMin: meta.pessoas_min ?? null,
@@ -102,9 +110,9 @@ function parseFicha(slug, src) {
     sobremesasPor: meta.sobremesas_por ?? null,
     dieteticas: meta.dieteticas || [],
     extrasRecomendados: meta.extras_recomendados || [],
-    promessa,
-    inclui,
-    exclui,
+    promessa: textoSimples(promessa),
+    inclui: textoSimples(inclui),
+    exclui: textoSimples(exclui),
     cardapio,
   };
 }

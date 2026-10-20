@@ -85,9 +85,11 @@ const OCASIOES = new Set([
   'Reunião de família',
   'Confraternização',
   'Réveillon na serra',
+  'Natal na serra',
   'Outra ocasião',
 ]);
 const PAGINAS = new Set([
+  'jantar-de-natal-na-serra-da-mantiqueira',
   'chef-particular-em-campos-do-jordao',
   'chef-particular-em-santo-antonio-do-pinhal',
   'chef-particular-em-sao-bento-do-sapucai',

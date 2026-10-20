@@ -13,9 +13,10 @@ const projectRoot = path.resolve(scriptDir, '..');
 /**
  * Manifesto das rotas aprovadas. É o oráculo do verificador e NÃO pode ser
  * derivado de src/data/*.json — são esses arquivos que estão sendo auditados.
- * 14 landings + home = 15 URLs. Alterar esta lista é decisão de negócio.
+ * 15 landings + home = 16 URLs, incluindo Natal autorizado em 15/10/2026.
  */
 const APPROVED_SLUGS = Object.freeze([
+  'jantar-de-natal-na-serra-da-mantiqueira',
   'chef-particular-em-campos-do-jordao',
   'chef-particular-em-santo-antonio-do-pinhal',
   'chef-particular-em-sao-bento-do-sapucai',
@@ -139,6 +140,7 @@ export function verifyBuild({
   dist = path.join(projectRoot, 'dist'),
   approvedSlugs = APPROVED_SLUGS,
   sourceSlugs = sourceSlugsFromData(),
+  staticSlugs = ['cardapios'],
 } = {}) {
   const errors = [];
   const approved = [...approvedSlugs];
@@ -157,7 +159,7 @@ export function verifyBuild({
 
   const pages = [
     { file: path.join(dist, 'index.html'), canonical: `${SITE}/`, label: 'home' },
-    ...approved.map((slug) => ({
+    ...[...approved, ...staticSlugs].map((slug) => ({
       file: path.join(dist, slug, 'index.html'),
       canonical: `${SITE}/${slug}/`,
       label: slug,
@@ -196,7 +198,7 @@ export function verifyBuild({
   } else {
     const sitemap = fs.readFileSync(sitemapPath, 'utf8');
     const actual = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-    const expected = [`${SITE}/`, ...approved.map((slug) => `${SITE}/${slug}/`)];
+    const expected = [`${SITE}/`, ...[...approved, ...staticSlugs].map((slug) => `${SITE}/${slug}/`)];
     if (actual.length !== expected.length || new Set(actual).size !== actual.length) {
       errors.push(`sitemap: esperado ${expected.length} URLs únicas; encontrado ${actual.length}`);
     }
@@ -210,16 +212,16 @@ export function verifyBuild({
   if (errors.length) {
     throw new Error(`[verify-build] ${errors.length} erro(s):\n- ${errors.join('\n- ')}`);
   }
-  return { pages: pages.length, landings: approved.length, sitemapUrls: approved.length + 1 };
+  return { pages: pages.length, landings: approved.length, sitemapUrls: approved.length + staticSlugs.length + 1 };
 }
 
 const isCli = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
 if (isCli) {
   try {
     const result = verifyBuild();
-    if (result.landings !== 14 || result.sitemapUrls !== 15) {
+    if (result.landings !== 15 || result.sitemapUrls !== 17) {
       throw new Error(
-        `[verify-build] manifesto aprovado deveria ter 14 landings e 15 URLs; tem ${result.landings} e ${result.sitemapUrls}`,
+        `[verify-build] manifesto aprovado deveria ter 15 landings e 17 URLs (incluindo catálogo); tem ${result.landings} e ${result.sitemapUrls}`,
       );
     }
     console.log(`[verify-build] OK — ${result.pages} páginas indexáveis (${result.landings} landings) e ${result.sitemapUrls} URLs no sitemap.`);

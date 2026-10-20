@@ -1,5 +1,11 @@
 # 09 · Decisões Fechadas
 
+**Confirmação e clássicos — 15/10/2026:** Rafael confirmou já ter realizado serviços de Natal e Réveillon, sem fotos desses eventos no projeto. Autorizou preparar clássicos da época para revisar quais entram este ano. Sugestões de Natal (peru/lombo, farofa, arroz com amêndoas, rabanada/pavê) e Réveillon (lentilhas, peixe/filé, arroz com castanhas, cheesecake/pavê) preparadas no lote local, explicitamente como sugestões. Seleção final aguarda revisão; imagens continuam identificadas como Origens da Serra. Sem publicação antes de 18/10.
+
+
+**Decisão de Rafael — 15/10/2026:** ampliar o lote conjunto de 18/10 com orientação por llms.txt/llm.txt, correções das duas URLs históricas e conteúdo de Natal/Réveillon. Natal autorizado como ocasião sob medida no site; não cria menu fixo, preço ou disponibilidade confirmada. Prova de outros eventos deve manter o contexto verdadeiro. Preparar variações da apresentação pessoal; escolha da redação permanece aberta. Não fazer push, merge ou deploy antes de 18/10.
+
+
 **Paladares da Mantiqueira — Chef Particular na Serra da Mantiqueira**
 Consolidação do checklist do plano de negócio | Versão 1.0 | Junho/2026
 
@@ -158,3 +164,7 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 **Assim que os custos fecharem:** CMV real → preço/pessoa; piso e valor do Sob Medida + markup; percentuais de cancelamento; 4–5 extras; comissão de vinho.
 
 **Não fazer agora (fase 2):** Clube da Mantiqueira; Faixas 2/3 de deslocamento.
+
+## Decisão de 14/10/2026 — lote de publicação e créditos Netlify
+
+Rafael decidiu aguardar a data de renovação dos créditos e preparar, documentar e guardar as mudanças para push em 18/10/2026. Não fazer novos pushes, merges ou publicações antes disso. A publicação de produção pulada não equivale a um job aguardando: conferir os créditos e o commit publicado na retomada. Usar testes locais e prévias para organizar um lote verificável, evitando deploys pequenos em sequência. Nenhum plano pago ou recarga automática contratado.

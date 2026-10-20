@@ -36,14 +36,19 @@ test('FAQ das landings mantém pergunta acessível, estado nativo e indicador de
   const xml = await sitemap.text();
   const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map(([, location]) => new URL(location).pathname)
-    .filter((pathname) => pathname !== '/');
-  expect(paths).toHaveLength(14);
+    .filter((pathname) => pathname !== '/' && pathname !== '/cardapios/');
+  expect(paths).toHaveLength(15);
 
   for (const path of paths) {
     const response = await page.request.get(new URL(path, page.url()).toString());
     expect(response.ok(), `${path} should be generated`).toBe(true);
     const html = await response.text();
-    expect(html.match(/class="faq-indicator" aria-hidden="true"/g) ?? [], path).toHaveLength(5);
+    const summaries = html.match(/<summary>/g) ?? [];
+    expect(summaries.length, path).toBeGreaterThanOrEqual(5);
+    expect(html.match(/class="faq-indicator" aria-hidden="true"/g) ?? [], path).toHaveLength(summaries.length);
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1]));
+    expect(schemas.find((schema) => schema['@type'] === 'FAQPage').mainEntity, path).toHaveLength(summaries.length);
   }
 
   const notFound = await page.request.get(new URL('/404.html', page.url()).toString());
@@ -57,7 +62,7 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
   const linkInicial = page.locator('footer .fbar a').first();
   await linkInicial.focus();
 
-  for (let step = 1; step <= 13; step += 1) {
+  for (let step = 1; step <= 15; step += 1) {
     await page.keyboard.press('Shift+Tab');
     await page.waitForFunction(() => {
       const active = document.activeElement;
@@ -74,8 +79,9 @@ test('Shift+Tab desde o rodapé mantém links focados fora do cabeçalho fixo', 
       return state.__faqFocusStable >= 4;
     });
 
-    if (step === 12 || step === 13) {
-      const esperado = step === 12 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
+    // O telefone clicável e Natal precedem a lista de cidades no percurso reverso.
+    if (step === 14 || step === 15) {
+      const esperado = step === 14 ? 'Chef particular em Gonçalves' : 'Chef particular em Monte Verde';
       const resultado = await page.evaluate(() => {
         const active = document.activeElement as HTMLElement;
         const rect = active.getBoundingClientRect();

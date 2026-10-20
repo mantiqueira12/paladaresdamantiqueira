@@ -36,8 +36,8 @@ extras_recomendados: ["estação de petiscos quentes contínua", "tábua de quei
 - **Doce de leite mineiro com queijo coalho tostado** — o clássico encontro do doce com o salgado, para fechar a noite no melhor estilo da montanha.
 
 ## Inclui / Exclui
-- **Inclui:** chef no preparo e na finalização dos petiscos quentes ao longo da noite, serviço contínuo de petiscos direto da cozinha para a mesa, e sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos).
-- **Exclui:** bebidas (por conta dos convidados), louças e utensílios de festa, e, na camada "Só o Serviço", a compra dos insumos e a logística — que ficam com o cliente.
+- **Inclui:** chef no preparo e na finalização dos petiscos quentes ao longo da noite e serviço contínuo de petiscos direto da cozinha para a mesa; na experiência completa, também a sobremesa assinada pela Fernanda Marton Ateliê. Deslocamento incluso por toda a Serra (até ~100 km, alcançando São José dos Campos).
+- **Exclui:** bebidas (por conta dos convidados), louças e utensílios de festa. Na modalidade Só o Serviço, a compra dos insumos e a logística ficam com o cliente; confeitaria e sobremesas do Ateliê não estão incluídas.
 
 ## Extras recomendados
 - **Estação de petiscos quentes contínua** — mantém os bolinhos e croquetes saindo sem parar, para a noite nunca esfriar (catálogo completo no doc 07 §4).

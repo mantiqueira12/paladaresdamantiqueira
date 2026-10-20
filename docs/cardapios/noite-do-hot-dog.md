@@ -39,8 +39,8 @@ extras_recomendados: ["Estação de molhos autorais da casa", "Chope artesanal /
 - **Bombons de doce de leite mineiro** — pequenos, afetivos, pra circular pela mesa enquanto o jogo rola.
 
 ## Inclui / Exclui
-- **Inclui:** chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos, técnica de prensado e caramelização, e a sobremesa assinada pela Fernanda Marton Ateliê.
-- **Exclui:** na camada **Só o Serviço**, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente — o chef leva a mão e a técnica. Na camada **Completa**, o chef cura, compra e executa tudo, com preço por pessoa.
+- **Inclui:** chef à frente da chapa durante toda a noite, montagem dos dogões na hora, mesa de toppings e molhos e técnica de prensado e caramelização; na experiência completa, também a sobremesa assinada pela Fernanda Marton Ateliê.
+- **Exclui:** na modalidade Só o Serviço, os insumos (pães, salsichas nobres, toppings, bebidas), a logística de compras e os utensílios ficam por conta do cliente; confeitaria e sobremesas do Ateliê não estão incluídas. O chef leva a mão e a técnica. Na experiência completa, curadoria, compras e execução seguem o escopo da proposta.
 
 ## Extras recomendados
 - **Estação de molhos autorais da casa** — três a quatro molhos (chipotle, mostarda mel, alho tostado) pra cada um montar do seu jeito; vira atração à parte (catálogo completo no doc 07 §4).

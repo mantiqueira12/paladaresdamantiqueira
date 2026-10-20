@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderCatalogo } from './catalogo-publico.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -47,6 +48,7 @@ const cidades = load('cidades.json').map((c) => ({
   h1: c.h1,
   lead: c.lead,
   paragrafos: c.paragrafos,
+  faq: c.faq,
   experienciaTitulo: `A experiência em ${c.cidade}`,
   listaTitulo: `Ocasiões em ${c.cidade}`,
   lista: c.ocasioes,
@@ -92,6 +94,7 @@ if (!fs.existsSync(homePath) || !/<div\s+id=["']root["'][^>]*\bdata-prerendered=
 // exige que o conteúdo do schema esteja visível na página).
 const FAQ_TODAS = load('faq.json');
 const FAQ_LANDING = [FAQ_TODAS[0], FAQ_TODAS[1], FAQ_TODAS[2], FAQ_TODAS[4], FAQ_TODAS[6]].filter(Boolean);
+const faqDaLanding = (landing) => [...FAQ_LANDING, ...(landing.faq ?? [])];
 
 /* ------------------------------------------------------------------ ícones SVG */
 const ICO = {
@@ -112,6 +115,7 @@ function ocasiaoDaLanding(n) {
   }
   if (n.slug.includes('aniversario')) return 'Aniversário';
   if (n.slug.includes('reveillon')) return 'Réveillon na serra';
+  if (n.slug.includes('natal')) return 'Natal na serra';
   return '';
 }
 
@@ -161,7 +165,7 @@ function jsonld(n) {
     name: 'Paladares da Mantiqueira',
     alternateName: 'Chef Rafael Jacob - Chef Particular',
     url: `${SITE}/`,
-    image: `${SITE}/og-image.jpg`,
+    image: `${SITE}/portfolio/origens-da-serra/origens-da-serra-tabua-queijos.webp`,
     telephone: TEL,
     areaServed: [
       'Campos do Jordão',
@@ -182,7 +186,7 @@ function jsonld(n) {
     name: 'Rafael Jacob',
     jobTitle: 'Chef Particular',
     url: `${SITE}/`,
-    image: `${SITE}/og-image.jpg`,
+    image: `${SITE}/chef-rafael.webp`,
     worksFor: { '@id': `${SITE}/#business` },
     sameAs: [IG_CHEF],
   };
@@ -207,7 +211,7 @@ function jsonld(n) {
   const faq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_LANDING.map((f) => ({
+    mainEntity: faqDaLanding(n).map((f) => ({
       '@type': 'Question',
       name: jl(f.pergunta),
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
@@ -404,13 +408,16 @@ function head(n, { title, description, url, canonical }) {
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(stripTags(description))}" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:image" content="${SITE}/og-image.jpg" />
+    <meta property="og:image" content="${SITE}/social/paladares-mantiqueira.jpg" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(title)}" />
     <meta name="twitter:description" content="${esc(stripTags(description))}" />
-    <meta name="twitter:image" content="${SITE}/og-image.jpg" />
+    <meta name="twitter:image" content="${SITE}/social/paladares-mantiqueira.jpg" />
+    <meta name="twitter:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra." />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/playfair-display-700.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-400.woff2" crossorigin />
     <link rel="preload" as="image" href="/hero-poster.webp" imagesrcset="/hero-poster-720.webp 720w, /hero-poster.webp 1440w" imagesizes="100vw" fetchpriority="high" />
@@ -449,6 +456,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
           <div class="fcol fbrand">
             <b>Paladares da Mantiqueira</b>
             <p>Concierge Gastronômico e Personal Chef na Serra da Mantiqueira. Experiências de mesa para os seus momentos de celebração — em Campos do Jordão, Santo Antônio do Pinhal, São Bento do Sapucaí e toda a serra até São José dos Campos.</p>
+            <p><a href="${esc(n.slug === '404' ? '/cardapios/' : `/cardapios/?${new URLSearchParams({ pagina: n.slug })}`)}">Ver cardápios</a></p>
           </div>
           <div class="fcol">
             <h3>Área de Atendimento</h3>
@@ -469,7 +477,7 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
               <a class="icon-btn" href="${IG_MARCA}" target="_blank" rel="noopener" aria-label="Instagram">${ICO.instagram}</a>
               <a class="icon-btn" href="${esc(pedidoLink(n, 'footer'))}" aria-label="Iniciar pedido" ${trackFormulario(n, 'footer')}>${ICO.message}</a>
             </div>
-            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.72)">+55 12 99771-0040 · @paladaresdamantiqueira</p>
+            <p style="font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:rgba(45,45,45,.72)"><a href="tel:${TEL}">+55 12 99771-0040</a> · @paladaresdamantiqueira</p>
           </div>
         </div>
         <div class="fbar">
@@ -525,6 +533,18 @@ ${headerHtml(n)}
         </div>
       </section>
 
+      ${n.provaReal ? `<section class="block cream">
+        <div class="wrap split">
+          <div>
+            <h2>Uma experiência real da nossa cozinha</h2>
+            <p class="body">Tábua de queijos, ravióli artesanal e cheesecake foram registrados durante uma realização de Origens da Serra. São exemplos do trabalho da Paladares para ajudar você a conhecer nossa cozinha antes de combinar a sua celebração.</p>
+            <p class="body">A foto é de Origens da Serra: não é um registro de ceia de Natal ou Réveillon. O cardápio da sua data será combinado na proposta.</p>
+            <a class="btn" href="/#portfolio-real">Conhecer o registro completo</a>
+          </div>
+          <figure><div class="pill"><img src="/portfolio/origens-da-serra/origens-da-serra-cheesecake.webp" alt="Cheesecakes com morango em uma realização de Origens da Serra" loading="lazy" decoding="async" width="1086" height="1448" /></div><figcaption>Registro real de Origens da Serra — cheesecake com morango.</figcaption></figure>
+        </div>
+      </section>` : ''}
+
       <section class="block cream">
         <div class="wrap">
           <span class="eyebrow-dark">Ocasiões</span>
@@ -553,8 +573,8 @@ ${headerHtml(n)}
           <div>
             <span class="eyebrow-dark">O Anfitrião</span>
             <h2>A arte de receber bem</h2>
-            <p>Sou <strong>Rafael Jacob</strong>. Com mais de 15 anos na alta gastronomia, meu compromisso é orquestrar a sua cozinha de forma invisível e precisa, para que a sua única tarefa seja desfrutar a companhia dos seus convidados.</p>
-            <p>É um projeto de família: enquanto comando o fogo e os cortes, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>, com sobremesas que encerram a sua experiência com perfeição.</p>
+            <p>Sou <strong>Rafael Jacob</strong>, chef da Paladares da Mantiqueira. Estudei gastronomia no Senac Campos do Jordão em 2010 e trabalho na área desde então. Hoje preparo experiências à mesa em casas de campo e hospedagens da Serra da Mantiqueira. Nas experiências completas, cuido do cardápio, das compras, do preparo e do serviço. Minha esposa, Fernanda Marton, assina a confeitaria pelo Fernanda Marton Ateliê.</p>
+            <p>É um projeto de família: nas experiências completas, a confeitaria artesanal é assinada pela <strong>Fernanda Marton Ateliê</strong>. Na modalidade Só o Serviço, a contratação é de mão de obra; ingredientes e estrutura ficam com o cliente.</p>
             <p class="quote">"Minha cozinha é sobre hospitalidade."</p>
           </div>
         </div>
@@ -576,7 +596,7 @@ ${headerHtml(n)}
             <h2>Dúvidas comuns</h2>
           </div>
           <div class="faq">
-            ${FAQ_LANDING.map(
+            ${faqDaLanding(n).map(
               (f) =>
                 `<details><summary>${esc(f.pergunta)}<span class="faq-indicator" aria-hidden="true"><span class="faq-indicator-closed">+</span><span class="faq-indicator-open">–</span></span></summary><div class="ans">${esc(f.resposta)}</div></details>`,
             ).join('\n            ')}
@@ -657,8 +677,16 @@ for (const n of landings) {
 // 404 branded (o Netlify serve dist/404.html automaticamente como página de erro)
 fs.writeFileSync(path.join(dist, '404.html'), page404());
 
+const catalogo = renderCatalogo(load('experiencias.json'), {
+  css: CSS,
+  contextos: landings.map((n) => Object.fromEntries(contextoLanding(n))),
+});
+fs.mkdirSync(path.join(dist, 'cardapios'), { recursive: true });
+fs.writeFileSync(path.join(dist, 'cardapios/index.html'), catalogo.html);
+fs.writeFileSync(path.join(dist, 'cardapios.md'), catalogo.markdown);
+
 // --- regenera o sitemap (home + todas as landings) ---
-const urls = [`${SITE}/`, ...landings.map((n) => `${SITE}/${n.slug}/`)];
+const urls = [`${SITE}/`, ...landings.map((n) => `${SITE}/${n.slug}/`), `${SITE}/cardapios/`];
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
@@ -679,8 +707,10 @@ try {
 }
 const linhasCidades = cidades.map((c) => `- ${c.chip}: ${SITE}/${c.slug}/`).join('\n');
 const linhasOcasioes = [...sazonais, ...nichos].map((o) => `- ${o.chip}: ${SITE}/${o.slug}/`).join('\n');
-const extraLlms = `\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
+const extraLlms = `\n\n## Cardápios completos\n- [Fichas e cardápios](https://paladaresdamantiqueira.com.br/cardapios/): opções de cada experiência e suas modalidades.\n- [Cardápios em texto](https://paladaresdamantiqueira.com.br/cardapios.md): o mesmo conteúdo público, derivado das fichas.\n\n## Páginas por cidade\n${linhasCidades}\n\n## Páginas por ocasião e nicho\n${linhasOcasioes}\n`;
 fs.writeFileSync(path.join(dist, 'llms.txt'), `${baseLlms}${extraLlms}`);
+// Compatibilidade com a grafia singular; mesma fonte, sem conteúdo divergente.
+fs.writeFileSync(path.join(dist, 'llm.txt'), `${baseLlms}${extraLlms}`);
 
 console.log(
   `[gen-landings] ${landings.length} landings (${cidades.length} cidades + ${sazonais.length} sazonais + ${nichos.length} nichos) + 404 + sitemap (${urls.length} URLs) + llms.txt.`,

@@ -488,7 +488,7 @@ test.describe('sitemap', () => {
   test('todas as rotas listadas respondem com título, H1 e canonical', async ({ request }) => {
     const sitemap = await (await request.get('/sitemap.xml')).text();
     const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => new URL(url).pathname);
-    expect(paths).toHaveLength(15);
+    expect(paths).toHaveLength(17);
     for (const path of paths) {
       const response = await request.get(path);
       expect(response.status(), path).toBe(200);

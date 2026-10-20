@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const landingRoutes = [
+  '/jantar-de-natal-na-serra-da-mantiqueira/',
   '/chef-particular-em-campos-do-jordao/',
   '/chef-particular-em-santo-antonio-do-pinhal/',
   '/chef-particular-em-sao-bento-do-sapucai/',
@@ -20,7 +21,7 @@ const landingRoutes = [
 const testedRoutes = [...landingRoutes, '/404.html'];
 const publicRoutes = ['/', ...testedRoutes];
 
-test('skip link move o foco para main nas 14 landings e na página 404', async ({ page }) => {
+test('skip link move o foco para main nas 15 landings e na página 404', async ({ page }) => {
   for (const route of testedRoutes) {
     await page.goto(route);
 

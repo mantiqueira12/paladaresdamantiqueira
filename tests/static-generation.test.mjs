@@ -15,7 +15,8 @@ function fixture() {
   fs.mkdirSync(path.join(root, 'public'), { recursive: true });
   fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
   fs.copyFileSync(path.join(projectRoot, 'scripts', 'gen-landings.mjs'), path.join(root, 'scripts', 'gen-landings.mjs'));
-  for (const name of ['cidades.json', 'sazonais.json', 'nichos.json', 'faq.json', 'tokens.json']) {
+  fs.copyFileSync(path.join(projectRoot, 'scripts', 'catalogo-publico.mjs'), path.join(root, 'scripts', 'catalogo-publico.mjs'));
+  for (const name of ['cidades.json', 'sazonais.json', 'nichos.json', 'faq.json', 'tokens.json', 'experiencias.json']) {
     fs.copyFileSync(path.join(projectRoot, 'src', 'data', name), path.join(root, 'src', 'data', name));
   }
   fs.copyFileSync(path.join(projectRoot, 'public', 'llms.txt'), path.join(root, 'public', 'llms.txt'));
@@ -36,6 +37,53 @@ function runGenerator(root) {
 function cleanup(root) {
   fs.rmSync(root, { recursive: true, force: true });
 }
+
+test('Natal preserva contexto no pedido e arquivos LLM têm conteúdo idêntico', () => {
+  const root = fixture();
+  try {
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
+    assert.match(html, /ocasiao=Natal\+na\+serra/);
+    assert.match(html, /Registro real de Origens da Serra/);
+    assert.match(html, /não é um registro de ceia de Natal ou Réveillon/);
+    assert.equal(fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'), fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'));
+    assert.match(fs.readFileSync(path.join(root, 'dist', 'sitemap.xml'), 'utf8'), /jantar-de-natal-na-serra-da-mantiqueira/);
+  } finally {
+    cleanup(root);
+  }
+});
+
+test('FAQs próprias aparecem somente na página correspondente e no mesmo FAQPage', () => {
+  const root = fixture();
+  try {
+    for (const name of ['cidades', 'nichos']) {
+      const file = path.join(root, 'src', 'data', `${name}.json`);
+      const values = JSON.parse(fs.readFileSync(file, 'utf8'));
+      values[0].faq = [{ pergunta: `Pergunta exclusiva ${name}?`, resposta: `Resposta exclusiva ${name}.` }];
+      fs.writeFileSync(file, JSON.stringify(values));
+    }
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    for (const [slug, name] of [
+      ['chef-particular-em-campos-do-jordao', 'cidades'],
+      ['jantar-de-bodas-e-pedido-de-casamento-na-serra-da-mantiqueira', 'nichos'],
+    ]) {
+      const html = fs.readFileSync(path.join(root, 'dist', slug, 'index.html'), 'utf8');
+      assert.ok(html.includes(`<summary>Pergunta exclusiva ${name}?`));
+      const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+      const faq = schemas.find(schema => schema['@type'] === 'FAQPage');
+      assert.deepEqual(faq.mainEntity.at(-1), {
+        '@type': 'Question', name: `Pergunta exclusiva ${name}?`,
+        acceptedAnswer: { '@type': 'Answer', text: `Resposta exclusiva ${name}.` },
+      });
+    }
+    const other = fs.readFileSync(path.join(root, 'dist', 'chef-particular-em-goncalves', 'index.html'), 'utf8');
+    assert.ok(!other.includes('Pergunta exclusiva'));
+  } finally {
+    cleanup(root);
+  }
+});
 
 test('gen-landings aborta antes de escrever quando um slug está duplicado', () => {
   const root = fixture();
@@ -105,6 +153,9 @@ test('landings geradas oferecem navegação por teclado, movimento reduzido e an
     assert.match(notFoundHtml, /<main id="conteudo" tabindex="-1">/);
     assert.match(html, /:focus-visible/);
     assert.match(html, /prefers-reduced-motion:\s*reduce/);
+    const person = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((match) => JSON.parse(match[1])).find((schema) => schema['@type'] === 'Person');
+    assert.equal(person.image, 'https://paladaresdamantiqueira.com.br/chef-rafael.webp');
     assert.doesNotMatch(html, /<script async src="https:\/\/www\.googletagmanager\.com/);
 
     const analyticsScript = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)]

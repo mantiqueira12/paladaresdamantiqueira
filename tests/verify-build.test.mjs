@@ -8,7 +8,7 @@ import { verifyBuild } from '../scripts/verify-build.mjs';
 
 const SITE = 'https://paladaresdamantiqueira.com.br';
 const verifyFixture = (dist, options = {}) =>
-  verifyBuild({ dist, approvedSlugs: ['landing'], sourceSlugs: ['landing'], ...options });
+  verifyBuild({ dist, approvedSlugs: ['landing'], sourceSlugs: ['landing'], staticSlugs: [], ...options });
 
 function page({ canonical, link = '/', asset = '/logo.png?v=2#cache' }) {
   return `<!doctype html><html><head>
@@ -42,6 +42,20 @@ test('verificador aceita links e assets locais depois de remover query e hash', 
   const dist = validFixture();
   try {
     assert.doesNotThrow(() => verifyFixture(dist));
+  } finally {
+    fs.rmSync(dist, { recursive: true, force: true });
+  }
+});
+
+test('verificador exige a página de catálogo e sua URL quando aprovada', () => {
+  const dist = validFixture();
+  try {
+    assert.throws(() => verifyFixture(dist, { staticSlugs: ['cardapios'] }), /cardapios.*arquivo ausente|sitemap/s);
+    fs.mkdirSync(path.join(dist, 'cardapios'));
+    fs.writeFileSync(path.join(dist, 'cardapios', 'index.html'), page({ canonical: `${SITE}/cardapios/` }));
+    const sitemap = fs.readFileSync(path.join(dist, 'sitemap.xml'), 'utf8');
+    fs.writeFileSync(path.join(dist, 'sitemap.xml'), sitemap.replace('</urlset>', `<url><loc>${SITE}/cardapios/</loc></url></urlset>`));
+    assert.doesNotThrow(() => verifyFixture(dist, { staticSlugs: ['cardapios'] }));
   } finally {
     fs.rmSync(dist, { recursive: true, force: true });
   }

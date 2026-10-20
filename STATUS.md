@@ -1,5 +1,29 @@
 # STATUS — Estado Vivo do Projeto
 
+**20/10 — lote em preparação para PR, Issue #37:** fetch confirma main3293346; produção ainda sem catálogo/Natal. Créditos Netlify renovados e conferidos. Novo build/verify/check aprovados:49Node+41Vitest; E2E107aprovados/1ignorado com4workers,semretry. Revisão independente do diff sem bloqueantes. Lote34arquivos preserva14experiências/17URLs. Push/PR de revisão; merge e produção ainda dependem da autorização específica. Bio permanece sem substituição e clássicos são sugestões. Refs #37.
+
+
+**Bloco 05 pronto local — 15/10:** contexto de cidade/ocasião preservado no caminho landing→catálogo→pedido, direto e viahome. Quatro falhas reproduzidas antes da correção; escolha explícita mantida e query livre descartada. Build/verify/check aprovados:49Node+41Vitest; E2E completo107aprovados/1ignorado,semretry,com4workers. Revisão independente sem bloqueio. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-05-contexto/README.md). Sem push/deploy antes18/10; próxima ação do lote: revisão editorial e gates externos no dia18.
+
+
+**Bloco 03 — coerência, 15/10:** dois agentes não encontraram contradições factuais de identidade/escopo. FAQ complementada com Monte Verde e Gonçalves; HTML/schema coerentes em16páginas comFAQ. Build/verify aprovados e4E2E pertinentes passaram. Bio preservada para escolha. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-03-coerencia/README.md). Sem push/deploy antes18/10. Próxima ação: folha curta de revisão editorial do lote.
+
+
+**Bloco02 pronto local —15/10:** capa Paladares com foto original deOrigens e metadados das17URLs; catálogo e telefone no rodapé das15landings;3campos deênfase limpos. Build/verify/check aprovados:48Node+41Vitest. E2E final97aprovados/1ignorado com4workers, após falha inicial de amostragem dofade registrada. Revisão independente sembloqueio. Sem push/merge/deploy antes18/10. [Compilado](../01-Administracao/Central-de-Achados/rodadas/2026-10-15-bloco-02-identidade/README.md). Próxima frente: coerência factual entre apresentações públicas, sem substituir bio pendente.
+
+
+**15/10 — bloco de conteúdo consultável pronto local:** página única /cardapios/ e /cardapios.md derivadas das fichas e ligadas à home/LLM; parser recupera itens com anotação sazonal; retrato Person usa a imagem designada do chef; escopo da confeitaria/curadoria qualificado por modalidade, incluindo três fichas e modal.14 experiências,155 ocorrências de itens (não155pratos),15 landings+catálogo+home,17 URLs. Build/verificador/check:48 Node+41 Vitest, E2E95 aprovados/1 ignorado, sem retry. Sem push/merge/deploy antes de18/10. Biografia e clássicos anuais permanecem para escolha; não houve revisão geral de oferta.
+
+
+**Confirmação e clássicos — 15/10/2026:** Rafael confirmou já ter realizado serviços de Natal e Réveillon, sem fotos desses eventos no projeto. Autorizou preparar clássicos da época para revisar quais entram este ano. Sugestões de Natal (peru/lombo, farofa, arroz com amêndoas, rabanada/pavê) e Réveillon (lentilhas, peixe/filé, arroz com castanhas, cheesecake/pavê) preparadas no lote local, explicitamente como sugestões. Seleção final aguarda revisão; imagens continuam identificadas como Origens da Serra. Sem publicação antes de 18/10.
+
+
+**15/10/2026 — lote local ampliado para 18/10:** Natal como ocasião sob medida, Réveillon enriquecido com prova contextual de Origens da Serra, arquivos llms.txt/llm.txt idênticos, header de descoberta e dois 301 específicos. Build/verificador/check:44 Node+41 Vitest; E2E final89 aprovados/1 ignorado, sem retry; revisão independente após correções.15 landings/16 URLs. Biografia em variações para escolha, sem substituição. Sem push/merge/deploy; conferir CI/prévia/redirects e créditos em18/10.
+
+
+**SEO — lote local de 14/10/2026:** três landings existentes (Campos do Jordão, São José dos Campos e casamento/mini-wedding) com dois parágrafos e duas FAQs próprias, conteúdo visível e schema alinhados. Base3293346; build/verify/check43Node+41Vitest e revisão independente aprovados; E2E pertinente5aprovados/1ignorado. Conteúdo próprio643/647/659palavras incluindo listas/FAQs específicas. Home/JS e11demaislandings idênticos àbase. Guardar localmente para Issue/PR/push/CI em18/10, conforme decisão deRafael; nenhum deploy deste lote.
+
+
 **Desempenho — 14/10/2026:** Issue35, manifesto mínimo derivado para14links de rodapé, mesmos destinos/rótulos/ordem e conteúdo. Base02fb095; Node24.15.0; JS412587→388321bytesraw e125170→120771gzip. Build/verify/lint/knip,42testesNode+41Vitest passaram. E2E final2workers87aprovados/1ignorado; primeira execução10workers86aprovados/1timeout/1ignorado, causa não demonstrada. Revisão independente sem achado. PR/CI/publicação pendentes.
 
 

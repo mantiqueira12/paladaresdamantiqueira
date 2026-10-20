@@ -127,7 +127,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                   {experiencia.inclui && (
                     <div className="p-5 rounded-xl bg-white/70 border border-brand-line">
                       <p className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-moss mb-2 flex items-center gap-2">
-                        <Check size={13} /> Inclui
+                        <Check size={13} /> {experiencia.camada === 'ambas' ? 'Inclui na experiência completa' : 'Inclui'}
                       </p>
                       <p className="text-sm text-brand-charcoal/70 leading-relaxed">{experiencia.inclui}</p>
                     </div>
@@ -168,7 +168,7 @@ export default function ExperienciaModal({ experiencia, onFechar, onSolicitar }:
                   )}
                   {experiencia.sobremesasPor && (
                     <p className="text-xs text-brand-charcoal/70 italic flex items-center gap-2">
-                      <Leaf size={13} className="text-brand-moss" /> Sobremesas por{' '}
+                      <Leaf size={13} className="text-brand-moss" /> {experiencia.camada === 'ambas' ? 'Sobremesas na experiência completa por ' : 'Sobremesas por '}
                       <a
                         href="https://www.instagram.com/fernandamarton.docesmomentos/"
                         target="_blank"
