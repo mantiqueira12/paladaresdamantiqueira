@@ -30,7 +30,7 @@ test('Natal abre os três cardápios nativos e preserva WhatsApp, composição e
   await expect(page.locator('#classica details')).toHaveAttribute('open', '');
 });
 
-test('Destaque na home leva direto aos menus e a arte preserva a composição inteira', async ({ page }) => {
+test('Destaque na home leva direto aos menus e a abertura usa foto ampla com enquadramento próximo', async ({ page }) => {
   await page.route('**/*', route => ['localhost', '127.0.0.1'].includes(new URL(route.request().url()).hostname) ? route.continue() : route.abort());
   await page.goto('/');
   const campaign = page.getByRole('complementary', { name: 'Campanha em destaque' });
@@ -39,15 +39,20 @@ test('Destaque na home leva direto aos menus e a arte preserva a composição in
   await campaign.getByRole('link', { name: 'Ver ceias de Natal' }).click();
   await expect(page).toHaveURL(/jantar-de-natal-na-serra-da-mantiqueira\/#menus$/);
   await expect(page.locator('#chef-em-casa')).toHaveCount(0);
-  const image = page.locator('.natal-opening img:visible,.campaign-scene-mobile img:visible');
+  const image = page.locator('.natal-opening img');
   await expect(image).toHaveCount(1);
   await image.scrollIntoViewIfNeeded();
   await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   const geometry = await image.evaluate((img: HTMLImageElement) => {
     const { width, height } = img.getBoundingClientRect();
-    return { displayed: width / height, original: img.naturalWidth / img.naturalHeight };
+    return { width, height, fit: getComputedStyle(img).objectFit };
   });
-  expect(geometry.displayed).toBeCloseTo(geometry.original, 2);
+  expect(geometry.width).toBeGreaterThan(350);
+  expect(geometry.height).toBeGreaterThan(450);
+  expect(geometry.fit).toBe('cover');
+  await expect(page.locator('.natal-opening')).not.toContainText('conceitual');
+  await page.locator('.opening-button').click();
+  await expect(page).toHaveURL(/#menus$/);
   await page.locator('#classica summary').click();
   await page.locator('#classica .inclusion a').click();
   await expect(page).toHaveURL(/#doces$/);

@@ -495,7 +495,7 @@ function natalPage(n) {
     .replaceAll(`${SITE}/social/paladares-mantiqueira.jpg`, `${SITE}/natal/assets/natal-editorial-1200.webp`)
     .replace('property="og:image:height" content="630"', 'property="og:image:height" content="675"')
     .replace('property="og:image:type" content="image/jpeg"', 'property="og:image:type" content="image/webp"')
-    .replace('Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.', 'Imagem conceitual da ceia de Natal da Paladares da Mantiqueira.')
+    .replace('Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.', 'Ceia de Natal da Paladares da Mantiqueira.')
     .replace(/<link rel="preload" as="(?:image|font)"[^>]*>/g, '');
   const content = fs.readFileSync(path.join(root, 'src/content/natal.html'), 'utf8');
   return `<!doctype html><html lang="pt-BR"><head>${metadata}${jsonld(n)}</head><body>${content}</body></html>`;
