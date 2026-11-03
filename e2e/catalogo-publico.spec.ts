@@ -19,7 +19,7 @@ for (const caso of [
       await page.getByRole('link', { name: caso.ocasiao ? 'Conhecer a Paladares' : 'Ver as experiências', exact: true }).click();
       await page.getByRole('link', { name: 'Consultar os cardápios e as opções de cada experiência', exact: true }).click();
     } else {
-      await page.locator('footer').getByRole('link', { name: 'Ver cardápios', exact: true }).click();
+      await page.locator('footer').getByRole('link', { name: caso.ocasiao ? 'Outras experiências' : 'Ver cardápios', exact: true }).click();
     }
     expect(new URL(page.url()).pathname).toBe('/cardapios/');
     await page.getByRole('link', { name: 'Conversar sobre Origens da Serra', exact: true }).click();
@@ -27,11 +27,11 @@ for (const caso of [
     await expect(pedido).toBeVisible();
     await expect(pedido.getByLabel('Experiência desejada', { exact: true })).toHaveValue('Origens da Serra');
     await expect(pedido.getByLabel('Cidade / local', { exact: true })).toHaveValue(caso.cidade);
-    await expect(pedido.getByLabel('Ocasião', { exact: true })).toHaveValue(caso.ocasiao);
-    expect(new URL(page.url()).searchParams.get('pagina')).toBe(caso.pagina);
+    await expect(pedido.getByLabel('Ocasião', { exact: true })).toHaveValue(caso.ocasiao ? '' : caso.ocasiao);
+    expect(new URL(page.url()).searchParams.get('pagina')).toBe(caso.ocasiao ? null : caso.pagina);
     // Conferir a prévia sem acionar envio ou WhatsApp.
     await expect(pedido.locator('pre')).toContainText('Origens da Serra');
-    await expect(pedido.locator('pre')).toContainText(caso.cidade || caso.ocasiao);
+    await expect(pedido.locator('pre')).toContainText(caso.cidade || 'Origens da Serra');
   });
   }
 }
@@ -71,9 +71,9 @@ test('landing oferece ligação e consulta direta do catálogo no rodapé', asyn
   await expect(phone).toHaveAttribute('href', 'tel:+5512997710040');
   await phone.focus();
   await expect(phone).toBeFocused();
-  await page.locator('footer').getByRole('link', { name: 'Ver cardápios', exact: true }).click();
+  await page.locator('footer').getByRole('link', { name: 'Outras experiências', exact: true }).click();
   expect(new URL(page.url()).pathname).toBe('/cardapios/');
-  expect(new URL(page.url()).searchParams.get('pagina')).toBe('jantar-de-natal-na-serra-da-mantiqueira');
+  expect(new URL(page.url()).searchParams.get('pagina')).toBeNull();
   await expect(page.locator('.catalog-section')).toHaveCount(14);
   await context.close();
 });

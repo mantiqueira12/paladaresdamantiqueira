@@ -492,6 +492,10 @@ function natalPage(n) {
   const url = `${SITE}/${n.slug}/`;
   const metadata = head(n, { title: n.title, description: n.description, url, canonical: url })
     .replace(/<style>[\s\S]*?<\/style>/, '<link rel="stylesheet" href="/natal/style.css" />')
+    .replaceAll(`${SITE}/social/paladares-mantiqueira.jpg`, `${SITE}/natal/assets/natal-editorial-1200.webp`)
+    .replace('property="og:image:height" content="630"', 'property="og:image:height" content="675"')
+    .replace('property="og:image:type" content="image/jpeg"', 'property="og:image:type" content="image/webp"')
+    .replace('Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.', 'Imagem conceitual da ceia de Natal da Paladares da Mantiqueira.')
     .replace(/<link rel="preload" as="(?:image|font)"[^>]*>/g, '');
   const content = fs.readFileSync(path.join(root, 'src/content/natal.html'), 'utf8');
   return `<!doctype html><html lang="pt-BR"><head>${metadata}${jsonld(n)}</head><body>${content}</body></html>`;

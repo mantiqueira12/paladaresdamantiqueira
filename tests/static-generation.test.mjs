@@ -45,7 +45,7 @@ test('Natal apresenta somente encomendas, preserva datas e não publica preços'
     const result = runGenerator(root);
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
-    for (const text of ['20/12/2026', '24/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'Seleção de frios', 'Embalagens descartáveis', 'prontos para aquecer', 'id="encomendar"']) assert.ok(html.includes(text), text);
+    for (const text of ['20/12/2026', '24/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'Seleção de frios', 'embalagens descartáveis', 'prontos para aquecer', 'id="encomendar"']) assert.ok(html.includes(text), text);
     assert.doesNotMatch(html, /R\$|Pedra de frios|noindex|retirada/i);
     assert.doesNotMatch(html, /chef-em-casa|Prefere um chef|consulte também a experiência com chef|Chef particular\/Personal chef/);
     assert.doesNotMatch(html, /ceia completa/i);
@@ -68,7 +68,7 @@ test('Natal preserva identidade, campanha e arquivos LLM idênticos', () => {
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
     assert.match(html, /Ceias de Natal por encomenda em Campos do Jordão/);
-    assert.match(html, /Ilustração conceitual/);
+    assert.match(html, /Imagem conceitual/);
     assert.doesNotMatch(html, /chef-em-casa|Registro real de Origens da Serra/);
     assert.equal(fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'), fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'));
     assert.match(fs.readFileSync(path.join(root, 'dist', 'sitemap.xml'), 'utf8'), /jantar-de-natal-na-serra-da-mantiqueira/);

@@ -10,7 +10,7 @@ export default function Hero({ onSolicitar }: { onSolicitar: () => void }) {
         <div className="hero-copy">
           <p className="hero-eyebrow">Seu momento mais prazeroso na Serra da Mantiqueira</p>
           <h1 id="hero-title" className="serif">A experiência de um <span className="hero-title-line"><em>ótimo</em> restaurante,</span> na sala da sua casa.</h1>
-          <p className="hero-description">De um churrasco animado a uma noite de massas e vinho. Comida feita com técnica e afeto, sem você precisar levantar da cadeira. Você recebe os abraços — eu assumo o fogão.</p>
+          <p className="hero-description">Do churrasco ao jantar especial, eu cuido da cozinha e do serviço para você aproveitar a mesa com quem convidou.</p>
           <div className="hero-actions">
             <button type="button" onClick={onSolicitar} className="hero-primary">Solicitar minha experiência <ArrowRight size={17} aria-hidden="true" /></button>
             <a href="#experiencias" className="hero-secondary">Ver experiências <ArrowDown size={16} aria-hidden="true" /></a>

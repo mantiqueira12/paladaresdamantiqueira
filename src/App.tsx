@@ -43,6 +43,7 @@ import SiteHeader from './components/SiteHeader';
 import Hero from './components/Hero';
 import OccasionDoors from './components/OccasionDoors';
 import LoadingImage from './components/LoadingImage';
+import CampaignNotice from './components/CampaignNotice';
 
 // Foto do chef em public/ (caminho estático, sem hash de bundle): assim o HTML
 // pré-renderizado (SSG) e o cliente apontam para a mesma URL e a hidratação casa.
@@ -120,6 +121,7 @@ export default function App() {
       <SiteHeader onSolicitar={() => abrirPedido('', 'header')} />
 
       <main id="conteudo" tabIndex={-1} className="site-main">
+        <CampaignNotice />
         <Hero onSolicitar={() => abrirPedido('', 'hero')} />
         <OccasionDoors onEscolher={(linha) => {
           setFiltro(linha);
@@ -197,25 +199,9 @@ export default function App() {
         <section id="experiencias" tabIndex={-1} aria-labelledby="catalogo-titulo" className="py-24 px-6 md:py-32 section-border-top bg-brand-cream">
           <div className="max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs uppercase tracking-[0.3em] text-brand-moss font-bold mb-4 block underline underline-offset-8 decoration-brand-terracotta/30">
-                As Experiências
-              </span>
               <div id="catalogo-titulo"><SectionHeading>Encontre a sua experiência</SectionHeading></div>
               <p className="text-xl text-brand-charcoal/75 font-light">
-                Escolha pelo clima do seu momento. Nas experiências completas, você seleciona o cardápio — com
-                sobremesas da <strong className="font-medium text-brand-charcoal">Fernanda Marton Ateliê</strong>.
-              </p>
-              <p className="text-sm text-brand-charcoal/70 leading-relaxed mt-5">
-                Para se orientar pelo grupo: Entre Amigos é uma ideia para jantar íntimo (2 a 6 pessoas na ficha);
-                Noite do Hambúrguer, para um encontro informal ou pequena celebração (10 a 30). As faixas são
-                referências — conte seu grupo no pedido para combinarmos o formato.
-              </p>
-              <p className="text-base text-brand-charcoal/85 leading-relaxed mt-5">
-                Para celebrar o fim de ano, conheça as propostas de{' '}
-                <a href="/jantar-de-natal-na-serra-da-mantiqueira/" className="underline underline-offset-4">Natal</a>{' '}
-                e{' '}
-                <a href="/jantar-de-reveillon-na-serra-da-mantiqueira/" className="underline underline-offset-4">Réveillon</a>{' '}
-                na casa de campo. Cardápio e disponibilidade são combinados na conversa.
+                Encontros a dois, casa cheia ou uma celebração especial. Conheça os menus e escolha o clima da sua mesa.
               </p>
               <p className="text-base text-brand-charcoal/85 leading-relaxed mt-5">
                 <a href={pedidoPagina ? `/cardapios/?${new URLSearchParams({ pagina: pedidoPagina })}` : '/cardapios/'} className="underline underline-offset-4">Consultar os cardápios e as opções de cada experiência</a>
@@ -338,9 +324,6 @@ export default function App() {
                   >
                     <strong>Fernanda Marton Ateliê</strong>
                   </a>.
-                </p>
-                <p className="italic border-l-2 border-brand-terracotta pl-6 text-brand-cream/90">
-                  Nas experiências completas, cuido do menu, do preparo e do serviço para você aproveitar a mesa com quem convidou.
                 </p>
               </div>
             </div>
