@@ -12,6 +12,7 @@ function fixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paladares-static-'));
   fs.mkdirSync(path.join(root, 'scripts'), { recursive: true });
   fs.mkdirSync(path.join(root, 'src', 'data'), { recursive: true });
+  fs.cpSync(path.join(projectRoot, 'src/content'), path.join(root, 'src/content'), { recursive: true });
   fs.mkdirSync(path.join(root, 'public'), { recursive: true });
   fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
   fs.copyFileSync(path.join(projectRoot, 'scripts', 'gen-landings.mjs'), path.join(root, 'scripts', 'gen-landings.mjs'));
@@ -38,15 +39,37 @@ function cleanup(root) {
   fs.rmSync(root, { recursive: true, force: true });
 }
 
-test('Natal preserva contexto no pedido e arquivos LLM têm conteúdo idêntico', () => {
+test('Natal apresenta somente encomendas, preserva datas e não publica preços', () => {
   const root = fixture();
   try {
     const result = runGenerator(root);
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
-    assert.match(html, /ocasiao=Natal\+na\+serra/);
-    assert.match(html, /Registro real de Origens da Serra/);
-    assert.match(html, /não é um registro de ceia de Natal ou Réveillon/);
+    for (const text of ['20/12/2026', '24/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'Seleção de frios', 'Embalagens descartáveis', 'prontos para aquecer', 'id="encomendar"']) assert.ok(html.includes(text), text);
+    assert.doesNotMatch(html, /R\$|Pedra de frios|noindex|retirada/i);
+    assert.doesNotMatch(html, /chef-em-casa|Prefere um chef|consulte também a experiência com chef|Chef particular\/Personal chef/);
+    assert.doesNotMatch(html, /ceia completa/i);
+    for (const id of ['classica', 'celebracao']) {
+      const menu = html.match(new RegExp(`<article class="menu" id="${id}">([\\s\\S]*?)</article>`))?.[1];
+      assert.ok(menu?.includes('Sobremesas não incluídas. <a href="#doces">Ver a carta à parte</a>.'), id);
+    }
+    assert.ok(html.includes('Duas sobremesas à escolha entre pavlova, pudim, cheesecake e trifle.'));
+    assert.ok(html.includes('Torta de três chocolates à parte.'));
+    const links = [...html.matchAll(/href="(https:\/\/wa.me\/5512997710040[^\"]*)"/g)].map(m => new URL(m[1].replaceAll('&amp;', '&')).searchParams.get('text'));
+    for (const menu of ['Clássica', 'Celebração', 'Reserva da Mantiqueira']) assert.ok(links.some(text => text.includes(menu) && text.includes('Natal 2026') && text.includes('24/12') && text.includes('encomenda')), menu);
+    assert.ok(!html.includes('A Paladares tem um cardápio fixo de Natal?'));
+  } finally { cleanup(root); }
+});
+
+test('Natal preserva identidade, campanha e arquivos LLM idênticos', () => {
+  const root = fixture();
+  try {
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-natal-na-serra-da-mantiqueira', 'index.html'), 'utf8');
+    assert.match(html, /Ceias de Natal por encomenda em Campos do Jordão/);
+    assert.match(html, /Ilustração conceitual/);
+    assert.doesNotMatch(html, /chef-em-casa|Registro real de Origens da Serra/);
     assert.equal(fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'), fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'));
     assert.match(fs.readFileSync(path.join(root, 'dist', 'sitemap.xml'), 'utf8'), /jantar-de-natal-na-serra-da-mantiqueira/);
   } finally {

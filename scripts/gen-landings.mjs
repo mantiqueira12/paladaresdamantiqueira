@@ -193,7 +193,7 @@ function jsonld(n) {
   const service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    serviceType: 'Chef particular / Personal chef',
+    serviceType: n.serviceType ?? 'Chef particular / Personal chef',
     name: n.serviceName,
     description: stripTags(n.description),
     provider: { '@id': `${SITE}/#business` },
@@ -217,7 +217,7 @@ function jsonld(n) {
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
     })),
   };
-  return [website, provider, person, service, breadcrumb, faq]
+  return [website, provider, person, service, breadcrumb, ...(n.encomendasNatal ? [] : [faq])]
     .map((d) => `<script type="application/ld+json">\n${JSON.stringify(d, null, 2).replace(/</g, '\\u003c')}\n</script>`)
     .join('\n    ');
 }
@@ -488,7 +488,17 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
     </footer>`;
 }
 
+function natalPage(n) {
+  const url = `${SITE}/${n.slug}/`;
+  const metadata = head(n, { title: n.title, description: n.description, url, canonical: url })
+    .replace(/<style>[\s\S]*?<\/style>/, '<link rel="stylesheet" href="/natal/style.css" />')
+    .replace(/<link rel="preload" as="(?:image|font)"[^>]*>/g, '');
+  const content = fs.readFileSync(path.join(root, 'src/content/natal.html'), 'utf8');
+  return `<!doctype html><html lang="pt-BR"><head>${metadata}${jsonld(n)}</head><body>${content}</body></html>`;
+}
+
 function page(n) {
+  if (n.encomendasNatal) return natalPage(n);
   const url = `${SITE}/${n.slug}/`;
   const grupoAtual = cidades.includes(n) ? cidades : sazonais.includes(n) ? sazonais : nichos;
   const complementares = cidades.includes(n) ? nichos : cidades;

@@ -16,7 +16,7 @@ for (const caso of [
     await bloquearSaidasExternas(page);
     await page.goto(`/${caso.pagina}/`);
     if (trilha === 'via home') {
-      await page.getByRole('link', { name: 'Ver as experiências', exact: true }).click();
+      await page.getByRole('link', { name: caso.ocasiao ? 'Conhecer a Paladares' : 'Ver as experiências', exact: true }).click();
       await page.getByRole('link', { name: 'Consultar os cardápios e as opções de cada experiência', exact: true }).click();
     } else {
       await page.locator('footer').getByRole('link', { name: 'Ver cardápios', exact: true }).click();
