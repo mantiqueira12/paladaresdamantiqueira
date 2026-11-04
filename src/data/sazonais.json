@@ -1,34 +1,15 @@
 [
   {
     "slug": "jantar-de-natal-na-serra-da-mantiqueira",
-    "title": "Ceia de Natal com Chef Particular na Mantiqueira",
-    "description": "Planeje a ceia de Natal em casa de campo na Mantiqueira com Rafael Jacob: cardápio sob medida, avaliação da cozinha e orçamento por ocasião.",
-    "h1": "Ceia de Natal com Chef Particular na Serra da Mantiqueira",
-    "lead": "Uma mesa de Natal para reunir a família na casa de campo. Conte como deseja celebrar; combinamos o cardápio e a organização da cozinha.",
-    "paragrafos": [
-      "O Natal em uma casa de campo reúne pessoas, histórias e uma cozinha que nem sempre é a mesma do dia a dia. Na <strong>Paladares da Mantiqueira</strong>, Rafael Jacob conversa com você sobre a data desejada, a cidade, o número de convidados e o clima da ceia antes de preparar o orçamento. A consulta de uma data não equivale a reserva ou disponibilidade confirmada.",
-      "Na experiência completa, o escopo combinado reúne curadoria do cardápio, compra dos ingredientes, preparo e serviço. A <strong>Fernanda Marton Ateliê</strong> participa com a confeitaria das experiências completas. O menu natalino é combinado na conversa: não há um pacote único de pratos, duração ou equipe para qualquer grupo.",
-      "A estrutura da casa é avaliada por perguntas, vídeo ou visita técnica. Forno, fogão e panelas ajudam a iniciar essa conversa; a necessidade de complementos depende do menu e do imóvel. Assim, a proposta considera a cozinha disponível antes de fechar a execução.",
-      "Se você prefere comprar os ingredientes, pode conversar sobre a modalidade <strong>Só o Serviço</strong>, contratada como mão de obra. As inclusões são diferentes das experiências completas e ficam registradas na proposta. O deslocamento é combinado conforme o local, dentro da área de atendimento e das condições do serviço.",
-      "Já realizei serviços de Natal e Réveillon. Para esta temporada, os clássicos abaixo são ideias para começar a conversa: a seleção final de pratos e acompanhamentos será definida na proposta, conforme o grupo, a cozinha e os ingredientes disponíveis."
-    ],
-    "experienciaTitulo": "O Natal começa pelo planejamento da sua mesa",
-    "listaTitulo": "Clássicos para inspirar a sua mesa de Natal",
-    "lista": [
-      "Boas-vindas: queijos, pães e terrina para compartilhar",
-      "Assados: peru com ervas ou lombo recheado como sugestões de principal",
-      "Acompanhamentos: farofa de frutas secas, arroz com amêndoas e legumes assados",
-      "Final doce: rabanada ou pavê como referências para combinar a sobremesa"
-    ],
-    "faq": [
-      {"pergunta": "A Paladares tem um cardápio fixo de Natal?", "resposta": "O cardápio é combinado conforme a ocasião, o grupo e a cozinha disponível. Conte suas preferências no pedido para receber uma proposta com o escopo definido."},
-      {"pergunta": "Enviar o pedido confirma a minha data de Natal?", "resposta": "Não. O pedido inicia a conversa sobre disponibilidade e orçamento. A reserva acontece após os combinados e a confirmação do sinal de 50%."}
-    ],
-    "provaReal": true,
-    "ctaTitulo": "Vamos conversar sobre a sua ceia de Natal?",
-    "serviceName": "Ceia de Natal com chef particular na Serra da Mantiqueira",
+    "title": "Ceias de Natal 2026 em Campos do Jordão | Paladares",
+    "description": "Três ceias de Natal por encomenda, com entrega gratuita em Campos do Jordão em 24/12, das 10h às 15h. Pedidos até 20/12/2026.",
+    "h1": "O Natal começa à mesa.",
+    "faq": [],
+    "serviceName": "Ceias de Natal por encomenda em Campos do Jordão",
     "breadcrumb": "Natal na serra",
-    "chip": "Natal na serra"
+    "chip": "Natal na serra",
+    "encomendasNatal": true,
+    "serviceType": "Ceias de Natal por encomenda"
   },
   {
     "slug": "jantar-de-reveillon-na-serra-da-mantiqueira",
@@ -51,8 +32,14 @@
       "Final doce: cheesecake com frutas ou pavê como sugestões para a celebração"
     ],
     "faq": [
-      {"pergunta": "Posso combinar o horário do jantar de Réveillon?", "resposta": "Informe o horário desejado no pedido. A chegada costuma acontecer cerca de uma hora antes do serviço, mas varia conforme a experiência; a organização e o horário efetivo são combinados na proposta."},
-      {"pergunta": "Como sei se a cozinha da casa serve para a ceia?", "resposta": "A avaliação pode ser feita por perguntas, vídeo ou visita técnica. Forno, fogão e panelas são referências iniciais; os complementos dependem da estrutura do imóvel e do cardápio escolhido."}
+      {
+        "pergunta": "Posso combinar o horário do jantar de Réveillon?",
+        "resposta": "Informe o horário desejado no pedido. A chegada costuma acontecer cerca de uma hora antes do serviço, mas varia conforme a experiência; a organização e o horário efetivo são combinados na proposta."
+      },
+      {
+        "pergunta": "Como sei se a cozinha da casa serve para a ceia?",
+        "resposta": "A avaliação pode ser feita por perguntas, vídeo ou visita técnica. Forno, fogão e panelas são referências iniciais; os complementos dependem da estrutura do imóvel e do cardápio escolhido."
+      }
     ],
     "provaReal": true,
     "ctaTitulo": "Vamos planejar a sua virada na serra?",

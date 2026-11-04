@@ -33,6 +33,17 @@
   font-family: var(--font-display);
 }
 
+.campaign-notice { background:var(--color-brand-moss); color:var(--color-brand-cream); }
+.campaign-notice-inner { max-width:1280px; margin:auto; padding:24px; display:flex; align-items:center; justify-content:space-between; gap:32px; }
+.campaign-notice-copy h2 { font-family:var(--font-display); font-size:clamp(24px,2.2vw,32px); line-height:1.2; }
+.campaign-notice-copy p { margin-top:7px; font-size:14px; line-height:1.6; }
+.campaign-notice-action { flex-shrink:0; text-align:right; }
+.campaign-notice-action a { display:inline-flex; justify-content:center; align-items:center; gap:20px; padding:12px 20px; border:1px solid currentColor; border-radius:4px; min-height:44px; font-weight:600; font-size:14px; transition:background .2s,color .2s; }
+.campaign-notice-action a:hover { background:var(--color-brand-cream); color:var(--color-brand-moss); }
+.campaign-notice-action a:focus-visible { outline:3px solid var(--color-brand-cream); outline-offset:4px; }
+.campaign-notice-action p { margin-top:7px; font-size:12px; line-height:1.5; }
+@media(max-width:700px) { .campaign-notice-inner { align-items:flex-start; flex-direction:column; gap:16px; padding:22px 24px; } .campaign-notice-action { text-align:left; } .campaign-notice-action a { padding:10px 18px; } }
+
 /* Vertical Rhythm Utilities */
 .section-border-top {
   @apply border-t border-brand-line;

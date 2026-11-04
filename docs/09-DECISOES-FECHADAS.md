@@ -1,3 +1,11 @@
+**Decisão de Rafael em03/11/2026 — envio e push de Natal:** o PDF com valores é o material principal de envio e deve ser otimizado para leitura em celular, com texto maior e conteúdo distribuído em mais páginas. Abertura dos doces focada em Fernanda Marton e em sua seleção natalina, sem repetir regras dos menus. Site permanece sem preços; revisão e push do lote autorizados, pelo fluxo Issue/branch/PR. Esta autorização não deve ser descrita como merge ou deploy já realizado.
+
+**Decisão de Rafael em03/11/2026 — foco da campanha de Natal:** retirar da landing de Natal a diferenciação e a seção de chef em casa, pois o serviço já está apresentado na página principal. Esta página fica focada nas ceias por encomenda, com horários de entrega, cidades e condições claros. Home e serviço institucional não mudam. No PDF, botões centralizados e compactos; fechamento apenas com WhatsApp e site, sem atalhos internos redundantes. Substitui a orientação de manter um bloco separado de chef nessa landing.
+
+**Orientação editorial de Rafael em03/11/2026 — ceias por encomenda:** evitar “ceia completa”, pois Clássica e Celebração não incluem sobremesa. Usar “Valor do menu” e explicitar doces à parte. Revisão da composição registrada mantém na Reserva duas escolhas entre pavlova, pudim, cheesecake e trifle; pequenas, com trifle em apresentação única. A torta de três chocolates permanece avulsa. Esta redação se refere às encomendas de Natal, sem alterar as inclusões das experiências com chef no local.
+
+**Decisão de Rafael em 03/11/2026 — Natal por encomenda:** entrega gratuita em Campos do Jordão no dia 24/12, das 10h às 15h, substitui a retirada anunciada anteriormente. Pedidos até20/12 preservados. Outras cidades sob consulta de viabilidade/taxa. 50%de sinal viaPix; saldo combinado no atendimento conforme condição de entrega já existente. Autorizada atualização local de página/PDF; nenhuma autorização de publicação presumida.
+
 # 09 · Decisões Fechadas
 
 **Confirmação e clássicos — 15/10/2026:** Rafael confirmou já ter realizado serviços de Natal e Réveillon, sem fotos desses eventos no projeto. Autorizou preparar clássicos da época para revisar quais entram este ano. Sugestões de Natal (peru/lombo, farofa, arroz com amêndoas, rabanada/pavê) e Réveillon (lentilhas, peixe/filé, arroz com castanhas, cheesecake/pavê) preparadas no lote local, explicitamente como sugestões. Seleção final aguarda revisão; imagens continuam identificadas como Origens da Serra. Sem publicação antes de 18/10.
@@ -168,3 +176,18 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 ## Decisão de 14/10/2026 — lote de publicação e créditos Netlify
 
 Rafael decidiu aguardar a data de renovação dos créditos e preparar, documentar e guardar as mudanças para push em 18/10/2026. Não fazer novos pushes, merges ou publicações antes disso. A publicação de produção pulada não equivale a um job aguardando: conferir os créditos e o commit publicado na retomada. Usar testes locais e prévias para organizar um lote verificável, evitando deploys pequenos em sequência. Nenhum plano pago ou recarga automática contratado.
+
+
+### 03/11/2026 — Encomendas de Natal: pagamento
+
+Rafael confirmou: 50% de sinal via Pix e saldo pago no dia da entrega. Aplica-se à campanha de ceias de Natal por encomenda; não altera as condições dos demais serviços.
+
+
+### 03/11/2026 — Natal: mesa posta/serviço opcionais e rendimento
+
+Rafael decidiu retirar as faixas sugeridas de pessoas da campanha; o cliente consulta as quantidades descritas por preparo. Oferecer mesa posta e serviço no local como contratação opcional, mediante consulta de disponibilidade e valores; nenhuma disponibilidade ou inclusão presumida. Aplicado ao Natal, sem alterar as demais experiências.
+
+
+### 03/11/2026 — Publicação da campanha de Natal
+
+Rafael aprovou o PDF e autorizou atualizar/publicar o site alinhado, pelo fluxo do PR40. Campanha na home, menus, condições e serviços opcionais podem ser publicados. Preços e PDF com valores continuam privados para envio direto.
