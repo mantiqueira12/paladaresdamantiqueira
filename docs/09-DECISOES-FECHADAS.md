@@ -181,3 +181,8 @@ Rafael decidiu aguardar a data de renovação dos créditos e preparar, document
 ### 03/11/2026 — Encomendas de Natal: pagamento
 
 Rafael confirmou: 50% de sinal via Pix e saldo pago no dia da entrega. Aplica-se à campanha de ceias de Natal por encomenda; não altera as condições dos demais serviços.
+
+
+### 03/11/2026 — Natal: mesa posta/serviço opcionais e rendimento
+
+Rafael decidiu retirar as faixas sugeridas de pessoas da campanha; o cliente consulta as quantidades descritas por preparo. Oferecer mesa posta e serviço no local como contratação opcional, mediante consulta de disponibilidade e valores; nenhuma disponibilidade ou inclusão presumida. Aplicado ao Natal, sem alterar as demais experiências.
