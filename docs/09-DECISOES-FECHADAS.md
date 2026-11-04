@@ -176,3 +176,8 @@ Tudo aqui está **confirmado** e **não depende de custo real**. Pode entrar na 
 ## Decisão de 14/10/2026 — lote de publicação e créditos Netlify
 
 Rafael decidiu aguardar a data de renovação dos créditos e preparar, documentar e guardar as mudanças para push em 18/10/2026. Não fazer novos pushes, merges ou publicações antes disso. A publicação de produção pulada não equivale a um job aguardando: conferir os créditos e o commit publicado na retomada. Usar testes locais e prévias para organizar um lote verificável, evitando deploys pequenos em sequência. Nenhum plano pago ou recarga automática contratado.
+
+
+### 03/11/2026 — Encomendas de Natal: pagamento
+
+Rafael confirmou: 50% de sinal via Pix e saldo pago no dia da entrega. Aplica-se à campanha de ceias de Natal por encomenda; não altera as condições dos demais serviços.
