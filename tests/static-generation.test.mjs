@@ -73,6 +73,7 @@ test('Natal preserva identidade, campanha e arquivos LLM idênticos', () => {
     assert.doesNotMatch(html, /Imagem conceitual/);
     assert.doesNotMatch(html, /chef-em-casa|Registro real de Origens da Serra/);
     assert.equal(fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'), fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'));
+    assert.match(fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8'), /Ceias de Natal 2026 por encomenda/);
     assert.match(fs.readFileSync(path.join(root, 'dist', 'sitemap.xml'), 'utf8'), /jantar-de-natal-na-serra-da-mantiqueira/);
   } finally {
     cleanup(root);
