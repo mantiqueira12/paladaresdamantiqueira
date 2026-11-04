@@ -1,3 +1,5 @@
+**03/11 — Publicação de Natal autorizada por Rafael.** Alinhamento final ao PDF aprovado: aberturas escolhidas e convite positivo para doces à parte. Composições, pesos, inclusões, entrega, pagamento e serviço opcional conferidos. Build/verify/check (50Node +42Vitest), quatro E2E e revisão visual aprovados. Fluxo de publicação pelo PR40; confirmar CI e produção antes de registrar como publicado.
+
 **03/11 — Natal: serviço opcional e sem faixas.** Retiradas faixas sugeridas de pessoas; pesos/preparos permanecem na lista. Mesa posta e serviço no local oferecidos mediante consulta de disponibilidade e valores. Build, verify:build,50testes Node e quatro E2E aprovados. Lote na Issue39/PR40, sem merge/produção.
 
 **03/11 — Natal: saldo na entrega.** Rafael confirmou pagamento de50% de sinal via Pix e saldo no dia da entrega. Texto da campanha atualizado; build, verify:build e50testes Node aprovados. PDF privado atualizado separadamente; PR40 sem merge/produção.

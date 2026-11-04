@@ -48,10 +48,12 @@ test('Natal apresenta somente encomendas, preserva datas e não publica preços'
     for (const text of ['20/12/2026', '24/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'Seleção de frios', 'embalagens descartáveis', 'prontos para aquecer', 'id="encomendar"']) assert.ok(html.includes(text), text);
     assert.doesNotMatch(html, /R\$|Pedra de frios|noindex|retirada/i);
     assert.doesNotMatch(html, /chef-em-casa|Prefere um chef|consulte também a experiência com chef|Chef particular\/Personal chef/);
-    assert.doesNotMatch(html, /ceia completa/i);
+    assert.doesNotMatch(html, /ceia completa|Sobremesas não incluídas|(?:4–6|6–8|8–10) pessoas/i);
+    assert.ok(html.includes('saldo pago no dia da entrega.'));
+    assert.ok(html.includes('mesa posta e serviço no local, consulte disponibilidade e valores.'));
     for (const id of ['classica', 'celebracao']) {
       const menu = html.match(new RegExp(`<article class="menu" id="${id}">([\\s\\S]*?)</article>`))?.[1];
-      assert.ok(menu?.includes('Sobremesas não incluídas. <a href="#doces">Ver a carta à parte</a>.'), id);
+      assert.ok(menu?.includes('Sobremesas podem ser solicitadas à parte. <a href="#doces">Conheça a carta</a>.'), id);
     }
     assert.ok(html.includes('Duas sobremesas à escolha entre pavlova, pudim, cheesecake e trifle.'));
     assert.ok(html.includes('Torta de três chocolates à parte.'));
