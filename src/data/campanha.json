@@ -1,9 +1,11 @@
 {
   "ativa": true,
-  "id": "natal-2026",
-  "titulo": "Ceias de Natal por encomenda",
-  "descricao": "Entrega gratuita em Campos do Jordão em 24/12, das 10h às 15h.",
-  "prazo": "Pedidos até 20/12 · sujeitos à disponibilidade",
+  "id": "festas-2026",
+  "titulo": "Ceias de Natal e Réveillon por encomenda",
+  "descricao": "Entrega gratuita em Campos do Jordão em 24/12 e 31/12, das 10h às 15h.",
+  "prazo": "Natal até 20/12 · Réveillon até 27/12 · sujeitos à disponibilidade",
   "acao": "Ver ceias de Natal",
-  "href": "/jantar-de-natal-na-serra-da-mantiqueira/#menus"
+  "href": "/jantar-de-natal-na-serra-da-mantiqueira/#menus",
+  "segundaAcao": "Ver ceias de Réveillon",
+  "segundoHref": "/jantar-de-reveillon-na-serra-da-mantiqueira/#menus"
 }

@@ -13,6 +13,9 @@ export default function CampaignNotice({ campanha = campanhaAtual }: { campanha?
         </div>
         <div className="campaign-notice-action">
           <a href={campanha.href}>{campanha.acao}<ArrowRight size={17} aria-hidden="true" /></a>
+          {campanha.segundaAcao && campanha.segundoHref && (
+            <a href={campanha.segundoHref}>{campanha.segundaAcao}<ArrowRight size={17} aria-hidden="true" /></a>
+          )}
           <p>{campanha.prazo}</p>
         </div>
       </div>

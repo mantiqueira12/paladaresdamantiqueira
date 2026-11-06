@@ -80,6 +80,32 @@ test('Natal preserva identidade, campanha e arquivos LLM idênticos', () => {
   }
 });
 
+test('Réveillon oferece as ceias confirmadas, com pesos/datas e sem preços ou carta avulsa inventada', () => {
+  const root = fixture();
+  try {
+    const result = runGenerator(root);
+    assert.equal(result.status, 0, result.stderr);
+    const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-reveillon-na-serra-da-mantiqueira', 'index.html'), 'utf8');
+    for (const text of ['27/12/2026', '31/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'id="encomendar"', 'Costelinha assada ao barbecue de romã', 'açafrão em pistilos', 'panko', 'Waldorf', 'pistache e mel trufado', 'Bacalhau confitado', 'tamanho pequeno', '750 g de cada', '1 kg de cada']) assert.ok(html.includes(text), text);
+    assert.doesNotMatch(html, /R\$|4–6 pessoas|6–8 pessoas|8–10 pessoas|FAQPage|24\/12|20\/12|chef-em-casa|cardápio não é fechado/i);
+    assert.doesNotMatch(html, /Pudim|Trifle|Floresta Negra|três chocolates|Conheça a carta/i);
+    assert.ok(html.includes('saldo pago no dia da entrega.'));
+    assert.ok(html.includes('mesa posta e serviço no local'));
+    assert.ok(html.includes('Pavlova com creme, manga, maracujá e frutas frescas'));
+    const menus = ['classica', 'celebracao', 'reserva'].map(id => html.match(new RegExp(`<article class="menu" id="${id}">([\\s\\S]*?)</article>`))?.[1]);
+    assert.ok(menus.every(Boolean));
+    for (const menu of menus.slice(1)) assert.ok(menu.includes('Burrata com pêssegos, presunto de Parma e tomatinhos confitados'));
+    const links = [...html.matchAll(/href="(https:\/\/wa.me\/5512997710040[^\"]*)"/g)].map(m => new URL(m[1].replaceAll('&amp;', '&')).searchParams.get('text'));
+    for (const name of ['Clássica', 'Celebração', 'Reserva da Mantiqueira']) assert.ok(links.some(t => t.includes(name) && t.includes('Réveillon') && t.includes('31/12/2026')));
+    assert.match(html, /Ceias de Réveillon.*Campos do Jordão/);
+    const schema = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
+    assert.equal(schema.find(s => s['@type'] === 'Service').serviceType, 'Ceias de Réveillon por encomenda');
+    const llms = fs.readFileSync(path.join(root, 'dist', 'llms.txt'), 'utf8');
+    assert.match(llms, /Ceias de Réveillon 2026–2027 por encomenda/);
+    assert.equal(llms, fs.readFileSync(path.join(root, 'dist', 'llm.txt'), 'utf8'));
+  } finally { cleanup(root); }
+});
+
 test('FAQs próprias aparecem somente na página correspondente e no mesmo FAQPage', () => {
   const root = fixture();
   try {

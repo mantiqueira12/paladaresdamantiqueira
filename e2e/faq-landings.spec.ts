@@ -43,7 +43,7 @@ test('FAQ das landings mantém pergunta acessível, estado nativo e indicador de
     const response = await page.request.get(new URL(path, page.url()).toString());
     expect(response.ok(), `${path} should be generated`).toBe(true);
     const html = await response.text();
-    if (path === '/jantar-de-natal-na-serra-da-mantiqueira/') {
+    if (path === '/jantar-de-natal-na-serra-da-mantiqueira/' || path === '/jantar-de-reveillon-na-serra-da-mantiqueira/') {
       // A campanha de encomendas substitui a landing antiga de chef em casa.
       expect(html).toContain('id="encomendar"');
       expect(html).not.toContain('FAQPage');
