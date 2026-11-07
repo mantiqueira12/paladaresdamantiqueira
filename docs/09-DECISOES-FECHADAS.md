@@ -191,3 +191,6 @@ Rafael decidiu retirar as faixas sugeridas de pessoas da campanha; o cliente con
 ### 03/11/2026 — Publicação da campanha de Natal
 
 Rafael aprovou o PDF e autorizou atualizar/publicar o site alinhado, pelo fluxo do PR40. Campanha na home, menus, condições e serviços opcionais podem ser publicados. Preços e PDF com valores continuam privados para envio direto.
+
+## Réveillon por encomenda — Rafael, 06/11/2026
+Composição Clássica/Celebração/Reserva e pesos confirmados no material privado; condições do Natal mantidas com pedidos até27/12/2026 e entrega gratuita em Campos do Jordão em31/12/2026,10h–15h.50%Pix e saldo no dia da entrega; outras cidades, mesa posta e serviço sob consulta. Carta geral de doces adiada; Reserva com duas pequenas entre pavlova tropical, torta de limão-siciliano com merengue e cheesecake de tomate-de-árvore. Sem preços/faixas de pessoas no site. Autorizado atualizar o conteúdo local e preparar revisão; push/merge/publicação seguem autorização específica do §8 do AGENTS.md.

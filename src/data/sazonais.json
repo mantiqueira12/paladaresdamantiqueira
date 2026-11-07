@@ -13,39 +13,15 @@
   },
   {
     "slug": "jantar-de-reveillon-na-serra-da-mantiqueira",
-    "title": "Jantar de Réveillon com Chef Particular na Serra",
-    "description": "Chef particular para o seu réveillon e ceia de Ano Novo na Serra da Mantiqueira: um jantar de virada de alta gastronomia na sua casa de campo.",
-    "h1": "Jantar de Réveillon com Chef Particular na Serra da Mantiqueira",
-    "lead": "A virada do ano com a experiência de um ótimo restaurante na sua casa de campo na serra. Você recebe os abraços da meia-noite; eu assumo o fogão.",
-    "paragrafos": [
-      "Passar o réveillon na Serra da Mantiqueira é tradição — e a sua ceia de Ano Novo merece a mesma alta gastronomia de um grande restaurante, só que na intimidade da sua casa de campo. O <strong>Paladares da Mantiqueira</strong> leva o <strong>chef particular</strong> até você: eu cuido da curadoria do menu, da compra dos insumos, do preparo e do serviço da virada.",
-      "O cardápio é desenhado com você conforme o grupo, o horário desejado e a estrutura do imóvel. Nas experiências completas, a <strong>Fernanda Marton Ateliê</strong> participa com as sobremesas. O formato, as inclusões e a organização da cozinha ficam definidos na proposta para você aproveitar a celebração.",
-      "A data desejada, o local e o tamanho do grupo orientam a proposta. Avaliamos a cozinha por perguntas, vídeo ou visita técnica e combinamos os complementos necessários. O deslocamento segue as condições da área atendida; consulte a disponibilidade antes de planejar o serviço como confirmado.",
-      "Já realizei serviços de Natal e Réveillon. Os clássicos sugeridos para esta temporada ajudam a imaginar a mesa, mas não formam um menu fechado: combinamos os pratos, os acompanhamentos e a sobremesa na proposta."
-    ],
-    "experienciaTitulo": "Um réveillon sem você sair da festa",
-    "listaTitulo": "Clássicos para inspirar a sua mesa de Réveillon",
-    "lista": [
-      "Entrada: salada de lentilhas com ervas e legumes",
-      "Principais: peixe assado com limão e ervas ou filé mignon ao molho roti",
-      "Acompanhamentos: arroz com castanhas e legumes da estação",
-      "Final doce: cheesecake com frutas ou pavê como sugestões para a celebração"
-    ],
-    "faq": [
-      {
-        "pergunta": "Posso combinar o horário do jantar de Réveillon?",
-        "resposta": "Informe o horário desejado no pedido. A chegada costuma acontecer cerca de uma hora antes do serviço, mas varia conforme a experiência; a organização e o horário efetivo são combinados na proposta."
-      },
-      {
-        "pergunta": "Como sei se a cozinha da casa serve para a ceia?",
-        "resposta": "A avaliação pode ser feita por perguntas, vídeo ou visita técnica. Forno, fogão e panelas são referências iniciais; os complementos dependem da estrutura do imóvel e do cardápio escolhido."
-      }
-    ],
-    "provaReal": true,
-    "ctaTitulo": "Vamos planejar a sua virada na serra?",
-    "serviceName": "Jantar de réveillon com chef particular na Serra da Mantiqueira",
+    "title": "Ceias de Réveillon 2026–2027 em Campos do Jordão | Paladares",
+    "description": "Três ceias de Réveillon por encomenda, com entrega gratuita em Campos do Jordão em 31/12, das 10h às 15h. Pedidos até 27/12/2026.",
+    "h1": "Um novo ano à sua mesa.",
+    "faq": [],
+    "serviceName": "Ceias de Réveillon por encomenda em Campos do Jordão",
     "breadcrumb": "Réveillon na serra",
-    "chip": "Réveillon na serra"
+    "chip": "Réveillon na serra",
+    "encomendasReveillon": true,
+    "serviceType": "Ceias de Réveillon por encomenda"
   },
   {
     "slug": "jantar-de-inverno-e-fondue-na-serra-da-mantiqueira",

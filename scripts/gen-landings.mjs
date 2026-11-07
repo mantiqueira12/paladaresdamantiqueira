@@ -217,7 +217,7 @@ function jsonld(n) {
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
     })),
   };
-  return [website, provider, person, service, breadcrumb, ...(n.encomendasNatal ? [] : [faq])]
+  return [website, provider, person, service, breadcrumb, ...(n.encomendasNatal || n.encomendasReveillon ? [] : [faq])]
     .map((d) => `<script type="application/ld+json">\n${JSON.stringify(d, null, 2).replace(/</g, '\\u003c')}\n</script>`)
     .join('\n    ');
 }
@@ -488,21 +488,24 @@ function footerHtml(n = { slug: '404', h1: 'Página não encontrada' }) {
     </footer>`;
 }
 
-function natalPage(n) {
+function encomendasPage(n) {
   const url = `${SITE}/${n.slug}/`;
+  const reveillon = Boolean(n.encomendasReveillon);
+  const hero = reveillon ? '/reveillon/assets/reveillon-editorial-1200.webp' : '/natal/assets/natal-editorial-1200.webp';
+  const imageAlt = reveillon ? 'Ilustração da ceia de Réveillon da Paladares da Mantiqueira.' : 'Ceia de Natal da Paladares da Mantiqueira.';
   const metadata = head(n, { title: n.title, description: n.description, url, canonical: url })
     .replace(/<style>[\s\S]*?<\/style>/, '<link rel="stylesheet" href="/natal/style.css" />')
-    .replaceAll(`${SITE}/social/paladares-mantiqueira.jpg`, `${SITE}/natal/assets/natal-editorial-1200.webp`)
-    .replace('property="og:image:height" content="630"', 'property="og:image:height" content="675"')
+    .replaceAll(`${SITE}/social/paladares-mantiqueira.jpg`, `${SITE}${hero}`)
+    .replace('property="og:image:height" content="630"', `property="og:image:height" content="${reveillon ? 900 : 675}"`)
     .replace('property="og:image:type" content="image/jpeg"', 'property="og:image:type" content="image/webp"')
-    .replace('Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.', 'Ceia de Natal da Paladares da Mantiqueira.')
+    .replace('Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.', imageAlt)
     .replace(/<link rel="preload" as="(?:image|font)"[^>]*>/g, '');
-  const content = fs.readFileSync(path.join(root, 'src/content/natal.html'), 'utf8');
+  const content = fs.readFileSync(path.join(root, `src/content/${reveillon ? 'reveillon' : 'natal'}.html`), 'utf8');
   return `<!doctype html><html lang="pt-BR"><head>${metadata}${jsonld(n)}</head><body>${content}</body></html>`;
 }
 
 function page(n) {
-  if (n.encomendasNatal) return natalPage(n);
+  if (n.encomendasNatal || n.encomendasReveillon) return encomendasPage(n);
   const url = `${SITE}/${n.slug}/`;
   const grupoAtual = cidades.includes(n) ? cidades : sazonais.includes(n) ? sazonais : nichos;
   const complementares = cidades.includes(n) ? nichos : cidades;
