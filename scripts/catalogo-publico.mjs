@@ -58,6 +58,7 @@ export function renderCatalogo(experiencias, { css = '', contextos = [] } = {}) 
   }).join('\n\n');
   const markdown = `# Cardápios da Paladares da Mantiqueira\n\n${intro}\n\n${escopo}\n\n${markdownSections}\n\nContato: +55 12 99771-0040. https://paladaresdamantiqueira.com.br/\n`;
   const schema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Cardápios da Paladares da Mantiqueira', url: 'https://paladaresdamantiqueira.com.br/cardapios/' });
+  const breadcrumb = JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Início', item: 'https://paladaresdamantiqueira.com.br/' }, { '@type': 'ListItem', position: 2, name: 'Cardápios', item: 'https://paladaresdamantiqueira.com.br/cardapios/' }] });
   const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Cardápios e experiências | Paladares da Mantiqueira</title>
   <meta name="description" content="Consulte os cardápios da Paladares da Mantiqueira: pratos, experiências e modalidades para celebrar em casa, com o chef Rafael Jacob.">
@@ -76,6 +77,7 @@ export function renderCatalogo(experiencias, { css = '', contextos = [] } = {}) 
   <meta name="twitter:image:alt" content="Paladares da Mantiqueira, Chef Rafael Jacob. Tábua de queijos de Origens da Serra.">
   <link rel="alternate" type="text/markdown" href="/cardapios.md"><link rel="describedby" href="/llms.txt">
   <script type="application/ld+json">${schema}</script>
+  <script type="application/ld+json">${breadcrumb}</script>
   <style>${css}
   .catalog-wrap{max-width:74ch;margin:auto;padding:28px 24px 60px}
   .catalog-nav{display:flex;gap:24px;flex-wrap:wrap;padding-bottom:28px}

@@ -148,6 +148,8 @@ const trackFormulario = (n, origem) =>
 // Provider completo emitido NA PRÓPRIA landing, para o @id resolver sem depender
 // da home (robustez de entidade/E-E-A-T quando o Google/IA lê a página isolada).
 function jsonld(n) {
+  const encomendas = n.encomendasNatal || n.encomendasReveillon;
+  const festa = n.encomendasReveillon ? 'Réveillon' : 'Natal';
   const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -188,6 +190,7 @@ function jsonld(n) {
     url: `${SITE}/`,
     image: `${SITE}/chef-rafael.webp`,
     worksFor: { '@id': `${SITE}/#business` },
+    alumniOf: { '@type': 'EducationalOrganization', name: 'Senac Campos do Jordão' },
     sameAs: [IG_CHEF],
   };
   const service = {
@@ -197,8 +200,22 @@ function jsonld(n) {
     name: n.serviceName,
     description: stripTags(n.description),
     provider: { '@id': `${SITE}/#business` },
-    areaServed: { '@type': n.areaServedType, name: n.areaServedName },
+    areaServed: encomendas
+      ? { '@type': 'City', name: 'Campos do Jordão' }
+      : { '@type': n.areaServedType, name: n.areaServedName },
     url: `${SITE}/${n.slug}/`,
+    ...(encomendas
+      ? {
+          hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: `Ceias de ${festa} por encomenda`,
+            itemListElement: ['Clássica', 'Celebração', 'Reserva da Mantiqueira'].map((menu) => ({
+              '@type': 'Offer',
+              itemOffered: { '@type': 'Service', name: `Ceia de ${festa} ${menu}` },
+            })),
+          },
+        }
+      : {}),
   };
   const breadcrumb = {
     '@context': 'https://schema.org',
@@ -217,7 +234,7 @@ function jsonld(n) {
       acceptedAnswer: { '@type': 'Answer', text: jl(f.resposta) },
     })),
   };
-  return [website, provider, person, service, breadcrumb, ...(n.encomendasNatal || n.encomendasReveillon ? [] : [faq])]
+  return [website, provider, person, service, breadcrumb, ...(encomendas ? [] : [faq])]
     .map((d) => `<script type="application/ld+json">\n${JSON.stringify(d, null, 2).replace(/</g, '\\u003c')}\n</script>`)
     .join('\n    ');
 }
