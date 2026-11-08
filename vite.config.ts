@@ -163,6 +163,8 @@ ${faqHtml}
         'São Bento do Sapucaí',
         'Serra da Mantiqueira',
         'São José dos Campos',
+        'Monte Verde',
+        'Gonçalves',
       ].map((name) => ({ '@type': 'Place', name })),
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
