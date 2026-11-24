@@ -51,13 +51,15 @@ test('Natal apresenta somente encomendas, preserva datas e não publica preços'
     assert.doesNotMatch(html, /ceia completa|Sobremesas não incluídas|(?:4–6|6–8|8–10) pessoas/i);
     assert.ok(html.includes('saldo pago no dia da entrega.'));
     assert.ok(html.includes('mesa posta e serviço no local, consulte disponibilidade e valores.'));
-    for (const id of ['classica', 'celebracao']) {
-      const menu = html.match(new RegExp(`<article class="menu" id="${id}">([\\s\\S]*?)</article>`))?.[1];
-      assert.ok(menu?.includes('Sobremesas podem ser solicitadas à parte. <a href="#doces">Conheça a carta</a>.'), id);
-    }
-    assert.ok(html.includes('Duas sobremesas à escolha entre pavlova, pudim, cheesecake e trifle.'));
-    assert.ok(html.includes('Torta de três chocolates à parte.'));
+    assert.equal((html.match(/Uma sobremesa incluída/g) ?? []).length, 2);
+    assert.match(html, /Duas sobremesas incluídas/);
+    assert.match(html, /torta de três chocolates com avelãs pode ser encomendada à parte/i);
+    assert.match(html, /porções calculadas para o seu grupo/);
+    assert.match(html, /pedidos fechados até 10\/12/);
+    assert.doesNotMatch(html, /\b\d+\s*(?:kg|g)\s*·|·\s*\d+\s*(?:kg|g)\b/);
     const links = [...html.matchAll(/href="(https:\/\/wa.me\/5512997710040[^\"]*)"/g)].map(m => new URL(m[1].replaceAll('&amp;', '&')).searchParams.get('text'));
+    assert.equal(links.length, 4);
+    assert.ok(links.every(text => text.includes('Meu grupo tem ___ pessoas') && text.includes('A cidade da entrega é ___') && !text.includes('Campos do Jordão /')));
     for (const menu of ['Clássica', 'Celebração', 'Reserva da Mantiqueira']) assert.ok(links.some(text => text.includes(menu) && text.includes('Natal 2026') && text.includes('24/12') && text.includes('encomenda')), menu);
     assert.ok(!html.includes('A Paladares tem um cardápio fixo de Natal?'));
   } finally { cleanup(root); }
@@ -80,15 +82,18 @@ test('Natal preserva identidade, campanha e arquivos LLM idênticos', () => {
   }
 });
 
-test('Réveillon oferece as ceias confirmadas, com pesos/datas e sem preços ou carta avulsa inventada', () => {
+test('Réveillon oferece as ceias confirmadas, com porções sob medida e sobremesas incluídas', () => {
   const root = fixture();
   try {
     const result = runGenerator(root);
     assert.equal(result.status, 0, result.stderr);
     const html = fs.readFileSync(path.join(root, 'dist', 'jantar-de-reveillon-na-serra-da-mantiqueira', 'index.html'), 'utf8');
-    for (const text of ['27/12/2026', '31/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'id="encomendar"', 'Costelinha assada ao barbecue de romã', 'açafrão em pistilos', 'panko', 'Waldorf', 'pistache e mel trufado', 'Bacalhau confitado', 'tamanho pequeno', '750 g de cada', '1 kg de cada']) assert.ok(html.includes(text), text);
+    for (const text of ['27/12/2026', '31/12/2026', '10h às 15h', 'Entrega gratuita em Campos do Jordão', 'id="encomendar"', 'Costelinha assada ao barbecue de romã', 'açafrão em pistilos', 'panko', 'Waldorf', 'pistache e mel trufado', 'Bacalhau confitado', 'porções calculadas para o seu grupo', 'pedidos fechados até 10/12']) assert.ok(html.includes(text), text);
     assert.doesNotMatch(html, /R\$|4–6 pessoas|6–8 pessoas|8–10 pessoas|FAQPage|24\/12|20\/12|chef-em-casa|cardápio não é fechado/i);
-    assert.doesNotMatch(html, /Pudim|Trifle|Floresta Negra|três chocolates|Conheça a carta/i);
+    assert.doesNotMatch(html, /Trifle|Floresta Negra|três chocolates|Sobremesas à parte|750 g de cada|1 kg de cada/i);
+    assert.match(html, /Pudim de leite condensado com baunilha/);
+    assert.equal((html.match(/Uma sobremesa incluída/g) ?? []).length, 2);
+    assert.match(html, /Duas sobremesas incluídas/);
     assert.ok(html.includes('saldo pago no dia da entrega.'));
     assert.ok(html.includes('mesa posta e serviço no local'));
     assert.ok(html.includes('Pavlova com creme, manga, maracujá e frutas frescas'));
